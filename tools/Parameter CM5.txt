@@ -1,0 +1,5 @@
+Host cm5-2510
+HostName 10.228.134.34
+User oblo
+pw 1234
+Port 22
