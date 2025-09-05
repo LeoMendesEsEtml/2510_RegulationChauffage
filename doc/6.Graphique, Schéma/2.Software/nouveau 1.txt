@@ -1,0 +1,10 @@
+Bonjour M. Graf,
+
+Merci pour votre retour. Vous trouverez ci-joint les premières versions des PCB Motherboard et DaughterBoard, ainsi que les schémas mis à jour. J’ajoute également ma feuille de calcul ADC, avec un extrait de ma documentation détaillant chaque colonne.
+
+Je vous transmettrai au plus vite le plan d’implantation des câbles.
+
+Par ailleurs, une question concernant la quantité de cartes à commander : le cahier des charges prévoit l’assemblage d’une seule carte mère et d’une seule carte fille. Pensez-vous pertinent d’en commander plusieurs exemplaires (par exemple plus d’une unité de chaque) pour sécuriser la mise en service, le dépannage et en cas d'un éventuel problème d’assemblage ?
+
+Merci et meilleures salutations,
+Léo Mendes

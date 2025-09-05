@@ -1,0 +1,25 @@
+Questions ouvertes
+1. Combien de cartes doivent être commandées pour la mise en service et le dépannage ?
+2. Mise en service du CM5 : besoin et méthode de récupération de l’adresse IP ?
+3. Quelle structure logicielle adopter pour le code ?
+
+Réponses aux questions
+Cartes à commander
+Commander 2 exemplaires de chaque carte (1 pour mise en service, 1 de secours pour dépannage/modifications).
+Justification : continuité d’exploitation, échange rapide en cas de défaut, itérations HW possibles sans immobiliser le site.
+
+Mise en service CM5 / récupération IP
+Réseau site : utiliser DHCP si disponible, sinon IP fixe documentée (plan d’adressage joint au dossier).
+Accès local : activer mDNS/hostname, affichage IP via console série, et interface USB-gadget Ethernet comme secours.
+Environnement client : lorsque l’accès au réseau interne est restreint, utiliser un routeur 4G dédié isolant le prototype du SI client.
+
+Structure logicielle
+Langages : Python majoritaire ; C pour les parties à contrainte temporelle stricte (drivers, I/O rapides).
+Présentation : diagramme d’événements UML et diagramme UML de la logique générale.
+Documentation fonctions : pour les fonctions externes, décrire l’usage ; pour les fonctions internes, fournir des structogrammes.
+Équation de simulation :
+T_sim = T_mes + (T_prev - T_mes) * N * e^{K_m}
+
+Compléments matériels
+Remplacer le multiplexeur par un modèle équivalent en SPI.
+Mettre à jour les labels overlay du PCB pour une préparation et un câblage plus clairs.

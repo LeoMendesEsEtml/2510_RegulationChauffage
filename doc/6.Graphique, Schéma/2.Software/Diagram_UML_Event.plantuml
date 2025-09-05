@@ -1,0 +1,204 @@
+@startuml Event
+' Début du diagramme UML nommé "Event"
+
+title CM5 régulation ? Cycle périodique 5 min
+' Titre du diagramme
+
+hide footbox
+' Masque le pied de page du diagramme
+
+autonumber
+' Numérote automatiquement les messages
+
+skinparam sequenceMessageAlign left
+' Aligne les messages à gauche
+
+skinparam ParticipantPadding 18
+' Définit l'espacement entre les participants
+
+skinparam BoxPadding 10
+' Définit l'espacement interne des boîtes
+
+skinparam MaxMessageSize 86
+' Limite la taille maximale des messages
+
+skinparam sequenceMessageColor #2E86C1
+' Définit la couleur des messages
+
+skinparam sequenceArrowColor #2E86C1
+' Définit la couleur des flèches
+
+participant "Ordonnanceur 5 min" as SCHED
+' Déclare le participant SCHED (ordonnanceur)
+
+participant "MainLoop" as LOOP
+' Déclare le participant LOOP (boucle principale)
+
+participant "Relais bypass" as RELAY
+' Déclare le participant RELAY (relais bypass)
+
+participant "LED frontale" as LED
+' Déclare le participant LED (LED frontale)
+
+participant "Journal" as LOG
+' Déclare le participant LOG (journal/log)
+
+participant "Entrée relais sec (PV)" as DRY
+' Déclare le participant DRY (entrée relais sec PV)
+
+participant "TMUX1204 (Rref)" as TMUX
+' Déclare le participant TMUX (multiplexeur Rref)
+
+participant "ADS124S08 SPI1" as ADC
+' Déclare le participant ADC (convertisseur ADC)
+
+participant "Métrologie" as METRO
+' Déclare le participant METRO (métrologie)
+
+participant "API externe" as API
+' Déclare le participant API (API externe)
+
+participant "Contrôleur régulation" as CTRL
+' Déclare le participant CTRL (contrôleur régulation)
+
+participant "ADG731 SPI0" as MUX
+' Déclare le participant MUX (multiplexeur ADG731)
+
+== Initialisation ==
+' Bloc d'initialisation
+
+LOOP -> RELAY : Activer bypass (ON)
+' La boucle principale active le relais bypass
+
+LOOP -> LED   : Double flash
+' La boucle principale déclenche un double flash sur la LED
+
+LOOP -> LOG   : "init_ok"
+' La boucle principale écrit "init_ok" dans le journal
+
+note right of LOOP
+    Initialisation terminée,
+    attente du premier Tick 5 min.
+end note
+' Note à droite de LOOP expliquant la fin de l'initialisation
+
+== Déclenchement périodique ==
+' Bloc de déclenchement périodique
+
+SCHED -> LOOP : <color:blue><b>Tick 5 min</b></color>
+' L'ordonnanceur envoie un tick de 5 min à la boucle principale
+
+note left: Déclenche toutes les opérations périodiques
+' Note à gauche expliquant le déclenchement des opérations
+
+== Lecture contact sec (PV) ==
+' Bloc de lecture du relais sec PV
+
+LOOP -> DRY  : Lire état (contact sec)
+' La boucle principale lit l'état du relais sec
+
+DRY  --> LOOP: état contact (ouvert/fermé)
+' Le relais sec retourne son état à la boucle principale
+
+LOOP -> LOG  : "Contact_state", ét
+' La boucle principale écrit l'état contact dans le journal
+
+== Traitement canaux actifs ==
+' Bloc de traitement des canaux actifs
+
+loop Pour chaque canal activé (1 à 4)
+    ' Boucle sur chaque canal activé
+
+    LOOP -> TMUX : Sélection Rref (A0/A1)
+    ' Sélectionne la référence de résistance via le multiplexeur
+
+    LOOP -> ADC  : Configurer ADC (INPMUX, GAIN, OSR, REF, IDAC)
+    ' Configure l'ADC avec les paramètres nécessaires
+
+    LOOP -> ADC  : START (single-shot)
+    ' Démarre une conversion single-shot sur l'ADC
+
+    LOOP -> ADC  : Attendre DRDY
+    ' Attend que le signal DRDY soit prêt
+
+    alt DRDY prêt
+        ' Si DRDY est prêt
+
+        LOOP -> ADC  : Lecture DATA
+        ' Lit les données de l'ADC
+
+        ADC  --> LOOP: DATA[23:0]
+        ' L'ADC retourne les données à la boucle principale
+
+        LOOP -> METRO : DATA ? ratio ? R_sonde ? Tmes
+        ' Envoie les données à la métrologie pour calculer la température mesurée
+
+        METRO --> LOOP: Tmes
+        ' La métrologie retourne la température mesurée
+
+        LOOP -> API  : GET N, kM, Tprevu
+        ' Demande à l'API externe les paramètres N, kM, Tprevu
+
+        API  --> LOOP: N, kM, Tprevu
+        ' L'API retourne les paramètres à la boucle principale
+
+        LOOP -> CTRL : Tmes, N, kM, Tprevu
+        ' Envoie les paramètres au contrôleur de régulation
+
+        CTRL --> LOOP: slot, pas, Tsim
+        ' Le contrôleur retourne le slot, le pas et la température simulée
+
+        LOOP -> MUX  : Programmer slot/pas (ADG731)
+        ' Programme le multiplexeur avec le slot et le pas
+
+        LOOP -> LED  : Flash court (activité canal)
+        ' Déclenche un flash court sur la LED pour indiquer l'activité du canal
+
+        LOOP -> LOG  : "ch_result", canal, état contact, Tmes, Tprevu, Tsim, pas
+        ' Écrit le résultat du canal dans le journal
+
+    else <color:red>Timeout/erreur mesure</color>
+        ' Sinon, en cas de timeout ou d'erreur de mesure
+
+        LOOP -> RELAY : Désactiver bypass (OFF)
+        ' Désactive le relais bypass
+
+        LOOP -> LED   : Clignotement 2 Hz
+        ' Déclenche un clignotement rapide sur la LED
+
+        LOOP -> LOG   : "fault", code
+        ' Écrit une faute dans le journal
+
+    end
+end
+
+== Gestion erreurs globales ==
+' Bloc de gestion des erreurs globales
+
+alt <color:red>Erreur critique détectée</color>
+    ' Si une erreur critique est détectée
+
+    LOOP -> RELAY : Désactiver bypass (OFF)
+    ' Désactive le relais bypass
+
+    LOOP -> LED   : Clignotement 2 Hz
+    ' Déclenche un clignotement rapide sur la LED
+
+    LOOP -> LOG   : "fault", code
+    ' Écrit une faute dans le journal
+
+end
+
+legend bottom
+' Légende en bas du diagramme
+
+<b>Cycle 5 min?:</b>
+? Tick 5 min déclenche la lecture PV puis le traitement de chaque canal activé.
+? LED?: double flash à l?init, flash court par canal, 2 Hz en erreur.
+? Relais bypass?: ON à l?init, OFF immédiat en faute.
+? Log?: init, Contact_state, ch_result, fault.
+endlegend
+' Fin de la légende
+
+@enduml
+' Fin du diagramme UML
