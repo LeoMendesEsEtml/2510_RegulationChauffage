@@ -2,71 +2,66 @@
 left to right direction
 skinparam shadowing false
 skinparam packageStyle rectangle
-skinparam classAttributeIconSize 0
 skinparam linetype ortho
-skinparam nodesep 40
-skinparam ranksep 35
-hide empty members
+skinparam nodesep 500
+skinparam ranksep 500
 
-package "Application Python" <<app>> {
-  node "scheduler_5min(callback) -> None\nuses lib: time" as f_sched
-  node "main_loop(tick_seconds:int) -> None" as f_main
-
-  node "read_dry_state(gpio_pin:int) -> bool\nuses lib: RPi.GPIO\nuses hw: GPIO" as f_dry
-  node "scan_active_channels(enabled:list[int]) -> int\nnotes: retourne canal 1..4" as f_scan
-
-  node "select_rref(channel:int) -> None\nuses lib: RPi.GPIO\nuses hw: TMUX1204" as f_rref
-
-  node "adc_configure_and_read(channel:int, inpmux:int, gain:int, osr:int, ref_sel:int, idac_uA:int, timeout_ms:int) -> int\nuses lib: spidev, RPi.GPIO\nuses hw: ADS124S08 SPI1" as f_adc
-  node "compute_Tmes(adc_code:int, rref_index:int) -> float\nnotes: conversion codeâ†’Tmes" as f_tmes
-
-  node "fetch_api_params(url:str, token:str) -> tuple[int,float,float]\nuses lib: requests, json\nnotes: N, kM, Tprevu" as f_api
-  node "compute_regulation(Tmes:float, N:int, kM:float, Tprevu:float) -> tuple[int,int,float]\nnotes: slot, step, Tsim" as f_ctrl
-  node "program_mux(slot:int, step:int) -> None\nuses lib: spidev\nuses hw: ADG731 SPI0" as f_mux
-
-  node "log_event(tag:str, fields:dict) -> None\nuses lib: logging" as f_log
-  node "led_activity(pattern:str) -> None\nuses lib: RPi.GPIO\nuses hw: GPIO" as f_led
-  node "set_relay_bypass(state:bool) -> None\nuses lib: RPi.GPIO\nuses hw: GPIO" as f_relay
+skinparam rectangle {
+  FontSize 18
+  Padding 40
+  RoundCorner 25
 }
 
-' Graphe d'appels propre
-f_sched --> f_main
+hide empty members
 
-' SÃ©quence pÃ©riodique cÃ´tÃ© application
-f_main --> f_dry
-f_main --> f_scan
-f_scan --> f_rref
-f_scan --> f_adc
-f_adc  --> f_tmes
+[Ordonnanceur] --> [MainLoop] : <size:10>Tick (X min)
+[MainLoop] --> [Init] : <size:10>Initialisation
+[Init] --> [Relais bypass] : <size:10>ON
+[Init] --> [LED] : <size:10>Double flash
+[Init] --> [Log] : <size:10>init_ok
 
-f_main --> f_api
-f_main --> f_ctrl
-f_ctrl --> f_mux
+[MainLoop] --> [Contact sec] : <size:10>Lire état 24V
+[Contact sec] --> [Log] : <size:10>Etat contact
 
-' Effets de bord gÃ©nÃ©riques
-f_main --> f_log
-f_main --> f_led
-f_main --> f_relay
+[MainLoop] --> [Canaux actifs] : <size:10>Liste canaux
 
-' Petites annotations I/O
-note right of f_dry
-in gpio_pin
-out bool contact
+[Canaux actifs] --> [Config ADC] : <size:10>Paramétrage ADC
+[Canaux actifs] --> [Config MUX] : <size:10>Sélection Rref
+[Config ADC] --> [Read ADC] : <size:10>Mesure
+[Read ADC] --> [Temp] : <size:10>Tmes
+
+[Canaux actifs] --> [API] : <size:10>N, kM, Tprevu
+[Temp] --> [Regulation] : <size:10>Tmes + N, kM, Tprevu
+[Regulation] --> [MUX] : <size:10>slot, pas
+
+[Canaux actifs] --> [LED] : <size:10>Flash canal
+[Canaux actifs] --> [Log] : <size:10>Résultat canal
+
+[MainLoop] --> [Relais bypass] : <size:10>OFF (erreur)
+[MainLoop] --> [LED] : <size:10>Blink 2Hz
+[MainLoop] --> [Log] : <size:10>Erreur
+
+note top of [Config ADC]
+ADC paramétré selon canal et type de sonde
 end note
 
-note right of f_adc
-in canal + cfg adc
-out code 24 bits
+note top of [Temp]
+Conversion code ADC en température
 end note
 
-note right of f_ctrl
-in Tmes N kM Tprevu
-out slot step Tsim
+note top of [Regulation]
+Calcul Tsim, slot, pas
 end note
 
-legend right
-Lib stdlib: time, logging, json
-Lib tierces: requests, spidev, RPi.GPIO
-PÃ©riphÃ©riques: ADS124S08 SPI1, ADG731 SPI0, TMUX1204, GPIO
+note top of [LED]
+Double flash init, flash canal, blink erreur
+end note
+
+note top of [Relais bypass]
+ON à l'init, OFF en erreur
+end note
+
+legend bottom
+Flux?: Tick ? Contact sec ? Canaux actifs (x1..4) ? Config ADC/MUX ? Read ADC ? Temp ? API ? Regulation ? MUX ? LED/Log/Relais bypass
 endlegend
 @enduml
