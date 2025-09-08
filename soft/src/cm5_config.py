@@ -1,0 +1,121 @@
+"""
+Configuration générale CM5 régulation
+Toutes constantes, états, flags et mappings sont initialisés à zéro ou valeur neutre.
+Utilisé comme source unique pour l'orchestrateur et les drivers.
+"""
+
+# --- Mappage hardware (BCM) ---
+ADC_CS = 18
+ADC_SPI_BUS = 1
+ADC_SPI_SCLK = 21
+ADC_SPI_MOSI = 20
+ADC_SPI_MISO = 19
+ADC_DRDY = 22
+ADC_START_SYNC = 23
+ADC_A0 = 24
+ADC_A1 = 25
+
+SHIFT_SPI_BUS = 0
+SHIFT_DATA = 10
+SHIFT_CLK = 11
+SHIFT_LATCH_1 = 8
+SHIFT_LATCH_2 = 7
+SHIFT_LATCH_3 = 3
+SHIFT_LATCH_4 = 2
+SHIFT_MISO_RESERVED = 9
+
+# --- Timings et protocoles ---
+ADC_SPI1_MAX_HZ = 500000
+SHIFT_SPI0_MAX_HZ = 1000000
+DRDY_TIMEOUT_MS = 100
+SETTLING_DELAY_US_AFTER_MUX = 200
+CYCLE_PERIOD_S = 300  # 5 min
+
+# --- États et flags logiques ---
+STATE_INIT = 0
+STATE_WAIT_TICK = 0
+STATE_MEASURE = 0
+STATE_ERROR = 0
+STATE_FAULT = 0
+
+RELAY_BYPASS_ON = 0
+RELAY_BYPASS_OFF = 0
+LED_DOUBLE_FLASH = 0
+LED_SHORT_FLASH = 0
+LED_FAST_BLINK = 0
+
+CONTACT_STATE_OPEN = 0
+CONTACT_STATE_CLOSED = 0
+
+CHANNEL_ACTIVE = [0, 0, 0, 0]  # 4 canaux, tous désactivés
+CARD_ACTIVE = [0, 0, 0, 0]     # 4 cartes, toutes désactivées
+
+# --- Codes d'événements et erreurs ---
+EVENT_TICK_5MIN = 0
+EVENT_INIT_OK = 0
+EVENT_CONTACT_READ = 0
+EVENT_MEASURE_OK = 0
+EVENT_MEASURE_TIMEOUT = 0
+EVENT_FAULT = 0
+
+ERROR_NONE = 0
+ERROR_TIMEOUT = 0
+ERROR_SPI = 0
+ERROR_GPIO = 0
+ERROR_CONFIG = 0
+ERROR_CRITICAL = 0
+
+# --- API et métrologie ---
+API_N = 0
+API_KM = 0
+API_TPREVU = 0
+METRO_TMES = 0
+CTRL_SLOT = 0
+CTRL_STEP = 0
+CTRL_TSIM = 0
+
+# --- Fonctions utilitaires ---
+def reset_all_states():
+    """
+    Réinitialise tous les états et flags à zéro.
+    """
+    global STATE_INIT, STATE_WAIT_TICK, STATE_MEASURE, STATE_ERROR, STATE_FAULT
+    STATE_INIT = 0
+    STATE_WAIT_TICK = 0
+    STATE_MEASURE = 0
+    STATE_ERROR = 0
+    STATE_FAULT = 0
+    global RELAY_BYPASS_ON, RELAY_BYPASS_OFF, LED_DOUBLE_FLASH, LED_SHORT_FLASH, LED_FAST_BLINK
+    RELAY_BYPASS_ON = 0
+    RELAY_BYPASS_OFF = 0
+    LED_DOUBLE_FLASH = 0
+    LED_SHORT_FLASH = 0
+    LED_FAST_BLINK = 0
+    global CONTACT_STATE_OPEN, CONTACT_STATE_CLOSED
+    CONTACT_STATE_OPEN = 0
+    CONTACT_STATE_CLOSED = 0
+    global CHANNEL_ACTIVE, CARD_ACTIVE
+    CHANNEL_ACTIVE = [0, 0, 0, 0]
+    CARD_ACTIVE = [0, 0, 0, 0]
+    global EVENT_TICK_5MIN, EVENT_INIT_OK, EVENT_CONTACT_READ, EVENT_MEASURE_OK, EVENT_MEASURE_TIMEOUT, EVENT_FAULT
+    EVENT_TICK_5MIN = 0
+    EVENT_INIT_OK = 0
+    EVENT_CONTACT_READ = 0
+    EVENT_MEASURE_OK = 0
+    EVENT_MEASURE_TIMEOUT = 0
+    EVENT_FAULT = 0
+    global ERROR_NONE, ERROR_TIMEOUT, ERROR_SPI, ERROR_GPIO, ERROR_CONFIG, ERROR_CRITICAL
+    ERROR_NONE = 0
+    ERROR_TIMEOUT = 0
+    ERROR_SPI = 0
+    ERROR_GPIO = 0
+    ERROR_CONFIG = 0
+    ERROR_CRITICAL = 0
+    global API_N, API_KM, API_TPREVU, METRO_TMES, CTRL_SLOT, CTRL_STEP, CTRL_TSIM
+    API_N = 0
+    API_KM = 0
+    API_TPREVU = 0
+    METRO_TMES = 0
+    CTRL_SLOT = 0
+    CTRL_STEP = 0
+    CTRL_TSIM = 0
