@@ -14,6 +14,7 @@ Connexions matérielles spécifiques :
 import logging
 import os
 import sys
+import time
 
 # Configuration du logging
 logging.basicConfig(
@@ -62,17 +63,39 @@ def test_lm70():
         spi.mode = 0  # Mode 0: CPOL=0, CPHA=0
         spi.bits_per_word = 8
 
-        # Test SPI
-        GPIO.output(LM70_CS_GPIO, GPIO.LOW)  # Active CS
-        resp = spi.xfer2([0x00, 0x00])  # Envoie deux octets
-        GPIO.output(LM70_CS_GPIO, GPIO.HIGH)  # Désactive CS
+        logger.info("Début du test LM70")
+        
+        while True:  # Boucle infinie pour tester en continu
+            # Active CS
+            GPIO.output(LM70_CS_GPIO, GPIO.LOW)
+            
+            # Envoi de données arbitraires sur MOSI
+            resp = spi.xfer2([0x00, 0x00])
+            
+            # Désactive CS
+            GPIO.output(LM70_CS_GPIO, GPIO.HIGH)
 
-        logger.info(f"Données SPI reçues: {resp}")
-        if resp == [0x00, 0x00]:
-            logger.warning("Aucune donnée reçue - vérifiez les connexions et l'alimentation du LM70")
+            logger.info(f"Données SPI reçues : {resp}")
+            
+            # Vérification des données reçues
+            if len(resp) == 2:
+                # Combine les 2 octets en un entier 16 bits
+                raw_temp = (resp[0] << 8) | resp[1]
+                
+                # Les 3 bits les plus significatifs sont inutilisés
+                temp_celsius = ((raw_temp >> 3) & 0x1FFF) * 0.03125
+                
+                logger.info(f"Température mesurée : {temp_celsius:.2f}°C")
+            else:
+                logger.warning("Données SPI invalides - vérifiez les connexions")
+            
+            # Délai pour éviter de saturer le bus SPI
+            time.sleep(0.5)
     
+    except KeyboardInterrupt:
+        logger.info("Test interrompu par l'utilisateur")
     except Exception as e:
-        logger.error(f"Erreur lors du test LM70: {e}")
+        logger.error(f"Erreur lors du test LM70 : {e}")
     
     finally:
         GPIO.cleanup()
