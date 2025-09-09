@@ -1,32 +1,39 @@
-import gpiod
+import RPi.GPIO as GPIO
 
-class GPIO:
-    def __init__(self, chip="/dev/gpiochip0"):
-        self.chip = gpiod.Chip(chip)
-        self.lines = {}
+# Constantes pour utiliser la même API que dans le reste du code
+BCM = GPIO.BCM
+OUT = GPIO.OUT
+IN = GPIO.IN
+HIGH = GPIO.HIGH
+LOW = GPIO.LOW
+PUD_UP = GPIO.PUD_UP
+PUD_DOWN = GPIO.PUD_DOWN
 
-    def setup_out(self, pin, initial=0):
-        line = self.chip.get_line(pin)
-        config = gpiod.LineRequest()
-        config.consumer = "cm5"
-        config.request_type = gpiod.LINE_REQ_DIR_OUT
-        line.request(config, default_vals=[initial])
-        self.lines[pin] = line
+# Initialisation
+def setmode(mode):
+    GPIO.setmode(mode)
 
-    def setup_in(self, pin):
-        line = self.chip.get_line(pin)
-        config = gpiod.LineRequest()
-        config.consumer = "cm5"
-        config.request_type = gpiod.LINE_REQ_DIR_IN
-        line.request(config)
-        self.lines[pin] = line
+def setwarnings(flag):
+    GPIO.setwarnings(flag)
 
-    def write(self, pin, value):
-        if pin not in self.lines:
-            raise RuntimeError(f"Pin {pin} not configured as output")
-        self.lines[pin].set_value(1 if value else 0)
+def setup(pin, direction, initial=None, pull_up_down=None):
+    if initial is not None and pull_up_down is not None:
+        GPIO.setup(pin, direction, initial=initial, pull_up_down=pull_up_down)
+    elif initial is not None:
+        GPIO.setup(pin, direction, initial=initial)
+    elif pull_up_down is not None:
+        GPIO.setup(pin, direction, pull_up_down=pull_up_down)
+    else:
+        GPIO.setup(pin, direction)
 
-    def read(self, pin):
-        if pin not in self.lines:
-            raise RuntimeError(f"Pin {pin} not configured as input")
-        return self.lines[pin].get_value()
+def output(pin, value):
+    GPIO.output(pin, value)
+
+def input(pin):
+    return GPIO.input(pin)
+
+def cleanup(pin=None):
+    if pin is None:
+        GPIO.cleanup()
+    else:
+        GPIO.cleanup(pin)

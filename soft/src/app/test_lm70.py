@@ -13,11 +13,9 @@ Instructions:
    - CS à GPIO 5 (ou autre GPIO libre)
    - VDD à 3.3V ou 5V
    - GND à GND
-2. Exécuter ce script
+2. Exécuter ce script directement: python test_lm70.py
 """
 
-import sys
-import os
 import time
 import logging
 
@@ -31,13 +29,6 @@ logging.basicConfig(
     ]
 )
 logger = logging.getLogger("LM70_Test")
-
-# Ajouter le répertoire src au chemin Python
-current_dir = os.path.dirname(os.path.abspath(__file__))
-src_dir = os.path.dirname(current_dir)
-if src_dir not in sys.path:
-    sys.path.insert(0, src_dir)
-    logger.info(f"Ajout de {src_dir} au chemin Python")
 
 try:
     # Option 1: Utiliser les modules du projet (si disponibles)

@@ -85,6 +85,83 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+def test_lm70_spi():
+    """
+    Fonction de test pour le capteur LM70 via SPI.
+    Cette fonction utilise directement SPI1 qui est disponible sur le CM5.
+    
+    Connexions:
+    - MISO du LM70 à GPIO 19 (SPI1_MISO)
+    - SCLK du LM70 à GPIO 21 (SPI1_SCLK) 
+    - CS du LM70 à GPIO 18 (CS_ADC) ou un autre GPIO libre
+    """
+    try:
+        import spidev
+        import time
+        from hw.gpio_cm5 import GPIO
+        
+        # Configuration GPIO
+        GPIO.setmode(GPIO.BCM)
+        GPIO.setwarnings(False)
+        
+        # Utiliser GPIO 5 comme CS pour le LM70 (ou n'importe quel GPIO libre)
+        LM70_CS_PIN = 5
+        GPIO.setup(LM70_CS_PIN, GPIO.OUT, initial=GPIO.HIGH)
+        
+        # Configuration SPI pour le LM70
+        lm70_config = {
+            "bus": 1,            # Utilise SPI1 qui a MISO (GPIO 19)
+            "device": 1,         # Device différent pour ne pas interférer avec l'ADC
+            "max_hz": 1000000,   # 1MHz
+            "mode": 0,           # Mode 0 (CPOL=0, CPHA=0)
+            "bits": 8            # 8 bits par mot
+        }
+        
+        # Ouvre SPI pour le LM70
+        spi_lm70 = _open_spi(lm70_config)
+        
+        try:
+            logger.info("Démarrage du test du capteur LM70...")
+            
+            # Fonction de lecture de température
+            def read_lm70_temp():
+                try:
+                    GPIO.output(LM70_CS_PIN, GPIO.LOW)  # Active CS
+                    
+                    # Lecture de 2 octets
+                    resp = spi_lm70.xfer2([0x00, 0x00])
+                    
+                    # Traitement des données (format 11-bit)
+                    raw_value = ((resp[0] << 8) | resp[1]) >> 5
+                    
+                    # Gestion du signe (complément à 2)
+                    if raw_value & 0x400:  # Bit de signe à 1
+                        temp_c = -((~raw_value & 0x7FF) + 1) * 0.125
+                    else:
+                        temp_c = raw_value * 0.125
+                    
+                    return temp_c
+                
+                finally:
+                    GPIO.output(LM70_CS_PIN, GPIO.HIGH)  # Désactive CS
+            
+            # Test de lecture (10 mesures)
+            for i in range(10):
+                temp = read_lm70_temp()
+                logger.info(f"Température LM70: {temp:.2f}°C")
+                time.sleep(1)
+                
+        finally:
+            # Nettoyage
+            spi_lm70.close()
+            GPIO.cleanup(LM70_CS_PIN)
+            logger.info("Test LM70 terminé et ressources libérées")
+    
+    except Exception as e:
+        logger.error(f"Erreur test LM70: {str(e)}")
+        import traceback
+        logger.error(traceback.format_exc())
+
 class ChannelConfig:
     """
     Configuration d'un canal d'acquisition.
