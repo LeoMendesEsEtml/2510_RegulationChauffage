@@ -15,6 +15,7 @@ import logging
 import os
 import sys
 import time
+import spidev
 
 # Configuration du logging
 logging.basicConfig(
@@ -39,12 +40,19 @@ src_dir = os.path.dirname(current_dir) if "src" in current_dir else current_dir
 # Importer le module de mock automatique
 sys.path.insert(0, src_dir)
 try:
-    from mock_imports import GPIO, spidev
+    from mock_imports import GPIO
     logger.info("Module d'importation automatique chargé avec succès")
 except ImportError:
     logger.error("Impossible d'importer le module mock_imports.py")
     logger.error("Assurez-vous que le fichier mock_imports.py est présent dans le répertoire src")
     sys.exit(1)
+
+# Configuration SPI pour le LM70
+spi = spidev.SpiDev()
+spi.open(1, 0)  # Bus 1, Device 0 (SPI1)
+spi.max_speed_hz = 100000  # 100 kHz
+spi.mode = 0  # Mode 0: CPOL=0, CPHA=0
+spi.bits_per_word = 8
 
 def test_lm70():
     """Test de communication SPI avec le capteur LM70"""
@@ -55,13 +63,6 @@ def test_lm70():
         
         # Configuration du GPIO CS pour le LM70
         GPIO.setup(LM70_CS_GPIO, GPIO.OUT, initial=GPIO.HIGH)
-        
-        # Configuration SPI pour le LM70
-        spi = spidev.SpiDev()
-        spi.open(1, 0)  # Bus 1, Device 0 (SPI1)
-        spi.max_speed_hz = 1000000  # 1MHz
-        spi.mode = 0  # Mode 0: CPOL=0, CPHA=0
-        spi.bits_per_word = 8
 
         logger.info("Début du test LM70")
         
@@ -70,7 +71,7 @@ def test_lm70():
             GPIO.output(LM70_CS_GPIO, GPIO.LOW)
             
             # Envoi de données arbitraires sur MOSI
-            resp = spi.xfer2([0x00, 0x00])
+            resp = spi.xfer2([0xAA, 0xBB])
             
             # Désactive CS
             GPIO.output(LM70_CS_GPIO, GPIO.HIGH)
@@ -99,6 +100,7 @@ def test_lm70():
     
     finally:
         GPIO.cleanup()
+        spi.close()
 
 if __name__ == "__main__":
     test_lm70()
