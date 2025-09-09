@@ -8,7 +8,7 @@ Connexions matérielles spécifiques :
 - LM70 MISO → GPIO 19 (SPI_MISO_ADC_GPIO)
 - LM70 MOSI → GPIO 20 (SPI_MOSI_ADC_GPIO)
 - LM70 SCLK → GPIO 21 (SPI_SCLK_ADC_GPIO)
-- LM70 CS → GPIO 5 (GPIO libre)
+- LM70 CS → GPIO 18 (GPIO libre)
 """
 
 import logging
@@ -26,7 +26,7 @@ logging.basicConfig(
 logger = logging.getLogger("LM70-Test")
 
 # Définition des GPIO SPI1
-LM70_CS_GPIO = 5
+LM70_CS_GPIO = 18  # GPIO 18 utilisé comme CS
 SPI_MOSI_ADC_GPIO = 20
 SPI_MISO_ADC_GPIO = 19
 SPI_SCLK_ADC_GPIO = 21
