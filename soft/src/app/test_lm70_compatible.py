@@ -71,7 +71,7 @@ def test_lm70():
             GPIO.output(LM70_CS_GPIO, GPIO.LOW)
             
             # Envoi de données arbitraires sur MOSI
-            resp = spi.xfer2([0xAA, 0xBB])
+            resp = spi.xfer2([0x00, 0x00])
             
             # Désactive CS
             GPIO.output(LM70_CS_GPIO, GPIO.HIGH)
@@ -83,10 +83,18 @@ def test_lm70():
                 # Combine les 2 octets en un entier 16 bits
                 raw_temp = (resp[0] << 8) | resp[1]
                 
-                # Les 3 bits les plus significatifs sont inutilisés
-                temp_celsius = ((raw_temp >> 3) & 0x1FFF) * 0.03125
+                # Ignore les 3 bits les plus significatifs
+                raw_temp = raw_temp >> 3
+                
+                # Convertir les 13 bits en entier signé
+                if raw_temp & 0x1000:  # Si le bit de signe est 1
+                    raw_temp -= 0x2000  # Appliquer le complément à 2
+                
+                # Calculer la température en °C
+                temp_celsius = raw_temp * 0.03125
                 
                 logger.info(f"Température mesurée : {temp_celsius:.2f}°C")
+                logger.debug(f"Données brutes combinées : {raw_temp}")
             else:
                 logger.warning("Données SPI invalides - vérifiez les connexions")
             
