@@ -25,23 +25,54 @@ import logging
 from typing import Dict, Optional
 
 # Imports des modules internes
-from config.cm5_config import build_hw, ADC_CHANNELS
-from drivers.mux_adg731 import Adg731        # Pilote multiplexeur
-from drivers.adc_ads124s08 import ADS124S08  # Pilote ADC
-from Metrology.convert import r_to_temp      # Conversion R -> T
-from Metrology.sensor_profiles import (       # Profils des capteurs
-    SENSOR_DB,
-    SensorProfile, 
-    ADC_PARAMS_DB
-)
-from hw.gpio_cm5 import (                    # Gestion GPIO
-    GPIO,
-    Relay,    # Relais de bypass
-    LED       # LED d'�tat
-)
-from io.dry_contacts import DryContacts      # Gestion des contacts secs 24V
-from api.external import API                 # Communication API
-from control.regulation import CTRL          # Algorithme r�gulation
+import sys
+import os
+# Ajouter le répertoire src au chemin Python (uniquement nécessaire si exécuté directement)
+current_dir = os.path.dirname(os.path.abspath(__file__))
+src_dir = os.path.dirname(current_dir)  # Remonte d'un niveau vers src
+if src_dir not in sys.path:
+    sys.path.insert(0, src_dir)
+
+try:
+    # Imports avec gestion d'erreur pour faciliter le débogage
+    from config.cm5_config import build_hw, ADC_CHANNELS
+    print("✓ Import config.cm5_config réussi")
+    
+    from drivers.mux_adg731 import Adg731        # Pilote multiplexeur
+    print("✓ Import drivers.mux_adg731 réussi")
+    
+    from drivers.adc_ads124s08 import ADS124S08  # Pilote ADC
+    print("✓ Import drivers.adc_ads124s08 réussi")
+    
+    from Metrology.convert import r_to_temp      # Conversion R -> T
+    print("✓ Import Metrology.convert réussi")
+    
+    from Metrology.sensor_profiles import (       # Profils des capteurs
+        SENSOR_DB,
+        SensorProfile, 
+        ADC_PARAMS_DB
+    )
+    print("✓ Import Metrology.sensor_profiles réussi")
+    
+    from hw.gpio_cm5 import (                    # Gestion GPIO
+        GPIO,
+        Relay,    # Relais de bypass
+        LED       # LED d'état
+    )
+    print("✓ Import hw.gpio_cm5 réussi")
+    
+    from io.dry_contacts import DryContacts      # Gestion des contacts secs 24V
+    print("✓ Import io.dry_contacts réussi")
+    
+    from api.external import API                 # Communication API
+    print("✓ Import api.external réussi")
+    
+    from control.regulation import CTRL          # Algorithme régulation
+    print("✓ Import control.regulation réussi")
+    
+except ImportError as e:
+    print(f"ERREUR D'IMPORT: {e}")
+    print(f"Chemins Python actuels: {sys.path}")
 
 # Configuration du logging avec rotation des fichiers
 logging.basicConfig(
