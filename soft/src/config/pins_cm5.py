@@ -1,28 +1,28 @@
 
-# -*- coding: utf-8 -*-
+# coding: utf-8
 """
 Configuration des broches GPIO du CM5.
 
-Ce module définit:
+Ce module definit:
 - Le mapping des broches GPIO
 - Les configurations des interfaces SPI
-- Les signaux de contrôle de l'ADC
+- Les signaux de controle de l'ADC
 - Les E/S diverses (LED, relais)
 
-Architecture matérielle:
+Architecture materielle:
 ----------------------
 1. Interfaces SPI :
-   - SPI0 : Multiplexeur ADG731 (réseau résistif)
+   - SPI0 : Multiplexeur ADG731 (reseau resistif)
      * SCLK, MOSI uniquement (pas de MISO)
-     * 4 CS pour sélection des cartes
+     * 4 CS pour selection des cartes
    - SPI1 : ADC ADS124S08 (mesures)
      * SCLK, MOSI, MISO
-     * 1 CS dédié
+     * 1 CS dedie
 
-2. Contrôle ADC :
-   - DRDY : Donnée prête
-   - START_SYNC : Démarrage conversion
-   - A0/A1 : Sélection référence
+2. Controle ADC :
+   - DRDY : Donnee prete
+   - START_SYNC : Demarrage conversion
+   - A0/A1 : Selection reference
 
 3. GPIO divers :
    - LED de statut
@@ -31,12 +31,12 @@ Architecture matérielle:
 4. Contacts secs 24V :
    - Canal 1 :
      * CM_24V_OUT_1 (GPIO 13) : Sortie +24V
-     * CM_24V_SENSE_1 (GPIO 14) : Entrée détection
+     * CM_24V_SENSE_1 (GPIO 14) : Entree detection
    - Canal 2 :
      * CM_24V_OUT_2 (GPIO 15) : Sortie +24V
-     * CM_24V_SENSE_2 (GPIO 16) : Entrée détection
+     * CM_24V_SENSE_2 (GPIO 16) : Entree detection
 
-Note: Tous les numéros de broches sont en mode BCM.
+Note: Tous les numeros de broches sont en mode BCM.
 """
 
 from typing import Dict, List, Set
@@ -49,11 +49,11 @@ class SPIConfig:
     
     Attributs:
         sclk: Broche horloge SPI
-        mosi: Broche données sortantes (Master Out)
-        miso: Broche données entrantes (Master In), optionnelle
+        mosi: Broche donnees sortantes (Master Out)
+        miso: Broche donnees entrantes (Master In), optionnelle
         cs: Liste des broches chip select
     
-    Note: Le MISO est optionnel car certains périphériques
+    Note: Le MISO est optionnel car certains peripheriques
     comme l'ADG731 sont write-only.
     """
     sclk: int          # Serial Clock
@@ -64,18 +64,18 @@ class SPIConfig:
 @dataclass
 class ADCConfig:
     """
-    Configuration des broches de contrôle de l'ADC.
+    Configuration des broches de controle de l'ADC.
     
     Attributs:
-        drdy: Signal Data Ready (conversion terminée)
-        start_sync: Signal Start/Sync (démarrage conversion)
-        ref_a0: Sélection référence A0 (configuration ref)
-        ref_a1: Sélection référence A1 (configuration ref)
+        drdy: Signal Data Ready (conversion terminee)
+        start_sync: Signal Start/Sync (demarrage conversion)
+        ref_a0: Selection reference A0 (configuration ref)
+        ref_a1: Selection reference A1 (configuration ref)
         
     L'ADS124S08 utilise ces signaux pour:
-    - Indiquer quand les données sont prêtes (DRDY)
+    - Indiquer quand les donnees sont pretes (DRDY)
     - Synchroniser les conversions (START)
-    - Configurer la référence de tension (A0/A1)
+    - Configurer la reference de tension (A0/A1)
     """
     drdy: int          # Data Ready (entrée)
     start_sync: int    # Start/Sync (sortie)
@@ -85,19 +85,23 @@ class ADCConfig:
 # Ensemble des broches GPIO valides sur CM5
 VALID_GPIO_PINS: Set[int] = set(range(0, 54))  # BCM 0-53
 
-def validate_pin(pin: int, name: str) -> None:
+def validate_pin(pin_val: int | list, name: str) -> None:
     """
-    Vérifie qu'un numéro de broche est valide.
+    Verifie qu'un numero de broche est valide.
     
     Args:
-        pin: Numéro de broche BCM à vérifier
+        pin_val: Numero de broche BCM ou liste de broches a verifier
         name: Nom du signal pour le message d'erreur
         
     Raises:
-        ValueError: Si le numéro est invalide
+        ValueError: Si un numero est invalide
     """
-    if pin not in VALID_GPIO_PINS:
-        raise ValueError(f"Broche invalide pour {name}: {pin}")
+    if isinstance(pin_val, list):
+        for pin in pin_val:
+            if not isinstance(pin, int) or pin not in VALID_GPIO_PINS:
+                raise ValueError(f"Broche invalide pour {name}: {pin}")
+    elif not isinstance(pin_val, int) or pin_val not in VALID_GPIO_PINS:
+        raise ValueError(f"Broche invalide pour {name}: {pin_val}")
 
 # Configuration SPI0 pour multiplexeur ADG731
 # Interface write-only pour sélection résistances

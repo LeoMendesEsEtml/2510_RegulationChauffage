@@ -1,6 +1,6 @@
-# -*- coding: utf-8 -*-
+# coding: utf-8
 """
-Configuration matérielle du CM5
+Configuration materielle du CM5
 - Configuration des canaux ADC
 - Configuration SPI (MUX et ADC)
 - Configuration GPIO
@@ -13,7 +13,7 @@ from hw.gpio_cm5 import GPIO
 
 logger = logging.getLogger(__name__)
 
-# Configuration SPI pour chaque périphérique
+# Configuration SPI pour chaque pï¿½riphï¿½rique
 SPI_CONFIG = {
     "mux": {
         "bus": 0,
@@ -43,17 +43,17 @@ def _validate_channel_config(channels: List[Dict]) -> None:
     """Valide la configuration des canaux ADC"""
     pins_used = set()
     for ch in channels:
-        # Vérifie que tous les champs requis sont présents
+        # Verifie que tous les champs requis sont presents
         required_fields = {"name", "idac_pin", "adc_pos", "adc_neg"}
         missing = required_fields - set(ch.keys())
         if missing:
             raise ValueError(f"Champs manquants pour le canal {ch.get('name', '?')}: {missing}")
 
-        # Vérifie que les pins ne sont pas dupliquées
+        # Vï¿½rifie que les pins ne sont pas dupliquï¿½es
         current_pins = {ch["idac_pin"], ch["adc_pos"], ch["adc_neg"]}
         duplicates = current_pins & pins_used
         if duplicates:
-            raise ValueError(f"Pins dupliquées dans le canal {ch['name']}: {duplicates}")
+            raise ValueError(f"Pins dupliquï¿½es dans le canal {ch['name']}: {duplicates}")
         pins_used.update(current_pins)
 
 def _open_spi(config: Dict) -> spidev.SpiDev:
@@ -74,7 +74,7 @@ def _setup_gpio() -> None:
     try:
         GPIO.setmode(GPIO.BCM)
 
-        # Broches de contrôle ADC
+        # Broches de contrï¿½le ADC
         for k in ["CS_ADC", "ADC_START_SYNC", "ADC_A0", "ADC_A1"]:
             GPIO.setup(PINS[k], GPIO.OUT, initial=GPIO.HIGH)
 
@@ -91,9 +91,9 @@ def _setup_gpio() -> None:
 
 def build_hw() -> Dict:
     """
-    Initialise le matériel (SPI et GPIO)
+    Initialise le matï¿½riel (SPI et GPIO)
     Returns:
-        Dict contenant les objets SPI et les broches configurées
+        Dict contenant les objets SPI et les broches configurï¿½es
     """
     try:
         # Validation de la configuration
@@ -106,7 +106,7 @@ def build_hw() -> Dict:
         spi_mux = _open_spi(SPI_CONFIG["mux"])
         spi_adc = _open_spi(SPI_CONFIG["adc"])
 
-        logger.info("Initialisation matérielle réussie")
+        logger.info("Initialisation matï¿½rielle rï¿½ussie")
         return {
             "spi_mux": spi_mux,
             "spi_adc": spi_adc,
@@ -114,7 +114,7 @@ def build_hw() -> Dict:
         }
 
     except Exception as e:
-        logger.error(f"Erreur initialisation matérielle: {str(e)}")
+        logger.error(f"Erreur initialisation matï¿½rielle: {str(e)}")
         # Clean up en cas d'erreur
         GPIO.cleanup()
         raise
