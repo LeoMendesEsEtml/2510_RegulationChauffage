@@ -4,18 +4,16 @@
 Test LM70 avec support automatique pour simulateur et hardware réel.
 Ce script fonctionnera aussi bien sur un PC que sur un Raspberry Pi.
 
-Connexions (sur Raspberry Pi):
-- LM70 MISO → GPIO 19
-- LM70 SCLK → GPIO 21
-- LM70 CS → GPIO 5
-- LM70 VDD → 3.3V
-- LM70 GND → GND
+Connexions matérielles spécifiques :
+- LM70 MISO → GPIO 19 (SPI_MISO_ADC_GPIO)
+- LM70 MOSI → GPIO 20 (SPI_MOSI_ADC_GPIO)
+- LM70 SCLK → GPIO 21 (SPI_SCLK_ADC_GPIO)
+- LM70 CS → GPIO 5 (GPIO libre)
 """
 
-import sys
-import os
-import time
 import logging
+import os
+import sys
 
 # Configuration du logging
 logging.basicConfig(
@@ -26,6 +24,12 @@ logging.basicConfig(
     ]
 )
 logger = logging.getLogger("LM70-Test")
+
+# Définition des GPIO SPI1
+LM70_CS_GPIO = 5
+SPI_MOSI_ADC_GPIO = 20
+SPI_MISO_ADC_GPIO = 19
+SPI_SCLK_ADC_GPIO = 21
 
 # Déterminer le chemin absolu du script
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -49,101 +53,29 @@ def test_lm70():
         GPIO.setwarnings(False)
         
         # Configuration du GPIO CS pour le LM70
-        LM70_CS_PIN = 5
-        GPIO.setup(LM70_CS_PIN, GPIO.OUT, initial=GPIO.HIGH)
+        GPIO.setup(LM70_CS_GPIO, GPIO.OUT, initial=GPIO.HIGH)
         
         # Configuration SPI pour le LM70
         spi = spidev.SpiDev()
-        spi.open(0, 0)  # Bus 0, Device 0 (CM5 utilise le bus 0)
+        spi.open(1, 0)  # Bus 1, Device 0 (SPI1)
         spi.max_speed_hz = 1000000  # 1MHz
         spi.mode = 0  # Mode 0: CPOL=0, CPHA=0
         spi.bits_per_word = 8
-        spi.lsbfirst = False  # MSB first
-        
-        logger.info("Configuration SPI et GPIO terminée")
-        logger.info(f"SPI configuré: Bus 0, Device 0, {spi.max_speed_hz/1000000:.1f}MHz, Mode {spi.mode}")
-        logger.info(f"Connexions: MISO→GPIO19, SCLK→GPIO21, CS→GPIO{LM70_CS_PIN}")
-        
-        # Fonction de lecture de la température
-        def read_lm70_temp():
-            try:
-                GPIO.output(LM70_CS_PIN, GPIO.LOW)  # Active CS
-                
-                # Lecture de 2 octets
-                resp = spi.xfer2([0x00, 0x00])
-                
-                # Traitement des données (format 11-bit)
-                raw_value = ((resp[0] << 8) | resp[1]) >> 5
-                
-                # Debug
-                logger.debug(f"Octets lus: 0x{resp[0]:02X} 0x{resp[1]:02X}, Valeur brute: 0x{raw_value:03X}")
-                
-                # Gestion du signe (complément à 2)
-                if raw_value & 0x400:  # Bit de signe à 1
-                    temp_c = -((~raw_value & 0x7FF) + 1) * 0.125
-                else:
-                    temp_c = raw_value * 0.125
-                
-                return temp_c
-                
-            finally:
-                GPIO.output(LM70_CS_PIN, GPIO.HIGH)  # Désactive CS
-        
-        # Lecture de la température en continu
-        try:
-            logger.info("Démarrage des lectures de température (Ctrl+C pour arrêter)")
-            count = 0
-            temps = []
-            
-            while True:
-                temp = read_lm70_temp()
-                temps.append(temp)
-                count += 1
-                
-                logger.info(f"Lecture {count}: {temp:.2f}°C")
-                
-                # Calcul des statistiques toutes les 5 mesures
-                if count % 5 == 0 and count > 0:
-                    avg = sum(temps[-5:]) / 5
-                    min_val = min(temps[-5:])
-                    max_val = max(temps[-5:])
-                    logger.info(f"Stats (5 dernières): Min={min_val:.2f}°C, Moy={avg:.2f}°C, Max={max_val:.2f}°C")
-                
-                time.sleep(1)
-                
-        except KeyboardInterrupt:
-            # Statistiques finales
-            if temps:
-                avg = sum(temps) / len(temps)
-                min_val = min(temps)
-                max_val = max(temps)
-                logger.info("\nStatistiques finales:")
-                logger.info(f"- Nombre de lectures: {len(temps)}")
-                logger.info(f"- Température moyenne: {avg:.2f}°C")
-                logger.info(f"- Température minimale: {min_val:.2f}°C")
-                logger.info(f"- Température maximale: {max_val:.2f}°C")
-                logger.info(f"- Variation: {max_val - min_val:.2f}°C")
-            
-            logger.info("Test terminé par l'utilisateur")
+
+        # Test SPI
+        GPIO.output(LM70_CS_GPIO, GPIO.LOW)  # Active CS
+        resp = spi.xfer2([0x00, 0x00])  # Envoie deux octets
+        GPIO.output(LM70_CS_GPIO, GPIO.HIGH)  # Désactive CS
+
+        logger.info(f"Données SPI reçues: {resp}")
+        if resp == [0x00, 0x00]:
+            logger.warning("Aucune donnée reçue - vérifiez les connexions et l'alimentation du LM70")
     
     except Exception as e:
         logger.error(f"Erreur lors du test LM70: {e}")
-        import traceback
-        logger.error(traceback.format_exc())
     
     finally:
-        # Nettoyage
-        try:
-            spi.close()
-        except:
-            pass
-        
-        try:
-            GPIO.cleanup()
-        except:
-            pass
-        
-        logger.info("Ressources libérées")
+        GPIO.cleanup()
 
 if __name__ == "__main__":
     test_lm70()
