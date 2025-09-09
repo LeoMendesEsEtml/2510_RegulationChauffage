@@ -1,18 +1,18 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Module principal du systËme de rÈgulation de chauffage.
+Module principal du systÔøΩme de rÔøΩgulation de chauffage.
 
-FonctionnalitÈs:
-- Acquisition des tempÈratures sur 4 canaux
+FonctionnalitÔøΩs:
+- Acquisition des tempÔøΩratures sur 4 canaux
 - Communication avec l'API externe
-- Gestion de la rÈgulation
-- ContrÙle du rÈseau rÈsistif
-- Surveillance du systËme
+- Gestion de la rÔøΩgulation
+- ContrÔøΩle du rÔøΩseau rÔøΩsistif
+- Surveillance du systÔøΩme
 
-Le systËme lit des sondes rÈelles, calcule une tempÈrature simulÈe
-‡ partir des prÈvisions mÈtÈo, et applique une rÈsistance Èquivalente
-via un rÈseau commandÈ.
+Le systÔøΩme lit des sondes rÔøΩelles, calcule une tempÔøΩrature simulÔøΩe
+ÔøΩ partir des prÔøΩvisions mÔøΩtÔøΩo, et applique une rÔøΩsistance ÔøΩquivalente
+via un rÔøΩseau commandÔøΩ.
 
 Auteur: LeoMendesEsEtml
 Date: 2025
@@ -37,11 +37,11 @@ from Metrology.sensor_profiles import (       # Profils des capteurs
 from hw.gpio_cm5 import (                    # Gestion GPIO
     GPIO,
     Relay,    # Relais de bypass
-    LED       # LED d'Ètat
+    LED       # LED d'ÔøΩtat
 )
 from io.dry_contacts import DryContacts      # Gestion des contacts secs 24V
 from api.external import API                 # Communication API
-from control.regulation import CTRL          # Algorithme rÈgulation
+from control.regulation import CTRL          # Algorithme rÔøΩgulation
 
 # Configuration du logging avec rotation des fichiers
 logging.basicConfig(
@@ -71,8 +71,8 @@ class ChannelConfig:
         Args:
             channel: Identifiant du canal
             profile: Type de capteur
-            mux_card: Index carte MUX (dÈfaut: 0)
-            mux_channel: Canal MUX (dÈfaut: 0)
+            mux_card: Index carte MUX (dÔøΩfaut: 0)
+            mux_channel: Canal MUX (dÔøΩfaut: 0)
         """
         self.channel = channel
         self.profile = profile
@@ -81,7 +81,7 @@ class ChannelConfig:
 
 # Configuration des canaux ADC avec leur type de capteur
 CHANNEL_CONFIGS = [
-    ChannelConfig("CH1", "AF60"),        # Sonde extÈrieure AF60
+    ChannelConfig("CH1", "AF60"),        # Sonde extÔøΩrieure AF60
     ChannelConfig("CH2", "PT1000"),      # Sonde PT1000
     ChannelConfig("CH3", "NTC_10k_3977"),# Thermistance NTC 10k
     ChannelConfig("CH4", "KTY81_210"),   # Sonde KTY81-210
@@ -89,25 +89,25 @@ CHANNEL_CONFIGS = [
 
 class TemperatureAcquisition:
     """
-    Gestion de l'acquisition des tempÈratures.
+    Gestion de l'acquisition des tempÔøΩratures.
     
     Cette classe:
     - Configure l'ADC et les multiplexeurs
     - Effectue les mesures sur chaque canal
-    - GËre la conversion en tempÈrature
+    - GÔøΩre la conversion en tempÔøΩrature
     - Surveille les erreurs et exceptions
     """
     def __init__(self):
         """
-        Initialise le systËme d'acquisition.
+        Initialise le systÔøΩme d'acquisition.
         
         Configure:
-        - Le matÈriel (GPIO, SPI)
+        - Le matÔøΩriel (GPIO, SPI)
         - Les multiplexeurs ADG731
         - L'ADC ADS124S08
         - Les profils des capteurs
         """
-        # Construction de la configuration matÈrielle
+        # Construction de la configuration matÔøΩrielle
         self.hw = build_hw()
         
         # Initialisation des contacts secs
@@ -115,7 +115,7 @@ class TemperatureAcquisition:
         
         # Initialisation du multiplexeur
         self.mux = Adg731(
-            spi=self.hw["spi_mux"],           # Bus SPI dÈdiÈ
+            spi=self.hw["spi_mux"],           # Bus SPI dÔøΩdiÔøΩ
             cs_pins=self.hw["pins"]["mux_cs_list"], # Liste des CS
             gpio=GPIO                          # Interface GPIO
         )
@@ -132,14 +132,14 @@ class TemperatureAcquisition:
         self.tick_thread = None
 
     def measure_channel(self, ch_cfg: ChannelConfig) -> Dict:
-        """Effectue la mesure pour un canal spÈcifique"""
-        # RÈcupËre la configuration des pins pour le canal
+        """Effectue la mesure pour un canal spÔøΩcifique"""
+        # RÔøΩcupÔøΩre la configuration des pins pour le canal
         channel_pins = next((ch for ch in ADC_CHANNELS if ch["name"] == ch_cfg.channel), None)
         if not channel_pins:
-            logger.error(f"Channel {ch_cfg.channel} non dÈfini dans ADC_CHANNELS")
+            logger.error(f"Channel {ch_cfg.channel} non dÔøΩfini dans ADC_CHANNELS")
             return None
 
-        # VÈrifie le profil du capteur
+        # VÔøΩrifie le profil du capteur
         profile = SENSOR_DB.get(ch_cfg.profile)
         adc_params = ADC_PARAMS_DB.get(ch_cfg.profile)
         if not profile or not adc_params:
@@ -172,118 +172,118 @@ class TemperatureAcquisition:
 
     def acquisition_loop(self):
         """
-        Boucle principale d'acquisition et rÈgulation.
+        Boucle principale d'acquisition et rÔøΩgulation.
         
-        SÈquence:
+        SÔøΩquence:
         1. Lecture du contact sec (prioritaire)
         2. Pour chaque canal actif:
-           - Mesure de tempÈrature
-           - RÈcupÈration paramËtres API
-           - Calcul rÈgulation
-           - Application rÈseau rÈsistif
+           - Mesure de tempÔøΩrature
+           - RÔøΩcupÔøΩration paramÔøΩtres API
+           - Calcul rÔøΩgulation
+           - Application rÔøΩseau rÔøΩsistif
         3. Indication visuelle et logging
         4. Gestion des erreurs
         
-        La boucle s'exÈcute en continu avec:
-        - PÈriode principale: 5 minutes
-        - DÈlai inter-cycles: 200ms
+        La boucle s'exÔøΩcute en continu avec:
+        - PÔøΩriode principale: 5 minutes
+        - DÔøΩlai inter-cycles: 200ms
         - Timeout API: 2s
         """
         while self.running:
             try:
-                # 1. Lecture unique des deux canaux de contacts secs au dÈbut du cycle (toutes les 5 min)
+                # 1. Lecture unique des deux canaux de contacts secs au dÔøΩbut du cycle (toutes les 5 min)
                 states = self.dry_contacts.read_all_channels()
-                contact_states = [states[1], states[2]]  # …tats [Canal 1, Canal 2]
+                contact_states = [states[1], states[2]]  # ÔøΩtats [Canal 1, Canal 2]
                 
-                logger.info(f"…tats des contacts secs : Canal 1={'FERM…' if contact_states[0] else 'OUVERT'}, Canal 2={'FERM…' if contact_states[1] else 'OUVERT'}")
+                logger.info(f"ÔøΩtats des contacts secs : Canal 1={'FERMÔøΩ' if contact_states[0] else 'OUVERT'}, Canal 2={'FERMÔøΩ' if contact_states[1] else 'OUVERT'}")
 
                 # 2. Traitement des canaux actifs
                 for ch_cfg in CHANNEL_CONFIGS:
                     result = self.measure_channel(ch_cfg)
                     if result:
-                        # Obtention des paramËtres de l'API
-                        # N: facteur de mÈlange
-                        # kM: coefficient mÈtÈo
-                        # Tprevu: tempÈrature prÈvue
+                        # Obtention des paramÔøΩtres de l'API
+                        # N: facteur de mÔøΩlange
+                        # kM: coefficient mÔøΩtÔøΩo
+                        # Tprevu: tempÔøΩrature prÔøΩvue
                         api_params = API.get_params()
                         
-                        # Calcul de la rÈgulation
-                        # DÈtermine la rÈsistance ‡ simuler
+                        # Calcul de la rÔøΩgulation
+                        # DÔøΩtermine la rÔøΩsistance ÔøΩ simuler
                         ctrl_result = CTRL.regulate(
-                            result["temperature"],  # T mesurÈe
-                            api_params["N"],       # Facteur mÈlange
-                            api_params["kM"],      # Coeff mÈtÈo
-                            api_params["Tprevu"]   # T prÈvue
+                            result["temperature"],  # T mesurÔøΩe
+                            api_params["N"],       # Facteur mÔøΩlange
+                            api_params["kM"],      # Coeff mÔøΩtÔøΩo
+                            api_params["Tprevu"]   # T prÔøΩvue
                         )
 
                         # 3. Indication visuelle
                         LED.short_flash()  # Acquittement mesure OK
 
-                        # 4. Journalisation dÈtaillÈe
+                        # 4. Journalisation dÔøΩtaillÔøΩe
                         logger.info(
                             f"Canal {result['channel']}: "
-                            f"T={result['temperature']:.2f}∞C, "
+                            f"T={result['temperature']:.2f}ÔøΩC, "
                             f"R={result['resistance']:.2f}?, "
-                            f"Contacts: C1={'FERM…' if contact_states[0] else 'OUVERT'}, C2={'FERM…' if contact_states[1] else 'OUVERT'}, "
-                            f"Consigne={api_params['Tprevu']}∞C"
+                            f"Contacts: C1={'FERMÔøΩ' if contact_states[0] else 'OUVERT'}, C2={'FERMÔøΩ' if contact_states[1] else 'OUVERT'}, "
+                            f"Consigne={api_params['Tprevu']}ÔøΩC"
                         )
 
             except Exception as e:
                 # Gestion des erreurs
                 logger.error(f"Erreur boucle acquisition: {str(e)}")
-                Relay.off()         # DÈsactive relais bypass
+                Relay.off()         # DÔøΩsactive relais bypass
                 LED.blink_2hz()     # Indique erreur (2 Hz)
                 time.sleep(5)       # Pause avant retry
 
-            # DÈlai inter-cycles pour CPU
+            # DÔøΩlai inter-cycles pour CPU
             time.sleep(0.2)
 
     def start(self):
         """
-        DÈmarre le systËme d'acquisition.
+        DÔøΩmarre le systÔøΩme d'acquisition.
         
         Actions:
         1. Active le flag running
-        2. DÈmarre thread de tick pÈriodique
+        2. DÔøΩmarre thread de tick pÔøΩriodique
         3. Lance la boucle d'acquisition
         """
         if not self.running:
             self.running = True
-            # Thread pour tick pÈriodique 5min
+            # Thread pour tick pÔøΩriodique 5min
             self.tick_thread = threading.Thread(
                 target=self._tick_loop,
-                daemon=True  # ArrÍt auto avec programme principal
+                daemon=True  # ArrÔøΩt auto avec programme principal
             )
             self.tick_thread.start()
             self.acquisition_loop()  # Boucle principale
 
     def stop(self):
         """
-        ArrÍte proprement le systËme.
+        ArrÔøΩte proprement le systÔøΩme.
         
         Actions:
-        1. DÈsactive flag running
+        1. DÔøΩsactive flag running
         2. Attend fin thread tick
-        3. ArrÍte l'ADC
+        3. ArrÔøΩte l'ADC
         4. Nettoie GPIO
         """
         self.running = False
         # Attente propre du thread tick
         if self.tick_thread:
             self.tick_thread.join(timeout=1.0)
-        # ArrÍt matÈriel
+        # ArrÔøΩt matÔøΩriel
         self.adc.stop()
-        self.adc.powerdown()  # …conomie d'Ènergie
+        self.adc.powerdown()  # ÔøΩconomie d'ÔøΩnergie
         GPIO.cleanup()  # Nettoyage GPIO
 
     def _tick_loop(self):
         """
-        Boucle de tick pÈriodique (5 minutes).
+        Boucle de tick pÔøΩriodique (5 minutes).
         
         Cette boucle:
         - Maintient la synchronisation temporelle
-        - DÈclenche les actions pÈriodiques
-        - Log les ÈvÈnements de timing
+        - DÔøΩclenche les actions pÔøΩriodiques
+        - Log les ÔøΩvÔøΩnements de timing
         """
         while self.running:
             logger.info("Tick 5 minutes")
@@ -294,13 +294,13 @@ class TemperatureAcquisition:
         Configure l'ADC pour une mesure.
         
         Configuration:
-        - Reset matÈriel
-        - ParamËtres de base (gain, vitesse)
-        - Mode de rÈfÈrence
+        - Reset matÔøΩriel
+        - ParamÔøΩtres de base (gain, vitesse)
+        - Mode de rÔøΩfÔøΩrence
         - Sources de courant
         
         Args:
-            adc_params: ParamËtres ADC du profil
+            adc_params: ParamÔøΩtres ADC du profil
             channel_pins: Configuration des broches
         """
         # Reset complet
@@ -313,21 +313,21 @@ class TemperatureAcquisition:
             ref_mode="ratiometric_REFP0_REFN0",    # Mode ratio
             chop=False                             # Pas de chopping
         )
-        # Configuration rÈfÈrence
+        # Configuration rÔøΩfÔøΩrence
         self.adc.set_ref_bank(adc_params["ref_bank"])
         
         # Configuration source de courant
         self.adc.route_idac(
             current_uA=adc_params["idac_uA"],     # Courant excitation
             idac1_route=channel_pins["idac_pin"], # Source 1
-            idac2_route=None                      # Source 2 dÈsactivÈe
+            idac2_route=None                      # Source 2 dÔøΩsactivÔøΩe
         )
         self.adc.select_diff_channel(
             pos=channel_pins["adc_pos"],
             neg=channel_pins["adc_neg"]
         )
 
-    def _read_adc_with_timeout(self) -> int:
+def _read_adc_with_timeout(self) -> int:
         """Lit une valeur de l'ADC avec gestion du timeout"""
         self.adc.start_single_shot()
         t0 = time.time()
@@ -337,13 +337,109 @@ class TemperatureAcquisition:
             time.sleep(0.001)
         return self.adc.read_once_blocking()
 
-def main():
-    """Point d'entrÈe principal"""
+def test_lm70_spi():
+    """
+    Fonction de test temporaire pour valider la communication SPI avec un capteur LM70.
+    
+    Cette fonction:
+    1. Utilise l'infrastructure SPI existante du projet avec les GPIO mis √† jour
+    2. Configure le GPIO pour le CS du LM70
+    3. Lit la temp√©rature du capteur LM70
+    4. Affiche la temp√©rature dans les logs
+    
+    NOTE: Cette fonction est temporaire et devrait √™tre supprim√©e apr√®s validation.
+    """
+    import time
+    from config.cm5_config import build_hw, _open_spi
+    from hw.gpio_cm5 import GPIO
+    
     try:
-        acquisition = TemperatureAcquisition()
-        acquisition.start()
+        logger.info("D√©marrage du test de communication SPI avec LM70...")
+        
+        # Configuration du mat√©riel
+        hw = build_hw()
+        
+        # Configuration pour le LM70 (utilise SPI1 qui a MISO)
+        lm70_config = {
+            "bus": 1,            # Utilise SPI1 (SCLK=GPIO 21, MISO=GPIO 19)
+            "device": 1,         # Device diff√©rent pour ne pas interf√©rer avec l'ADC
+            "max_hz": 1000000,   # 1MHz
+            "mode": 0,           # Mode 0 (CPOL=0, CPHA=0)
+            "bits": 8
+        }
+        
+        # Configuration du CS pour le LM70 (utilise un pin disponible)
+        # Choisir un GPIO qui n'est pas d√©j√† utilis√© dans le projet
+        LM70_CS_PIN = 5  # GPIO 5 - N'est pas utilis√© ailleurs dans le projet
+        
+        # Setup du GPIO pour le CS du LM70
+        GPIO.setup(LM70_CS_PIN, GPIO.OUT, initial=GPIO.HIGH)
+        
+        # Ouvre le SPI pour le LM70
+        spi_lm70 = _open_spi(lm70_config)
+        
+        # Fonction pour lire la temp√©rature du LM70
+        def read_lm70_temp():
+            try:
+                # Active le CS (actif √† l'√©tat bas)
+                GPIO.output(LM70_CS_PIN, GPIO.LOW)
+                
+                # Le LM70 utilise un format 11-bit sign√© en compl√©ment √† 2
+                # 1. Lecture de 2 octets
+                resp = spi_lm70.xfer2([0x00, 0x00])
+                
+                # 2. Combiner les octets et extraire les 11 bits significatifs (shift de 5 bits)
+                raw_value = ((resp[0] << 8) | resp[1]) >> 5
+                
+                # 3. Gestion du signe (compl√©ment √† 2)
+                if raw_value & 0x400:  # Bit de signe √† 1
+                    # Valeur n√©gative
+                    temp_c = -((~raw_value & 0x7FF) + 1) * 0.125
+                else:
+                    # Valeur positive
+                    temp_c = raw_value * 0.125
+                
+                return temp_c
+                
+            finally:
+                # D√©sactive le CS, quelle que soit l'issue
+                GPIO.output(LM70_CS_PIN, GPIO.HIGH)
+        
+        # Lecture r√©p√©t√©e pour v√©rifier la stabilit√©
+        temps = []
+        for i in range(10):
+            temp = read_lm70_temp()
+            temps.append(temp)
+            logger.info(f"Lecture LM70 #{i+1}: {temp:.2f}¬∞C")
+            time.sleep(1)
+        
+        # Calcul statistique simple
+        avg_temp = sum(temps) / len(temps)
+        min_temp = min(temps)
+        max_temp = max(temps)
+        
+        logger.info(f"Test LM70 termin√© avec succ√®s")
+        logger.info(f"Statistiques: Moyenne={avg_temp:.2f}¬∞C, Min={min_temp:.2f}¬∞C, Max={max_temp:.2f}¬∞C")
+        
+        # Nettoyage
+        spi_lm70.close()
+        
+    except Exception as e:
+        logger.error(f"Erreur test LM70: {str(e)}")
+        if 'spi_lm70' in locals():
+            spi_lm70.close()
+        
+def main():
+    """Point d'entrÔøΩe principal"""
+    try:
+        # Pour utiliser l'application normale:
+        #acquisition = TemperatureAcquisition()
+        #acquisition.start()
+        
+        # Pour tester le LM70, commentez les lignes ci-dessus et d√©commentez celle ci-dessous:
+        test_lm70_spi()
     except KeyboardInterrupt:
-        logger.info("ArrÍt demandÈ par l'utilisateur")
+        logger.info("ArrÔøΩt demandÔøΩ par l'utilisateur")
     except Exception as e:
         logger.error(f"Erreur fatale: {str(e)}")
     finally:

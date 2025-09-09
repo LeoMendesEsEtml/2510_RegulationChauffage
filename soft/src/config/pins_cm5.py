@@ -3,26 +3,26 @@
 """
 Configuration des broches GPIO du CM5.
 
-Ce module définit:
+Ce module dÃ©finit:
 - Le mapping des broches GPIO
 - Les configurations des interfaces SPI
-- Les signaux de contrôle de l'ADC
+- Les signaux de contrÃ´le de l'ADC
 - Les E/S diverses (LED, relais)
 
-Architecture matérielle:
+Architecture matÃ©rielle:
 ----------------------
 1. Interfaces SPI :
-   - SPI0 : Multiplexeur ADG731 (réseau résistif)
+   - SPI0 : Multiplexeur ADG731 (rÃ©seau rÃ©sistif)
      * SCLK, MOSI uniquement (pas de MISO)
-     * 4 CS pour sélection des cartes
+     * 4 CS pour sÃ©lection des cartes
    - SPI1 : ADC ADS124S08 (mesures)
      * SCLK, MOSI, MISO
-     * 1 CS dédié
+     * 1 CS dÃ©diÃ©
 
-2. Contrôle ADC :
-   - DRDY : Donnée prête
-   - START_SYNC : Démarrage conversion
-   - A0/A1 : Sélection référence
+2. ContrÃ´le ADC :
+   - DRDY : DonnÃ©e prÃªte
+   - START_SYNC : DÃ©marrage conversion
+   - A0/A1 : SÃ©lection rÃ©fÃ©rence
 
 3. GPIO divers :
    - LED de statut
@@ -31,12 +31,12 @@ Architecture matérielle:
 4. Contacts secs 24V :
    - Canal 1 :
      * CM_24V_OUT_1 (GPIO 13) : Sortie +24V
-     * CM_24V_SENSE_1 (GPIO 14) : Entrée détection
+     * CM_24V_SENSE_1 (GPIO 14) : EntrÃ©e dÃ©tection
    - Canal 2 :
      * CM_24V_OUT_2 (GPIO 15) : Sortie +24V
-     * CM_24V_SENSE_2 (GPIO 16) : Entrée détection
+     * CM_24V_SENSE_2 (GPIO 16) : EntrÃ©e dÃ©tection
 
-Note: Tous les numéros de broches sont en mode BCM.
+Note: Tous les numÃ©ros de broches sont en mode BCM.
 """
 
 from typing import Dict, List, Set
@@ -49,11 +49,11 @@ class SPIConfig:
     
     Attributs:
         sclk: Broche horloge SPI
-        mosi: Broche données sortantes (Master Out)
-        miso: Broche données entrantes (Master In), optionnelle
+        mosi: Broche donnÃ©es sortantes (Master Out)
+        miso: Broche donnÃ©es entrantes (Master In), optionnelle
         cs: Liste des broches chip select
     
-    Note: Le MISO est optionnel car certains périphériques
+    Note: Le MISO est optionnel car certains pÃ©riphÃ©riques
     comme l'ADG731 sont write-only.
     """
     sclk: int          # Serial Clock
@@ -64,75 +64,75 @@ class SPIConfig:
 @dataclass
 class ADCConfig:
     """
-    Configuration des broches de contrôle de l'ADC.
+    Configuration des broches de contrÃ´le de l'ADC.
     
     Attributs:
-        drdy: Signal Data Ready (conversion terminée)
-        start_sync: Signal Start/Sync (démarrage conversion)
-        ref_a0: Sélection référence A0 (configuration ref)
-        ref_a1: Sélection référence A1 (configuration ref)
+        drdy: Signal Data Ready (conversion terminÃ©e)
+        start_sync: Signal Start/Sync (dÃ©marrage conversion)
+        ref_a0: SÃ©lection rÃ©fÃ©rence A0 (configuration ref)
+        ref_a1: SÃ©lection rÃ©fÃ©rence A1 (configuration ref)
         
     L'ADS124S08 utilise ces signaux pour:
-    - Indiquer quand les données sont prêtes (DRDY)
+    - Indiquer quand les donnÃ©es sont prÃªtes (DRDY)
     - Synchroniser les conversions (START)
-    - Configurer la référence de tension (A0/A1)
+    - Configurer la rÃ©fÃ©rence de tension (A0/A1)
     """
-    drdy: int          # Data Ready (entrée)
+    drdy: int          # Data Ready (entrÃ©e)
     start_sync: int    # Start/Sync (sortie)
-    ref_a0: int        # Sélection référence A0 (sortie)
-    ref_a1: int        # Sélection référence A1 (sortie)
+    ref_a0: int        # SÃ©lection rÃ©fÃ©rence A0 (sortie)
+    ref_a1: int        # SÃ©lection rÃ©fÃ©rence A1 (sortie)
 
 # Ensemble des broches GPIO valides sur CM5
 VALID_GPIO_PINS: Set[int] = set(range(0, 54))  # BCM 0-53
 
 def validate_pin(pin: int, name: str) -> None:
     """
-    Vérifie qu'un numéro de broche est valide.
+    VÃ©rifie qu'un numÃ©ro de broche est valide.
     
     Args:
-        pin: Numéro de broche BCM à vérifier
+        pin: NumÃ©ro de broche BCM Ã  vÃ©rifier
         name: Nom du signal pour le message d'erreur
         
     Raises:
-        ValueError: Si le numéro est invalide
+        ValueError: Si le numÃ©ro est invalide
     """
     if pin not in VALID_GPIO_PINS:
         raise ValueError(f"Broche invalide pour {name}: {pin}")
 
 # Configuration SPI0 pour multiplexeur ADG731
-# Interface write-only pour sélection résistances
+# Interface write-only pour sÃ©lection rÃ©sistances
 SPI0 = SPIConfig(
     sclk=11,    # SPI0_SCLK - Horloge 1MHz
-    mosi=10,    # SPI0_MOSI - Données sortantes
+    mosi=10,    # SPI0_MOSI - DonnÃ©es sortantes
     cs=[8, 7, 3, 2]  # CS[0:3] pour 4 cartes max
 )
 
 # Configuration SPI1 pour ADC ADS124S08
 # Interface bidirectionnelle pour mesures
 SPI1 = SPIConfig(
-    sclk=25,    # SPI1_SCLK - Horloge 1MHz
-    mosi=26,    # SPI1_MOSI - Config + contrôle
-    miso=49,    # SPI1_SIO[1]
-    cs=[50]     # SPI1_CSn[0] (via alt func A0)
+    sclk=21,    # SPI1_SCLK - Horloge 1MHz
+    mosi=20,    # SPI1_MOSI - Config + contrÃ´le
+    miso=19,    # SPI1_SIO[1]
+    cs=[18]     # SPI1_CSn[0]
 )
 
 # Configuration ADC
 ADC = ADCConfig(
-    drdy=46,        # Data Ready
-    start_sync=47,  # Start/Sync
-    ref_a0=45,      # Référence A0
-    ref_a1=41       # Référence A1
+    drdy=22,        # Data Ready
+    start_sync=23,  # Start/Sync
+    ref_a0=24,      # RÃ©fÃ©rence A0
+    ref_a1=25       # RÃ©fÃ©rence A1
 )
 
 # Autres broches
-RELAY_PIN = 20
-LED_PIN = 24
+RELAY_PIN = 17
+LED_PIN = 27
 
 # Contacts secs 24V
 CM_24V_OUT_1 = 13    # GPIO 13 - Sortie 24V canal 1
-CM_24V_SENSE_1 = 14  # GPIO 14 - Entrée détection canal 1
+CM_24V_SENSE_1 = 14  # GPIO 14 - EntrÃ©e dÃ©tection canal 1
 CM_24V_OUT_2 = 15    # GPIO 15 - Sortie 24V canal 2
-CM_24V_SENSE_2 = 16  # GPIO 16 - Entrée détection canal 2
+CM_24V_SENSE_2 = 16  # GPIO 16 - EntrÃ©e dÃ©tection canal 2
 
 # Construction du dictionnaire PINS
 PINS = {
