@@ -1,0 +1,289 @@
+@startuml
+' ===================== APP =====================
+package app {
+  class Main {
+    -hw: Dict
+    -running: bool
+    -mux: Adg731
+    -adc: ADS124S08
+    -dry_contacts: DryContacts
+    +__init__()
+    +run()
+    +stop' ===================== RELATIONS =====================nnel()
+  }
+}
+
+' ===================== API =====================
+package api {
+  class External {
+    +get_params()
+    +push_metrics()
+    +push_faults()
+  }
+}
+
+' ===================== HAL =====================
+package hal {
+  class SpiBus {
+    +open()
+    +configure(mode, speed)
+    +transfer(data)
+    +write_then_read(write_data, read_len)
+    +set_mode(mode)
+    +set_speed(speed)
+  }
+  class GPIO {
+    +setup_out(pin, initial)
+    +setup_in(pin)
+    +write(pin, value)
+    +read(pin)
+    +attach_interrupt(pin, callback, edge)
+  }
+  class Timer {
+    +start(interval, callback)
+    +stop()
+  }
+}
+
+' ===================== IO =====================
+package io {
+  class DryContacts {
+    -_gpio: GPIO
+    -_channels: Dict[int, Tuple[int, int]]
+    +__init__(gpio)
+    +read_channel(channel: int) -> bool
+    +read_all_channels() -> Dict[int, bool]
+  }
+}
+
+' ===================== SCHEDULER =====================
+package scheduler {
+  class Scheduler {
+    +add_task(interval_s, func, name)
+    +run()
+  }
+}
+
+' ===================== FILTER =====================
+package filter {
+  class Filter {
+    +moving_average(values, window)
+    +ema(values, alpha)
+    +median(values, window)
+    +detect_outlier(values)
+  }
+}
+
+' ===================== FAULT =====================
+package fault {
+  class FaultManager {
+    +report_fault(code, context)
+    +get_last_fault()
+    +clear_faults()
+  }
+}
+
+' ===================== PERSISTENCE =====================
+package persist {
+  class ConfigStore {
+    +save(key, value)
+    +load(key)
+    +migrate(version)
+  }
+}
+
+' ===================== SIMULATOR =====================
+package simulator {
+  class SensorSimulator {
+    +simulate(profile, t_c)
+  }
+}
+
+' ===================== DRIVERS =====================
+package drivers {
+  class Adg731 {
+  -spi: SpiBus
+  -cs_pins
+  -gpio: GPIO
+  -t_cs
+  -_card
+  +__init__(spi, cs_pins, gpio, t_cs_us)
+  +select_card(index)
+  +set_channel(addr)
+  +power_up()
+  +power_down()
+  +get_selected()
+}
+
+class ADS124S08 {
+  -spi: SpiBus
+  -gpio: GPIO
+  +reset()
+  +setup_reference(bank, source, ref_pin)
+  +configure_idac(route)
+  +set_pga_gain(gain)
+  +set_data_rate(rate)
+  +set_chop(chop)
+  +apply()
+  +read_status()
+  +read_registers()
+  +start_single_shot()
+  +drdy_isr_enable()
+  +on_drdy_callback(raw)
+  +compute_ratio_or_resistance(raw, rref, idac)
+  +offset_calibrate()
+  +gain_calibrate()
+  +start_continuous()
+  +stop()
+  +power_down()
+  }
+}
+
+' ===================== HW =====================
+package hw {
+  class GpioCm5 {
+    +setup()
+    +cleanup()
+  }
+}
+
+' ===================== CONTROL =====================
+package control {
+  class Regulation {
+    +regulate(Tmes, consignes, params)
+    +anti_windup()
+    +fallback_mode()
+  }
+}
+
+' ===================== UTILS =====================
+package utils {
+  class ErrorHandler {
+    +handle_error(error, context)
+    +log_error(error)
+  }
+  class LoggingConfig {
+    +setup_logging()
+    +get_logger(name)
+  }
+}
+
+' ===================== METROLOGY =====================
+package Metrology {
+  class SensorProfile {
+    +name
+    +model
+    +r0_ohm
+    +t0_c
+    +A
+    +B
+    +C
+    +rref_nom
+    +offset_r_ohm
+    +scale
+    +tare_cable_r_ohm
+  }
+  class TempConverter {
+    +r_to_temp_pt(profile, r_ohm)
+    +r_to_temp_ntc(profile, r_ohm)
+    +temp_to_r(profile, t_c)
+  }
+  class MetrologyExceptions {
+    +InvalidProfileError
+    +ConversionError
+  }
+}
+
+' ===================== CONFIGURATION =====================
+package config {
+  class SystemConfig {
+    +DEBUG: bool
+    +SIMULATION: bool
+    +LOG_LEVEL: str
+  }
+  
+  class ADCChannelConfig {
+  +name
+  +logical_channel
+  +mux_card
+  +mux_addr
+  +adc_diff_pos
+  +adc_diff_neg
+  +pga_gain
+  +data_rate_sps
+  +ref_mode
+  +ref_bank
+  +idac_current_uA
+  +idac1_route
+  +idac2_route
+  +sensor_profile_name
+  +rref_nom_ohm
+  +cable_r_ohm
+  +averaging_count
+  +median_filter_size
+}
+  class Cm5Config {
+    +ADC_CHANNELS: List[ADCChannelConfig]
+    +build_routing()
+  }
+  
+  class PinsCm5 {
+    +VALID_GPIO_PINS: Set[int]
+    +validate_pin(pin: int, name: str)
+    +PINS: Dict[str, int]
+  }
+}
+
+' ===================== RELATIONS =====================
+class API {
+  +get_params()
+  +push_metrics()
+  +push_faults()
+}
+class Log {
+  +write(msg, level, channel)
+  +flush()
+}
+
+' ===================== CTRL =====================
+class CTRL {
+  +regulate(Tmes, consignes, params)
+  +Result: Tmes, Tprevu, commande, erreurs, flags, saturation
+  +anti_windup()
+  +fallback_mode()
+}
+
+' ===================== RELATIONS =====================
+' Drivers
+Adg731 --> SpiBus
+Adg731 --> GPIO
+ADS124S08 --> SpiBus
+ADS124S08 --> GPIO
+
+' Main app
+Main --> Adg731
+Main --> ADS124S08
+Main --> DryContacts
+Main --> External
+Main --> Scheduler
+Main --> FaultManager
+Main --> Filter
+Main --> Regulation
+Main --> ConfigStore
+Main --> SensorProfile
+Main --> TempConverter
+Main --> Cm5Config
+Main --> ADCChannelConfig
+Main --> SensorSimulator
+Main --> ErrorHandler
+Main --> LoggingConfig
+
+' GPIO dependencies
+DryContacts --> GPIO
+GpioCm5 --> GPIO
+
+' Config dependencies
+Cm5Config --> PinsCm5
+Cm5Config --> ADCChannelConfig
+
+@enduml

@@ -1,0 +1,74 @@
+@startuml event_flow
+' Diagramme d'événements : flux principal et modules/fichiers impliqués
+
+actor User
+participant "app/main.py" as Main
+participant "hal/gpio.py" as GPIO
+participant "config/cm5_config.py" as Config
+participant "drivers/mux_adg731.py" as MUX
+participant "drivers/adc_ads124s08.py" as ADC
+participant "Metrology/sensor_profiles.py" as SensorProfile
+participant "Metrology/convert.py" as TempConverter
+participant "control/regulation.py" as CTRL
+participant "api/external.py" as API
+participant "hw/gpio_cm5.py" as HW_GPIO
+participant "io/dry_contacts.py" as DryContacts
+participant "Timer Thread" as Timer
+
+== Initialisation ==
+User -> Main : Démarrage système
+Main -> Config : build_hw()
+Config -> GPIO : Initialise GPIO
+Config --> Main : Hardware configuré
+Main -> DryContacts : new DryContacts(GPIO)
+Main -> MUX : new Adg731(spi, cs_pins)
+Main -> ADC : new ADS124S08(spi, pins)
+
+== Boucle principale ==
+Main -> Timer : Démarre thread tick_5min
+Timer -> Timer : Attente 300s
+
+== Lecture contacts secs ==
+Main -> DryContacts : read_all_channels()
+DryContacts -> DryContacts : Lecture Canal 1 (24V)
+DryContacts -> DryContacts : Lecture Canal 2 (24V)
+DryContacts --> Main : États des deux canaux
+Main -> Log : Info états contacts
+
+== Mesures canaux ==
+loop Chaque canal dans CHANNEL_CONFIGS
+    Main -> MUX : select_card(card)
+    Main -> MUX : set_channel(channel)
+    Main -> ADC : reset()
+    Main -> ADC : basic_setup(gain, rate)
+    Main -> ADC : set_ref_bank(bank)
+    Main -> ADC : route_idac(current, pins)
+    Main -> ADC : select_diff_channel(pos, neg)
+    Main -> ADC : start_single_shot()
+    Main -> ADC : Attente DRDY
+    ADC --> Main : raw code
+    Main -> ADC : code_to_ratio(raw)
+    ADC --> Main : ratio
+    Main -> TempConverter : r_to_temp(profile, r_ohm)
+    TempConverter --> Main : température
+    Main -> API : get_params()
+    API --> Main : {N, kM, Tprevu}
+    Main -> CTRL : regulate(Tmes, params)
+    CTRL --> Main : commandes
+    Main -> MUX : program(slot, pas)
+    Main -> HW_GPIO : LED.short_flash()
+    Main -> Log : write(résultats)
+end
+
+== Gestion erreurs ==
+Main -> HW_GPIO : Relay.off()
+Main -> HW_GPIO : LED.blink_2hz()
+Main -> Log : write(erreur)
+
+== Arrêt système ==
+User -> Main : KeyboardInterrupt
+Main -> ADC : stop()
+Main -> ADC : powerdown()
+Main -> GPIO : cleanup()
+
+@enduml

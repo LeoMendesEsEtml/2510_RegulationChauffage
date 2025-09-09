@@ -1,25 +1,181 @@
+# -*- coding: utf-8 -*-
+"""
+Configuration globale et constantes du système.
+"""
+
+from typing import Dict, Any
+import json
+from pathlib import Path
+import logging
+from utils.logging_config import setup_module_logger
+
+# Logger
+logger = setup_module_logger(__name__)
+
+# Chemins
+CONFIG_DIR = Path("config")
+DATA_DIR = Path("data")
+LOG_DIR = Path("logs")
+
+# Paramètres ADC
+ADC_SETTINGS = {
+    "spi_bus": 0,
+    "spi_device": 0,
+    "spi_speed_hz": 1_000_000,
+    "vref": 2.5,  # Tension de référence en Volts
+    "gain": 1,    # Gain par défaut
+}
+
+# Paramètres MUX
+MUX_SETTINGS = {
+    "spi_bus": 0,
+    "spi_device": 1,
+    "channel_count": 32,
+    "switch_delay_ms": 1
+}
+
+# Paramètres de régulation
+CONTROL_SETTINGS = {
+    "sample_period_s": 1.0,    # Période d'échantillonnage
+    "filter_window": 5,        # Taille fenêtre filtre
+    "control_period_s": 5.0,   # Période de régulation
+    "deadband_c": 0.5,        # Bande morte en °C
+    "pid": {
+        "kp": 1.0,  # Gain proportionnel
+        "ki": 0.1,  # Gain intégral
+        "kd": 0.0   # Gain dérivé
+    }
+}
+
+# Paramètres capteurs
+SENSOR_SETTINGS = {
+    "ptc": {
+        "r0": 1000.0,    # Résistance à 0°C
+        "a": 0.00385,    # Coefficient de température
+        "min_temp": -50,
+        "max_temp": 150
+    },
+    "ntc": {
+        "r25": 10000.0,  # Résistance à 25°C
+        "beta": 3950,    # Coefficient beta
+        "min_temp": -40,
+        "max_temp": 125
+    }
+}
+
 class Settings:
-    # ADC SPI (ADS124S0x)
-    ADC_BUS          = 1
-    ADC_CS_INDEX     = 0           # /dev/spidev1.0
-    ADC_MODE         = 1           # CPOL=0, CPHA=1 per datasheet
-    ADC_SPEED_HZ     = 1000000     # 1 MHz safe
-    ADC_FULL_SCALE   = (1 << 23)   # 24-bit signed, full-scale code for ratio
+    """
+    Gestionnaire de configuration.
+    
+    Charge/sauvegarde la configuration depuis/vers un fichier JSON.
+    Permet la modification dynamique des paramètres.
+    """
+    
+    def __init__(self, config_file: str = "settings.json"):
+        """
+        Initialise les paramètres avec les valeurs par défaut.
+        
+        Args:
+            config_file: Nom du fichier de configuration
+        """
+        self.config_file = CONFIG_DIR / config_file
+        
+        # Valeurs par défaut
+        self._settings = {
+            "adc": ADC_SETTINGS,
+            "mux": MUX_SETTINGS,
+            "control": CONTROL_SETTINGS,
+            "sensors": SENSOR_SETTINGS
+        }
+        
+        # Charge la configuration si elle existe
+        self.load()
+        
+    def load(self) -> None:
+        """
+        Charge la configuration depuis le fichier.
+        Utilise les valeurs par défaut si le fichier n'existe pas.
+        """
+        try:
+            if self.config_file.exists():
+                with open(self.config_file, 'r') as f:
+                    loaded = json.load(f)
+                    # Mise à jour récursive
+                    self._update_recursive(self._settings, loaded)
+                logger.info(f"Configuration chargée: {self.config_file}")
+        except Exception as e:
+            logger.error(f"Erreur chargement config: {str(e)}")
+            
+    def save(self) -> None:
+        """
+        Sauvegarde la configuration dans le fichier.
+        Crée les répertoires si nécessaire.
+        """
+        try:
+            self.config_file.parent.mkdir(exist_ok=True)
+            with open(self.config_file, 'w') as f:
+                json.dump(self._settings, f, indent=4)
+            logger.info(f"Configuration sauvegardée: {self.config_file}")
+        except Exception as e:
+            logger.error(f"Erreur sauvegarde config: {str(e)}")
+            
+    def get(self, section: str, key: str, default: Any = None) -> Any:
+        """
+        Retourne une valeur de configuration.
+        
+        Args:
+            section: Section de configuration
+            key: Clé du paramètre
+            default: Valeur par défaut
+            
+        Returns:
+            Valeur du paramètre ou default
+        """
+        try:
+            return self._settings[section][key]
+        except KeyError:
+            return default
+            
+    def set(self, section: str, key: str, value: Any) -> None:
+        """
+        Modifie une valeur de configuration.
+        
+        Args:
+            section: Section de configuration
+            key: Clé du paramètre
+            value: Nouvelle valeur
+        """
+        if section not in self._settings:
+            self._settings[section] = {}
+        self._settings[section][key] = value
+        
+    def get_section(self, section: str) -> Dict[str, Any]:
+        """
+        Retourne une section complète.
+        
+        Args:
+            section: Nom de la section
+            
+        Returns:
+            Dictionnaire de la section
+        """
+        return self._settings.get(section, {})
+        
+    @staticmethod
+    def _update_recursive(target: Dict, source: Dict) -> None:
+        """
+        Met à jour un dictionnaire de manière récursive.
+        
+        Args:
+            target: Dictionnaire cible
+            source: Dictionnaire source
+        """
+        for key, value in source.items():
+            if isinstance(value, dict):
+                target.setdefault(key, {})
+                Settings._update_recursive(target[key], value)
+            else:
+                target[key] = value
 
-    # MUX SPI on SPI0, manual CS via GPIO
-    MUX_BUS          = 0
-    MUX_MODE         = 0
-    MUX_SPEED_HZ     = 1000000
-    MUX_CS_PINS      = [8, 7, 3, 2]   # BCM list, order defines mux index 0..3
-
-    # API
-    API_BASE_URL     = "http://192.168.1.100:8080/api"  # Ã  adapter
-    API_DEVICE_ID    = "cm5-2510-a"
-    API_TIMEOUT_S    = 2.0
-
-    # Measurement loop
-    LOOP_PERIOD_S    = 1.0
-
-    # Table de correspondance tempÃ©rature -> index MUX (32 points)
-    # TODO: renseigner la table rÃ©elle selon ton rÃ©seau rÃ©sistif mesurÃ©
-    TEMP_TABLE_C     = [-20.0 + (i * 2.0) for i in range(32)]  # placeholder
+# Instance globale des paramètres
+settings = Settings()
