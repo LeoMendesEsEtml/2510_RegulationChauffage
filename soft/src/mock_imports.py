@@ -28,11 +28,81 @@ except:
 if is_raspberry_pi:
     print("Détection d'un Raspberry Pi - Utilisation des modules réels")
     try:
-        import RPi.GPIO as GPIO
+        import gpiod
         import spidev
+        import logging
+        
+        logger = logging.getLogger("GPIO-Driver")
+        
+        # Création d'une classe de compatibilité GPIO pour gpiod
+        class GPIO:
+            OUT = 'out'
+            IN = 'in'
+            HIGH = 1
+            LOW = 0
+            BCM = 'bcm'
+            BOARD = 'board'
+            _mode = BCM
+            _chip = None
+            _lines = {}
+            
+            @staticmethod
+            def setmode(mode):
+                GPIO._mode = mode
+                try:
+                    GPIO._chip = gpiod.Chip('gpiochip0')
+                    logger.info(f"GPIO chip ouvert: {GPIO._chip.name}")
+                except Exception as e:
+                    logger.error(f"Erreur lors de l'ouverture du chip GPIO: {e}")
+                    raise
+            
+            @staticmethod
+            def setwarnings(flag):
+                pass
+            
+            @staticmethod
+            def setup(channel, direction, initial=None):
+                if GPIO._chip is None:
+                    GPIO.setmode(GPIO.BCM)
+                if initial is None:
+                    initial = GPIO.LOW
+                try:
+                    line = GPIO._chip.get_line(channel)
+                    line.request(consumer='test_lm70', type=gpiod.LINE_REQ_DIR_OUT)
+                    GPIO._lines[channel] = line
+                    line.set_value(initial)
+                    logger.info(f"GPIO {channel} configuré en sortie, valeur initiale: {initial}")
+                except Exception as e:
+                    logger.error(f"Erreur lors de la configuration du GPIO {channel}: {e}")
+                    raise
+            
+            @staticmethod
+            def output(channel, value):
+                if channel in GPIO._lines:
+                    try:
+                        GPIO._lines[channel].set_value(value)
+                        logger.debug(f"GPIO {channel} mis à {value}")
+                    except Exception as e:
+                        logger.error(f"Erreur lors de l'écriture sur le GPIO {channel}: {e}")
+                        raise
+                else:
+                    raise RuntimeError(f"GPIO {channel} non configuré")
+            
+            @staticmethod
+            def cleanup():
+                if GPIO._chip:
+                    for channel, line in GPIO._lines.items():
+                        try:
+                            line.release()
+                            logger.info(f"GPIO {channel} libéré")
+                        except Exception as e:
+                            logger.error(f"Erreur lors de la libération du GPIO {channel}: {e}")
+                    GPIO._lines.clear()
+                    GPIO._chip = None
+                    logger.info("Nettoyage GPIO terminé")
     except ImportError as e:
         print(f"Erreur d'importation des modules réels: {e}")
-        print("Installez-les avec: pip install RPi.GPIO spidev")
+        print("Installez-les avec: sudo apt install -y python3-gpiod spidev")
         sys.exit(1)
 else:
     print("Pas de Raspberry Pi détecté - Utilisation des modules simulés")

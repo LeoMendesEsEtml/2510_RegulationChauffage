@@ -52,10 +52,11 @@ def test_lm70():
         
         # Configuration SPI pour le LM70
         spi = spidev.SpiDev()
-        spi.open(1, 1)  # Bus 1, Device 1
+        spi.open(0, 0)  # Bus 0, Device 0 (CM5)
         spi.max_speed_hz = 1000000  # 1MHz
         spi.mode = 0  # Mode 0: CPOL=0, CPHA=0
         spi.bits_per_word = 8
+        spi.lsbfirst = False  # MSB first
         
         logger.info("Configuration SPI et GPIO terminée")
         logger.info(f"Connexions: MISO→GPIO19, SCLK→GPIO21, CS→GPIO{LM70_CS_PIN}")

@@ -110,11 +110,12 @@ def test_lm70_spi():
         
         # Configuration SPI pour le LM70
         lm70_config = {
-            "bus": 1,            # Utilise SPI1 qui a MISO (GPIO 19)
-            "device": 1,         # Device différent pour ne pas interférer avec l'ADC
+            "bus": 0,            # Bus 0 sur CM5
+            "device": 0,         # Device 0 sur CM5
             "max_hz": 1000000,   # 1MHz
             "mode": 0,           # Mode 0 (CPOL=0, CPHA=0)
-            "bits": 8            # 8 bits par mot
+            "bits": 8,           # 8 bits par mot
+            "lsbfirst": False    # MSB first
         }
         
         # Ouvre SPI pour le LM70
