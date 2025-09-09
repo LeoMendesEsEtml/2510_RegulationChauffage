@@ -83,18 +83,18 @@ def test_lm70():
                 # Combine les 2 octets en un entier 16 bits
                 raw_temp = (resp[0] << 8) | resp[1]
                 
-                # Ignore les 3 bits les plus significatifs
-                raw_temp = raw_temp >> 3
+                # Ignore les 5 bits les moins significatifs
+                raw_temp = raw_temp >> 5
                 
-                # Convertir les 13 bits en entier signé
-                if raw_temp & 0x1000:  # Si le bit de signe est 1
-                    raw_temp -= 0x2000  # Appliquer le complément à 2
+                # Convertir les 11 bits en entier signé
+                if raw_temp & 0x0400:  # Si le bit de signe est 1
+                    raw_temp -= 0x0800  # Appliquer le complément à 2
                 
                 # Calculer la température en °C
-                temp_celsius = raw_temp * 0.03125
+                temp_celsius = raw_temp * 0.25
                 
-                logger.info(f"Température mesurée : {temp_celsius:.2f}°C")
-                logger.debug(f"Données brutes combinées : {raw_temp}")
+                logger.info(f"Données brutes combinées : {raw_temp}")
+                logger.info(f"Température calculée : {temp_celsius:.2f}°C")
             else:
                 logger.warning("Données SPI invalides - vérifiez les connexions")
             
