@@ -1,5 +1,5 @@
-#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+#!/usr/bin/env python3
 """
 Test LM70 avec support automatique pour simulateur et hardware réel.
 Ce script fonctionnera aussi bien sur un PC que sur un Raspberry Pi.

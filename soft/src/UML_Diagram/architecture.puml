@@ -9,7 +9,8 @@ package app {
     -dry_contacts: DryContacts
     +__init__()
     +run()
-    +stop' ===================== RELATIONS =====================nnel()
+    +stop()
+    ' La classe Main gere l'application principale
   }
 }
 

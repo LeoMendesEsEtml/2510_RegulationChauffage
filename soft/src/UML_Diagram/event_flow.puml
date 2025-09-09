@@ -1,9 +1,9 @@
+
 @startuml event_flow
-' Diagramme d'événements : flux principal et modules/fichiers impliqués
+' Diagramme d'evenements : flux principal et modules utilises (ASCII sans accent)
 
 actor User
 participant "app/main.py" as Main
-participant "hal/gpio.py" as GPIO
 participant "config/cm5_config.py" as Config
 participant "drivers/mux_adg731.py" as MUX
 participant "drivers/adc_ads124s08.py" as ADC
@@ -16,24 +16,24 @@ participant "io/dry_contacts.py" as DryContacts
 participant "Timer Thread" as Timer
 
 == Initialisation ==
-User -> Main : Démarrage système
+User -> Main : Demarrage systeme
 Main -> Config : build_hw()
-Config -> GPIO : Initialise GPIO
-Config --> Main : Hardware configuré
+Config -> HW_GPIO : Initialise GPIO
+Config --> Main : Hardware configure
 Main -> DryContacts : new DryContacts(GPIO)
 Main -> MUX : new Adg731(spi, cs_pins)
 Main -> ADC : new ADS124S08(spi, pins)
 
 == Boucle principale ==
-Main -> Timer : Démarre thread tick_5min
+Main -> Timer : Demarre thread tick_5min
 Timer -> Timer : Attente 300s
 
 == Lecture contacts secs ==
 Main -> DryContacts : read_all_channels()
 DryContacts -> DryContacts : Lecture Canal 1 (24V)
 DryContacts -> DryContacts : Lecture Canal 2 (24V)
-DryContacts --> Main : États des deux canaux
-Main -> Log : Info états contacts
+DryContacts --> Main : Etats des deux canaux
+Main -> HW_GPIO : Info etats contacts
 
 == Mesures canaux ==
 loop Chaque canal dans CHANNEL_CONFIGS
@@ -50,25 +50,24 @@ loop Chaque canal dans CHANNEL_CONFIGS
     Main -> ADC : code_to_ratio(raw)
     ADC --> Main : ratio
     Main -> TempConverter : r_to_temp(profile, r_ohm)
-    TempConverter --> Main : température
+    TempConverter --> Main : temperature
     Main -> API : get_params()
     API --> Main : {N, kM, Tprevu}
-    Main -> CTRL : regulate(Tmes, params)
+    Main -> CTRL : regulate(Tmes, N, kM, Tprevu)
     CTRL --> Main : commandes
-    Main -> MUX : program(slot, pas)
     Main -> HW_GPIO : LED.short_flash()
-    Main -> Log : write(résultats)
+    Main -> HW_GPIO : Log resultats
 end
 
 == Gestion erreurs ==
 Main -> HW_GPIO : Relay.off()
 Main -> HW_GPIO : LED.blink_2hz()
-Main -> Log : write(erreur)
+Main -> HW_GPIO : Log erreur
 
-== Arrêt système ==
+== Arret systeme ==
 User -> Main : KeyboardInterrupt
 Main -> ADC : stop()
 Main -> ADC : powerdown()
-Main -> GPIO : cleanup()
+Main -> HW_GPIO : cleanup()
 
 @enduml

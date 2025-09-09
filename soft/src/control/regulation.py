@@ -1,22 +1,22 @@
 # -*- coding: utf-8 -*-
 """
-Module de régulation de température.
+Module de rï¿½gulation de tempï¿½rature.
 
-Ce module implémente:
-1. Algorithme de régulation thermique
-   - Calcul température simulée
-   - Sélection résistance équivalente
+Ce module implï¿½mente:
+1. Algorithme de rï¿½gulation thermique
+   - Calcul tempï¿½rature simulï¿½e
+   - Sï¿½lection rï¿½sistance ï¿½quivalente
    - Application loi de commande
 
-2. Gestion des paramètres:
-   - N: facteur de mélange (0..1)
-   - kM: coefficient météo (-1..1) 
-   - Tprevu: température prévue
+2. Gestion des paramï¿½tres:
+   - N: facteur de mï¿½lange (0..1)
+   - kM: coefficient mï¿½tï¿½o (-1..1) 
+   - Tprevu: tempï¿½rature prï¿½vue
 
-3. Paramètres réseau résistif:
-   - 32 points de 1k? à 50k?
-   - Résolution ~0.1°C
-   - Plage -20°C à +40°C
+3. Paramï¿½tres rï¿½seau rï¿½sistif:
+   - 32 points de 1k? ï¿½ 50k?
+   - Rï¿½solution ~0.1ï¿½C
+   - Plage -20ï¿½C ï¿½ +40ï¿½C
 
 Auteur: LeoMendesEsEtml
 Date: 2025
@@ -35,44 +35,44 @@ logger = setup_module_logger(__name__)
 @dataclass
 class RegulationParams:
     """
-    Paramètres de l'algorithme de régulation.
+    Paramï¿½tres de l'algorithme de rï¿½gulation.
     
     Attributs:
-        N: Facteur de mélange (0..1)
-           0 = 100% mesure, 1 = 100% prévision
-        kM: Coefficient météo (-1..1)
-           Impact de la météo sur la prévision
-        Tprevu: Température prévue (°C)
-           Consigne de température
+        N: Facteur de mï¿½lange (0..1)
+           0 = 100% mesure, 1 = 100% prï¿½vision
+        kM: Coefficient mï¿½tï¿½o (-1..1)
+           Impact de la mï¿½tï¿½o sur la prï¿½vision
+        Tprevu: Tempï¿½rature prï¿½vue (ï¿½C)
+           Consigne de tempï¿½rature
     """
-    N: float           # Facteur mélange
-    kM: float         # Coeff météo
-    Tprevu: float     # T prévue
+    N: float           # Facteur melange
+    kM: float         # Coeff meteo
+    Tprevu: float     # T prevue
     
     def validate(self) -> None:
         """
-        Valide les paramètres de régulation.
+        Valide les paramï¿½tres de rï¿½gulation.
         
         Raises:
-            ValueError: Si paramètres hors limites
+            ValueError: Si paramï¿½tres hors limites
         """
         if not 0 <= self.N <= 1:
-            raise ValueError(f"N doit être entre 0 et 1: {self.N}")
+            raise ValueError(f"N doit ï¿½tre entre 0 et 1: {self.N}")
         if not -1 <= self.kM <= 1:
-            raise ValueError(f"kM doit être entre -1 et 1: {self.kM}")
+            raise ValueError(f"kM doit ï¿½tre entre -1 et 1: {self.kM}")
         if not -50 <= self.Tprevu <= 50:
             raise ValueError(
-                f"Tprevu doit être entre -50 et 50°C: {self.Tprevu}"
+                f"Tprevu doit ï¿½tre entre -50 et 50ï¿½C: {self.Tprevu}"
             )
 
 class RegulationResult:
     """
-    Résultat d'une itération de régulation.
+    Rï¿½sultat d'une itï¿½ration de rï¿½gulation.
     
     Attributs:
-        slot: Index dans le réseau (0..31)
-        step: Pas de résolution
-        Tsim: Température simulée résultante
+        slot: Index dans le rï¿½seau (0..31)
+        step: Pas de rï¿½solution
+        Tsim: Tempï¿½rature simulï¿½e rï¿½sultante
     """
     def __init__(
         self,
@@ -94,17 +94,17 @@ class RegulationResult:
 
 class Regulation:
     """
-    Contrôleur de régulation thermique.
+    Contrï¿½leur de rï¿½gulation thermique.
     
-    Implémente l'algorithme de régulation avec:
-    - Calcul température simulée
-    - Sélection résistance équivalente
+    Implï¿½mente l'algorithme de rï¿½gulation avec:
+    - Calcul tempï¿½rature simulï¿½e
+    - Sï¿½lection rï¿½sistance ï¿½quivalente
     - Gestion des transitions
     """
     
     def __init__(self):
-        """Initialise le contrôleur."""
-        # Table T -> index réseau (32 points)
+        """Initialise le contrï¿½leur."""
+    # Table T -> index reseau (32 points)
         self._temp_table = [
             -20.0 + i * 2.0 for i in range(32)
         ]
@@ -118,52 +118,52 @@ class Regulation:
         Tprevu: float
     ) -> RegulationResult:
         """
-        Exécute une itération de régulation.
+        Exï¿½cute une itï¿½ration de rï¿½gulation.
         
         Args:
-            Tmes: Température mesurée (°C)
-            N: Facteur de mélange (0..1)
-            kM: Coefficient météo (-1..1)
-            Tprevu: Température prévue (°C)
+            Tmes: Tempï¿½rature mesurï¿½e (ï¿½C)
+            N: Facteur de mï¿½lange (0..1)
+            kM: Coefficient mï¿½tï¿½o (-1..1)
+            Tprevu: Tempï¿½rature prï¿½vue (ï¿½C)
             
         Returns:
             RegulationResult avec:
-            - slot: Index réseau sélectionné
-            - step: Pas de résolution
-            - Tsim: Température simulée
+            - slot: Index rï¿½seau sï¿½lectionnï¿½
+            - step: Pas de rï¿½solution
+            - Tsim: Tempï¿½rature simulï¿½e
             
         Notes:
-            La température simulée est calculée par:
+            La tempï¿½rature simulï¿½e est calculï¿½e par:
             Tsim = (1-N)*Tmes + N*(Tprevu + kM*dT)
-            avec dT = variation typique journalière
+            avec dT = variation typique journaliï¿½re
         """
-        # Validation des paramètres
+    # Validation des parametres
         params = RegulationParams(N, kM, Tprevu)
         params.validate()
         
         try:
-            # 1. Calcul température simulée
+            # 1. Calcul temperature simulee
             dT = 5.0  # Variation typique jour/nuit
             Tsim = (
                 (1 - N) * Tmes +           # Composante mesure
-                N * (Tprevu + kM * dT)     # Composante prévision
+                N * (Tprevu + kM * dT)     # Composante prevision
             )
             
-            # 2. Sélection slot réseau résistif
+            # 2. Selection slot reseau resistif
             slot, step = self._find_network_slot(Tsim)
             
-            # 3. Mise à jour et logging
+            # 3. Mise a jour et logging
             self._last_slot = slot
             logger.info(
-                f"Régulation: Tmes={Tmes:.1f}°C, "
-                f"Tsim={Tsim:.1f}°C -> slot {slot}"
+                f"Rï¿½gulation: Tmes={Tmes:.1f}ï¿½C, "
+                f"Tsim={Tsim:.1f}ï¿½C -> slot {slot}"
             )
             
             return RegulationResult(slot, step, Tsim)
             
         except Exception as e:
-            logger.error(f"Erreur régulation: {str(e)}")
-            # En cas d'erreur, maintient dernier état
+            logger.error(f"Erreur rï¿½gulation: {str(e)}")
+            # En cas d'erreur, maintient dernier etat
             return RegulationResult(
                 self._last_slot, 1, Tmes
             )
@@ -173,23 +173,23 @@ class Regulation:
         temp: float
     ) -> Tuple[int, int]:
         """
-        Trouve le slot réseau le plus proche.
+        Trouve le slot rï¿½seau le plus proche.
         
         Args:
-            temp: Température cible (°C)
+            temp: Tempï¿½rature cible (ï¿½C)
             
         Returns:
             (slot, step) avec:
-            - slot: Index dans le réseau (0..31)
-            - step: Pas de résolution
+            - slot: Index dans le rï¿½seau (0..31)
+            - step: Pas de rï¿½solution
         """
-        # Limites de la table
+    # Limites de la table
         if temp <= self._temp_table[0]:
             return 0, 1
         if temp >= self._temp_table[-1]:
             return len(self._temp_table) - 1, 1
             
-        # Recherche slot encadrant
+    # Recherche slot encadrant
         for i in range(len(self._temp_table) - 1):
             if (self._temp_table[i] <= temp <= 
                 self._temp_table[i + 1]):
@@ -204,7 +204,7 @@ class Regulation:
                     1
                 )
                 
-        # Ne devrait jamais arriver
+    # Ne devrait jamais arriver
         return 0, 1
 
 # Instance globale

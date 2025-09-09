@@ -1,4 +1,18 @@
 # coding: utf-8
+# Validation des parametres
+# Stockage des parametres
+# Conversion us -> s pour sleep()
+# Index de la carte active
+# Configuration des broches CS
+# Toutes en sortie, etat initial inactif (haut)
+# Validation de l'index
+# Validation de l'adresse
+# Sequence de selection:
+# 1. CS bas (echantillonne l'adresse)
+# 2. Envoi de l'adresse (8 bits)
+# 3. CS haut (applique la selection)
+# 4. Delai pour stabilisation
+# coding: utf-8
 """
 Driver pour le multiplexeur analogique ADG731 d'Analog Devices.
 

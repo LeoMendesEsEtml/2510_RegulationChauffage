@@ -1,232 +1,36 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Module principal du syst�me de r�gulation de chauffage.
+# Module principal du systeme de regulation chauffage (commentaires ASCII sans accent)
+# Fonctions :
+# - Acquisition temperature sur 4 canaux
+# - Communication avec API externe
+# - Controle regulation
+# - Gestion reseau resistif
+# - Surveillance du systeme
 
-Fonctionnalit�s:
-- Acquisition des temp�ratures sur 4 canaux
-- Communication avec l'API externe
-- Gestion de la r�gulation
-- Contr�le du r�seau r�sistif
-- Surveillance du syst�me
-
-Le syst�me lit des sondes r�elles, calcule une temp�rature simul�e
-� partir des pr�visions m�t�o, et applique une r�sistance �quivalente
-via un r�seau command�.
-
-Auteur: LeoMendesEsEtml
-Date: 2025
-Licence: MIT
-"""
 
 import threading
 import time
 import logging
-from typing import Dict, Optional
-
-# Imports des modules internes
 import sys
 import os
-# Ajouter le répertoire src au chemin Python (uniquement nécessaire si exécuté directement)
-current_dir = os.path.dirname(os.path.abspath(__file__))
-src_dir = os.path.dirname(current_dir)  # Remonte d'un niveau vers src
-if src_dir not in sys.path:
-    sys.path.insert(0, src_dir)
-
-try:
-    # Imports avec gestion d'erreur pour faciliter le débogage
-    from config.cm5_config import build_hw, ADC_CHANNELS
-    print("✓ Import config.cm5_config réussi")
-    
-    from drivers.mux_adg731 import Adg731        # Pilote multiplexeur
-    print("✓ Import drivers.mux_adg731 réussi")
-    
-    from drivers.adc_ads124s08 import ADS124S08  # Pilote ADC
-    print("✓ Import drivers.adc_ads124s08 réussi")
-    
-    from Metrology.convert import r_to_temp      # Conversion R -> T
-    print("✓ Import Metrology.convert réussi")
-    
-    from Metrology.sensor_profiles import (       # Profils des capteurs
-        SENSOR_DB,
-        SensorProfile, 
-        ADC_PARAMS_DB
-    )
-    print("✓ Import Metrology.sensor_profiles réussi")
-    
-    from hw.gpio_cm5 import (                    # Gestion GPIO
-        GPIO,
-        Relay,    # Relais de bypass
-        LED       # LED d'état
-    )
-    print("✓ Import hw.gpio_cm5 réussi")
-    
-    from io.dry_contacts import DryContacts      # Gestion des contacts secs 24V
-    print("✓ Import io.dry_contacts réussi")
-    
-    from api.external import API                 # Communication API
-    print("✓ Import api.external réussi")
-    
-    from control.regulation import CTRL          # Algorithme régulation
-    print("✓ Import control.regulation réussi")
-    
-except ImportError as e:
-    print(f"ERREUR D'IMPORT: {e}")
-    print(f"Chemins Python actuels: {sys.path}")
-
-# Configuration du logging avec rotation des fichiers
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-    handlers=[
-        logging.FileHandler('temperature.log'),  # Log dans fichier
-        logging.StreamHandler()                  # Log dans console
-    ]
-)
-logger = logging.getLogger(__name__)
-
-def test_lm70_spi():
-    """
-    Fonction de test pour le capteur LM70 via SPI.
-    Cette fonction utilise directement SPI1 qui est disponible sur le CM5.
-    
-    Connexions:
-    - MISO du LM70 à GPIO 19 (SPI1_MISO)
-    - SCLK du LM70 à GPIO 21 (SPI1_SCLK) 
-    - CS du LM70 à GPIO 18 (CS_ADC) ou un autre GPIO libre
-    """
-    try:
-        import spidev
-        import time
-        from hw.gpio_cm5 import GPIO
-        
-        # Configuration GPIO
-        GPIO.setmode(GPIO.BCM)
-        GPIO.setwarnings(False)
-        
-        # Utiliser GPIO 5 comme CS pour le LM70 (ou n'importe quel GPIO libre)
-        LM70_CS_PIN = 5
-        GPIO.setup(LM70_CS_PIN, GPIO.OUT, initial=GPIO.HIGH)
-        
-        # Configuration SPI pour le LM70
-        lm70_config = {
-            "bus": 0,            # Bus 0 sur CM5
-            "device": 0,         # Device 0 sur CM5
-            "max_hz": 1000000,   # 1MHz
-            "mode": 0,           # Mode 0 (CPOL=0, CPHA=0)
-            "bits": 8,           # 8 bits par mot
-            "lsbfirst": False    # MSB first
-        }
-        
-        # Ouvre SPI pour le LM70
-        spi_lm70 = _open_spi(lm70_config)
-        
-        try:
-            logger.info("Démarrage du test du capteur LM70...")
-            
-            # Fonction de lecture de température
-            def read_lm70_temp():
-                try:
-                    GPIO.output(LM70_CS_PIN, GPIO.LOW)  # Active CS
-                    
-                    # Lecture de 2 octets
-                    resp = spi_lm70.xfer2([0x00, 0x00])
-                    
-                    # Traitement des données (format 11-bit)
-                    raw_value = ((resp[0] << 8) | resp[1]) >> 5
-                    
-                    # Gestion du signe (complément à 2)
-                    if raw_value & 0x400:  # Bit de signe à 1
-                        temp_c = -((~raw_value & 0x7FF) + 1) * 0.125
-                    else:
-                        temp_c = raw_value * 0.125
-                    
-                    return temp_c
-                
-                finally:
-                    GPIO.output(LM70_CS_PIN, GPIO.HIGH)  # Désactive CS
-            
-            # Test de lecture (10 mesures)
-            for i in range(10):
-                temp = read_lm70_temp()
-                logger.info(f"Température LM70: {temp:.2f}°C")
-                time.sleep(1)
-                
-        finally:
-            # Nettoyage
-            spi_lm70.close()
-            GPIO.cleanup(LM70_CS_PIN)
-            logger.info("Test LM70 terminé et ressources libérées")
-    
-    except Exception as e:
-        logger.error(f"Erreur test LM70: {str(e)}")
-        import traceback
-        logger.error(traceback.format_exc())
-
-class ChannelConfig:
-    """
-    Configuration d'un canal d'acquisition.
-    
-    Attributs:
-        channel: Identifiant du canal (CH1..CH4)
-        profile: Type de capteur (AF60, PT1000, etc)
-        mux_card: Index de la carte multiplexeur (0..3)
-        mux_channel: Canal sur la carte multiplexeur (0..31)
-    """
-    def __init__(self, channel: str, profile: str, mux_card: int = 0, mux_channel: int = 0):
-        """
-        Initialise la configuration du canal.
-        
-        Args:
-            channel: Identifiant du canal
-            profile: Type de capteur
-            mux_card: Index carte MUX (d�faut: 0)
-            mux_channel: Canal MUX (d�faut: 0)
-        """
-        self.channel = channel
-        self.profile = profile
-        self.mux_card = mux_card
-        self.mux_channel = mux_channel
-
-# Configuration des canaux ADC avec leur type de capteur
-CHANNEL_CONFIGS = [
-    ChannelConfig("CH1", "AF60"),        # Sonde ext�rieure AF60
-    ChannelConfig("CH2", "PT1000"),      # Sonde PT1000
-    ChannelConfig("CH3", "NTC_10k_3977"),# Thermistance NTC 10k
-    ChannelConfig("CH4", "KTY81_210"),   # Sonde KTY81-210
-]
-
+from typing import Dict
+from config.cm5_config import build_hw, ADC_CHANNELS
+from drivers.mux_adg731 import Adg731
+from drivers.adc_ads124s08 import ADS124S08
+from Metrology.convert import r_to_temp
+from Metrology.sensor_profiles import SENSOR_DB, ADC_PARAMS_DB
+from hw.gpio_cm5 import GPIO, Relay, LED
+from io.dry_contacts import DryContacts
+from api.external import API
+from control.regulation import CTRL
 class TemperatureAcquisition:
-    """
-    Gestion de l'acquisition des temp�ratures.
-    
-    Cette classe:
-    - Configure l'ADC et les multiplexeurs
-    - Effectue les mesures sur chaque canal
-    - G�re la conversion en temp�rature
-    - Surveille les erreurs et exceptions
-    """
     def __init__(self):
-        """
-        Initialise le syst�me d'acquisition.
-        
-        Configure:
-        - Le mat�riel (GPIO, SPI)
-        - Les multiplexeurs ADG731
-        - L'ADC ADS124S08
-        - Les profils des capteurs
-        """
-        # Construction de la configuration mat�rielle
         self.hw = build_hw()
-        
-        # Initialisation des contacts secs
         self.dry_contacts = DryContacts(GPIO)
-        
-        # Initialisation du multiplexeur
         self.mux = Adg731(
-            spi=self.hw["spi_mux"],           # Bus SPI d�di�
-            cs_pins=self.hw["pins"]["mux_cs_list"], # Liste des CS
-            gpio=GPIO                          # Interface GPIO
+            spi=self.hw["spi_mux"],
+            cs_pins=self.hw["pins"]["mux_cs_list"],
+            gpio=GPIO
         )
         self.adc = ADS124S08(
             spi=self.hw["spi_adc"],
@@ -239,31 +43,40 @@ class TemperatureAcquisition:
         )
         self.running = False
         self.tick_thread = None
+        self.logger = logging.getLogger(__name__)
 
-    def measure_channel(self, ch_cfg: ChannelConfig) -> Dict:
-        """Effectue la mesure pour un canal sp�cifique"""
-        # R�cup�re la configuration des pins pour le canal
-        channel_pins = next((ch for ch in ADC_CHANNELS if ch["name"] == ch_cfg.channel), None)
+    # Classe ChannelConfig
+class ChannelConfig:
+    def __init__(self, channel: str, profile: str, mux_card: int = 0, mux_channel: int = 0):
+        self.channel = channel
+        self.profile = profile
+        self.mux_card = mux_card
+        self.mux_channel = mux_channel
+
+    def measure_channel(self, adc_channels, sensor_db, adc_params_db, mux, adc) -> dict:
+        """Mesure pour un canal specifique"""
+        # Recupere la config des pins pour le canal
+        channel_pins = next((ch for ch in adc_channels if ch["name"] == self.channel), None)
         if not channel_pins:
-            logger.error(f"Channel {ch_cfg.channel} non d�fini dans ADC_CHANNELS")
+            self.logger.error(f"Canal {self.channel} non defini dans ADC_CHANNELS")
             return None
 
-        # V�rifie le profil du capteur
-        profile = SENSOR_DB.get(ch_cfg.profile)
-        adc_params = ADC_PARAMS_DB.get(ch_cfg.profile)
+    # Verifie le profil du capteur
+        profile = sensor_db.get(self.profile)
+        adc_params = adc_params_db.get(self.profile)
         if not profile or not adc_params:
-            logger.error(f"Profil {ch_cfg.profile} non reconnu")
+            self.logger.error(f"Profil {self.profile} non reconnu")
             return None
 
         try:
             # Configuration du multiplexeur
-            self.mux.select_card(ch_cfg.mux_card)
-            self.mux.set_channel(ch_cfg.mux_channel)
+            mux.select_card(self.mux_card)
+            mux.set_channel(self.mux_channel)
 
             # Configuration et lecture ADC
-            self._configure_adc(adc_params, channel_pins)
-            raw = self._read_adc_with_timeout()
-            ratio = self.adc.code_to_ratio(raw)
+            adc._configure_adc(adc_params, channel_pins)
+            raw = adc._read_adc_with_timeout()
+            ratio = adc.code_to_ratio(raw)
             r_sonde = ratio * profile.rref_nom
             temp_c = r_to_temp(profile, r_sonde)
 
@@ -271,94 +84,98 @@ class TemperatureAcquisition:
                 "temperature": temp_c,
                 "resistance": r_sonde,
                 "raw_code": raw,
-                "channel": ch_cfg.channel,
-                "profile": ch_cfg.profile
+                "channel": self.channel,
+                "profile": self.profile
             }
 
         except Exception as e:
-            logger.error(f"Erreur mesure canal {ch_cfg.channel}: {str(e)}")
+            self.logger.error(f"Erreur mesure canal {self.channel}: {str(e)}")
             return None
 
     def acquisition_loop(self):
         """
-        Boucle principale d'acquisition et r�gulation.
-        
-        S�quence:
-        1. Lecture du contact sec (prioritaire)
-        2. Pour chaque canal actif:
-           - Mesure de temp�rature
-           - R�cup�ration param�tres API
-           - Calcul r�gulation
-           - Application r�seau r�sistif
-        3. Indication visuelle et logging
-        4. Gestion des erreurs
-        
-        La boucle s'ex�cute en continu avec:
-        - P�riode principale: 5 minutes
-        - D�lai inter-cycles: 200ms
-        - Timeout API: 2s
+        Boucle principale acquisition et regulation.
+        Sequence :
+        1. Lecture contact sec (priorite)
+        2. Pour chaque canal actif :
+           - Mesure temperature
+           - Recupere parametres API
+           - Calcul regulation
+           - Applique reseau resistif
+        3. Indication visuelle et log
+        4. Gestion erreurs
+        La boucle tourne en continu :
+        - Periode principale : 5 minutes
+        - Delai inter-cycle : 200ms
+        - Timeout API : 2s
         """
         while self.running:
             try:
-                # 1. Lecture unique des deux canaux de contacts secs au d�but du cycle (toutes les 5 min)
+            # 1. Lecture unique des deux canaux de contacts secs au debut du cycle (toutes les 5 min)
                 states = self.dry_contacts.read_all_channels()
-                contact_states = [states[1], states[2]]  # �tats [Canal 1, Canal 2]
+                contact_states = [states[1], states[2]]  # Etats [Canal 1, Canal 2]
                 
-                logger.info(f"�tats des contacts secs : Canal 1={'FERM�' if contact_states[0] else 'OUVERT'}, Canal 2={'FERM�' if contact_states[1] else 'OUVERT'}")
+                self.logger.info(f"Etats contacts secs : Canal 1={'FERME' if contact_states[0] else 'OUVERT'}, Canal 2={'FERME' if contact_states[1] else 'OUVERT'}")
 
                 # 2. Traitement des canaux actifs
+                # Ajout de la liste CHANNEL_CONFIGS manquante
+                CHANNEL_CONFIGS = [
+                    ChannelConfig("CH1", "AF60"),
+                    ChannelConfig("CH2", "PT1000"),
+                    ChannelConfig("CH3", "NTC_10k_3977"),
+                    ChannelConfig("CH4", "KTY81_210"),
+                ]
                 for ch_cfg in CHANNEL_CONFIGS:
                     result = self.measure_channel(ch_cfg)
                     if result:
-                        # Obtention des param�tres de l'API
-                        # N: facteur de m�lange
-                        # kM: coefficient m�t�o
-                        # Tprevu: temp�rature pr�vue
+                        # Recupere parametres API
+                        # N: facteur melange
+                        # kM: coefficient meteo
+                        # Tprevu: temperature prevue
                         api_params = API.get_params()
                         
-                        # Calcul de la r�gulation
-                        # D�termine la r�sistance � simuler
+                        # Calcul regulation
+                        # Determine resistance a simuler
                         ctrl_result = CTRL.regulate(
-                            result["temperature"],  # T mesur�e
-                            api_params["N"],       # Facteur m�lange
-                            api_params["kM"],      # Coeff m�t�o
-                            api_params["Tprevu"]   # T pr�vue
+                            result["temperature"],  # Temperature mesuree
+                            api_params["N"],       # Facteur melange
+                            api_params["kM"],      # Coefficient meteo
+                            api_params["Tprevu"]   # Temperature prevue
                         )
 
                         # 3. Indication visuelle
                         LED.short_flash()  # Acquittement mesure OK
 
-                        # 4. Journalisation d�taill�e
-                        logger.info(
+                        # 4. Log detaille
+                        self.logger.info(
                             f"Canal {result['channel']}: "
-                            f"T={result['temperature']:.2f}�C, "
-                            f"R={result['resistance']:.2f}?, "
-                            f"Contacts: C1={'FERM�' if contact_states[0] else 'OUVERT'}, C2={'FERM�' if contact_states[1] else 'OUVERT'}, "
-                            f"Consigne={api_params['Tprevu']}�C"
+                            f"T={result['temperature']:.2f}C, "
+                            f"R={result['resistance']:.2f} Ohm, "
+                            f"Contacts: C1={'FERME' if contact_states[0] else 'OUVERT'}, C2={'FERME' if contact_states[1] else 'OUVERT'}, "
+                            f"Consigne={api_params['Tprevu']}C"
                         )
 
             except Exception as e:
-                # Gestion des erreurs
-                logger.error(f"Erreur boucle acquisition: {str(e)}")
-                Relay.off()         # D�sactive relais bypass
+                # Gestion erreurs
+                self.logger.error(f"Erreur boucle acquisition: {str(e)}")
+                Relay.off()         # Desactive relais bypass
                 LED.blink_2hz()     # Indique erreur (2 Hz)
                 time.sleep(5)       # Pause avant retry
 
-            # D�lai inter-cycles pour CPU
+            # Delai inter-cycle CPU
             time.sleep(0.2)
 
     def start(self):
         """
-        D�marre le syst�me d'acquisition.
-        
-        Actions:
+        Demarre le systeme d'acquisition.
+        Actions :
         1. Active le flag running
-        2. D�marre thread de tick p�riodique
-        3. Lance la boucle d'acquisition
+        2. Demarre thread tick periodique
+        3. Lance la boucle acquisition
         """
         if not self.running:
             self.running = True
-            # Thread pour tick p�riodique 5min
+            # Thread tick periodique 5min
             self.tick_thread = threading.Thread(
                 target=self._tick_loop,
                 daemon=True  # Arr�t auto avec programme principal
@@ -368,76 +185,73 @@ class TemperatureAcquisition:
 
     def stop(self):
         """
-        Arr�te proprement le syst�me.
-        
-        Actions:
-        1. D�sactive flag running
+        Arrete proprement le systeme.
+        Actions :
+        1. Desactive flag running
         2. Attend fin thread tick
-        3. Arr�te l'ADC
+        3. Arrete ADC
         4. Nettoie GPIO
         """
         self.running = False
         # Attente propre du thread tick
         if self.tick_thread:
             self.tick_thread.join(timeout=1.0)
-        # Arr�t mat�riel
+        # Arret materiel
         self.adc.stop()
-        self.adc.powerdown()  # �conomie d'�nergie
+        self.adc.powerdown()  # Economie energie
         GPIO.cleanup()  # Nettoyage GPIO
 
     def _tick_loop(self):
         """
-        Boucle de tick p�riodique (5 minutes).
-        
-        Cette boucle:
+        Boucle tick periodique (5 minutes).
+        Cette boucle :
         - Maintient la synchronisation temporelle
-        - D�clenche les actions p�riodiques
-        - Log les �v�nements de timing
+        - Declenche les actions periodiques
+        - Log les evenements de timing
         """
         while self.running:
-            logger.info("Tick 5 minutes")
+            self.logger.info("Tick 5 minutes")
             time.sleep(300)  # 5 minutes
 
     def _configure_adc(self, adc_params: Dict, channel_pins: Dict):
         """
-        Configure l'ADC pour une mesure.
-        
-        Configuration:
-        - Reset mat�riel
-        - Param�tres de base (gain, vitesse)
-        - Mode de r�f�rence
+        Configure ADC pour une mesure.
+        Configuration :
+        - Reset materiel
+        - Parametres de base (gain, vitesse)
+        - Mode reference
         - Sources de courant
-        
-        Args:
-            adc_params: Param�tres ADC du profil
-            channel_pins: Configuration des broches
+        Args :
+            adc_params : Parametres ADC du profil
+            channel_pins : Configuration des broches
         """
-        # Reset complet
+    # Reset complet
         self.adc.reset()
         
-        # Configuration de base
+    # Configuration de base
         self.adc.basic_setup(
             pga_gain=adc_params["gain"],           # Gain programmable
             data_rate_sps=adc_params["data_rate_sps"], # Vitesse
             ref_mode="ratiometric_REFP0_REFN0",    # Mode ratio
             chop=False                             # Pas de chopping
         )
-        # Configuration r�f�rence
+        self.adc.set_ref_bank(adc_params["ref_bank"])
+        # Reference configuration
         self.adc.set_ref_bank(adc_params["ref_bank"])
         
-        # Configuration source de courant
+    # Configuration source courant
         self.adc.route_idac(
             current_uA=adc_params["idac_uA"],     # Courant excitation
             idac1_route=channel_pins["idac_pin"], # Source 1
-            idac2_route=None                      # Source 2 d�sactiv�e
+            idac2_route=None                      # Source 2 desactivee
         )
         self.adc.select_diff_channel(
             pos=channel_pins["adc_pos"],
             neg=channel_pins["adc_neg"]
         )
 
-def _read_adc_with_timeout(self) -> int:
-        """Lit une valeur de l'ADC avec gestion du timeout"""
+    def _read_adc_with_timeout(self) -> int:
+        """Lit une valeur ADC avec gestion du timeout"""
         self.adc.start_single_shot()
         t0 = time.time()
         while GPIO.input(self.hw["pins"]["ADC_DRDY"]) == 1:
@@ -446,109 +260,23 @@ def _read_adc_with_timeout(self) -> int:
             time.sleep(0.001)
         return self.adc.read_once_blocking()
 
-def test_lm70_spi():
-    """
-    Fonction de test temporaire pour valider la communication SPI avec un capteur LM70.
-    
-    Cette fonction:
-    1. Utilise l'infrastructure SPI existante du projet avec les GPIO mis à jour
-    2. Configure le GPIO pour le CS du LM70
-    3. Lit la température du capteur LM70
-    4. Affiche la température dans les logs
-    
-    NOTE: Cette fonction est temporaire et devrait être supprimée après validation.
-    """
-    import time
-    from config.cm5_config import build_hw, _open_spi
-    from hw.gpio_cm5 import GPIO
-    
-    try:
-        logger.info("Démarrage du test de communication SPI avec LM70...")
-        
-        # Configuration du matériel
-        hw = build_hw()
-        
-        # Configuration pour le LM70 (utilise SPI1 qui a MISO)
-        lm70_config = {
-            "bus": 1,            # Utilise SPI1 (SCLK=GPIO 21, MISO=GPIO 19)
-            "device": 1,         # Device différent pour ne pas interférer avec l'ADC
-            "max_hz": 1000000,   # 1MHz
-            "mode": 0,           # Mode 0 (CPOL=0, CPHA=0)
-            "bits": 8
-        }
-        
-        # Configuration du CS pour le LM70 (utilise un pin disponible)
-        # Choisir un GPIO qui n'est pas déjà utilisé dans le projet
-        LM70_CS_PIN = 5  # GPIO 5 - N'est pas utilisé ailleurs dans le projet
-        
-        # Setup du GPIO pour le CS du LM70
-        GPIO.setup(LM70_CS_PIN, GPIO.OUT, initial=GPIO.HIGH)
-        
-        # Ouvre le SPI pour le LM70
-        spi_lm70 = _open_spi(lm70_config)
-        
-        # Fonction pour lire la température du LM70
-        def read_lm70_temp():
-            try:
-                # Active le CS (actif à l'état bas)
-                GPIO.output(LM70_CS_PIN, GPIO.LOW)
-                
-                # Le LM70 utilise un format 11-bit signé en complément à 2
-                # 1. Lecture de 2 octets
-                resp = spi_lm70.xfer2([0x00, 0x00])
-                
-                # 2. Combiner les octets et extraire les 11 bits significatifs (shift de 5 bits)
-                raw_value = ((resp[0] << 8) | resp[1]) >> 5
-                
-                # 3. Gestion du signe (complément à 2)
-                if raw_value & 0x400:  # Bit de signe à 1
-                    # Valeur négative
-                    temp_c = -((~raw_value & 0x7FF) + 1) * 0.125
-                else:
-                    # Valeur positive
-                    temp_c = raw_value * 0.125
-                
-                return temp_c
-                
-            finally:
-                # Désactive le CS, quelle que soit l'issue
-                GPIO.output(LM70_CS_PIN, GPIO.HIGH)
-        
-        # Lecture répétée pour vérifier la stabilité
-        temps = []
-        for i in range(10):
-            temp = read_lm70_temp()
-            temps.append(temp)
-            logger.info(f"Lecture LM70 #{i+1}: {temp:.2f}°C")
-            time.sleep(1)
-        
-        # Calcul statistique simple
-        avg_temp = sum(temps) / len(temps)
-        min_temp = min(temps)
-        max_temp = max(temps)
-        
-        logger.info(f"Test LM70 terminé avec succès")
-        logger.info(f"Statistiques: Moyenne={avg_temp:.2f}°C, Min={min_temp:.2f}°C, Max={max_temp:.2f}°C")
-        
-        # Nettoyage
-        spi_lm70.close()
-        
-    except Exception as e:
-        logger.error(f"Erreur test LM70: {str(e)}")
-        if 'spi_lm70' in locals():
-            spi_lm70.close()
         
 def main():
-    """Point d'entr�e principal"""
+    """Point d'entree principal"""
+    logging.basicConfig(
+        level=logging.INFO,
+        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+        handlers=[
+            logging.FileHandler('temperature.log'),
+            logging.StreamHandler()
+        ]
+    )
+    logger = logging.getLogger(__name__)
     try:
-        # Pour utiliser l'application normale:
-        #acquisition = TemperatureAcquisition()
-        #acquisition.start()
-        
-        # Pour tester le LM70, commentez les lignes ci-dessus et décommentez celle ci-dessous:
-        test_lm70_spi()
+        acquisition = TemperatureAcquisition()
+        acquisition.start()
     except KeyboardInterrupt:
-        logger.info("Arr�t demand� par l'utilisateur")
+        logger.info("Arret demande par l'utilisateur")
     except Exception as e:
         logger.error(f"Erreur fatale: {str(e)}")
     finally:
