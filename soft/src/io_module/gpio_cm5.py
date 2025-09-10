@@ -121,14 +121,17 @@ class GPIOManager:
             pull_up_down: GPIO.PUD_UP, GPIO.PUD_DOWN ou None
             initial: Etat initial pour sortie
         """
-        if pull_up_down is not None:
-            GPIO.setup(pin, direction, pull_up_down=pull_up_down)
-        else:
-            GPIO.setup(pin, direction)
-            
-        if direction == GPIO.OUT and initial is not None:
-            GPIO.output(pin, initial)
-            self._pin_states[pin] = bool(initial)
+        try:
+            if pull_up_down is not None:
+                GPIO.setup(pin, direction, pull_up_down=pull_up_down)
+            else:
+                GPIO.setup(pin, direction)
+
+            if direction == GPIO.OUT and initial is not None:
+                GPIO.output(pin, initial)
+                self._pin_states[pin] = bool(initial)
+        except Exception as e:
+            raise HardwareError(f"Erreur lors de la configuration de la broche {pin}: {str(e)}")
             
     @handle_errors
     def cleanup(self) -> None:
