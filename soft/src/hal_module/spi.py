@@ -7,7 +7,7 @@ Permet d'utiliser le SPI sans dépendance directe au matériel.
 import spidev
 import logging
 from typing import List, Optional, Union
-from Metrology_module.exceptions import HardwareError, ConfigError
+from metrology_module.exceptions import HardwareError, ConfigError
 
 # Configuration du logging
 logging.basicConfig(level=logging.INFO)

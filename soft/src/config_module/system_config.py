@@ -7,7 +7,7 @@ from typing import Dict, Optional, List
 import json
 import logging
 from pathlib import Path
-from Metrology_module.exceptions import ConfigError
+from metrology_module.exceptions import ConfigError
 
 @dataclass
 class ADCConfig:

@@ -4,7 +4,7 @@ Abstraction des entrees/sorties numeriques pour tous les drivers du projet.
 Permet d'utiliser les GPIO sans dependance directe au materiel.
 """
 from typing import Callable, Literal, Optional
-from Metrology_module.exceptions import HardwareError
+from metrology_module.exceptions import HardwareError
 
 class GPIO:
     # Constantes pour la configuration
