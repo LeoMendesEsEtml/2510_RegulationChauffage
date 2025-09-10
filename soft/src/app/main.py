@@ -17,7 +17,7 @@ from drivers_module.mux_adg731 import Adg731
 from drivers_module.adc_ads124s08 import ADS124S08
 from metrology_module.convert import r_to_temp
 from metrology_module.sensor_profiles import SENSOR_DB, ADC_PARAMS_DB
-from hw_module.gpio_cm5 import GPIO, Relay, LED
+from io_module.gpio_cm5 import GPIO, Relay, LED
 from io_module.dry_contacts import DryContacts
 from api_module.external import API
 from control_module.regulation import CTRL

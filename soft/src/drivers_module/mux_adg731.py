@@ -34,7 +34,7 @@ Reference: https://www.analog.com/en/products/adg731.html
 
 from time import sleep                # Pour les delais precis
 from typing import List, Optional    # Pour le typage statique
-from hw_module.gpio_cm5 import GPIO         # Pour le controle des broches GPIO
+from io_module.gpio_cm5 import GPIO         # Pour le controle des broches GPIO
 
 class Adg731:
     """

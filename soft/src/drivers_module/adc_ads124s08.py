@@ -21,7 +21,7 @@ Reference: https://www.ti.com/product/ADS124S08
 """
 
 # ---- Importation des modules necessaires ----
-from hw_module.gpio_cm5 import GPIO          # Interface GPIO pour controler les broches
+from io_module.gpio_cm5 import GPIO          # Interface GPIO pour controler les broches
 from time import sleep, monotonic     # Fonctions de temporisation precises
 from typing import List, Optional     # Types pour le typage statique
 
