@@ -1,22 +1,22 @@
 # -*- coding: utf-8 -*-
 """
-Module de r�gulation de temp�rature.
+Module de regulation de temperature.
 
-Ce module impl�mente:
-1. Algorithme de r�gulation thermique
-   - Calcul temp�rature simul�e
-   - S�lection r�sistance �quivalente
+Ce module implemente:
+1. Algorithme de regulation thermique
+   - Calcul temperature simulee
+   - Selection resistance equivalente
    - Application loi de commande
 
-2. Gestion des param�tres:
-   - N: facteur de m�lange (0..1)
-   - kM: coefficient m�t�o (-1..1) 
-   - Tprevu: temp�rature pr�vue
+2. Gestion des parametres:
+   - N: facteur de melange (0..1)
+   - kM: coefficient meteo (-1..1) 
+   - Tprevu: temperature prevue
 
-3. Param�tres r�seau r�sistif:
-   - 32 points de 1k? � 50k?
-   - R�solution ~0.1�C
-   - Plage -20�C � +40�C
+3. Parametres reseau resistif:
+   - 32 points de 1kOhm a 50kOhm
+   - Resolution ~0.1C
+   - Plage -20C a +40C
 
 Auteur: LeoMendesEsEtml
 Date: 2025
@@ -35,15 +35,15 @@ logger = setup_module_logger(__name__)
 @dataclass
 class RegulationParams:
     """
-    Param�tres de l'algorithme de r�gulation.
+    Parametres de l'algorithme de regulation.
     
     Attributs:
-        N: Facteur de m�lange (0..1)
-           0 = 100% mesure, 1 = 100% pr�vision
-        kM: Coefficient m�t�o (-1..1)
-           Impact de la m�t�o sur la pr�vision
-        Tprevu: Temp�rature pr�vue (�C)
-           Consigne de temp�rature
+        N: Facteur de melange (0..1)
+           0 = 100% mesure, 1 = 100% prevision
+        kM: Coefficient meteo (-1..1)
+           Impact de la meteo sur la prevision
+        Tprevu: Temperature prevue (C)
+           Consigne de temperature
     """
     N: float           # Facteur melange
     kM: float         # Coeff meteo
@@ -51,28 +51,28 @@ class RegulationParams:
     
     def validate(self) -> None:
         """
-        Valide les param�tres de r�gulation.
+        Valide les parametres de regulation.
         
         Raises:
-            ValueError: Si param�tres hors limites
+            ValueError: Si parametres hors limites
         """
         if not 0 <= self.N <= 1:
-            raise ValueError(f"N doit �tre entre 0 et 1: {self.N}")
+            raise ValueError(f"N doit etre entre 0 et 1: {self.N}")
         if not -1 <= self.kM <= 1:
-            raise ValueError(f"kM doit �tre entre -1 et 1: {self.kM}")
+            raise ValueError(f"kM doit etre entre -1 et 1: {self.kM}")
         if not -50 <= self.Tprevu <= 50:
             raise ValueError(
-                f"Tprevu doit �tre entre -50 et 50�C: {self.Tprevu}"
+                f"Tprevu doit etre entre -50 et 50C: {self.Tprevu}"
             )
 
 class RegulationResult:
     """
-    R�sultat d'une it�ration de r�gulation.
+    Resultat d'une iteration de regulation.
     
     Attributs:
-        slot: Index dans le r�seau (0..31)
-        step: Pas de r�solution
-        Tsim: Temp�rature simul�e r�sultante
+        slot: Index dans le reseau (0..31)
+        step: Pas de resolution
+        Tsim: Temperature simulee resultante
     """
     def __init__(
         self,
@@ -94,16 +94,16 @@ class RegulationResult:
 
 class Regulation:
     """
-    Contr�leur de r�gulation thermique.
+    Controleur de regulation thermique.
     
-    Impl�mente l'algorithme de r�gulation avec:
-    - Calcul temp�rature simul�e
-    - S�lection r�sistance �quivalente
+    Implemente l'algorithme de regulation avec:
+    - Calcul temperature simulee
+    - Selection resistance equivalente
     - Gestion des transitions
     """
     
     def __init__(self):
-        """Initialise le contr�leur."""
+        """Initialise le controleur."""
     # Table T -> index reseau (32 points)
         self._temp_table = [
             -20.0 + i * 2.0 for i in range(32)
@@ -118,24 +118,24 @@ class Regulation:
         Tprevu: float
     ) -> RegulationResult:
         """
-        Ex�cute une it�ration de r�gulation.
+        Execute une iteration de regulation.
         
         Args:
-            Tmes: Temp�rature mesur�e (�C)
-            N: Facteur de m�lange (0..1)
-            kM: Coefficient m�t�o (-1..1)
-            Tprevu: Temp�rature pr�vue (�C)
+            Tmes: Temperature mesuree (C)
+            N: Facteur de melange (0..1)
+            kM: Coefficient meteo (-1..1)
+            Tprevu: Temperature prevue (C)
             
         Returns:
             RegulationResult avec:
-            - slot: Index r�seau s�lectionn�
-            - step: Pas de r�solution
-            - Tsim: Temp�rature simul�e
+            - slot: Index reseau selectionne
+            - step: Pas de resolution
+            - Tsim: Temperature simulee
             
         Notes:
-            La temp�rature simul�e est calcul�e par:
+            La temperature simulee est calculee par:
             Tsim = (1-N)*Tmes + N*(Tprevu + kM*dT)
-            avec dT = variation typique journali�re
+            avec dT = variation typique journaliere
         """
     # Validation des parametres
         params = RegulationParams(N, kM, Tprevu)
@@ -155,14 +155,14 @@ class Regulation:
             # 3. Mise a jour et logging
             self._last_slot = slot
             logger.info(
-                f"R�gulation: Tmes={Tmes:.1f}�C, "
-                f"Tsim={Tsim:.1f}�C -> slot {slot}"
+                f"Regulation: Tmes={Tmes:.1f}C, "
+                f"Tsim={Tsim:.1f}C -> slot {slot}"
             )
             
             return RegulationResult(slot, step, Tsim)
             
         except Exception as e:
-            logger.error(f"Erreur r�gulation: {str(e)}")
+            logger.error(f"Erreur regulation: {str(e)}")
             # En cas d'erreur, maintient dernier etat
             return RegulationResult(
                 self._last_slot, 1, Tmes
@@ -173,15 +173,15 @@ class Regulation:
         temp: float
     ) -> Tuple[int, int]:
         """
-        Trouve le slot r�seau le plus proche.
+        Trouve le slot reseau le plus proche.
         
         Args:
-            temp: Temp�rature cible (�C)
+            temp: Temperature cible (C)
             
         Returns:
             (slot, step) avec:
-            - slot: Index dans le r�seau (0..31)
-            - step: Pas de r�solution
+            - slot: Index dans le reseau (0..31)
+            - step: Pas de resolution
         """
     # Limites de la table
         if temp <= self._temp_table[0]:

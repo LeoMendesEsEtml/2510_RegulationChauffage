@@ -4,7 +4,7 @@ Interface GPIO pour la carte CM5.
 
 Fournit une abstraction pour:
 - Configuration des GPIO
-- Lecture/écriture des entrées/sorties
+- Lecture/ecriture des entrees/sorties
 - Gestion des interruptions
 - Configuration SPI/I2C
 """
@@ -18,7 +18,7 @@ from utils.error_handler import handle_errors, HardwareError
 # Logger
 logger = setup_module_logger(__name__)
 
-# Définition des broches
+# Definition des broches
 GPIO_PINS = {
     # ADC
     "ADC_CS": 8,      # CE0
@@ -39,7 +39,7 @@ GPIO_PINS = {
     "I2C_SDA": 2,     # Data
     "I2C_SCL": 3,     # Clock
     
-    # GPIO génériques
+    # GPIO generiques
     "GPIO_1": 17,
     "GPIO_2": 18,
     "GPIO_3": 27,
@@ -50,20 +50,20 @@ class GPIOManager:
     """
     Gestionnaire des GPIO.
     
-    Configure et contrôle les broches GPIO.
-    Gère les callbacks d'interruption.
+    Configure et controle les broches GPIO.
+    Gere les callbacks d'interruption.
     """
     
     def __init__(self):
         """
         Initialise le gestionnaire GPIO.
-        Configure le mode BCM et prépare les broches.
+        Configure le mode BCM et prepare les broches.
         """
         # Configuration mode BCM
         GPIO.setmode(GPIO.BCM)
         GPIO.setwarnings(False)
         
-        # État des broches
+        # Etat des broches
         self._pin_states: Dict[int, bool] = {}
         
         # Callbacks d'interruption
@@ -72,11 +72,11 @@ class GPIOManager:
         # Initialisation des broches
         self._setup_pins()
         
-        logger.info("Gestionnaire GPIO initialisé")
+        logger.info("Gestionnaire GPIO initialise")
         
     def _setup_pins(self) -> None:
         """
-        Configure les broches par défaut.
+        Configure les broches par defaut.
         """
         try:
             # ADC
@@ -98,7 +98,7 @@ class GPIOManager:
             self.setup_pin(GPIO_PINS["I2C_SDA"], GPIO.OUT)
             self.setup_pin(GPIO_PINS["I2C_SCL"], GPIO.OUT)
             
-            logger.info("Broches GPIO configurées")
+            logger.info("Broches GPIO configurees")
             
         except Exception as e:
             logger.error(f"Erreur configuration GPIO: {str(e)}")
@@ -116,10 +116,10 @@ class GPIOManager:
         Configure une broche GPIO.
         
         Args:
-            pin: Numéro de la broche
+            pin: Numero de la broche
             direction: GPIO.IN ou GPIO.OUT
             pull_up_down: GPIO.PUD_UP, GPIO.PUD_DOWN ou None
-            initial: État initial pour sortie
+            initial: Etat initial pour sortie
         """
         if pull_up_down is not None:
             GPIO.setup(pin, direction, pull_up_down=pull_up_down)
@@ -133,21 +133,21 @@ class GPIOManager:
     @handle_errors
     def cleanup(self) -> None:
         """
-        Nettoie les GPIO à la fermeture.
+        Nettoie les GPIO a la fermeture.
         """
         GPIO.cleanup()
         self._pin_states.clear()
         self._callbacks.clear()
-        logger.info("GPIO nettoyés")
+        logger.info("GPIO nettoyes")
         
     @handle_errors
     def set_pin(self, pin: int, state: bool) -> None:
         """
-        Change l'état d'une sortie.
+        Change l'etat d'une sortie.
         
         Args:
-            pin: Numéro de la broche
-            state: Nouvel état
+            pin: Numero de la broche
+            state: Nouvel etat
         """
         GPIO.output(pin, state)
         self._pin_states[pin] = state
@@ -155,23 +155,23 @@ class GPIOManager:
     @handle_errors
     def get_pin(self, pin: int) -> bool:
         """
-        Lit l'état d'une entrée.
+        Lit l'etat d'une entree.
         
         Args:
-            pin: Numéro de la broche
+            pin: Numero de la broche
             
         Returns:
-            État de la broche
+            Etat de la broche
         """
         return bool(GPIO.input(pin))
         
     @handle_errors
     def toggle_pin(self, pin: int) -> None:
         """
-        Inverse l'état d'une sortie.
+        Inverse l'etat d'une sortie.
         
         Args:
-            pin: Numéro de la broche
+            pin: Numero de la broche
         """
         state = not self._pin_states.get(pin, False)
         self.set_pin(pin, state)
@@ -185,10 +185,10 @@ class GPIOManager:
         bouncetime: int = 100
     ) -> None:
         """
-        Ajoute un callback sur événement.
+        Ajoute un callback sur evenement.
         
         Args:
-            pin: Numéro de la broche
+            pin: Numero de la broche
             callback: Fonction de callback
             edge: Type de front (RISING, FALLING, BOTH)
             bouncetime: Anti-rebond en ms
@@ -210,7 +210,7 @@ class GPIOManager:
         Supprime un callback.
         
         Args:
-            pin: Numéro de la broche
+            pin: Numero de la broche
             callback: Fonction de callback
         """
         if pin in self._callbacks:
@@ -221,10 +221,10 @@ class GPIOManager:
                 
     def _event_handler(self, pin: int) -> None:
         """
-        Gestionnaire d'événements GPIO.
+        Gestionnaire d'evenements GPIO.
         
         Args:
-            pin: Numéro de la broche
+            pin: Numero de la broche
         """
         if pin in self._callbacks:
             state = self.get_pin(pin)

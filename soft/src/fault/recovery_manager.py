@@ -1,6 +1,6 @@
 """
-Gestionnaire de récupération après erreur.
-Définit les stratégies de récupération pour différents types d'erreurs.
+Gestionnaire de rÃ©cupÃ©ration aprÃ¨s erreur.
+DÃ©finit les stratÃ©gies de rÃ©cupÃ©ration pour diffÃ©rents types d'erreurs.
 """
 from typing import Dict, Callable, Optional, Any
 from enum import Enum, auto
@@ -10,16 +10,16 @@ from fault.fault_manager import FaultCode, Fault
 from utils.logging_config import setup_module_logger
 
 class RecoveryStrategy(Enum):
-    """Stratégies de récupération disponibles"""
-    RETRY = auto()          # Réessayer l'opération
-    RESET = auto()          # Réinitialiser le composant
+    """StratÃ©gies de rÃ©cupÃ©ration disponibles"""
+    RETRY = auto()          # RÃ©essayer l'opÃ©ration
+    RESET = auto()          # RÃ©initialiser le composant
     FALLBACK = auto()       # Utiliser une valeur de repli
-    DISABLE = auto()        # Désactiver le composant
-    EMERGENCY = auto()      # Arrêt d'urgence
+    DISABLE = auto()        # DÃ©sactiver le composant
+    EMERGENCY = auto()      # ArrÃªt d'urgence
 
 @dataclass
 class RecoveryAction:
-    """Action de récupération à effectuer"""
+    """Action de rÃ©cupÃ©ration Ã  effectuer"""
     strategy: RecoveryStrategy
     max_retries: int = 3
     retry_delay_s: float = 1.0
@@ -27,14 +27,14 @@ class RecoveryAction:
 
 class RecoveryManager:
     def __init__(self):
-        """Initialise le gestionnaire de récupération."""
+        """Initialise le gestionnaire de rÃ©cupÃ©ration."""
         self.logger = setup_module_logger('recovery')
         self._recovery_map: Dict[FaultCode, RecoveryAction] = self._init_recovery_map()
         self._retry_counts: Dict[str, int] = {}
         self._recovery_handlers: Dict[RecoveryStrategy, Callable] = self._init_handlers()
 
     def _init_recovery_map(self) -> Dict[FaultCode, RecoveryAction]:
-        """Initialise la table des stratégies de récupération."""
+        """Initialise la table des stratÃ©gies de rÃ©cupÃ©ration."""
         return {
             FaultCode.SENSOR_ERROR: RecoveryAction(
                 strategy=RecoveryStrategy.RETRY,
@@ -61,7 +61,7 @@ class RecoveryManager:
         }
 
     def _init_handlers(self) -> Dict[RecoveryStrategy, Callable]:
-        """Initialise les handlers de récupération."""
+        """Initialise les handlers de rÃ©cupÃ©ration."""
         return {
             RecoveryStrategy.RETRY: self._handle_retry,
             RecoveryStrategy.RESET: self._handle_reset,
@@ -72,34 +72,34 @@ class RecoveryManager:
 
     def handle_fault(self, fault: Fault, context: Dict[str, Any]) -> Optional[Any]:
         """
-        Gère une erreur et tente une récupération.
+        GÃ¨re une erreur et tente une rÃ©cupÃ©ration.
         
         Args:
-            fault: L'erreur à gérer
+            fault: L'erreur Ã  gÃ©rer
             context: Contexte de l'erreur
             
         Returns:
-            Optional[Any]: Résultat de la récupération si applicable
+            Optional[Any]: RÃ©sultat de la rÃ©cupÃ©ration si applicable
         """
         action = self._recovery_map.get(fault.code)
         if not action:
-            self.logger.warning(f"Pas de stratégie de récupération pour {fault.code}")
+            self.logger.warning(f"Pas de stratÃ©gie de rÃ©cupÃ©ration pour {fault.code}")
             return None
 
         handler = self._recovery_handlers.get(action.strategy)
         if not handler:
-            self.logger.error(f"Handler non trouvé pour {action.strategy}")
+            self.logger.error(f"Handler non trouvÃ© pour {action.strategy}")
             return None
 
         try:
             return handler(fault, action, context)
         except Exception as e:
-            self.logger.error(f"Échec de la récupération: {e}")
+            self.logger.error(f"Ã‰chec de la rÃ©cupÃ©ration: {e}")
             return None
 
     def _handle_retry(self, fault: Fault, action: RecoveryAction, 
                      context: Dict[str, Any]) -> Optional[Any]:
-        """Gère la stratégie RETRY."""
+        """GÃ¨re la stratÃ©gie RETRY."""
         component = context.get('component', 'unknown')
         retry_key = f"{component}_{fault.code.name}"
         
@@ -110,7 +110,7 @@ class RecoveryManager:
         self._retry_counts[retry_key] = self._retry_counts.get(retry_key, 0) + 1
         self.logger.info(f"Tentative {self._retry_counts[retry_key]} pour {component}")
         
-        # Exécute la fonction de retry si fournie
+        # ExÃ©cute la fonction de retry si fournie
         retry_func = context.get('retry_func')
         if retry_func and callable(retry_func):
             return retry_func()
@@ -118,9 +118,9 @@ class RecoveryManager:
 
     def _handle_reset(self, fault: Fault, action: RecoveryAction, 
                      context: Dict[str, Any]) -> Optional[Any]:
-        """Gère la stratégie RESET."""
+        """GÃ¨re la stratÃ©gie RESET."""
         component = context.get('component', 'unknown')
-        self.logger.info(f"Réinitialisation de {component}")
+        self.logger.info(f"RÃ©initialisation de {component}")
         
         reset_func = context.get('reset_func')
         if reset_func and callable(reset_func):
@@ -129,15 +129,15 @@ class RecoveryManager:
 
     def _handle_fallback(self, fault: Fault, action: RecoveryAction, 
                         context: Dict[str, Any]) -> Any:
-        """Gère la stratégie FALLBACK."""
+        """GÃ¨re la stratÃ©gie FALLBACK."""
         self.logger.info(f"Utilisation valeur de repli: {action.fallback_value}")
         return action.fallback_value
 
     def _handle_disable(self, fault: Fault, action: RecoveryAction, 
                        context: Dict[str, Any]) -> None:
-        """Gère la stratégie DISABLE."""
+        """GÃ¨re la stratÃ©gie DISABLE."""
         component = context.get('component', 'unknown')
-        self.logger.warning(f"Désactivation de {component}")
+        self.logger.warning(f"DÃ©sactivation de {component}")
         
         disable_func = context.get('disable_func')
         if disable_func and callable(disable_func):
@@ -145,15 +145,15 @@ class RecoveryManager:
 
     def _handle_emergency(self, fault: Fault, action: RecoveryAction, 
                          context: Dict[str, Any]) -> None:
-        """Gère la stratégie EMERGENCY."""
-        self.logger.critical("Arrêt d'urgence du système")
+        """GÃ¨re la stratÃ©gie EMERGENCY."""
+        self.logger.critical("ArrÃªt d'urgence du systÃ¨me")
         
         emergency_func = context.get('emergency_func')
         if emergency_func and callable(emergency_func):
             emergency_func()
 
     def reset_retry_count(self, component: str, fault_code: FaultCode) -> None:
-        """Réinitialise le compteur de tentatives pour un composant."""
+        """RÃ©initialise le compteur de tentatives pour un composant."""
         retry_key = f"{component}_{fault_code.name}"
         if retry_key in self._retry_counts:
             del self._retry_counts[retry_key]

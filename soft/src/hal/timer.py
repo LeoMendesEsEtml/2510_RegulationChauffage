@@ -3,14 +3,14 @@ class Timer:
     def stop(self): pass
 """
 Module HAL Timer
-Abstraction des timers pour tâches périodiques et temporisations.
+Abstraction des timers pour taches periodiques et temporisations.
 """
 
 class Timer:
     def start(self, interval, callback):
-        """Démarre un timer périodique avec callback."""
+        """Demarre un timer periodique avec callback."""
         pass
 
     def stop(self):
-        """Arrête le timer."""
+        """Arrete le timer."""
         pass

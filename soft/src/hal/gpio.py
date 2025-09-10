@@ -1,7 +1,7 @@
 """
 Module HAL GPIO
-Abstraction des entrées/sorties numériques pour tous les drivers du projet.
-Permet d'utiliser les GPIO sans dépendance directe au matériel.
+Abstraction des entrees/sorties numeriques pour tous les drivers du projet.
+Permet d'utiliser les GPIO sans dependance directe au materiel.
 """
 from typing import Callable, Literal, Optional
 from Metrology.exceptions import HardwareError
@@ -22,38 +22,38 @@ class GPIO:
         Configure une broche en sortie.
         
         Args:
-            pin: Numéro de la broche GPIO
-            initial: État initial (0 ou 1)
+            pin: Numero de la broche GPIO
+            initial: etat initial (0 ou 1)
             
         Raises:
-            HardwareError: Si la configuration échoue
+            HardwareError: Si la configuration echoue
         """
         raise NotImplementedError
 
     def setup_in(self, pin: int, pull_up_down: int = PUD_OFF) -> None:
         """
-        Configure une broche en entrée.
+        Configure une broche en entree.
         
         Args:
-            pin: Numéro de la broche GPIO
-            pull_up_down: Configuration des résistances de pull-up/down
+            pin: Numero de la broche GPIO
+            pull_up_down: Configuration des resistances de pull-up/down
                          PUD_OFF, PUD_DOWN, ou PUD_UP
                          
         Raises:
-            HardwareError: Si la configuration échoue
+            HardwareError: Si la configuration echoue
         """
         raise NotImplementedError
 
     def write(self, pin: int, value: int) -> None:
         """
-        Écrit une valeur sur une broche.
+        Ecrit une valeur sur une broche.
         
         Args:
-            pin: Numéro de la broche GPIO
-            value: Valeur à écrire (0 ou 1)
+            pin: Numero de la broche GPIO
+            value: Valeur a ecrire (0 ou 1)
             
         Raises:
-            HardwareError: Si l'écriture échoue
+            HardwareError: Si l'ecriture echoue
         """
         raise NotImplementedError
 
@@ -62,13 +62,13 @@ class GPIO:
         Lit la valeur d'une broche.
         
         Args:
-            pin: Numéro de la broche GPIO
+            pin: Numero de la broche GPIO
             
         Returns:
             int: Valeur lue (0 ou 1)
             
         Raises:
-            HardwareError: Si la lecture échoue
+            HardwareError: Si la lecture echoue
         """
         raise NotImplementedError
 
@@ -79,11 +79,11 @@ class GPIO:
         Attache une interruption sur une broche.
         
         Args:
-            pin: Numéro de la broche GPIO
-            callback: Fonction appelée lors de l'interruption
+            pin: Numero de la broche GPIO
+            callback: Fonction appelee lors de l'interruption
             edge: Type de front ("rising", "falling", "both")
             
         Raises:
-            HardwareError: Si l'attachement échoue
+            HardwareError: Si l'attachement echoue
         """
         raise NotImplementedError

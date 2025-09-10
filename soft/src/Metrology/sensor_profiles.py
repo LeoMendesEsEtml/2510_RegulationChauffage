@@ -1,4 +1,3 @@
-
 ADC_PARAMS_DB = {
     # Nom du profil : parametres ADC associes
     "AF60":      {"ref_bank": 2, "idac_uA": 100, "gain": 4, "data_rate_sps": 20},
@@ -20,13 +19,13 @@ from math import exp, log
 class SensorProfile:
     name: str
     kind: str          # "PTC" or "NTC"
-    r0_ohm: float      # valeur � t0_c
+    r0_ohm: float      # valeur a t0_c
     t0_c: float
     alpha_per_c: float = 0.0  # PTC
     A: float = 0.0            # NTC S-H (C=0 ici)
     B: float = 0.0
     C: float = 0.0
-    rref_nom: float = 10_000  # Rref nominal du r�seau
+    rref_nom: float = 10_000  # Rref nominal du reseau
 
 def _ptc_from_two_points(t1_c: float, r1_ohm: float, t2_c: float, r2_ohm: float):
     # Modele lineaire R(T) = R0 * (1 + alpha * (T - 0))

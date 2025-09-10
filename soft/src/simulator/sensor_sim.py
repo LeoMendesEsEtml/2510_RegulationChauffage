@@ -1,5 +1,5 @@
 """
-Simulateur de capteurs de température pour tests et développement.
+Simulateur de capteurs de temperature pour tests et developpement.
 """
 from math import exp
 from typing import Optional, Dict
@@ -12,23 +12,23 @@ class SensorSimulator:
         Initialise le simulateur.
         
         Args:
-            noise_std: Écart-type du bruit gaussien ajouté
+            noise_std: Ecart-type du bruit gaussien ajoute
         """
         self.noise_std = noise_std
         self._cached_values: Dict[tuple, float] = {}
 
     def simulate(self, profile: SensorProfile, t_c: float) -> float:
         """
-        Simule la résistance d'un capteur à une température donnée.
+        Simule la resistance d'un capteur a une temperature donnee.
         
         Args:
             profile: Profil du capteur
-            t_c: Température en °C
+            t_c: Temperature en C
             
         Returns:
-            float: Résistance simulée en ohms avec bruit
+            float: Resistance simulee en ohms avec bruit
         """
-        # Utilise le cache pour éviter les calculs répétés
+        # Utilise le cache pour eviter les calculs repetes
         cache_key = (id(profile), t_c)
         if cache_key in self._cached_values:
             base_value = self._cached_values[cache_key]
@@ -41,14 +41,14 @@ class SensorSimulator:
                 # Steinhart-Hart inverse
                 t_k = t_c + 273.15
                 inv_t = 1.0 / t_k
-                # Résolution approximative de l'équation S-H
+                # Resolution approximative de l'equation S-H
                 lnR = (inv_t - profile.A) / profile.B
                 base_value = exp(lnR)
             else:
-                raise ValueError(f"Type de capteur non supporté: {profile.kind}")
+                raise ValueError(f"Type de capteur non supporte: {profile.kind}")
             
             self._cached_values[cache_key] = base_value
         
         # Ajoute du bruit gaussien
         noise = gauss(0, self.noise_std * base_value)
-        return max(0.1, base_value + noise)  # Évite les valeurs négatives
+        return max(0.1, base_value + noise)  # Evite les valeurs negatives

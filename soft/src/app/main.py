@@ -6,8 +6,6 @@
 # - Controle regulation
 # - Gestion reseau resistif
 # - Surveillance du systeme
-
-
 import threading
 import time
 import logging
@@ -23,6 +21,7 @@ from hw.gpio_cm5 import GPIO, Relay, LED
 from io.dry_contacts import DryContacts
 from api.external import API
 from control.regulation import CTRL
+
 class TemperatureAcquisition:
     def __init__(self):
         self.hw = build_hw()

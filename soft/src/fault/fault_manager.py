@@ -1,6 +1,6 @@
 """
-Gestionnaire de fautes pour le système de régulation.
-Permet de tracer et gérer les erreurs système.
+Gestionnaire de fautes pour le systÃ¨me de rÃ©gulation.
+Permet de tracer et gÃ©rer les erreurs systÃ¨me.
 """
 from typing import Dict, List, Optional, Any
 import time
@@ -9,7 +9,7 @@ from dataclasses import dataclass
 from enum import IntEnum
 
 class FaultCode(IntEnum):
-    """Codes d'erreur du système"""
+    """Codes d'erreur du systÃ¨me"""
     NO_ERROR = 0
     SENSOR_ERROR = 1
     ADC_ERROR = 2
@@ -19,7 +19,7 @@ class FaultCode(IntEnum):
 
 @dataclass
 class Fault:
-    """Représente une erreur système"""
+    """ReprÃ©sente une erreur systÃ¨me"""
     code: FaultCode
     timestamp: float
     context: Dict[str, Any]
@@ -31,7 +31,7 @@ class FaultManager:
         Initialise le gestionnaire de fautes.
         
         Args:
-            max_history: Nombre maximum d'erreurs à conserver
+            max_history: Nombre maximum d'erreurs Ã  conserver
         """
         self._faults: List[Fault] = []
         self._max_history = max_history
@@ -43,7 +43,7 @@ class FaultManager:
         
         Args:
             code: Code d'erreur
-            context: Contexte de l'erreur (variables, états, etc.)
+            context: Contexte de l'erreur (variables, Ã©tats, etc.)
         """
         fault = Fault(
             code=code,
@@ -60,10 +60,10 @@ class FaultManager:
         
     def get_last_fault(self) -> Optional[Fault]:
         """
-        Retourne la dernière erreur enregistrée.
+        Retourne la derniÃ¨re erreur enregistrÃ©e.
         
         Returns:
-            Optional[Fault]: Dernière erreur ou None si pas d'erreur
+            Optional[Fault]: DerniÃ¨re erreur ou None si pas d'erreur
         """
         return self._faults[-1] if self._faults else None
         
@@ -88,6 +88,6 @@ class FaultManager:
             FaultCode.ADC_ERROR: "Erreur de conversion analogique",
             FaultCode.COMMUNICATION_ERROR: "Erreur de communication",
             FaultCode.CONFIGURATION_ERROR: "Erreur de configuration",
-            FaultCode.REGULATION_ERROR: "Erreur de régulation"
+            FaultCode.REGULATION_ERROR: "Erreur de rÃ©gulation"
         }
         return descriptions.get(code, "Erreur inconnue")

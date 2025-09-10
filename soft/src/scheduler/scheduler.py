@@ -1,6 +1,6 @@
 """
-Ordonnanceur de tâches périodiques pour la régulation.
-Permet d'exécuter des fonctions à intervalles réguliers.
+Ordonnanceur de taches periodiques pour la regulation.
+Permet d'executer des fonctions a intervalles reguliers.
 """
 from typing import Callable, Optional, Dict
 from time import time, sleep
@@ -17,7 +17,7 @@ class Task:
         
 class Scheduler:
     def __init__(self):
-        """Initialise l'ordonnanceur de tâches."""
+        """Initialise l'ordonnanceur de taches."""
         self.tasks: Dict[str, Task] = {}
         self._stop_event = Event()
         self._thread: Optional[Thread] = None
@@ -25,25 +25,25 @@ class Scheduler:
 
     def add_task(self, interval_s: float, func: Callable, name: Optional[str] = None) -> str:
         """
-        Ajoute une tâche périodique.
+        Ajoute une tache periodique.
         
         Args:
-            interval_s: Intervalle d'exécution en secondes
-            func: Fonction à exécuter
-            name: Nom optionnel de la tâche
+            interval_s: Intervalle d'execution en secondes
+            func: Fonction a executer
+            name: Nom optionnel de la tache
             
         Returns:
-            str: Identifiant de la tâche
+            str: Identifiant de la tache
             
         Raises:
-            ValueError: Si l'intervalle est invalide ou la tâche existe déjà
+            ValueError: Si l'intervalle est invalide ou la tache existe deja
         """
         if interval_s <= 0:
-            raise ValueError("L'intervalle doit être positif")
+            raise ValueError("L'intervalle doit etre positif")
         
         task_name = name or func.__name__
         if task_name in self.tasks:
-            raise ValueError(f"Une tâche nommée '{task_name}' existe déjà")
+            raise ValueError(f"Une tache nommee '{task_name}' existe deja")
             
         task = Task(interval_s, func, task_name)
         self.tasks[task_name] = task
@@ -51,18 +51,18 @@ class Scheduler:
         
     def remove_task(self, task_name: str) -> None:
         """
-        Supprime une tâche.
+        Supprime une tache.
         
         Args:
-            task_name: Nom de la tâche à supprimer
+            task_name: Nom de la tache a supprimer
         """
         if task_name in self.tasks:
             del self.tasks[task_name]
             
     def run(self) -> None:
         """
-        Démarre l'ordonnanceur dans un thread séparé.
-        Les tâches sont exécutées à leurs intervalles respectifs.
+        Demarre l'ordonnanceur dans un thread separe.
+        Les taches sont executees a leurs intervalles respectifs.
         """
         if self._thread and self._thread.is_alive():
             return
@@ -73,13 +73,13 @@ class Scheduler:
         self._thread.start()
         
     def stop(self) -> None:
-        """Arrête l'ordonnanceur."""
+        """Arrete l'ordonnanceur."""
         self._stop_event.set()
         if self._thread:
             self._thread.join()
             
     def _run_loop(self) -> None:
-        """Boucle principale d'exécution des tâches."""
+        """Boucle principale d'execution des taches."""
         while not self._stop_event.is_set():
             now = time()
             
@@ -93,6 +93,6 @@ class Scheduler:
                         task.last_run = now
                         task.next_run = now + task.interval
                     except Exception as e:
-                        self.logger.error(f"Erreur dans la tâche {task.name}: {str(e)}")
+                        self.logger.error(f"Erreur dans la tache {task.name}: {str(e)}")
             
-            sleep(0.1)  # Évite de surcharger le CPU
+            sleep(0.1)  # Evite de surcharger le CPU

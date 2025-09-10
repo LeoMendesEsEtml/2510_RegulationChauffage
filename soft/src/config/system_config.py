@@ -1,6 +1,6 @@
 """
-Configuration globale du système de régulation.
-Ce module centralise toutes les configurations et assure leur cohérence.
+Configuration globale du systeme de regulation.
+Ce module centralise toutes les configurations et assure leur coherence.
 """
 from dataclasses import dataclass, field
 from typing import Dict, Optional, List
@@ -31,7 +31,7 @@ class SensorConfig:
 
 @dataclass
 class RegulationConfig:
-    """Configuration de la régulation"""
+    """Configuration de la regulation"""
     sample_interval_s: float = 1.0
     control_interval_s: float = 10.0
     min_temp_c: float = 5.0
@@ -49,7 +49,7 @@ class LoggingConfig:
 class SystemConfig:
     def __init__(self, config_path: str = "config.json"):
         """
-        Initialise la configuration système.
+        Initialise la configuration systeme.
         
         Args:
             config_path: Chemin vers le fichier de configuration JSON
@@ -61,7 +61,7 @@ class SystemConfig:
         self.logging = LoggingConfig()
         self.logger = logging.getLogger('config')
         
-        # État du système
+        # Etat du systeme
         self._is_initialized = False
         self._last_error: Optional[str] = None
 
@@ -70,11 +70,11 @@ class SystemConfig:
         Charge la configuration depuis le fichier JSON.
         
         Returns:
-            bool: True si le chargement réussit
+            bool: True si le chargement reussit
         """
         try:
             if not self.config_path.exists():
-                self.logger.warning(f"Fichier de configuration non trouvé: {self.config_path}")
+                self.logger.warning(f"Fichier de configuration non trouve: {self.config_path}")
                 self._save_default_config()
                 return True
 
@@ -91,7 +91,7 @@ class SystemConfig:
             for sensor_name, sensor_data in sensors_data.items():
                 self.sensors[sensor_name] = SensorConfig(name=sensor_name, **sensor_data)
 
-            # Charge la configuration de régulation
+            # Charge la configuration de regulation
             reg_data = data.get('regulation', {})
             self.regulation = RegulationConfig(**reg_data)
 
@@ -113,7 +113,7 @@ class SystemConfig:
         Sauvegarde la configuration dans le fichier JSON.
         
         Returns:
-            bool: True si la sauvegarde réussit
+            bool: True si la sauvegarde reussit
         """
         try:
             config_data = {
@@ -164,7 +164,7 @@ class SystemConfig:
         Valide la configuration actuelle.
         
         Returns:
-            List[str]: Liste des erreurs trouvées (vide si tout est OK)
+            List[str]: Liste des erreurs trouvees (vide si tout est OK)
         """
         errors = []
 
@@ -181,24 +181,24 @@ class SystemConfig:
             if sensor.mux_channel < 0 or sensor.mux_channel > 31:
                 errors.append(f"Canal MUX invalide pour {name}: {sensor.mux_channel}")
             if sensor.filter_window < 1 or sensor.filter_window > 50:
-                errors.append(f"Fenêtre de filtrage invalide pour {name}: {sensor.filter_window}")
+                errors.append(f"Fenetre de filtrage invalide pour {name}: {sensor.filter_window}")
 
-        # Validation régulation
+        # Validation regulation
         if self.regulation.sample_interval_s <= 0:
-            errors.append(f"Intervalle d'échantillonnage invalide: {self.regulation.sample_interval_s}")
+            errors.append(f"Intervalle d'echantillonnage invalide: {self.regulation.sample_interval_s}")
         if self.regulation.control_interval_s <= 0:
-            errors.append(f"Intervalle de contrôle invalide: {self.regulation.control_interval_s}")
+            errors.append(f"Intervalle de controle invalide: {self.regulation.control_interval_s}")
         if self.regulation.min_temp_c >= self.regulation.max_temp_c:
-            errors.append(f"Plage de température invalide: {self.regulation.min_temp_c}..{self.regulation.max_temp_c}")
+            errors.append(f"Plage de temperature invalide: {self.regulation.min_temp_c}..{self.regulation.max_temp_c}")
 
         return errors
 
     def _save_default_config(self) -> None:
-        """Sauvegarde une configuration par défaut."""
+        """Sauvegarde une configuration par defaut."""
         self.save()
-        self.logger.info("Configuration par défaut créée")
+        self.logger.info("Configuration par defaut creee")
 
     @property
     def last_error(self) -> Optional[str]:
-        """Retourne la dernière erreur survenue."""
+        """Retourne la derniere erreur survenue."""
         return self._last_error

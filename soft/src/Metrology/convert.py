@@ -1,17 +1,17 @@
 # -*- coding: utf-8 -*-
 """
-Module de conversion résistance-température pour capteurs de température.
+Module de conversion resistance-temperature pour capteurs de temperature.
 
-Ce module implémente:
-1. Conversion R ? T pour capteurs PTC:
-   - Linéarisation alpha autour du point de référence
-   - Précision optimale entre -15°C et 40°C
+Ce module implemente:
+1. Conversion R -> T pour capteurs PTC:
+   - Linearisation alpha autour du point de reference
+   - Precision optimale entre -15C et 40C
    - Supporte PT1000, PT100, Ni1000, KTY81-210
 
-2. Conversion R ? T pour thermistances NTC:
-   - Équation Steinhart-Hart complète
-   - Coefficients A, B, C calibrés
-   - Grande précision sur toute la plage
+2. Conversion R -> T pour thermistances NTC:
+   - Equation Steinhart-Hart complete
+   - Coefficients A, B, C calibres
+   - Grande precision sur toute la plage
 
 Auteur: LeoMendesEsEtml
 Date: 2025
@@ -25,43 +25,43 @@ from Metrology.exceptions import ConfigError
 
 def r_to_temp(profile: SensorProfile, r_ohm: float) -> float:
     """
-    Convertit une résistance en température selon le profil capteur.
+    Convertit une resistance en temperature selon le profil capteur.
     
     Pour les PTC (ex: PT1000):
-    - Utilise la linéarisation alpha : R(T) = R0*(1 + ?*(T-T0))
-    - R0 : résistance à T0 (généralement 0°C ou 25°C)
-    - ? : coefficient de température (/°C)
-    - Précision ~0.1°C entre -15°C et 40°C
+    - Utilise la linearisation alpha : R(T) = R0*(1 + alpha*(T-T0))
+    - R0 : resistance a T0 (generalement 0C ou 25C)
+    - alpha : coefficient de temperature (/C)
+    - Precision ~0.1C entre -15C et 40C
     
     Pour les NTC:
-    - Utilise l'équation Steinhart-Hart : 1/T = A + B*ln(R) + C*ln(R)³
-    - A, B, C : coefficients calibrés
-    - T en Kelvin, conversion finale en °C
-    - Précision ~0.05°C sur toute la plage
+    - Utilise l'equation Steinhart-Hart : 1/T = A + B*ln(R) + C*ln(R)^3
+    - A, B, C : coefficients calibres
+    - T en Kelvin, conversion finale en C
+    - Precision ~0.05C sur toute la plage
     
     Args:
         profile: Configuration du capteur avec:
             - kind: "PTC" ou "NTC"
-            - Coefficients selon type (?, R0 ou A,B,C)
-        r_ohm: Résistance mesurée en ohms
+            - Coefficients selon type (alpha, R0 ou A,B,C)
+        r_ohm: Resistance mesuree en ohms
         
     Returns:
-        float: Température en °C
+        float: Temperature en C
         
     Raises:
-        ConfigError: Type de capteur non supporté
-        ValueError: Résistance ? 0 ou coefficients invalides
+        ConfigError: Type de capteur non supporte
+        ValueError: Resistance <= 0 ou coefficients invalides
     
     Note:
-        Les capteurs PTC supportés sont:
-        - PT100/PT1000 (? = 0.00385 /°C)
-        - Ni1000 (? = 0.00617 /°C)
-        - KTY81-210 (? = 0.00772 /°C)
+        Les capteurs PTC supportes sont:
+        - PT100/PT1000 (alpha = 0.00385 /C)
+        - Ni1000 (alpha = 0.00617 /C)
+        - KTY81-210 (alpha = 0.00772 /C)
     """
-    # Validation de la résistance
+    # Validation de la resistance
     if r_ohm <= 0:
         raise ValueError(
-            f"La résistance doit être positive: {r_ohm} ?"
+            f"La resistance doit etre positive: {r_ohm} ohms"
         )
 
     # Validation du profil
@@ -71,24 +71,24 @@ def r_to_temp(profile: SensorProfile, r_ohm: float) -> float:
     # Traitement selon type de capteur
     if profile.kind == "PTC":
         # Capteur PTC (coefficient positif)
-        # Formule: R(T) = R0 * (1 + ?*(T - T0))
-        # Résolution: T = T0 + (R/R0 - 1)/?
+        # Formule: R(T) = R0 * (1 + alpha*(T - T0))
+        # Resolution: T = T0 + (R/R0 - 1)/alpha
         
-        # Validation des paramètres
+        # Validation des parametres
         if not (profile.r0_ohm > 0 and profile.alpha_per_c > 0):
             raise ConfigError(
-                f"Paramètres PTC invalides: R0={profile.r0_ohm}, "
+                f"Parametres PTC invalides: R0={profile.r0_ohm}, "
                 f"alpha={profile.alpha_per_c}"
             )
             
-        # Calcul température
+        # Calcul temperature
         t_c = profile.t0_c + (r_ohm / profile.r0_ohm - 1.0) / profile.alpha_per_c
         return t_c
 
     elif profile.kind == "NTC":
-        # Thermistance NTC (coefficient négatif) 
-        # Équation Steinhart-Hart:
-        # 1/T(K) = A + B*ln(R) + C*(ln(R))³
+        # Thermistance NTC (coefficient negatif) 
+        # Equation Steinhart-Hart:
+        # 1/T(K) = A + B*ln(R) + C*(ln(R))^3
         
         # Validation des coefficients
         if not all([profile.A, profile.B, profile.C]):
@@ -97,16 +97,16 @@ def r_to_temp(profile: SensorProfile, r_ohm: float) -> float:
                 f"B={profile.B}, C={profile.C}"
             )
             
-        # Calcul température
+        # Calcul temperature
         try:
             lnR = log(r_ohm)                    # Logarithme naturel
             invK = (                            # Inverse des Kelvin
                 profile.A +                     # Terme constant
-                profile.B * lnR +              # Terme linéaire
+                profile.B * lnR +              # Terme lineaire
                 profile.C * (lnR ** 3)         # Terme cubique
             )
-            t_k = 1.0 / invK                   # Température Kelvin
-            return t_k - 273.15                # Conversion en °C
+            t_k = 1.0 / invK                   # Temperature Kelvin
+            return t_k - 273.15                # Conversion en C
             
         except Exception as e:
             raise ValueError(
@@ -114,7 +114,7 @@ def r_to_temp(profile: SensorProfile, r_ohm: float) -> float:
             )
     
     else:
-        # Type de capteur non supporté
+        # Type de capteur non supporte
         raise ValueError(
             f"Type de capteur inconnu: {profile.kind}"
         )
