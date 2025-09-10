@@ -12,15 +12,15 @@ import logging
 import sys
 import os
 from typing import Dict
-from config.cm5_config import build_hw, ADC_CHANNELS
-from drivers.mux_adg731 import Adg731
-from drivers.adc_ads124s08 import ADS124S08
-from Metrology.convert import r_to_temp
-from Metrology.sensor_profiles import SENSOR_DB, ADC_PARAMS_DB
-from hw.gpio_cm5 import GPIO, Relay, LED
+from config_module.cm5_config import build_hw, ADC_CHANNELS
+from drivers_module.mux_adg731 import Adg731
+from drivers_module.adc_ads124s08 import ADS124S08
+from metrology_module.convert import r_to_temp
+from metrology_module.sensor_profiles import SENSOR_DB, ADC_PARAMS_DB
+from hw_module.gpio_cm5 import GPIO, Relay, LED
 from io_module.dry_contacts import DryContacts
-from api.external import API
-from control.regulation import CTRL
+from api_module.external import API
+from control_module.regulation import CTRL
 
 class TemperatureAcquisition:
     def __init__(self):

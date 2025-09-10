@@ -4,7 +4,7 @@ Simulateur de capteurs de temperature pour tests et developpement.
 from math import exp
 from typing import Optional, Dict
 from random import gauss
-from Metrology.sensor_profiles import SensorProfile
+from metrology_module.sensor_profiles import SensorProfile
 
 class SensorSimulator:
     def __init__(self, noise_std: float = 0.1):

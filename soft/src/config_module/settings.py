@@ -7,7 +7,7 @@ from typing import Dict, Any
 import json
 from pathlib import Path
 import logging
-from utils.logging_config import setup_module_logger
+from utils_module.logging_config import setup_module_logger
 
 # Logger
 logger = setup_module_logger(__name__)

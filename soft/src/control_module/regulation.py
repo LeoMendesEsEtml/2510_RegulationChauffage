@@ -27,7 +27,7 @@ from dataclasses import dataclass
 from typing import Dict, Optional, Tuple
 import math
 import logging
-from utils.logging_config import setup_module_logger
+from utils_module.logging_config import setup_module_logger
 
 # Configuration logging
 logger = setup_module_logger(__name__)

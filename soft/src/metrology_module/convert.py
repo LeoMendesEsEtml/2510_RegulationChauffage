@@ -20,8 +20,8 @@ Licence: MIT
 
 from math import log
 from typing import Union
-from Metrology.sensor_profiles import SensorProfile
-from Metrology.exceptions import ConfigError
+from metrology_module.sensor_profiles import SensorProfile
+from metrology_module.exceptions import ConfigError
 
 def r_to_temp(profile: SensorProfile, r_ohm: float) -> float:
     """

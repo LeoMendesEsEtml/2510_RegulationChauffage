@@ -7,8 +7,8 @@ Configuration materielle du CM5
 import spidev
 import logging
 from typing import Dict, List
-from config.pins_cm5 import PINS
-from hw.gpio_cm5 import GPIO
+from config_module.pins_cm5 import PINS
+from hw_module.gpio_cm5 import GPIO
 
 logger = logging.getLogger(__name__)
 

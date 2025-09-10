@@ -7,7 +7,7 @@ from enum import Enum, auto
 from dataclasses import dataclass
 import logging
 from fault.fault_manager import FaultCode, Fault
-from utils.logging_config import setup_module_logger
+from utils_module.logging_config import setup_module_logger
 
 class RecoveryStrategy(Enum):
     """Stratégies de récupération disponibles"""

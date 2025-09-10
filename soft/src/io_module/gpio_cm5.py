@@ -12,8 +12,8 @@ Fournit une abstraction pour:
 import RPi.GPIO as GPIO
 from typing import Callable, Optional, Dict, List
 import logging
-from utils.logging_config import setup_module_logger
-from utils.error_handler import handle_errors, HardwareError
+from utils_module.logging_config import setup_module_logger
+from utils_module.error_handler import handle_errors, HardwareError
 
 # Logger
 logger = setup_module_logger(__name__)
