@@ -104,7 +104,6 @@ class GPIOManager:
             logger.error(f"Erreur configuration GPIO: {str(e)}")
             raise HardwareError(f"Erreur configuration GPIO: {str(e)}")
             
-    @handle_errors
     def setup_pin(
         self,
         pin: int,
