@@ -4,7 +4,7 @@ Utilitaires pour les tests.
 
 Fournit:
 - Des fonctions de test pour les capteurs
-- Des générateurs de données de test
+- Des generateurs de donnees de test
 - Des outils de validation
 """
 
@@ -12,8 +12,8 @@ import numpy as np
 from typing import List, Tuple, Optional, Union
 from datetime import datetime
 import logging
-from utils.logging_config import setup_module_logger
-from utils.error_handler import handle_errors, ValidationError
+from utils_module.logging_config import setup_module_logger
+from utils_module.error_handler import handle_errors, ValidationError
 
 # Logger
 logger = setup_module_logger(__name__)
@@ -26,14 +26,14 @@ def generate_temperature_data(
     noise_std: float = 0.1
 ) -> Tuple[np.ndarray, np.ndarray]:
     """
-    Génère des données de température simulées.
+    Genere des donnees de temperature simulees.
     
     Args:
-        start_temp: Température initiale (°C)
-        end_temp: Température finale (°C)
-        duration_s: Durée en secondes
-        sample_rate_hz: Fréquence d'échantillonnage
-        noise_std: Écart-type du bruit
+        start_temp: Temperature initiale (C)
+        end_temp: Temperature finale (C)
+        duration_s: Duree en secondes
+        sample_rate_hz: Frequence d'echantillonnage
+        noise_std: Ecart-type du bruit
         
     Returns:
         (timestamps, temperatures)
@@ -43,7 +43,7 @@ def generate_temperature_data(
     # Vecteur temps
     t = np.linspace(0, duration_s, num_samples)
     
-    # Rampe de température + bruit
+    # Rampe de temperature + bruit
     temp = np.linspace(start_temp, end_temp, num_samples)
     temp += np.random.normal(0, noise_std, num_samples)
     
@@ -55,12 +55,12 @@ def validate_temperature(
     max_temp: float = 150.0
 ) -> bool:
     """
-    Valide une mesure de température.
+    Valide une mesure de temperature.
     
     Args:
-        temp: Température à valider
-        min_temp: Température minimale
-        max_temp: Température maximale
+        temp: Temperature a valider
+        min_temp: Temperature minimale
+        max_temp: Temperature maximale
         
     Returns:
         True si valide
@@ -69,11 +69,11 @@ def validate_temperature(
         ValidationError si invalide
     """
     if not isinstance(temp, (int, float)):
-        raise ValidationError("Température doit être un nombre")
+        raise ValidationError("Temperature doit etre un nombre")
         
     if not min_temp <= temp <= max_temp:
         raise ValidationError(
-            f"Température {temp}°C hors limites "
+            f"Temperature {temp}C hors limites "
             f"[{min_temp}, {max_temp}]"
         )
     
@@ -83,13 +83,13 @@ def calculate_statistics(
     data: Union[List[float], np.ndarray]
 ) -> Tuple[float, float, float, float]:
     """
-    Calcule les statistiques d'un ensemble de données.
+    Calcule les statistiques d'un ensemble de donnees.
     
     Args:
-        data: Liste ou array de données
+        data: Liste ou array de donnees
         
     Returns:
-        (moyenne, écart-type, min, max)
+        (moyenne, ecart-type, min, max)
     """
     data = np.array(data)
     return (
@@ -106,18 +106,18 @@ def check_sensor_consistency(
     max_deviation: float = 2.0
 ) -> bool:
     """
-    Vérifie la cohérence des mesures d'un capteur.
+    Verifie la coherence des mesures d'un capteur.
     
     Args:
         values: Liste de mesures
-        reference: Valeur de référence optionnelle
-        max_deviation: Écart maximal autorisé
+        reference: Valeur de reference optionnelle
+        max_deviation: Ecart maximal autorise
         
     Returns:
-        True si cohérent
+        True si coherent
         
     Raises:
-        ValidationError si incohérent
+        ValidationError si incoherent
     """
     if not values:
         raise ValidationError("Liste de mesures vide")
@@ -125,17 +125,17 @@ def check_sensor_consistency(
     mean = np.mean(values)
     std = np.std(values)
     
-    # Vérification écart-type
+    # Verification ecart-type
     if std > max_deviation:
         raise ValidationError(
-            f"Écart-type trop important: {std:.2f} > {max_deviation}"
+            f"Ecart-type trop important: {std:.2f} > {max_deviation}"
         )
         
-    # Vérification référence
+    # Verification reference
     if reference is not None:
         if abs(mean - reference) > max_deviation:
             raise ValidationError(
-                f"Écart référence trop important: "
+                f"Ecart reference trop important: "
                 f"|{mean:.2f} - {reference:.2f}| > {max_deviation}"
             )
             
@@ -147,12 +147,12 @@ def log_test_results(
     details: Optional[str] = None
 ) -> None:
     """
-    Enregistre les résultats d'un test.
+    Enregistre les resultats d'un test.
     
     Args:
         test_name: Nom du test
-        passed: Résultat du test
-        details: Détails optionnels
+        passed: Resultat du test
+        details: Details optionnels
     """
     status = "PASS" if passed else "FAIL"
     message = f"Test {test_name}: {status}"
@@ -179,8 +179,8 @@ def moving_average(
     Calcule la moyenne mobile.
     
     Args:
-        data: Données d'entrée
-        window_size: Taille de la fenêtre
+        data: Donnees d'entree
+        window_size: Taille de la fenetre
         
     Returns:
         Liste des moyennes

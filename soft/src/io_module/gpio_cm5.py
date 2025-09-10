@@ -236,3 +236,27 @@ class GPIOManager:
 
 # Instance globale
 gpio_manager = GPIOManager()
+
+class Relay:
+    def __init__(self, pin: int):
+        self.pin = pin
+
+    def activate(self):
+        gpio_manager.set_pin(self.pin, True)
+        logger.info(f"Relay on pin {self.pin} activated.")
+
+    def deactivate(self):
+        gpio_manager.set_pin(self.pin, False)
+        logger.info(f"Relay on pin {self.pin} deactivated.")
+
+class LED:
+    def __init__(self, pin: int):
+        self.pin = pin
+
+    def turn_on(self):
+        gpio_manager.set_pin(self.pin, True)
+        logger.info(f"LED on pin {self.pin} turned on.")
+
+    def turn_off(self):
+        gpio_manager.set_pin(self.pin, False)
+        logger.info(f"LED on pin {self.pin} turned off.")

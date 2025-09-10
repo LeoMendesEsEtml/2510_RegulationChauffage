@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 """
-Gestionnaire d'erreurs centralisé.
+Gestionnaire d'erreurs centralise.
 
 Fournit:
-- Des exceptions personnalisées
+- Des exceptions personnalisees
 - Un gestionnaire d'erreurs global
-- Des décorateurs pour la gestion des erreurs
-- Des utilitaires de récupération d'erreur
+- Des decorateurs pour la gestion des erreurs
+- Des utilitaires de recuperation d'erreur
 
 Usage:
     from error_handler import handle_errors, retry_on_error
@@ -24,17 +24,17 @@ import functools
 import logging
 import time
 from typing import Type, Optional, Callable, Any, Union, Tuple
-from utils.logging_config import setup_module_logger
+from utils_module.logging_config import setup_module_logger
 
 # Configuration du logger
 logger = setup_module_logger(__name__)
 
 class SystemError(Exception):
-    """Erreur système générique."""
+    """Erreur systeme generique."""
     pass
 
 class HardwareError(SystemError):
-    """Erreur matérielle."""
+    """Erreur materielle."""
     pass
 
 class SensorError(HardwareError):
@@ -59,15 +59,15 @@ def handle_errors(
     log_level: int = logging.ERROR
 ) -> Callable:
     """
-    Décorateur pour gérer les exceptions.
+    Decorateur pour gerer les exceptions.
     
     Args:
-        error_types: Types d'erreurs à gérer
-        reraise: Si True, relève l'exception
+        error_types: Types d'erreurs a gerer
+        reraise: Si True, releve l'exception
         log_level: Niveau de log pour les erreurs
         
     Returns:
-        Fonction décorée
+        Fonction decoree
     """
     if error_types is None:
         error_types = Exception
@@ -101,16 +101,16 @@ def retry_on_error(
     error_types: Optional[Union[Type[Exception], Tuple[Type[Exception], ...]]] = None
 ) -> Callable:
     """
-    Décorateur pour réessayer en cas d'erreur.
+    Decorateur pour reessayer en cas d'erreur.
     
     Args:
         max_attempts: Nombre maximum de tentatives
-        delay_s: Délai initial entre tentatives
-        backoff_factor: Facteur de backoff pour le délai
-        error_types: Types d'erreurs déclenchant retry
+        delay_s: Delai initial entre tentatives
+        backoff_factor: Facteur de backoff pour le delai
+        error_types: Types d'erreurs declenchant retry
         
     Returns:
-        Fonction décorée
+        Fonction decoree
     """
     if error_types is None:
         error_types = Exception
@@ -129,13 +129,13 @@ def retry_on_error(
                     if attempt < max_attempts - 1:
                         logger.warning(
                             f"Tentative {attempt + 1}/{max_attempts} "
-                            f"échouée pour {func.__name__}: {str(e)}"
+                            f"echouee pour {func.__name__}: {str(e)}"
                         )
                         time.sleep(delay)
                         delay *= backoff_factor
                     else:
                         logger.error(
-                            f"Échec après {max_attempts} tentatives "
+                            f"Echec apres {max_attempts} tentatives "
                             f"pour {func.__name__}: {str(e)}"
                         )
             
@@ -153,17 +153,17 @@ def safe_call(
     **kwargs: Any
 ) -> Any:
     """
-    Exécute une fonction de manière sécurisée.
+    Execute une fonction de maniere securisee.
     
     Args:
-        func: Fonction à exécuter
+        func: Fonction a executer
         *args: Arguments positionnels
-        default: Valeur par défaut si erreur
+        default: Valeur par defaut si erreur
         log_errors: Si True, log les erreurs
-        **kwargs: Arguments nommés
+        **kwargs: Arguments nommes
         
     Returns:
-        Résultat ou valeur par défaut
+        Resultat ou valeur par defaut
     """
     try:
         return func(*args, **kwargs)
@@ -174,13 +174,13 @@ def safe_call(
 
 def cleanup_on_error(cleanup_func: Callable) -> Callable:
     """
-    Décorateur exécutant une fonction de nettoyage en cas d'erreur.
+    Decorateur executant une fonction de nettoyage en cas d'erreur.
     
     Args:
         cleanup_func: Fonction de nettoyage
         
     Returns:
-        Fonction décorée
+        Fonction decoree
     """
     def decorator(func: Callable) -> Callable:
         @functools.wraps(func)
@@ -188,7 +188,7 @@ def cleanup_on_error(cleanup_func: Callable) -> Callable:
             try:
                 return func(*args, **kwargs)
             except Exception as e:
-                logger.info(f"Exécution nettoyage après erreur dans {func.__name__}")
+                logger.info(f"Execution nettoyage apres erreur dans {func.__name__}")
                 cleanup_func()
                 raise
         return wrapper

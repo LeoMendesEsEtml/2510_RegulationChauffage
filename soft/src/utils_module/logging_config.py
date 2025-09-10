@@ -1,6 +1,6 @@
 """
-Configuration du système de logging.
-Fournit une configuration centralisée et cohérente des logs.
+Configuration du systeme de logging.
+Fournit une configuration centralisee et coherente des logs.
 """
 import logging
 import logging.handlers
@@ -28,13 +28,13 @@ class LogManager:
                      backup_count: int = 5,
                      console: bool = True) -> None:
         """
-        Configure le système de logging.
+        Configure le systeme de logging.
         
         Args:
             log_file: Chemin du fichier de log
             level: Niveau de log (DEBUG, INFO, WARNING, ERROR, CRITICAL)
             max_size_mb: Taille maximale du fichier en MB
-            backup_count: Nombre de fichiers de backup à conserver
+            backup_count: Nombre de fichiers de backup a conserver
             console: Si True, ajoute aussi les logs dans la console
         """
         if self._initialized:
@@ -43,7 +43,7 @@ class LogManager:
         # Configure le logger racine
         self.root_logger.setLevel(getattr(logging, level.upper()))
 
-        # Crée le dossier des logs si nécessaire
+        # Cree le dossier des logs si necessaire
         log_path = Path(log_file)
         log_path.parent.mkdir(parents=True, exist_ok=True)
 
@@ -57,34 +57,34 @@ class LogManager:
         file_handler.setFormatter(self.formatters['detailed'])
         self.root_logger.addHandler(file_handler)
 
-        # Handler console si demandé
+        # Handler console si demande
         if console:
             console_handler = logging.StreamHandler()
             console_handler.setFormatter(self.formatters['default'])
             self.root_logger.addHandler(console_handler)
 
-        # Capture les exceptions non gérées
+        # Capture les exceptions non gerees
         logging.captureWarnings(True)
 
         self._initialized = True
-        self.root_logger.info("Système de logging initialisé")
+        self.root_logger.info("Systeme de logging initialise")
 
     def get_logger(self, name: str) -> logging.Logger:
         """
-        Obtient un logger nommé avec la configuration standard.
+        Obtient un logger nomme avec la configuration standard.
         
         Args:
             name: Nom du logger
             
         Returns:
-            logging.Logger: Logger configuré
+            logging.Logger: Logger configure
         """
         return logging.getLogger(name)
 
     def add_file_handler(self, name: str, file_path: str, 
                         level: str = "INFO") -> None:
         """
-        Ajoute un handler de fichier spécifique pour un logger.
+        Ajoute un handler de fichier specifique pour un logger.
         
         Args:
             name: Nom du logger
@@ -119,6 +119,6 @@ def setup_module_logger(module_name: str) -> logging.Logger:
         module_name: Nom du module
         
     Returns:
-        logging.Logger: Logger configuré
+        logging.Logger: Logger configure
     """
     return log_manager.get_logger(module_name)
