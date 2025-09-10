@@ -2,14 +2,18 @@
 """
 Interface GPIO pour la carte CM5.
 
-Fournit une abstraction pour:
+Fournit une abstraction pour :
 - Configuration des GPIO
-- Lecture/ecriture des entrees/sorties
+- Lecture/écriture des entrées/sorties
 - Gestion des interruptions
 - Configuration SPI/I2C
 """
 
-import RPi.GPIO as GPIO
+try:
+    import RPi.GPIO as GPIO
+except ImportError:
+    raise ImportError("La bibliothèque RPi.GPIO est requise pour ce script.")
+
 from typing import Callable, Optional, Dict, List
 import logging
 from utils_module.logging_config import setup_module_logger
@@ -18,7 +22,19 @@ from utils_module.error_handler import handle_errors, HardwareError
 # Logger
 logger = setup_module_logger(__name__)
 
-# Definition des broches
+# Détection du modèle (CM5)
+def is_cm5():
+    try:
+        with open("/proc/device-tree/model", "r") as f:
+            model = f.read().strip()
+            return "Compute Module 5" in model
+    except FileNotFoundError:
+        return False
+
+if not is_cm5():
+    raise RuntimeError("Ce script est conçu pour un Raspberry Pi Compute Module 5 (CM5).")
+
+# Définition des broches spécifiques au CM5
 GPIO_PINS = {
     # ADC
     "ADC_CS": 8,      # CE0
@@ -39,7 +55,7 @@ GPIO_PINS = {
     "I2C_SDA": 2,     # Data
     "I2C_SCL": 3,     # Clock
     
-    # GPIO generiques
+    # GPIO génériques
     "GPIO_1": 17,
     "GPIO_2": 18,
     "GPIO_3": 27,
@@ -50,20 +66,20 @@ class GPIOManager:
     """
     Gestionnaire des GPIO.
     
-    Configure et controle les broches GPIO.
-    Gere les callbacks d'interruption.
+    Configure et contrôle les broches GPIO.
+    Gère les callbacks d'interruption.
     """
     
     def __init__(self):
         """
         Initialise le gestionnaire GPIO.
-        Configure le mode BCM et prepare les broches.
+        Configure le mode BCM et prépare les broches.
         """
         # Configuration mode BCM
         GPIO.setmode(GPIO.BCM)
         GPIO.setwarnings(False)
         
-        # Etat des broches
+        # État des broches
         self._pin_states: Dict[int, bool] = {}
         
         # Callbacks d'interruption
@@ -72,13 +88,14 @@ class GPIOManager:
         # Initialisation des broches
         self._setup_pins()
         
-        logger.info("Gestionnaire GPIO initialise")
+        logger.info("Gestionnaire GPIO initialisé")
         
     def _setup_pins(self) -> None:
         """
-        Configure les broches par defaut.
+        Configure les broches par défaut.
         """
         try:
+            logger.info("Début de la configuration des broches GPIO.")
             # ADC
             self.setup_pin(GPIO_PINS["ADC_CS"], GPIO.OUT, initial=GPIO.HIGH)
             self.setup_pin(GPIO_PINS["ADC_DRDY"], GPIO.IN)
@@ -98,7 +115,7 @@ class GPIOManager:
             self.setup_pin(GPIO_PINS["I2C_SDA"], GPIO.OUT)
             self.setup_pin(GPIO_PINS["I2C_SCL"], GPIO.OUT)
             
-            logger.info("Broches GPIO configurees")
+            logger.info("Configuration des broches GPIO terminée.")
             
         except Exception as e:
             logger.error(f"Erreur configuration GPIO: {str(e)}")
@@ -115,12 +132,13 @@ class GPIOManager:
         Configure une broche GPIO.
         
         Args:
-            pin: Numero de la broche
+            pin: Numéro de la broche
             direction: GPIO.IN ou GPIO.OUT
             pull_up_down: GPIO.PUD_UP, GPIO.PUD_DOWN ou None
-            initial: Etat initial pour sortie
+            initial: État initial pour sortie
         """
         try:
+            logger.debug(f"Configuration de la broche {pin} : direction={direction}, pull_up_down={pull_up_down}, initial={initial}")
             if pull_up_down is not None:
                 GPIO.setup(pin, direction, pull_up_down=pull_up_down)
             else:
@@ -129,7 +147,9 @@ class GPIOManager:
             if direction == GPIO.OUT and initial is not None:
                 GPIO.output(pin, initial)
                 self._pin_states[pin] = bool(initial)
+            logger.info(f"Broche {pin} configurée avec succès.")
         except Exception as e:
+            logger.error(f"Erreur lors de la configuration de la broche {pin}: {str(e)}")
             raise HardwareError(f"Erreur lors de la configuration de la broche {pin}: {str(e)}")
             
     @handle_errors
@@ -140,7 +160,7 @@ class GPIOManager:
         GPIO.cleanup()
         self._pin_states.clear()
         self._callbacks.clear()
-        logger.info("GPIO nettoyes")
+        logger.info("GPIO nettoyés")
         
     @handle_errors
     def set_pin(self, pin: int, state: bool) -> None:
