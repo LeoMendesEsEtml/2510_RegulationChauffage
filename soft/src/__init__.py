@@ -1,1 +1,2 @@
-# Ce fichier marque le rÃ©pertoire comme un package Python
+# -*- coding: utf-8 -*-
+# Ce fichier marque le répertoire comme un package Python

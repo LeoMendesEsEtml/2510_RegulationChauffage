@@ -1,6 +1,6 @@
 import RPi.GPIO as GPIO
 
-# Constantes pour utiliser la même API que dans le reste du code
+# Constantes pour utiliser la meme API que dans le reste du code
 BCM = GPIO.BCM
 OUT = GPIO.OUT
 IN = GPIO.IN
