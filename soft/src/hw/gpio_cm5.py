@@ -37,3 +37,13 @@ def cleanup(pin=None):
         GPIO.cleanup()
     else:
         GPIO.cleanup(pin)
+
+class Relay:
+    def __init__(self, pin: int):
+        self.pin = pin
+
+    def activate(self):
+        print(f"Relay on pin {self.pin} activated.")
+
+    def deactivate(self):
+        print(f"Relay on pin {self.pin} deactivated.")
