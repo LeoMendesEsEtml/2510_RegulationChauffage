@@ -47,3 +47,13 @@ class Relay:
 
     def deactivate(self):
         print(f"Relay on pin {self.pin} deactivated.")
+
+class LED:
+    def __init__(self, pin: int):
+        self.pin = pin
+
+    def turn_on(self):
+        print(f"LED on pin {self.pin} turned on.")
+
+    def turn_off(self):
+        print(f"LED on pin {self.pin} turned off.")
