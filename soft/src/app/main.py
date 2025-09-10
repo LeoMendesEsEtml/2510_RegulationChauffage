@@ -18,7 +18,7 @@ from drivers.adc_ads124s08 import ADS124S08
 from Metrology.convert import r_to_temp
 from Metrology.sensor_profiles import SENSOR_DB, ADC_PARAMS_DB
 from hw.gpio_cm5 import GPIO, Relay, LED
-from io.dry_contacts import DryContacts
+from io_module.dry_contacts import DryContacts
 from api.external import API
 from control.regulation import CTRL
 
