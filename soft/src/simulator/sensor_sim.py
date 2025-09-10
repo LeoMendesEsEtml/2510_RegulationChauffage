@@ -52,3 +52,13 @@ class SensorSimulator:
         # Ajoute du bruit gaussien
         noise = gauss(0, self.noise_std * base_value)
         return max(0.1, base_value + noise)  # Evite les valeurs negatives
+
+class Relay:
+    def __init__(self, pin: int):
+        self.pin = pin
+
+    def activate(self):
+        print(f"Relay on pin {self.pin} activated.")
+
+    def deactivate(self):
+        print(f"Relay on pin {self.pin} deactivated.")
