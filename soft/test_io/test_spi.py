@@ -5,9 +5,13 @@ spi = spidev.SpiDev()
 spi.open(0, 0)
 spi.mode = 1
 spi.max_speed_hz = 100000
-print("Envoi SPI...")
-for i in range(10):
-    spi.xfer2([0xAA])
-    time.sleep(0.5)
-spi.close()
-print("Fini.")
+print("Envoi SPI en boucle infinie...")
+try:
+    while True:
+        spi.xfer2([0xAA])
+        time.sleep(0.5)
+except KeyboardInterrupt:
+    print("Arrêt demandé par l'utilisateur.")
+finally:
+    spi.close()
+    print("Fini.")
