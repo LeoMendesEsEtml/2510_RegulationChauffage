@@ -24,22 +24,48 @@ from periphery import GPIO
 # =========================
 
 def adg731_ctrl_byte(address, enable=True):
-    # ADG731 control word (DB7..DB0): EN, CS, X, A3, A2, A1, A0, A4
+    """
+    Calculate control byte for ADG731 mux.
+    
+    ADG731 control byte layout (DB7..DB0):
+    [7] EN: Enable bit (active low: 0=enable, 1=disable all switches)
+    [6] CS: Chip select (must be 0 to write)
+    [5] X: Unused bit (set to 0)
+    [4] A3: Address bit 3
+    [3] A2: Address bit 2
+    [2] A1: Address bit 1
+    [1] A0: Address bit 0
+    [0] A4: Address bit 4 (MSB of address - in LSB position)
+    
+    The unusual bit order (A4 in position 0) requires special attention
+    for addresses 16-31 (where A4=1).
+    """
     if not 0 <= address <= 31:
-        raise ValueError("address out of range")
-    en = 0 if enable else 1       # EN est actif bas : 0 = enable, 1 = tout OFF
-    cs = 0                        # doit rester 0 pour écrire (bit de "bank" réservé aux variantes)
+        raise ValueError(f"address {address} out of range (0-31)")
     
-    # The MSB of address (bit 4) needs to go to LSB of ctrl byte
-    a4 = (address >> 4) & 0x1     # Extract MSB (bit 4) of address
+    # Calculate individual bits
+    en = 0 if enable else 1     # EN is active low: 0=enable, 1=disable all
+    cs = 0                      # Must be 0 to write
+    x = 0                       # Unused bit
     
-    # Extract lower 4 bits (A3-A0) of address
-    a0_3 = address & 0xF          # Extract bits 3-0 of address
+    # Split address bits
+    a4 = (address >> 4) & 0x1   # Extract A4 (bit 4) - goes to position 0
+    a0_3 = address & 0xF        # Extract A0-A3 (bits 0-3)
     
-    # Build control byte with correct bit positions:
-    # [7]   [6]  [5] [4] [3] [2] [1]  [0]
-    # EN    CS   X   A3  A2  A1  A0   A4
-    ctrl = ((en & 0x1) << 7) | ((cs & 0x1) << 6) | (0 << 5) | ((a0_3 & 0xF) << 1) | (a4 & 0x1)
+    # Extract individual address bits from a0_3
+    a3 = (a0_3 >> 3) & 0x1      # A3 - goes to position 4
+    a2 = (a0_3 >> 2) & 0x1      # A2 - goes to position 3
+    a1 = (a0_3 >> 1) & 0x1      # A1 - goes to position 2
+    a0 = a0_3 & 0x1             # A0 - goes to position 1
+    
+    # Assemble control byte bit by bit to ensure correct positioning
+    ctrl = (en << 7) | (cs << 6) | (x << 5) | (a3 << 4) | (a2 << 3) | (a1 << 2) | (a0 << 1) | a4
+    
+    # Double-check bit positions for addresses that use A4 (16-31)
+    if address >= 16:
+        # Verify that A4 bit is set in the control byte
+        if (ctrl & 0x01) != 1:
+            print(f"WARNING: A4 bit not correctly set for address {address}")
     
     return ctrl
 
@@ -55,7 +81,7 @@ class Adg731MuxSpi:
     DEV = ["/dev/spidev0.0", "/dev/spidev0.1", "/dev/spidev0.2", "/dev/spidev0.3"]
 
     def __init__(self, speed_hz=1000000):
-        self.speed = speed_hz
+        self.speed = speed_hzssss
         self.handles = []
         i = 0
         while i < 4:
@@ -64,11 +90,12 @@ class Adg731MuxSpi:
                 s = spidev.SpiDev()
                 # bus=0, device=i
                 s.open(0, i)
-                # ADG731 : SPI mode 1 (CPOL=0, CPHA=1) : échantillonnage sur front descendant, horloge au repos bas
-                s.mode = 1
+                # CRITICAL: ADG731 requires SPI mode 0 (CPOL=0, CPHA=0)
+                # Clock idles low, data sampled on rising edge
+                s.mode = 0
                 
-                # Always limit speed to 100kHz for reliability
-                actual_speed = 100000  # Force to 100kHz
+                # Reduce speed for better reliability
+                actual_speed = 50000  # Force to 50kHz for stability
                 s.max_speed_hz = actual_speed
                 s.bits_per_word = 8
                 
@@ -78,13 +105,15 @@ class Adg731MuxSpi:
                 # Ensure no_cs is False (we want to use the CS line)
                 s.no_cs = False
                 
-                # Minimize the transfer delay (depends on your hardware capabilities)
-                # Short delays ensure signal integrity but too long delays might cause timing issues
+                # Add significant delay to ensure stable CS transitions
                 if hasattr(s, 'delay_usecs'):
-                    s.delay_usecs = 5  # 5 microseconds delay
+                    s.delay_usecs = 100  # 100 microseconds delay
+                
+                # Add loop delay for settling time
+                s.loop_delay = 10  # Microseconds between repeated transfers
                 
                 self.handles.append(s)
-                print(f"Opened SPI device {path} with mode={s.mode}, speed={s.max_speed_hz} Hz, bits={s.bits_per_word}")
+                print(f"Opened SPI device {path} with mode={s.mode}, speed={s.max_speed_hz} Hz, bits={s.bits_per_word}, delay={s.delay_usecs if hasattr(s, 'delay_usecs') else 'default'} µs")
             else:
                 self.handles.append(None)
             i = i + 1
@@ -123,29 +152,43 @@ class Adg731MuxSpi:
         print(f"  Control byte: 0x{ctrl:02X}, binary={bin_repr}")
         print(f"  Expected bit positions: [7:EN=0][6:CS=0][5:X=0][4-1:A3-A0={format(a0_3_bits, '04b')}][0:A4={a4_bit}]")
         
-        # Let's perform a more controlled SPI transfer
-        # First make sure we're in the right mode
-        h.mode = 1  # Reconfirm we're in the right mode
+        # Reconfirm critical SPI settings before each transfer
+        h.mode = 0  # CRITICAL: Using mode 0 (CPOL=0, CPHA=0)
+        h.max_speed_hz = 50000  # 50kHz for stability
+        h.lsbfirst = False  # MSB first
         
-        # Force optimal SPI settings again
-        h.max_speed_hz = 100000  # Set to 100kHz for stability
-        h.lsbfirst = False       # MSB first
+        # Add stabilization delay before transmission
+        time.sleep(0.005)  # 5ms pre-transmission delay
         
-        # Add a small stabilization delay before transmission
-        time.sleep(0.002)
+        # Use a properly formatted command sequence with padding
+        # Some hardware requires extra padding bytes for proper clock generation
+        command = [ctrl]
         
-        # Perform the SPI transfer
-        print(f"Sending SPI data: [0x{ctrl:02X}] to {self.DEV[board_index]}")
+        # Add a pre-command delay to ensure CS line stability
+        if hasattr(h, 'delay_usecs'):
+            original_delay = h.delay_usecs
+            h.delay_usecs = 100  # Temporarily increase to 100µs
         
-        # Cleaner SPI transfer with explicit padding
-        # Some SPI implementations require multiple bytes for proper clocking
-        result = h.xfer2([ctrl])
+        print(f"Sending SPI data: {[hex(x) for x in command]} to {self.DEV[board_index]}")
         
-        # Add another small delay after transmission to ensure stable latch
-        time.sleep(0.002)
+        # Execute SPI transfer with padding - using xfer2 which keeps CS active throughout
+        # Use multiple identical bytes to ensure proper clocking for problematic channels
+        if address >= 8:  # For problematic channels (8+)
+            # Send the command twice to ensure proper clocking
+            result = h.xfer2([ctrl, ctrl])
+            print(f"SPI transfer completed, sent duplicated command: {[hex(x) for x in [ctrl, ctrl]]}, result: {[hex(x) for x in result]}")
+        else:
+            # Standard single-byte transfer for working channels
+            result = h.xfer2([ctrl])
+            print(f"SPI transfer completed, result: {[hex(x) for x in result]}")
         
-        # Debug output for verification
-        print(f"SPI transfer completed, result: {result}")
+        # Restore original delay if changed
+        if hasattr(h, 'delay_usecs'):
+            h.delay_usecs = original_delay
+        
+        # Add post-transmission delay to ensure data latches properly
+        time.sleep(0.005)  # 5ms post-transmission delay
+        
         return ctrl  # Return the control byte for verification
 
 def test_spi_mux_hw():
@@ -247,77 +290,91 @@ def main():
     front_led.write(True)  # Allume la LED façade
     print("Relais activé (GPIO 17), LED façade allumée (GPIO 27)")
 
-    print("=== Test MUX avec vérification de chaque canal (analyse des défauts pour 8-15 et 22-32) ===")
-    # Force slower speed for reliability
-    mux = Adg731MuxSpi(100000)
+    print("\n=== TEST MUX avec SPI MODE 0 et VITESSE RÉDUITE ===")
+    # Force very slow speed and correct mode for reliability
+    mux = Adg731MuxSpi(50000)  # 50kHz
     try:
-        # Test groups separately to identify patterns in failures
-        test_groups = [
-            (0, 7, "Groupe 1 (canaux 0-7)"),  # Working group
-            (8, 15, "Groupe 2 (canaux 8-15)"),  # Problem group
-            (16, 21, "Groupe 3 (canaux 16-21)"),  # Mixed results expected
-            (22, 31, "Groupe 4 (canaux 22-31)")   # Problem group
-        ]
+        print("\n=== VÉRIFICATION DE TOUS LES CANAUX INDIVIDUELLEMENT ===")
         
-        for start, end, group_name in test_groups:
-            print(f"\n===== TEST {group_name} =====")
-            
-            for chan in range(start, end + 1):
-                # Generate the expected control byte
-                ctrl_byte = adg731_ctrl_byte(chan, enable=True)
-                
-                # Detailed bit analysis
-                a4_bit = (chan >> 4) & 0x1
-                a0_3_bits = chan & 0xF
-                
-                print(f"\nTEST CANAL {chan} (0x{chan:02X})")
-                print(f"  Bits d'adresse: A4={a4_bit}, A3-A0={format(a0_3_bits, '04b')}")
-                print(f"  Octet de contrôle: 0x{ctrl_byte:02X}, binaire={format(ctrl_byte, '08b')}")
-                
-                # Set the channel with additional debug info
-                actual_ctrl = mux.set_channel(0, chan)
-                
-                # Verify control byte matches expected
-                if actual_ctrl == ctrl_byte:
-                    print(f"  ✓ Le contrôle correspond à l'attendu: 0x{actual_ctrl:02X}")
-                else:
-                    print(f"  ✗ ERREUR: Le contrôle ne correspond pas: attendu 0x{ctrl_byte:02X}, obtenu 0x{actual_ctrl:02X}")
-                
-                # Add extra verification for problematic ranges
-                if (8 <= chan <= 15) or (22 <= chan <= 31):
-                    print("  VÉRIFICATION SUPPLÉMENTAIRE POUR CANAL PROBLÉMATIQUE:")
-                    # Bit-by-bit verification
-                    expected_bits = format(ctrl_byte, '08b')
-                    for i, bit in enumerate(expected_bits):
-                        bit_pos = 7 - i  # Convert from left-to-right to bit position (7 to 0)
-                        print(f"    Bit {bit_pos}: {bit} - {'EN' if bit_pos == 7 else 'CS' if bit_pos == 6 else 'X' if bit_pos == 5 else f'A{3-(bit_pos-1)}' if 1 <= bit_pos <= 4 else 'A4'}")
-                
-                # Wait for confirmation or set timing
-                user_input = input("Appuie sur Entrée pour continuer, ou entre 'skip' pour passer au groupe suivant... ")
-                if user_input.lower() == 'skip':
-                    break
-                    
-            print(f"===== FIN TEST {group_name} =====\n")
-        
-        # Additional test for problematic channels with modified settings
-        print("\n===== TEST SUPPLÉMENTAIRE: CANAUX PROBLÉMATIQUES AVEC VITESSE RÉDUITE =====")
-        print("Réduction de la vitesse SPI à 50kHz pour vérifier si cela résout les problèmes")
-        
-        # Close and reopen with slower speed
-        mux.close()
-        mux = Adg731MuxSpi(50000)
-        
-        # Test a sample of problematic channels
-        for chan in [8, 15, 22, 31]:
+        # Test channels one by one for detailed analysis
+        for chan in range(32):  # Test all 32 channels (0-31)
             ctrl_byte = adg731_ctrl_byte(chan, enable=True)
-            print(f"\nTEST LENT CANAL {chan} (0x{chan:02X})")
-            print(f"  Octet de contrôle: 0x{ctrl_byte:02X}, binaire={format(ctrl_byte, '08b')}")
             
-            # Set the channel with additional debug info
+            # Detailed bit analysis
+            a4_bit = (chan >> 4) & 0x1
+            a0_3_bits = chan & 0xF
+            
+            print(f"\n=== TEST CANAL {chan} (0x{chan:02X}) ===")
+            print(f"Adresse binaire: {format(chan, '05b')} (A4={a4_bit}, A3-A0={format(a0_3_bits, '04b')})")
+            print(f"Octet de contrôle: 0x{ctrl_byte:02X}, binaire={format(ctrl_byte, '08b')}")
+            
+            # Perform detailed bit-by-bit verification
+            print("Vérification bit par bit du mot de contrôle:")
+            bit_names = ["A4", "A0", "A1", "A2", "A3", "X", "CS", "EN"]
+            expected_values = [
+                a4_bit,                     # A4 (bit 0)
+                chan & 0x1,                 # A0 (bit 1)
+                (chan >> 1) & 0x1,          # A1 (bit 2)
+                (chan >> 2) & 0x1,          # A2 (bit 3)
+                (chan >> 3) & 0x1,          # A3 (bit 4)
+                0,                          # X (bit 5)
+                0,                          # CS (bit 6)
+                0 if True else 1            # EN (bit 7)
+            ]
+            
+            for i in range(8):
+                bit_pos = i
+                bit_val = (ctrl_byte >> i) & 0x1
+                print(f"  Bit {bit_pos}: {bit_val} [{bit_names[i]}] (attendu: {expected_values[i]})")
+            
+            # Set the channel
+            print("\nEnvoi de la commande SPI...")
             actual_ctrl = mux.set_channel(0, chan)
             
-            # Wait for confirmation
-            input("Appuie sur Entrée pour continuer... ")
+            # Verify control byte matches expected
+            if actual_ctrl == ctrl_byte:
+                print(f"✓ Contrôle OK: 0x{actual_ctrl:02X}")
+            else:
+                print(f"✗ ERREUR: Contrôle attendu 0x{ctrl_byte:02X}, obtenu 0x{actual_ctrl:02X}")
+            
+            # Add prompt for oscilloscope analysis
+            if chan in [0, 7, 8, 15, 16, 22, 31]:  # Key channels to check
+                input(f"\n>>> CANAL {chan}: Vérifiez l'oscilloscope et appuyez sur Entrée pour continuer...")
+            else:
+                time.sleep(0.5)  # Brief pause between channels
+            
+            print(f"=== FIN TEST CANAL {chan} ===")
+        
+        # Additional test for problematic channels with slower speed
+        print("\n=== TEST SUPPLÉMENTAIRE: CANAUX PROBLÉMATIQUES ===")
+        
+        # Test specific problematic channels more carefully
+        problem_channels = [8, 15, 22, 31]
+        for chan in problem_channels:
+            print(f"\n>>> TEST APPROFONDI CANAL {chan} <<<")
+            
+            # Set channel and wait for analysis
+            ctrl_byte = mux.set_channel(0, chan)
+            
+            # Add detailed oscilloscope checking prompt
+            input(f"Vérifiez l'oscilloscope pour le canal {chan} (ctrl=0x{ctrl_byte:02X}) et appuyez sur Entrée...")
+            
+            # Try sending the command again with different timing
+            print(f"Nouvel essai avec timing modifié pour canal {chan}...")
+            time.sleep(0.01)  # Longer pre-delay
+            ctrl_byte = mux.set_channel(0, chan)
+            time.sleep(0.01)  # Longer post-delay
+            
+            input("Vérifiez l'oscilloscope après le second essai et appuyez sur Entrée...")
+            
+        print("\n=== TEST DE BALAYAGE RAPIDE ===")
+        # Test rapid scanning of all channels
+        for _ in range(3):  # Do 3 sweeps
+            print("\nBalayage de tous les canaux...")
+            for chan in range(32):
+                mux.set_channel(0, chan)
+                time.sleep(0.1)  # Brief pause between channels
+            print("Balayage terminé")
             
     except KeyboardInterrupt:
         print("Arrêt demandé par l'utilisateur.")
