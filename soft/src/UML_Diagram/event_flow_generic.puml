@@ -1,0 +1,83 @@
+@startuml EventFlow
+!define SUCCESS_COLOR #E8F5E9
+!define WARNING_COLOR #FFF9C4
+!define ERROR_COLOR #FFEBEE
+
+' Acteurs et composants
+actor "Utilisateur" as user
+participant "Application Principale" as main
+participant "Configuration" as config
+participant "MUX" as mux
+participant "ADC" as adc
+participant "Profils Capteurs" as profiles
+participant "Convertisseur" as converter
+participant "Régulation" as regulation
+participant "API Externe" as api
+participant "Interface E/S" as io
+participant "Gestionnaire Erreurs" as errorhandler
+participant "Tâches Planifiées" as scheduler
+
+' Séquence d'initialisation
+== Initialisation ==
+user -> main : Démarrage système
+main -> config : Charger configuration
+config --> main : Configuration chargée
+main -> io : Initialiser interfaces matérielles
+main -> mux : Initialiser multiplexeur
+main -> adc : Initialiser convertisseur
+
+' Séquence de cycle principal
+== Cycle Principal ==
+main -> scheduler : Démarrer planificateur
+scheduler -> scheduler : Exécuter tâches périodiques
+
+' Séquence de mesure
+== Cycle de Mesure ==
+group Acquisition des Mesures
+    main -> io : Lire contacts secs
+    io --> main : États des contacts
+    
+    loop Pour Chaque Canal de Température
+        main -> mux : Sélectionner carte et canal
+        main -> adc : Configurer (gain, vitesse, référence)
+        main -> adc : Configurer sources de courant
+        main -> adc : Configurer sélection de canal
+        main -> adc : Démarrer conversion
+        main -> adc : Attendre données prêtes
+        adc --> main : Mesure brute
+        main -> adc : Convertir en ratio/résistance
+        adc --> main : Valeur de ratio/résistance
+        main -> converter : Convertir en température
+        converter --> main : Valeur de température
+    end
+end
+
+' Séquence de régulation
+== Régulation ==
+group Cycle de Régulation
+    main -> api : Obtenir paramètres
+    api --> main : Paramètres (N, kM, Tprévue)
+    main -> regulation : réguler(Tmes, paramètres)
+    regulation --> main : Commandes de contrôle
+    main -> io : Appliquer commandes
+    main -> api : Envoyer mesures et état
+end
+
+' Séquence de traitement d'erreur
+== Gestion des Erreurs ==
+group Traitement d'Erreur
+    main -> errorhandler : Signaler erreur
+    errorhandler -> io : Mettre en état sécurisé
+    errorhandler -> io : Indiquer erreur
+    errorhandler -> main : État d'erreur
+    main -> api : Envoyer information d'erreur
+end
+
+' Séquence d'arrêt
+== Arrêt Système ==
+user -> main : Signal d'arrêt
+main -> adc : Arrêter conversions
+main -> adc : Mise en veille
+main -> io : Libérer ressources
+
+@enduml

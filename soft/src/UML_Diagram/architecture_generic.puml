@@ -1,0 +1,117 @@
+
+@startuml ArchitectureGeneric
+skinparam componentStyle rectangle
+skinparam packageStyle rectangle
+skinparam linetype ortho
+skinparam defaultTextAlignment center
+skinparam padding 32
+skinparam componentPadding 32
+skinparam packagePadding 32
+
+' Couleurs (optionnel, gardées pour la lisibilité)
+!define APP_COLOR E3F2FD
+!define API_COLOR FFECB3
+!define HAL_COLOR E8F5E9
+!define DRIVERS_COLOR F3E5F5
+!define IO_COLOR FAFAFA
+!define METROLOGY_COLOR FFF3E0
+!define CONTROL_COLOR E0F7FA
+!define SCHEDULER_COLOR EDE7F6
+!define CONFIG_COLOR FBE9E7
+!define UTILS_COLOR F5F5F5
+
+
+package "Application" as app #APP_COLOR {
+  component "Main Application" as main
+}
+
+package "API" as api #API_COLOR {
+  component "External Interface" as external
+}
+
+package "Hardware Abstraction" as hal #HAL_COLOR {
+  component "SPI Interface" as spi
+  component "GPIO Interface" as gpio
+  component "Timer Interface" as timer
+}
+
+package "Drivers" as drivers #DRIVERS_COLOR {
+  component "MUX Driver" as mux
+  component "ADC Driver" as adc
+}
+
+package "Input/Output" as io #IO_COLOR {
+  component "Dry Contacts" as drycontacts
+  component "Hardware GPIO" as hwgpio
+}
+
+package "Metrology" as metrology #METROLOGY_COLOR {
+  component "Sensor Profiles" as sensorprofiles
+  component "Temperature Conversion" as tempconverter
+  component "Sensor Simulation" as sensorsim
+}
+
+package "Control" as control #CONTROL_COLOR {
+  component "Regulation Engine" as regulation
+}
+
+package "Scheduler" as scheduler #SCHEDULER_COLOR {
+  component "Task Scheduler" as taskscheduler
+}
+
+package "Configuration" as config #CONFIG_COLOR {
+  component "System Configuration" as sysconfig
+  component "Hardware Configuration" as hwconfig
+  component "Pin Configuration" as pinconfig
+  component "Channel Configuration" as channelconfig
+}
+
+package "Utilities" as utils #UTILS_COLOR {
+  component "Error Handler" as errorhandler
+  component "Logging" as logging
+  component "Filter" as filter
+  component "Fault Manager" as faultmanager
+  component "Persistence" as persistence
+}
+
+' Relations principales (ajout de points de passage pour éviter le chevauchement)
+main -down-> external : Échange de données
+main -down-> taskscheduler : Planifie tâches
+main -down-> mux : Configure
+main -down-> adc : Configure
+main -down-> drycontacts : Lit états
+main -down-> regulation : Contrôle température
+main -down-> faultmanager : Gère erreurs
+main -down-> persistence : Sauvegarde config
+
+' Relations des drivers avec le HAL
+mux -down-> spi : Communication
+mux -down-> gpio : Contrôle chip select
+adc -down-> spi : Communication
+adc -down-> gpio : Contrôle chip select
+
+' Relations de IO avec HAL
+drycontacts -down-> gpio : Lit entrées
+hwgpio -down-> gpio : Implémente interface
+
+' Relations de métrology
+main -down-> sensorprofiles : Utilise profils
+main -down-> tempconverter : Convertit mesures
+main -down-> sensorsim : En mode simulation
+
+' Relations de la configuration
+main -down-> sysconfig : Configure système
+main -down-> hwconfig : Configure matériel
+hwconfig -down-> pinconfig : Utilise définitions
+hwconfig -down-> channelconfig : Configure canaux
+
+' Relations des utilities
+main -down-> errorhandler : Gère erreurs
+main -down-> logging : Journalise événements
+main -down-> filter : Filtre données
+faultmanager -down-> persistence : Stocke erreurs
+
+' Relations du scheduler
+taskscheduler -down-> timer : Utilise timers
+
+@enduml
