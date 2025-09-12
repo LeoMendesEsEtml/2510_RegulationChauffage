@@ -90,24 +90,18 @@ class Adg731MuxSpi:
         h.xfer2([ctrl])
 
 def test_spi_mux_hw():
-    print("=== MUX test (SPI0 hardware) ===")
     mux = Adg731MuxSpi(100000)
     try:
-        b = 0
-        while b < 4:
-            print("Board", b, "->", Adg731MuxSpi.DEV[b])
-            a = 0
-            while a < 4:
-                try:
-                    mux.set_channel(b, a)
-                    print("  set channel", a, "OK")
-                except Exception as e:
-                    print("  set channel", a, "error:", str(e))
-                a = a + 1
-            b = b + 1
+        chan = 0
+        while True:
+            mux.set_channel(0, chan)
+            print(f"MUX: board 0, channel {chan}")
+            chan = 1 - chan  # alterne entre 0 et 1
+            time.sleep(1)
+    except KeyboardInterrupt:
+        print("Arrêt MUX demandé par l'utilisateur.")
     finally:
         mux.close()
-    print("MUX test done.\n")
 
 # =========================
 # ADS124S0x (ADC) over SPI1
@@ -134,33 +128,21 @@ def test_spi_adc():
         spi.max_speed_hz = 100000
         spi.bits_per_word = 8
 
-        time.sleep(0.003)         # POR ~2.2ms
-        spi.xfer2([0x06])         # RESET
-        time.sleep(0.002)         # wait td(RSSC)
-
-        # Envoi d'une commande simple que l'ADC peut comprendre : lecture du registre ID (RREG 0x00, 1 byte)
-        rx = spi.xfer2([0x20, 0x00, 0x00])
-        if len(rx) >= 3:
-            print(f"ADC ID = 0x{rx[2]:02X}")
-        else:
-            print("ADC ID: réponse invalide", rx)
-
-        # Lecture du registre STATUS (RREG 0x01, 1 byte)
-        rx2 = spi.xfer2([0x21, 0x00, 0x00])
-        if len(rx2) >= 3:
-            print(f"ADC STATUS = 0x{rx2[2]:02X}")
-        else:
-            print("ADC STATUS: réponse invalide", rx2)
-
+        print("ADC: lecture du registre ID en boucle (Ctrl+C pour arrêter)")
+        try:
+            while True:
+                rx = spi.xfer2([0x20, 0x00, 0x00])  # RREG 0x00, 1 byte
+                if len(rx) >= 3:
+                    print(f"ADC ID = 0x{rx[2]:02X}")
+                else:
+                    print("ADC ID: réponse invalide", rx)
+                time.sleep(1)
+        except KeyboardInterrupt:
+            print("Arrêt ADC demandé par l'utilisateur.")
+        finally:
+            spi.close()
     except Exception as e:
         print("ADC SPI error:", str(e))
-    finally:
-        if spi is not None:
-            try:
-                spi.close()
-            except Exception:
-                pass
-    print("ADC SPI test done.\n")
 
 # =========================
 # Main
