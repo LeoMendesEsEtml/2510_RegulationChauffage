@@ -55,8 +55,8 @@ class Adg731MuxSpi:
                 s = spidev.SpiDev()
                 # bus=0, device=i
                 s.open(0, i)
-                # ADG731 accepte mode 0 ou 1; on reste en mode 1 (CPOL=0, CPHA=1)
-                s.mode = 1
+                # ADG731 : SPI mode 0 (CPOL=0, CPHA=0) : échantillonnage sur front montant, horloge au repos bas
+                s.mode = 0
                 s.max_speed_hz = self.speed
                 s.bits_per_word = 8
                 self.handles.append(s)
