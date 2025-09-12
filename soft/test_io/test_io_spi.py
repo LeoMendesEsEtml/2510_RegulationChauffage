@@ -128,14 +128,35 @@ def test_spi_adc():
         spi.max_speed_hz = 100000
         spi.bits_per_word = 8
 
-        print("ADC: lecture du registre STATUS (0x01) en boucle (Ctrl+C pour arrêter)")
+        print("ADC: lecture des registres clés en boucle (Ctrl+C pour arrêter)")
         try:
             while True:
-                rx = spi.xfer2([0x21, 0x00, 0x00])  # RREG 0x01, 1 byte
-                if len(rx) >= 3:
-                    print(f"ADC STATUS = 0x{rx[2]:02X} (bit7 FL_POR={bool(rx[2] & 0x80)})")
-                else:
-                    print("ADC STATUS: réponse invalide", rx)
+                # ID (0x00)
+                rx_id = spi.xfer2([0x20, 0x00, 0x00])
+                # STATUS (0x01)
+                rx_status = spi.xfer2([0x21, 0x00, 0x00])
+                # DATARATE (0x04)
+                rx_datarate = spi.xfer2([0x24, 0x00, 0x00])
+                # REF (0x05)
+                rx_ref = spi.xfer2([0x25, 0x00, 0x00])
+                # IDACMUX (0x07)
+                rx_idacmux = spi.xfer2([0x27, 0x00, 0x00])
+                # FSCAL2 (0x0F)
+                rx_fscal2 = spi.xfer2([0x2F, 0x00, 0x00])
+                # GPIODAT (0x10)
+                rx_gpiodat = spi.xfer2([0x30, 0x00, 0x00])
+                # GPIOCON (0x11)
+                rx_gpiocon = spi.xfer2([0x31, 0x00, 0x00])
+
+                print(f"ADC ID        (0x00) = 0x{rx_id[2]:02X} (attendu ?)" if len(rx_id)>=3 else f"ADC ID: réponse invalide {rx_id}")
+                print(f"ADC STATUS    (0x01) = 0x{rx_status[2]:02X} (bit7 FL_POR={bool(rx_status[2] & 0x80)})" if len(rx_status)>=3 else f"ADC STATUS: réponse invalide {rx_status}")
+                print(f"ADC DATARATE  (0x04) = 0x{rx_datarate[2]:02X} (attendu 0x14)" if len(rx_datarate)>=3 else f"ADC DATARATE: réponse invalide {rx_datarate}")
+                print(f"ADC REF       (0x05) = 0x{rx_ref[2]:02X} (attendu 0x10)" if len(rx_ref)>=3 else f"ADC REF: réponse invalide {rx_ref}")
+                print(f"ADC IDACMUX   (0x07) = 0x{rx_idacmux[2]:02X} (attendu 0xFF)" if len(rx_idacmux)>=3 else f"ADC IDACMUX: réponse invalide {rx_idacmux}")
+                print(f"ADC FSCAL2    (0x0F) = 0x{rx_fscal2[2]:02X} (attendu 0x40)" if len(rx_fscal2)>=3 else f"ADC FSCAL2: réponse invalide {rx_fscal2}")
+                print(f"ADC GPIODAT   (0x10) = 0x{rx_gpiodat[2]:02X} (attendu 0x00)" if len(rx_gpiodat)>=3 else f"ADC GPIODAT: réponse invalide {rx_gpiodat}")
+                print(f"ADC GPIOCON   (0x11) = 0x{rx_gpiocon[2]:02X} (attendu 0x00)" if len(rx_gpiocon)>=3 else f"ADC GPIOCON: réponse invalide {rx_gpiocon}")
+                print("---")
                 time.sleep(1)
         except KeyboardInterrupt:
             print("Arrêt ADC demandé par l'utilisateur.")
