@@ -7,7 +7,23 @@ Programme de mise en service complet pour CM5 :
 
 import time
 import spidev
-import RPi.GPIO as GPIO
+import os
+import sys
+
+# Dynamic GPIO import (mock or real)
+current_dir = os.path.dirname(os.path.abspath(__file__))
+src_dir = os.path.dirname(current_dir) if "src" in current_dir else current_dir
+sys.path.insert(0, src_dir)
+try:
+    from mock_imports import GPIO
+    print("Module d'importation automatique GPIO chargé avec succès")
+except ImportError:
+    try:
+        import RPi.GPIO as GPIO
+        print("RPi.GPIO importé")
+    except ImportError:
+        print("Erreur: Aucun module GPIO compatible trouvé (mock_imports ou RPi.GPIO)")
+        sys.exit(1)
 
 # Définition des broches CM5
 GPIO_PINS = [2, 3, 4, 9, 10, 11, 17, 18, 22, 23, 24, 25, 27]
