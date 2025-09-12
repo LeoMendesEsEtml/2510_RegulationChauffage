@@ -1,7 +1,4 @@
 @startuml EventFlow
-!define SUCCESS_COLOR #E8F5E9
-!define WARNING_COLOR #FFF9C4
-!define ERROR_COLOR #FFEBEE
 
 ' Acteurs et composants
 actor "Utilisateur" as user

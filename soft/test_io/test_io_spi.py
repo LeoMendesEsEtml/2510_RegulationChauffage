@@ -5,30 +5,50 @@ Programme de mise en service complet pour CM5 :
 - Test SPI (communication avec MUX et ADC, lecture registre ID).
 """
 
+
 import time
 import spidev
-import os
-import sys
+# Utilisation du mockio pour GPIO
+from mockio import MOCK_PINS, get_pin_info
 
-# Dynamic GPIO import (mock or real)
-current_dir = os.path.dirname(os.path.abspath(__file__))
-src_dir = os.path.dirname(current_dir) if "src" in current_dir else current_dir
-sys.path.insert(0, src_dir)
-try:
-    from mock_imports import GPIO
-    print("Module d'importation automatique GPIO chargé avec succès")
-except ImportError:
-    try:
-        import RPi.GPIO as GPIO
-        print("RPi.GPIO importé")
-    except ImportError:
-        print("Erreur: Aucun module GPIO compatible trouvé (mock_imports ou RPi.GPIO)")
-        sys.exit(1)
+class MockGPIO:
+    BCM = 'BCM'
+    OUT = 'OUT'
+    IN = 'IN'
+    LOW = 0
+    HIGH = 1
+    _pin_states = {}
 
-# Définition des broches CM5
-GPIO_PINS = [2, 3, 4, 9, 10, 11, 17, 18, 22, 23, 24, 25, 27]
-MUX_CS_PIN = 7
-ADC_CS_PIN = 8
+    @staticmethod
+    def setmode(mode):
+        print(f"MockGPIO: setmode({mode})")
+
+    @staticmethod
+    def setwarnings(flag):
+        print(f"MockGPIO: setwarnings({flag})")
+
+    @staticmethod
+    def setup(pin, mode, initial=None):
+        MockGPIO._pin_states[pin] = initial if initial is not None else MockGPIO.LOW
+        print(f"MockGPIO: setup(pin={pin}, mode={mode}, initial={initial})")
+
+    @staticmethod
+    def output(pin, value):
+        MockGPIO._pin_states[pin] = value
+        print(f"MockGPIO: output(pin={pin}, value={value})")
+
+    @staticmethod
+    def input(pin):
+        val = MockGPIO._pin_states.get(pin, MockGPIO.LOW)
+        print(f"MockGPIO: input(pin={pin}) -> {val}")
+        return val
+
+    @staticmethod
+    def cleanup():
+        MockGPIO._pin_states.clear()
+        print("MockGPIO: cleanup()")
+
+GPIO = MockGPIO
 
 def test_gpio():
     print("=== Test GPIO ===")
@@ -36,14 +56,15 @@ def test_gpio():
     GPIO.setwarnings(False)
     # Test configuration et écriture
     for pin in GPIO_PINS:
+        pin_info = get_pin_info(f"GPIO_{pin}")
         GPIO.setup(pin, GPIO.OUT, initial=GPIO.LOW)
         GPIO.output(pin, GPIO.HIGH)
         time.sleep(0.05)
         val = GPIO.input(pin)
-        print(f"GPIO {pin} set HIGH, read: {val}")
+        print(f"GPIO {pin} set HIGH, read: {val} | info: {pin_info}")
         GPIO.output(pin, GPIO.LOW)
         val = GPIO.input(pin)
-        print(f"GPIO {pin} set LOW, read: {val}")
+        print(f"GPIO {pin} set LOW, read: {val} | info: {pin_info}")
     GPIO.cleanup()
     print("GPIO test terminé.\n")
 
