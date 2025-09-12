@@ -92,14 +92,25 @@ class Adg731MuxSpi:
 def test_spi_mux_hw():
     mux = Adg731MuxSpi(100000)
     try:
-        chan = 0
-        while True:
-            mux.set_channel(0, chan)
-            print(f"MUX: board 0, channel {chan}")
-            chan = 1 - chan  # alterne entre 0 et 1
-            time.sleep(1)
-    except KeyboardInterrupt:
-        print("Arrêt MUX demandé par l'utilisateur.")
+        # Active le relais (GPIOCON 0xFF) via SPI1
+        spi_relay = spidev.SpiDev()
+        spi_relay.open(1, 0)
+        spi_relay.mode = 1
+        spi_relay.max_speed_hz = 100000
+        spi_relay.bits_per_word = 8
+        spi_relay.xfer2([0x64, 0x00, 0xFF])  # WREG 0x11, 1 byte, data=0xFF
+        print("Relais activé (GPIOCON = 0xFF)")
+        spi_relay.close()
+
+        # Place le MUX au min (canal 0)
+        mux.set_channel(0, 0)
+        print("MUX: board 0, channel min (0)")
+        time.sleep(2)
+
+        # Place le MUX au max (canal 31)
+        mux.set_channel(0, 31)
+        print("MUX: board 0, channel max (31)")
+        time.sleep(2)
     finally:
         mux.close()
 
