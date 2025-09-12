@@ -2,15 +2,15 @@
 """
 soft/test_io/test_io_spi.py
 
-Mise en service CM5 :
-- Test GPIO (sorties simples) via GPIO chardev (/dev/gpiochipX), pas sysfs
-- Test MUX ADG731 en bit-bang sur MOSI/SCLK
-- Test ADC ADS124S0x en SPI1 mode 1 (lecture registre ID)
+CM5 bring-up:
+- GPIO test (simple outputs) via GPIO chardev (/dev/gpiochipX), not sysfs
+- ADG731 MUX bit-bang on MOSI/SCLK
+- ADS124S0x ADC on SPI1 mode 1 (read ID register)
 
-Contraintes utilisateur :
-- Code en anglais, commentaires en français
-- Pas d'opérateurs ternaires
-- Opérations écrites explicitement
+User constraints:
+- Code in English, comments in French
+- No ternary operators
+- Explicit operations (no +=, -=, etc.)
 """
 
 import time
@@ -19,24 +19,24 @@ from periphery.gpio import GPIOError
 
 
 # =========================
-# Configuration matérielle
+# Hardware configuration
 # =========================
 
-# Liste de GPIO à tester en simple sortie
+# Liste des GPIO à tester en sortie simple
 GPIO_PINS = [2, 3, 4, 9, 10, 11, 17, 18, 22, 23, 24, 25, 27]
 
 # MUX ADG731 : SYNC par carte (actif bas), horloge et donnée en bit-bang
-MUX_CS_PINS = [8, 7, 3, 2]   # MUX_CS_1..4
-MUX_SCLK_PIN = 11            # SCLK bit-bang (GPIO11)
-MUX_MOSI_PIN = 10            # MOSI bit-bang (GPIO10)
-BITBANG_HALF_PERIOD_US = 2   # demi-période d'horloge ~2 us -> ~250 kHz
+MUX_CS_PINS = [8, 7, 3, 2]   # MUX_CS_1..4 (GPIO8, GPIO7, GPIO3, GPIO2)
+MUX_SCLK_PIN = 11            # SCLK bit-bang (GPIO11) ; si SPI0 actif, la ligne peut être occupée
+MUX_MOSI_PIN = 10            # MOSI bit-bang (GPIO10) ; si SPI0 actif, la ligne peut être occupée
+BITBANG_HALF_PERIOD_US = 2   # demi-période ~2 us -> ~250 kHz
 
 # ADC ADS124S0x sur SPI1 CE0
 ADC_SPI_DEV = "/dev/spidev1.0"
 ADC_SPI_MODE = 1             # CPOL=0, CPHA=1
 ADC_SPI_SPEED_HZ = 1000000   # 1 MHz
 
-# Recherche de chips GPIO disponibles (CM5/RPi OS Bookworm utilise chardev)
+# Candidats gpiochip (RPi OS Bookworm / CM5)
 GPIO_CHIP_CANDIDATES = [
     "/dev/gpiochip0",
     "/dev/gpiochip1",
@@ -52,20 +52,20 @@ GPIO_CHIP_CANDIDATES = [
 
 
 # =========================
-# Helpers GPIO chardev
+# GPIO chardev helpers
 # =========================
 
 class GpioLine:
     """
     Enveloppe simple d'une ligne GPIO ouverte via chardev.
+    Ne passe pas d'argument 'initial' au constructeur periphery (non disponible selon versions).
+    Régle l'état initial après ouverture si demandé.
     """
-
-    def __init__(self, chip_path, line, direction, initial=None):
-        # Ouverture avec python-periphery en mode chardev
-        if initial is None:
-            self.gpio = GPIO(chip_path, line, direction)
-        else:
-            self.gpio = GPIO(chip_path, line, direction, initial=initial)
+    def __init__(self, chip_path, line, direction, want_initial=None):
+        self.gpio = GPIO(chip_path, line, direction)
+        if want_initial is not None:
+            # Mise à l'état initial explicitement après ouverture
+            self.gpio.write(want_initial)
 
     def write(self, value):
         self.gpio.write(value)
@@ -80,21 +80,18 @@ class GpioLine:
             pass
 
 
-def open_gpio_on_any_chip(line, direction, initial=None):
+def open_gpio_on_any_chip(line, direction, want_initial=None):
     """
-    Essaie d'ouvrir la ligne 'line' sur les /dev/gpiochipX disponibles.
-    Retourne un objet GpioLine ouvert en cas de succès.
-    Lève une exception avec message clair sinon.
+    Essaie d'ouvrir la ligne 'line' sur /dev/gpiochipX.
+    Régle l'état initial après ouverture si 'want_initial' est fourni.
+    Retourne un objet GpioLine en cas de succès, sinon lève RuntimeError.
     """
     last_err = None
     idx = 0
     while idx < len(GPIO_CHIP_CANDIDATES):
         chip = GPIO_CHIP_CANDIDATES[idx]
         try:
-            if initial is None:
-                g = GpioLine(chip, line, direction)
-            else:
-                g = GpioLine(chip, line, direction, initial)
+            g = GpioLine(chip, line, direction, want_initial)
             return g
         except GPIOError as e:
             last_err = e
@@ -107,7 +104,7 @@ def open_gpio_on_any_chip(line, direction, initial=None):
 
 
 # =========================
-# Bit-bang SPI minimal
+# Minimal bit-bang SPI
 # =========================
 
 class BitBangSPI:
@@ -117,11 +114,9 @@ class BitBangSPI:
       - CPOL = 0 (SCLK au repos à 0)
       - Donnée échantillonnée sur front montant (SCLK↑)
     """
-
     def __init__(self, sclk_pin, mosi_pin, half_period_us):
-        # Ouverture des GPIO en mode chardev
-        self.sclk = open_gpio_on_any_chip(sclk_pin, "out", initial=False)
-        self.mosi = open_gpio_on_any_chip(mosi_pin, "out", initial=False)
+        self.sclk = open_gpio_on_any_chip(sclk_pin, "out", want_initial=False)
+        self.mosi = open_gpio_on_any_chip(mosi_pin, "out", want_initial=False)
         self.thalf = float(half_period_us) / 1_000_000.0
 
     def close(self):
@@ -158,7 +153,7 @@ class BitBangSPI:
 
 
 # =========================
-# Pilote ADG731 (bit-bang)
+# ADG731 driver (bit-bang)
 # =========================
 
 class Adg731Mux:
@@ -172,13 +167,12 @@ class Adg731Mux:
       D1..D0 = 0
       ctrl = (EN << 7) | ((addr & 0x1F) << 2)
     """
-
     def __init__(self, sclk_pin, mosi_pin, cs_pins, half_period_us=2):
         self.bb = BitBangSPI(sclk_pin, mosi_pin, half_period_us)
         self.cs_gpios = []
         i = 0
         while i < len(cs_pins):
-            g = open_gpio_on_any_chip(cs_pins[i], "out", initial=True)  # SYNC inactif (haut)
+            g = open_gpio_on_any_chip(cs_pins[i], "out", want_initial=True)  # SYNC inactif (haut)
             self.cs_gpios.append(g)
             i = i + 1
 
@@ -239,7 +233,7 @@ def test_gpio():
     while i < len(GPIO_PINS):
         pin = GPIO_PINS[i]
         try:
-            g = open_gpio_on_any_chip(pin, "out", initial=False)
+            g = open_gpio_on_any_chip(pin, "out", want_initial=False)
             g.write(True)
             time.sleep(0.02)
             val_high = g.read()
@@ -273,6 +267,9 @@ def test_spi_mux():
                     print("  set channel", a, "error:", str(e))
                 a = a + 1
             b = b + 1
+    except Exception as e:
+        print("MUX bit-bang init error:", str(e))
+        print("Hint: if SPI0 is enabled, GPIO10/11 may be busy. Disable SPI0 or choose free pins for bit-bang.")
     finally:
         if mux is not None:
             mux.close()
