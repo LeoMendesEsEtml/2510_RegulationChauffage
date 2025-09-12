@@ -109,9 +109,6 @@ class Adg731MuxSpi:
                 if hasattr(s, 'delay_usecs'):
                     s.delay_usecs = 100  # 100 microseconds delay
                 
-                # Add loop delay for settling time
-                s.loop_delay = 10  # Microseconds between repeated transfers
-                
                 self.handles.append(s)
                 print(f"Opened SPI device {path} with mode={s.mode}, speed={s.max_speed_hz} Hz, bits={s.bits_per_word}, delay={s.delay_usecs if hasattr(s, 'delay_usecs') else 'default'} µs")
             else:
