@@ -84,6 +84,8 @@ class Adg731MuxSpi:
             print("skip board", board_index, "(", self.DEV[board_index], "missing )")
             return
         ctrl = adg731_ctrl_byte(address, enable=True)
+        print(f"SPI MUX: board={board_index}, address={address}, ctrl=0x{ctrl:02X}")
+        print(f"Appel xfer2 sur {self.DEV[board_index]} avec [{ctrl}]")
         # Une seule trame: CS actif bas pendant xfer2, latch à CS↑
         h.xfer2([ctrl])
 
