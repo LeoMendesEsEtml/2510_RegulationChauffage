@@ -8,51 +8,12 @@ Programme de mise en service complet pour CM5 :
 
 import time
 import spidev
-# Utilisation du mockio pour GPIO
-from mockio import MOCK_PINS, get_pin_info
+import RPi.GPIO as GPIO
 
+# Pinout défini
 GPIO_PINS = [2, 3, 4, 9, 10, 11, 17, 18, 22, 23, 24, 25, 27]
 MUX_CS_PIN = 7
 ADC_CS_PIN = 8
-
-class MockGPIO:
-    BCM = 'BCM'
-    OUT = 'OUT'
-    IN = 'IN'
-    LOW = 0
-    HIGH = 1
-    _pin_states = {}
-
-    @staticmethod
-    def setmode(mode):
-        print(f"MockGPIO: setmode({mode})")
-
-    @staticmethod
-    def setwarnings(flag):
-        print(f"MockGPIO: setwarnings({flag})")
-
-    @staticmethod
-    def setup(pin, mode, initial=None):
-        MockGPIO._pin_states[pin] = initial if initial is not None else MockGPIO.LOW
-        print(f"MockGPIO: setup(pin={pin}, mode={mode}, initial={initial})")
-
-    @staticmethod
-    def output(pin, value):
-        MockGPIO._pin_states[pin] = value
-        print(f"MockGPIO: output(pin={pin}, value={value})")
-
-    @staticmethod
-    def input(pin):
-        val = MockGPIO._pin_states.get(pin, MockGPIO.LOW)
-        print(f"MockGPIO: input(pin={pin}) -> {val}")
-        return val
-
-    @staticmethod
-    def cleanup():
-        MockGPIO._pin_states.clear()
-        print("MockGPIO: cleanup()")
-
-GPIO = MockGPIO
 
 def test_gpio():
     print("=== Test GPIO ===")
@@ -60,15 +21,14 @@ def test_gpio():
     GPIO.setwarnings(False)
     # Test configuration et écriture
     for pin in GPIO_PINS:
-        pin_info = get_pin_info(f"GPIO_{pin}")
         GPIO.setup(pin, GPIO.OUT, initial=GPIO.LOW)
         GPIO.output(pin, GPIO.HIGH)
         time.sleep(0.05)
         val = GPIO.input(pin)
-        print(f"GPIO {pin} set HIGH, read: {val} | info: {pin_info}")
+        print(f"GPIO {pin} set HIGH, read: {val}")
         GPIO.output(pin, GPIO.LOW)
         val = GPIO.input(pin)
-        print(f"GPIO {pin} set LOW, read: {val} | info: {pin_info}")
+        print(f"GPIO {pin} set LOW, read: {val}")
     GPIO.cleanup()
     print("GPIO test terminé.\n")
 
