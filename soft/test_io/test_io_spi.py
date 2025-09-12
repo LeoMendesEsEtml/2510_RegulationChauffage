@@ -138,26 +138,19 @@ def test_spi_adc():
         spi.xfer2([0x06])         # RESET
         time.sleep(0.002)         # wait td(RSSC)
 
-        id1 = adc_read_id_once(spi)
-        print("ADC ID try1 =", "None" if id1 is None else ("0x%02X" % id1))
-
-        need_retry = False
-        if id1 is None:
-            need_retry = True
+        # Envoi d'une commande simple que l'ADC peut comprendre : lecture du registre ID (RREG 0x00, 1 byte)
+        rx = spi.xfer2([0x20, 0x00, 0x00])
+        if len(rx) >= 3:
+            print(f"ADC ID = 0x{rx[2]:02X}")
         else:
-            if id1 == 0x00:
-                need_retry = True
+            print("ADC ID: réponse invalide", rx)
 
-        if need_retry is True:
-            spi.xfer2([0x06])
-            time.sleep(0.002)
-            id2 = adc_read_id_once(spi)
-            print("ADC ID try2 =", "None" if id2 is None else ("0x%02X" % id2))
-
-        # Optional: STATUS at 0x01
+        # Lecture du registre STATUS (RREG 0x01, 1 byte)
         rx2 = spi.xfer2([0x21, 0x00, 0x00])
         if len(rx2) >= 3:
-            print("ADC STATUS =", "0x%02X" % rx2[2])
+            print(f"ADC STATUS = 0x{rx2[2]:02X}")
+        else:
+            print("ADC STATUS: réponse invalide", rx2)
 
     except Exception as e:
         print("ADC SPI error:", str(e))
