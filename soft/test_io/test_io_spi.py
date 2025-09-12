@@ -81,7 +81,7 @@ class Adg731MuxSpi:
     DEV = ["/dev/spidev0.0", "/dev/spidev0.1", "/dev/spidev0.2", "/dev/spidev0.3"]
 
     def __init__(self, speed_hz=1000000):
-        self.speed = speed_hzssss
+        self.speed = speed_hz
         self.handles = []
         i = 0
         while i < 4:
