@@ -17,6 +17,7 @@ Precondition (config.txt):
 import os
 import time
 import spidev
+from periphery import GPIO
 
 # =========================
 # ADG731 (MUX) over SPI0
@@ -181,15 +182,12 @@ def test_spi_adc():
 # =========================
 
 def main():
-    print("=== Activation du relais (GPIOCON=0xFF) ===")
-    spi_relay = spidev.SpiDev()
-    spi_relay.open(1, 0)
-    spi_relay.mode = 1
-    spi_relay.max_speed_hz = 100000
-    spi_relay.bits_per_word = 8
-    spi_relay.xfer2([0x64, 0x00, 0xFF])  # WREG 0x11, 1 byte, data=0xFF
-    print("Relais activé (GPIOCON = 0xFF)")
-    spi_relay.close()
+    print("=== Activation du relais physique (CMD_RELAY, GPIO 17) et LED façade (GPIO 27) ===")
+    cmd_relay = GPIO(17, "out")
+    front_led = GPIO(27, "out")
+    cmd_relay.write(True)  # Active le relais
+    front_led.write(True)  # Allume la LED façade
+    print("Relais activé (GPIO 17), LED façade allumée (GPIO 27)")
 
     print("=== Boucle infinie de test MUX min/max (Ctrl+C pour arrêter) ===")
     mux = Adg731MuxSpi(100000)
@@ -198,12 +196,19 @@ def main():
         while True:
             mux.set_channel(0, chan)
             print(f"MUX: board 0, channel {chan}")
-            chan = 31 if chan == 0 else 0
+            front_led.write(False)  # Éteint la LED façade
             time.sleep(2)
+            chan = 31 if chan == 0 else 0
+            front_led.write(True)  # Rallume la LED façade
     except KeyboardInterrupt:
         print("Arrêt demandé par l'utilisateur.")
     finally:
         mux.close()
+        front_led.write(False)  # Éteint la LED façade
+        cmd_relay.write(False)  # Désactive le relais
+        front_led.close()
+        cmd_relay.close()
+        print("LED façade éteinte, relais désactivé")
 
 if __name__ == "__main__":
     main()
