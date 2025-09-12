@@ -56,23 +56,12 @@ class Adg731MuxSpi:
                 # bus=0, device=i
                 s.open(0, i)
                 # ADG731 : SPI mode 0 (CPOL=0, CPHA=0) : échantillonnage sur front montant, horloge au repos bas
-                s.mode = 0
+                    s.mode = 1
                 s.max_speed_hz = self.speed
                 s.bits_per_word = 8
                 self.handles.append(s)
             else:
-                self.handles.append(None)
-            i = i + 1
-
-    def close(self):
-        i = 0
-        while i < 4:
-            h = self.handles[i]
-            if h is not None:
-                try:
-                    h.close()
-                except Exception:
-                    pass
+                pass
             i = i + 1
 
     def set_channel(self, board_index, address):
@@ -86,7 +75,7 @@ class Adg731MuxSpi:
             return
         ctrl = adg731_ctrl_byte(address, enable=True)
         print(f"SPI MUX: board={board_index}, address={address}, ctrl=0x{ctrl:02X}")
-        print(f"Appel xfer2 sur {self.DEV[board_index]} avec [{ctrl}]")
+        print(f"Appel xfer2 sur {self.DEV[board_index]} avec [0x{ctrl:02X}]")
         # Une seule trame: CS actif bas pendant xfer2, latch à CS↑
         h.xfer2([ctrl])
 
@@ -196,10 +185,8 @@ def main():
         while True:
             mux.set_channel(0, chan)
             print(f"MUX: board 0, channel {chan}")
-            front_led.write(False)  # Éteint la LED façade
             time.sleep(2)
             chan = 31 if chan == 0 else 0
-            front_led.write(True)  # Rallume la LED façade
     except KeyboardInterrupt:
         print("Arrêt demandé par l'utilisateur.")
     finally:
