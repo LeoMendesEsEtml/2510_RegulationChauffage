@@ -196,8 +196,12 @@ def main():
         while True:
             mux.set_channel(0, chan)
             print(f"MUX: board 0, channel {chan}")
-            time.sleep(2)
-            chan = 31 if chan == 0 else 0
+            if chan == 0:
+                input("Appuie sur Entrée pour passer au canal max (31)...")
+                chan = 31
+            else:
+                input("Appuie sur Entrée pour passer au canal min (0)...")
+                chan = 0
     except KeyboardInterrupt:
         print("Arrêt demandé par l'utilisateur.")
     finally:
