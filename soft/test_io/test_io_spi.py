@@ -11,6 +11,10 @@ import spidev
 # Utilisation du mockio pour GPIO
 from mockio import MOCK_PINS, get_pin_info
 
+GPIO_PINS = [2, 3, 4, 9, 10, 11, 17, 18, 22, 23, 24, 25, 27]
+MUX_CS_PIN = 7
+ADC_CS_PIN = 8
+
 class MockGPIO:
     BCM = 'BCM'
     OUT = 'OUT'
