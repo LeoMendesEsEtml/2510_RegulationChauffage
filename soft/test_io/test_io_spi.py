@@ -183,8 +183,8 @@ def test_spi_adc():
 
 def main():
     print("=== Activation du relais physique (CMD_RELAY, GPIO 17) et LED façade (GPIO 27) ===")
-    cmd_relay = GPIO(17, "out")
-    front_led = GPIO(27, "out")
+    cmd_relay = GPIO("/dev/gpiochip0", 17, "out")
+    front_led = GPIO("/dev/gpiochip0", 27, "out")
     cmd_relay.write(True)  # Active le relais
     front_led.write(True)  # Allume la LED façade
     print("Relais activé (GPIO 17), LED façade allumée (GPIO 27)")
