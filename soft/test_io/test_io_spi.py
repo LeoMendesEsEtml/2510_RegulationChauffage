@@ -24,16 +24,16 @@ from periphery import GPIO
 # =========================
 
 def adg731_ctrl_byte(address, enable=True):
-    # D7=EN(0=enable), D6..D2=A4..A0, D1..D0=0
-    if address < 0:
-        raise ValueError("address below 0")
-    if address > 31:
-        raise ValueError("address above 31")
-    en_bit = 0
-    if enable is not True:
-        en_bit = 1
-    ctrl = (en_bit << 7) | ((address & 0x1F) << 2)
+    # ADG731 control word (DB7..DB0): EN, CS, X, A3, A2, A1, A0, A4
+    if not 0 <= address <= 31:
+        raise ValueError("address out of range")
+    en = 0 if enable else 1       # EN est actif bas : 0 = enable, 1 = tout OFF
+    cs = 0                        # doit rester 0 pour écrire (bit de “bank” réservé aux variantes)
+    a4 = (address >> 4) & 0x1     # bit MSB d’adresse au LSB du mot !
+    a0_3 = address & 0xF          # A3..A0
+    ctrl = (en << 7) | (cs << 6) | (0 << 5) | (a0_3 << 1) | a4
     return ctrl
+
 
 class Adg731MuxSpi:
     """
@@ -61,7 +61,18 @@ class Adg731MuxSpi:
                 s.bits_per_word = 8
                 self.handles.append(s)
             else:
-                pass
+                self.handles.append(None)
+            i = i + 1
+
+    def close(self):
+        i = 0
+        while i < 4:
+            h = self.handles[i]
+            if h is not None:
+                try:
+                    h.close()
+                except Exception:
+                    pass
             i = i + 1
 
     def set_channel(self, board_index, address):
@@ -75,7 +86,7 @@ class Adg731MuxSpi:
             return
         ctrl = adg731_ctrl_byte(address, enable=True)
         print(f"SPI MUX: board={board_index}, address={address}, ctrl=0x{ctrl:02X}")
-        print(f"Appel xfer2 sur {self.DEV[board_index]} avec [0x{ctrl:02X}]")
+        print(f"Appel xfer2 sur {self.DEV[board_index]} avec [{ctrl}]")
         # Une seule trame: CS actif bas pendant xfer2, latch à CS↑
         h.xfer2([ctrl])
 
