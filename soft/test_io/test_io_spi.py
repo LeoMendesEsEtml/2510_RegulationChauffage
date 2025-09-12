@@ -181,14 +181,29 @@ def test_spi_adc():
 # =========================
 
 def main():
-    print("=== Boucle infinie de tests SPI (Ctrl+C pour arrêter) ===")
+    print("=== Activation du relais (GPIOCON=0xFF) ===")
+    spi_relay = spidev.SpiDev()
+    spi_relay.open(1, 0)
+    spi_relay.mode = 1
+    spi_relay.max_speed_hz = 100000
+    spi_relay.bits_per_word = 8
+    spi_relay.xfer2([0x64, 0x00, 0xFF])  # WREG 0x11, 1 byte, data=0xFF
+    print("Relais activé (GPIOCON = 0xFF)")
+    spi_relay.close()
+
+    print("=== Boucle infinie de test MUX min/max (Ctrl+C pour arrêter) ===")
+    mux = Adg731MuxSpi(100000)
     try:
+        chan = 0
         while True:
-            test_spi_mux_hw()
-            test_spi_adc()
-            time.sleep(1)
+            mux.set_channel(0, chan)
+            print(f"MUX: board 0, channel {chan}")
+            chan = 31 if chan == 0 else 0
+            time.sleep(2)
     except KeyboardInterrupt:
         print("Arrêt demandé par l'utilisateur.")
+    finally:
+        mux.close()
 
 if __name__ == "__main__":
     main()
