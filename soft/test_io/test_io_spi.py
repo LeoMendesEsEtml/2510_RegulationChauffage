@@ -128,14 +128,14 @@ def test_spi_adc():
         spi.max_speed_hz = 100000
         spi.bits_per_word = 8
 
-        print("ADC: lecture du registre ID en boucle (Ctrl+C pour arrêter)")
+        print("ADC: lecture du registre STATUS (0x01) en boucle (Ctrl+C pour arrêter)")
         try:
             while True:
-                rx = spi.xfer2([0x20, 0x00, 0x00])  # RREG 0x00, 1 byte
+                rx = spi.xfer2([0x21, 0x00, 0x00])  # RREG 0x01, 1 byte
                 if len(rx) >= 3:
-                    print(f"ADC ID = 0x{rx[2]:02X}")
+                    print(f"ADC STATUS = 0x{rx[2]:02X} (bit7 FL_POR={bool(rx[2] & 0x80)})")
                 else:
-                    print("ADC ID: réponse invalide", rx)
+                    print("ADC STATUS: réponse invalide", rx)
                 time.sleep(1)
         except KeyboardInterrupt:
             print("Arrêt ADC demandé par l'utilisateur.")
