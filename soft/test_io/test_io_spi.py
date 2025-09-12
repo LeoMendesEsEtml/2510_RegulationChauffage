@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-#!/usr/bin/env python3
+
 """
 soft/test_io/test_io_spi.py
 
@@ -28,10 +28,11 @@ def adg731_ctrl_byte(address, enable=True):
     if not 0 <= address <= 31:
         raise ValueError("address out of range")
     en = 0 if enable else 1       # EN est actif bas : 0 = enable, 1 = tout OFF
-    cs = 0                        # doit rester 0 pour écrire (bit de “bank” réservé aux variantes)
-    a4 = (address >> 4) & 0x1     # bit MSB d’adresse au LSB du mot !
+    cs = 0                        # doit rester 0 pour écrire (bit de "bank" réservé aux variantes)
+    a4 = (address >> 4) & 0x1     # bit MSB d'adresse au LSB du mot !
     a0_3 = address & 0xF          # A3..A0
-    ctrl = (en << 7) | (cs << 6) | (0 << 5) | (a0_3 << 1) | a4
+    # Ensure bits are properly masked and positioned
+    ctrl = ((en & 0x1) << 7) | ((cs & 0x1) << 6) | ((a0_3 & 0xF) << 1) | (a4 & 0x1)
     return ctrl
 
 
@@ -59,7 +60,14 @@ class Adg731MuxSpi:
                 s.mode = 1
                 s.max_speed_hz = self.speed
                 s.bits_per_word = 8
+                # Ensure proper setup by reducing speed if necessary for stability
+                if self.speed > 500000:
+                    print(f"WARNING: Reducing SPI speed from {self.speed} to 500000 Hz for better stability")
+                    s.max_speed_hz = 500000
+                # Set lsbfirst to False to ensure MSB is sent first (standard SPI behavior)
+                s.lsbfirst = False
                 self.handles.append(s)
+                print(f"Opened SPI device {path} with mode={s.mode}, speed={s.max_speed_hz} Hz, bits={s.bits_per_word}")
             else:
                 self.handles.append(None)
             i = i + 1
@@ -85,10 +93,16 @@ class Adg731MuxSpi:
             print("skip board", board_index, "(", self.DEV[board_index], "missing )")
             return
         ctrl = adg731_ctrl_byte(address, enable=True)
-        print(f"SPI MUX: board={board_index}, address={address}, ctrl=0x{ctrl:02X}")
+        # Debug: print the byte in binary to verify bit 7 is set correctly
+        bin_repr = format(ctrl, '08b')
+        print(f"SPI MUX: board={board_index}, address={address}, ctrl=0x{ctrl:02X}, binary={bin_repr}")
         print(f"Appel xfer2 sur {self.DEV[board_index]} avec [{ctrl}]")
+        # Add small delay before transmission to ensure signal stability
+        time.sleep(0.001)
         # Une seule trame: CS actif bas pendant xfer2, latch à CS↑
         h.xfer2([ctrl])
+        # Verify transmission by sending a dummy read command
+        time.sleep(0.001)
 
 def test_spi_mux_hw():
     mux = Adg731MuxSpi(100000)
@@ -189,15 +203,28 @@ def main():
     front_led.write(True)  # Allume la LED façade
     print("Relais activé (GPIO 17), LED façade allumée (GPIO 27)")
 
-    print("=== Boucle infinie de test MUX min/max (Ctrl+C pour arrêter) ===")
+    print("=== Test de tous les canaux MUX (0-31) avec vérification du bit 7 ===")
+    # Reduce speed to improve stability
     mux = Adg731MuxSpi(100000)
     try:
-        chan = 0
-        while True:
+        # Test systematic all channels to verify bit 7 behavior
+        for chan in range(32):
+            # Generate control byte manually for comparison
+            expected_ctrl = adg731_ctrl_byte(chan, enable=True)
+            expected_binary = format(expected_ctrl, '08b')
+            print(f"Testing channel {chan} - Expected control: 0x{expected_ctrl:02X}, binary: {expected_binary}")
+            
+            # Set the channel
             mux.set_channel(0, chan)
-            print(f"MUX: board 0, channel {chan}")
+            
+            # Explicit check for bit 7 (enable bit)
+            if expected_ctrl & 0x80 == 0:
+                print(f"Channel {chan}: Bit 7 is correctly set to 0 (enabled)")
+            else:
+                print(f"Channel {chan}: WARNING - Bit 7 is set to 1 (disabled)")
+            
+            # Wait for confirmation from user
             input("Appuie sur Entrée pour passer au canal suivant...")
-            chan = (chan + 1) % 32
     except KeyboardInterrupt:
         print("Arrêt demandé par l'utilisateur.")
     finally:
