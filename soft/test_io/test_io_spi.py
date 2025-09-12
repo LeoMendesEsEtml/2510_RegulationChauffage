@@ -4,8 +4,8 @@ soft/test_io/test_io_spi.py
 
 CM5 bring-up:
 - GPIO test (simple outputs) via GPIO chardev (/dev/gpiochipX), not sysfs
-- ADG731 MUX bit-bang on MOSI/SCLK
-- ADS124S0x ADC on SPI1 mode 1 (read ID register)
+- ADG731 MUX bit-bang on MOSI/SCLK with per-board SYNC pins
+- ADS124S0x ADC on SPI1 mode 1 (read ID register with fallback)
 
 User constraints:
 - Code in English, comments in French
@@ -13,6 +13,7 @@ User constraints:
 - Explicit operations (no +=, -=, etc.)
 """
 
+import os
 import time
 from periphery import GPIO, SPI
 from periphery.gpio import GPIOError
@@ -22,33 +23,24 @@ from periphery.gpio import GPIOError
 # Hardware configuration
 # =========================
 
-# Liste des GPIO à tester en sortie simple
-GPIO_PINS = [2, 3, 4, 9, 10, 11, 17, 18, 22, 23, 24, 25, 27]
+# GPIO de test basique (éviter les lignes réservées par SPI/I2C/PWM quand overlays actifs)
+# BCM18 est souvent SPI1_CE0: on l'exclut du test simple pour éviter un "busy".
+GPIO_PINS = [2, 3, 4, 9, 10, 11, 17, 22, 23, 24, 25, 27]
 
 # MUX ADG731 : SYNC par carte (actif bas), horloge et donnée en bit-bang
-MUX_CS_PINS = [8, 7, 3, 2]   # MUX_CS_1..4 (GPIO8, GPIO7, GPIO3, GPIO2)
-MUX_SCLK_PIN = 11            # SCLK bit-bang (GPIO11) ; si SPI0 actif, la ligne peut être occupée
-MUX_MOSI_PIN = 10            # MOSI bit-bang (GPIO10) ; si SPI0 actif, la ligne peut être occupée
-BITBANG_HALF_PERIOD_US = 2   # demi-période ~2 us -> ~250 kHz
+# Si SPI0 est actif, GPIO8 peut être occupé par CE0 et refuser l'ouverture en GPIO.
+MUX_CS_PINS = [8, 7, 3, 2]      # BCM8, BCM7, BCM3, BCM2 (SYNC par carte)
+MUX_SCLK_PIN = 11               # SCLK bit-bang (BCM11) ; si SPI0 actif, la ligne peut être occupée
+MUX_MOSI_PIN = 10               # MOSI bit-bang (BCM10) ; si SPI0 actif, la ligne peut être occupée
+BITBANG_HALF_PERIOD_US = 2      # demi-période ~2 us -> ~250 kHz
 
 # ADC ADS124S0x sur SPI1 CE0
 ADC_SPI_DEV = "/dev/spidev1.0"
-ADC_SPI_MODE = 1             # CPOL=0, CPHA=1
-ADC_SPI_SPEED_HZ = 1000000   # 1 MHz
+ADC_SPI_MODE = 1                # CPOL=0, CPHA=1 (mode 1)
+ADC_SPI_SPEED_HZ = 1000000      # 1 MHz
 
-# Candidats gpiochip (RPi OS Bookworm / CM5)
-GPIO_CHIP_CANDIDATES = [
-    "/dev/gpiochip0",
-    "/dev/gpiochip1",
-    "/dev/gpiochip2",
-    "/dev/gpiochip3",
-    "/dev/gpiochip4",
-    "/dev/gpiochip5",
-    "/dev/gpiochip6",
-    "/dev/gpiochip7",
-    "/dev/gpiochip8",
-    "/dev/gpiochip9",
-]
+# Sur RPi OS Bookworm/CM5, les gpiochip existants peuvent varier ; filtre ceux qui existent réellement
+GPIO_CHIP_CANDIDATES = ["/dev/gpiochip" + str(i) for i in range(0, 12) if os.path.exists("/dev/gpiochip" + str(i))]
 
 
 # =========================
@@ -58,13 +50,11 @@ GPIO_CHIP_CANDIDATES = [
 class GpioLine:
     """
     Enveloppe simple d'une ligne GPIO ouverte via chardev.
-    Ne passe pas d'argument 'initial' au constructeur periphery (non disponible selon versions).
-    Régle l'état initial après ouverture si demandé.
+    Régle l'état initial explicitement après ouverture si demandé.
     """
     def __init__(self, chip_path, line, direction, want_initial=None):
         self.gpio = GPIO(chip_path, line, direction)
         if want_initial is not None:
-            # Mise à l'état initial explicitement après ouverture
             self.gpio.write(want_initial)
 
     def write(self, value):
@@ -82,9 +72,8 @@ class GpioLine:
 
 def open_gpio_on_any_chip(line, direction, want_initial=None):
     """
-    Essaie d'ouvrir la ligne 'line' sur /dev/gpiochipX.
-    Régle l'état initial après ouverture si 'want_initial' est fourni.
-    Retourne un objet GpioLine en cas de succès, sinon lève RuntimeError.
+    Essaie d'ouvrir la ligne 'line' sur /dev/gpiochipX existants.
+    Retourne un objet GpioLine ouvert ou lève RuntimeError avec la dernière cause pertinente.
     """
     last_err = None
     idx = 0
@@ -169,21 +158,31 @@ class Adg731Mux:
     """
     def __init__(self, sclk_pin, mosi_pin, cs_pins, half_period_us=2):
         self.bb = BitBangSPI(sclk_pin, mosi_pin, half_period_us)
-        self.cs_gpios = []
+        self.cs_gpios = []        # liste d'objets GpioLine ou None si indisponible
+        self.cs_state = []        # True = opened, False = skipped
         i = 0
         while i < len(cs_pins):
-            g = open_gpio_on_any_chip(cs_pins[i], "out", want_initial=True)  # SYNC inactif (haut)
-            self.cs_gpios.append(g)
+            pin = cs_pins[i]
+            try:
+                g = open_gpio_on_any_chip(pin, "out", want_initial=True)  # SYNC inactif (haut)
+                self.cs_gpios.append(g)
+                self.cs_state.append(True)
+            except Exception as e:
+                print("MUX SYNC GPIO", pin, "unavailable:", str(e))
+                self.cs_gpios.append(None)
+                self.cs_state.append(False)
             i = i + 1
 
     def close(self):
         i = 0
         while i < len(self.cs_gpios):
-            try:
-                self.cs_gpios[i].write(True)
-            except Exception:
-                pass
-            self.cs_gpios[i].close()
+            g = self.cs_gpios[i]
+            if g is not None:
+                try:
+                    g.write(True)
+                except Exception:
+                    pass
+                g.close()
             i = i + 1
         self.bb.close()
 
@@ -209,6 +208,9 @@ class Adg731Mux:
             raise ValueError("board_index below 0")
         if board_index >= len(self.cs_gpios):
             raise ValueError("board_index out of range")
+        if self.cs_state[board_index] is False:
+            print("  skip board", board_index, ": SYNC GPIO not available")
+            return
 
         cs = self.cs_gpios[board_index]
 
@@ -269,29 +271,54 @@ def test_spi_mux():
             b = b + 1
     except Exception as e:
         print("MUX bit-bang init error:", str(e))
-        print("Hint: if SPI0 is enabled, GPIO10/11 may be busy. Disable SPI0 or choose free pins for bit-bang.")
+        print("Hint: if SPI0 is enabled, GPIO8 and GPIO10/11 may be busy. Disable SPI0 or choose free pins for bit-bang.")
     finally:
         if mux is not None:
             mux.close()
     print("MUX test done.\n")
 
 
+def adc_read_id_once(spi):
+    # Lecture registre 0x00 (ID) :
+    # RREG | addr, count-1, dummy
+    tx = [0x20 | 0x00, 0x00, 0x00]
+    rx = spi.transfer(tx)
+    if len(rx) >= 3:
+        return rx[2]
+    return None
+
+
 def test_spi_adc():
     print("=== ADC SPI test (ADS124S0x) ===")
     spi = None
     try:
-        spi = SPI(ADC_SPI_DEV, ADC_SPI_MODE, ADC_SPI_SPEED_HZ)
+        # Ouvre SPI1, CE0, mode 1, 1 MHz
+        spi = SPI("/dev/spidev1.0", 1, 1000000)
 
-        # Lecture registre 0x00 (ID) :
-        # RREG | addr, count-1, dummy
+        # Attendre la fin du POR interne (~2.2 ms) si démarrage à froid
+        time.sleep(0.003)  # 3 ms de marge ; datasheet: ~2.2 ms
+
+        # RESET digital (0x06), puis attendre td(RSSC) ≈ 4096·tCLK ≈ ~1 ms
+        spi.transfer([0x06])
+        time.sleep(0.002)  # 2 ms de marge
+
+        # Lecture ID (registre 0x00), 1 octet :
+        # [RREG|0x00, 0x00] puis 1 octet clocké
         tx = [0x20 | 0x00, 0x00, 0x00]
         rx = spi.transfer(tx)
-
-        print("ADC RREG ID raw:", rx)
         if len(rx) >= 3:
-            print("ADC ID =", "0x%02X" % rx[2])
+            print("ADC RREG ID raw:", rx, " ID=0x%02X" % rx[2])
         else:
             print("Unexpected ADC response length:", len(rx))
+
+        # Optionnel : lire aussi STATUS (0x01) pour vérifier FL_POR/RDY
+        tx2 = [0x20 | 0x01, 0x00, 0x00]
+        rx2 = spi.transfer(tx2)
+        if len(rx2) >= 3:
+            print("ADC STATUS(0x01) =", "0x%02X" % rx2[2])
+        else:
+            print("Unexpected STATUS response length:", len(rx2))
+
     except Exception as e:
         print("ADC SPI error:", str(e))
     finally:
@@ -301,6 +328,7 @@ def test_spi_adc():
             except Exception:
                 pass
     print("ADC SPI test done.\n")
+
 
 
 def main():
