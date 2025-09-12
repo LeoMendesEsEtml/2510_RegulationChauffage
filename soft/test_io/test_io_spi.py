@@ -292,8 +292,8 @@ def test_spi_adc():
     print("=== ADC SPI test (ADS124S0x) ===")
     spi = None
     try:
-        # Ouvre SPI1, CE0, mode 1, 1 MHz
-        spi = SPI("/dev/spidev1.0", 1, 1000000)
+        # Ouvre SPI1, CE0, mode 1, 100 kHz
+        spi = SPI("/dev/spidev1.0", 1, 100000)
 
         # Attendre la fin du POR interne (~2.2 ms) si démarrage à froid
         time.sleep(0.003)  # 3 ms de marge ; datasheet: ~2.2 ms
