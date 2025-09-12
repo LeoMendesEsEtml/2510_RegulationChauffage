@@ -174,8 +174,14 @@ def test_spi_adc():
 # =========================
 
 def main():
-    test_spi_mux_hw()
-    test_spi_adc()
+    print("=== Boucle infinie de tests SPI (Ctrl+C pour arrêter) ===")
+    try:
+        while True:
+            test_spi_mux_hw()
+            test_spi_adc()
+            time.sleep(1)
+    except KeyboardInterrupt:
+        print("Arrêt demandé par l'utilisateur.")
 
 if __name__ == "__main__":
     main()
