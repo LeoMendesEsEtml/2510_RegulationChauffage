@@ -52,144 +52,103 @@ import os
 import spidev
 import time
 
+# =========================
+# ADG731 (MUX) over SPI0
+# =========================
+
 def adg731_ctrl_byte(address, enable=True):
     """
     Construit l’octet de commande pour l’ADG731.
 
-    Format exact du registre à décalage (DB7 -> DB0), d’après le datasheet ADG731 :
-      DB7 = EN    (bit d’activation, actif bas : 0 = enable, 1 = all OFF)
-      DB6 = CS    (laisser à 0 pour écriture normale)
-      DB5 = X     (non utilisé, mettre 0)
-      DB4 = A3
-      DB3 = A2
-      DB2 = A1
-      DB1 = A0
-      DB0 = A4    (MSB d’adresse au LSB du mot)
+    Registre série 8 bits (DB7 -> DB0), d’après le datasheet :
+      DB7 = EN (actif bas : 0 = enable, 1 = all OFF)
+      DB6 = CS (laisser 0)
+      DB5 = X  (laisser 0)
+      DB4 = A4
+      DB3 = A3
+      DB2 = A2
+      DB1 = A1
+      DB0 = A0
 
-    Remarque : l’ordre "A4 au LSB" est volontaire et spécifique à l’ADG731.
-    L’octet est échantillonné sur le front descendant de SCLK (SPI mode 1).
+    => Les 5 bits d’adresse A4..A0 occupent directement DB4..DB0.
+    Données validées au front descendant de SCLK => SPI mode 1.
     """
-
-    if address < 0 or address > 31:
+    if not 0 <= address <= 31:
         raise ValueError("address out of range (0..31)")
 
     en = 0 if enable else 1
-    a0 = (address >> 0) & 0x1
-    a1 = (address >> 1) & 0x1
-    a2 = (address >> 2) & 0x1
-    a3 = (address >> 3) & 0x1
-    a4 = (address >> 4) & 0x1
-
-    ctrl = 0
-    ctrl = ctrl | (en << 7)   # DB7
-    ctrl = ctrl | (0  << 6)   # DB6 = CS (0)
-    ctrl = ctrl | (0  << 5)   # DB5 = X  (0)
-    ctrl = ctrl | (a3 << 4)   # DB4
-    ctrl = ctrl | (a2 << 3)   # DB3
-    ctrl = ctrl | (a1 << 2)   # DB2
-    ctrl = ctrl | (a0 << 1)   # DB1
-    ctrl = ctrl | (a4 << 0)   # DB0
-
+    ctrl = (en << 7) | (address & 0x1F)   # EN sur DB7, A4..A0 sur DB4..DB0
     return ctrl
 
 
 class Adg731MuxSpi:
     """
-    Mapping cartes -> chip-selects SPI0 :
-      board 0 -> /dev/spidev0.0  (CS=GPIO8)
-      board 1 -> /dev/spidev0.1  (CS=GPIO7)
-      board 2 -> /dev/spidev0.2  (CS=GPIO3)  [overlay requis]
-      board 3 -> /dev/spidev0.3  (CS=GPIO2)  [overlay requis]
+    Board -> SPI0 CS mapping:
+      0 -> /dev/spidev0.0
+      1 -> /dev/spidev0.1
+      2 -> /dev/spidev0.2  [requires overlay]
+      3 -> /dev/spidev0.3  [requires overlay]
 
-    Paramètres SPI du MUX (à l’ouverture une seule fois) :
-      - mode = 1  (CPOL=0, CPHA=1)  données valides sur front descendant
+    Paramètres SPI (configurés une fois à l’ouverture) :
+      - mode = 1  (CPOL=0, CPHA=1) données échantillonnées sur front descendant
       - bits_per_word = 8
-      - lsbfirst = False            MSB d’abord
-      - cshigh   = False            CS actif bas
-      - no_cs    = False            on utilise le CS matériel
-      - vitesse  = fixée à l’ouverture; ne pas la réécrire pendant les transferts
+      - lsbfirst = False (MSB d’abord)
+      - cshigh   = False (CS actif bas)
+      - no_cs    = False (utiliser CS matériel)
     """
-
     DEV = ["/dev/spidev0.0", "/dev/spidev0.1", "/dev/spidev0.2", "/dev/spidev0.3"]
 
     def __init__(self, speed_hz=100000):
         self.speed = speed_hz
         self.handles = []
-        i = 0
-        while i < 4:
+        for i in range(4):
             path = self.DEV[i]
             if os.path.exists(path):
                 s = spidev.SpiDev()
                 s.open(0, i)                 # bus 0, device i
-                s.mode = 1                   # CPOL=0, CPHA=1 (ADG731 = falling edge)
-                s.max_speed_hz = self.speed  # ex. 100 kHz pour debug; peut monter ensuite
+                s.mode = 1                   # CPOL=0, CPHA=1
+                s.max_speed_hz = self.speed
                 s.bits_per_word = 8
-
-                # sécurité : certains kernels n’exposent pas ces propriétés -> try/except
-                try:
-                    s.lsbfirst = False
-                except Exception:
-                    pass
-                try:
-                    s.cshigh = False
-                except Exception:
-                    pass
-                try:
-                    s.no_cs = False
-                except Exception:
-                    pass
-                try:
-                    s.threewire = False
-                except Exception:
-                    pass
-
+                try: s.lsbfirst = False
+                except Exception: pass
+                try: s.cshigh = False
+                except Exception: pass
+                try: s.no_cs = False
+                except Exception: pass
+                try: s.threewire = False
+                except Exception: pass
                 self.handles.append(s)
-                # print(f"SPI0 device {path} ouvert : mode={s.mode}, f={s.max_speed_hz} Hz, 8 bits")
             else:
                 self.handles.append(None)
-            i = i + 1
 
     def close(self):
-        i = 0
-        while i < 4:
-            h = self.handles[i]
+        for h in self.handles:
             if h is not None:
-                try:
-                    h.close()
-                except Exception:
-                    pass
-            i = i + 1
+                try: h.close()
+                except Exception: pass
 
     def set_channel(self, board_index, address):
         """
-        Envoie exactement 1 octet (8 fronts d’horloge) avec CS bas,
-        puis relâche CS. Ne change pas le mode ni la vitesse ici.
+        Envoie exactement 1 octet (8 fronts) sous CS bas, puis relâche CS.
+        Ne touche pas aux paramètres SPI ici.
         """
-        if board_index < 0:
-            raise ValueError("board_index below 0")
-        if board_index > 3:
-            raise ValueError("board_index above 3")
-
+        if not 0 <= board_index <= 3:
+            raise ValueError("board_index out of range (0..3)")
         h = self.handles[board_index]
         if h is None:
             print("skip board", board_index, "(", self.DEV[board_index], "missing )")
             return
-
         ctrl = adg731_ctrl_byte(address, enable=True)
-
-        # debug optionnel
+        # Optionnel: debug
         # print(f"ADG731: board={board_index}, chan={address}, ctrl=0x{ctrl:02X} ({ctrl:08b})")
-
-        # Une seule trame : latch interne après le 8e front descendant
-        h.xfer2([ctrl])
-
+        h.xfer2([ctrl])   # une seule trame
         return ctrl
 
 
 def test_spi_mux_hw():
     mux = Adg731MuxSpi(100000)
     try:
-        # Active le relais (GPIOCON 0xFF) via SPI1
+        # Active le relais (GPIOCON 0xFF) via SPI1 (ADC)
         spi_relay = spidev.SpiDev()
         spi_relay.open(1, 0)
         spi_relay.mode = 1
@@ -199,12 +158,10 @@ def test_spi_mux_hw():
         print("Relais activé (GPIOCON = 0xFF)")
         spi_relay.close()
 
-        # Place le MUX au min (canal 0)
         mux.set_channel(0, 0)
         print("MUX: board 0, channel min (0)")
         time.sleep(2)
 
-        # Place le MUX au max (canal 31)
         mux.set_channel(0, 31)
         print("MUX: board 0, channel max (31)")
         time.sleep(2)
@@ -281,38 +238,24 @@ def main():
     print("=== Activation du relais physique (CMD_RELAY, GPIO 17) et LED façade (GPIO 27) ===")
     cmd_relay = GPIO("/dev/gpiochip0", 17, "out")
     front_led = GPIO("/dev/gpiochip0", 27, "out")
-    cmd_relay.write(True)  # Active le relais
-    front_led.write(True)  # Allume la LED façade
+    cmd_relay.write(True)
+    front_led.write(True)
     print("Relais activé (GPIO 17), LED façade allumée (GPIO 27)")
 
-    print("=== Test de tous les canaux MUX (0-31) avec vérification du bit 7 ===")
-    # Reduce speed to improve stability
+    print("=== Test de tous les canaux MUX (0-31) ===")
     mux = Adg731MuxSpi(100000)
     try:
-        # Test systematic all channels to verify bit 7 behavior
         for chan in range(32):
-            # Generate control byte manually for comparison
             expected_ctrl = adg731_ctrl_byte(chan, enable=True)
-            expected_binary = format(expected_ctrl, '08b')
-            print(f"Testing channel {chan} - Expected control: 0x{expected_ctrl:02X}, binary: {expected_binary}")
-            
-            # Set the channel
+            print(f"CHAN {chan:02d} -> ctrl=0x{expected_ctrl:02X} ({expected_ctrl:08b})")
             mux.set_channel(0, chan)
-            
-            # Explicit check for bit 7 (enable bit)
-            if expected_ctrl & 0x80 == 0:
-                print(f"Channel {chan}: Bit 7 is correctly set to 0 (enabled)")
-            else:
-                print(f"Channel {chan}: WARNING - Bit 7 is set to 1 (disabled)")
-            
-            # Wait for confirmation from user
-            input("Appuie sur Entrée pour passer au canal suivant...")
+            input("Entrée pour suivant...")
     except KeyboardInterrupt:
         print("Arrêt demandé par l'utilisateur.")
     finally:
         mux.close()
-        front_led.write(False)  # Éteint la LED façade
-        cmd_relay.write(False)  # Désactive le relais
+        front_led.write(False)
+        cmd_relay.write(False)
         front_led.close()
         cmd_relay.close()
         print("LED façade éteinte, relais désactivé")
