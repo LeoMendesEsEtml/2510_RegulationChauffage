@@ -12,16 +12,14 @@ CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 SRC_DIR = os.path.dirname(CURRENT_DIR)
 if SRC_DIR not in sys.path:
     sys.path.append(SRC_DIR)
+
 import time
 from periphery import GPIO
-from pins_cm5 import GPIO_CHIP_PATH, FRONT_LED
-from config_loader import load_config
-from sensor_profiles import get_profile
-from hw_tmux1204 import Tmux1204
-from adc_ads124s08 import Ads124s08
-from config_module.cm5_config import build_hw, ADC_CHANNELS
+from pins_cm5 import GPIO_CHIP_PATH, FRONT_LED, CMD_RELAY
 from app.config_loader import load_config
 from app.sensor_profiles import get_profile
+from hw_tmux1204 import Tmux1204
+from adc_ads124s08 import Ads124s08
 
 def main():
     CONFIG_FILE = os.path.join(SRC_DIR, "config_module", "sensors.json")
@@ -30,7 +28,8 @@ def main():
     # LED ON permanente
     led = GPIO(GPIO_CHIP_PATH, FRONT_LED, "out")
     led.write(True)
-
+    relay = GPIO(GPIO_CHIP_PATH, CMD_RELAY, "out")
+    relay.write(True)
     tmux = Tmux1204()
     adc = Ads124s08()
 
@@ -75,6 +74,10 @@ def main():
             led.close()
         except Exception:
             pass
-
+        try:
+            relay.write(False)
+            relay.close()
+        except Exception:
+            pass
 if __name__ == "__main__":
     main()
