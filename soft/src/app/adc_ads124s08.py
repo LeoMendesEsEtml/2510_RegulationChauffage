@@ -1,3 +1,51 @@
+import time
+import os
+
+def test_spi_adc():
+    print("=== ADC SPI test (ADS124S0x @ SPI1) ===")
+    spi = None
+    try:
+        # Adapter le chemin SPI pour Windows ou Linux
+        spi_path = "/dev/spidev1.0"
+        if not os.path.exists(spi_path):
+            print(f"FATAL: {spi_path} missing. Vérifiez la configuration SPI.")
+            return
+
+        import spidev
+        spi = spidev.SpiDev()
+        spi.open(1, 0)            # SPI1 CE0
+        spi.mode = 1              # Mode 1 (CPOL=0, CPHA=1)
+        spi.max_speed_hz = 100000
+        spi.bits_per_word = 8
+
+        print("ADC: lecture des registres clés en boucle (Ctrl+C pour arrêter)")
+        try:
+            while True:
+                rx_id = spi.xfer2([0x20, 0x00, 0x00])
+                rx_status = spi.xfer2([0x21, 0x00, 0x00])
+                rx_datarate = spi.xfer2([0x24, 0x00, 0x00])
+                rx_ref = spi.xfer2([0x25, 0x00, 0x00])
+                rx_idacmux = spi.xfer2([0x27, 0x00, 0x00])
+                rx_fscal2 = spi.xfer2([0x2F, 0x00, 0x00])
+                rx_gpiodat = spi.xfer2([0x30, 0x00, 0x00])
+                rx_gpiocon = spi.xfer2([0x31, 0x00, 0x00])
+
+                print(f"ADC ID        (0x00) = 0x{rx_id[2]:02X} (attendu ?)" if len(rx_id)>=3 else f"ADC ID: réponse invalide {rx_id}")
+                print(f"ADC STATUS    (0x01) = 0x{rx_status[2]:02X} (bit7 FL_POR={bool(rx_status[2] & 0x80)})" if len(rx_status)>=3 else f"ADC STATUS: réponse invalide {rx_status}")
+                print(f"ADC DATARATE  (0x04) = 0x{rx_datarate[2]:02X} (attendu 0x14)" if len(rx_datarate)>=3 else f"ADC DATARATE: réponse invalide {rx_datarate}")
+                print(f"ADC REF       (0x05) = 0x{rx_ref[2]:02X} (attendu 0x10)" if len(rx_ref)>=3 else f"ADC REF: réponse invalide {rx_ref}")
+                print(f"ADC IDACMUX   (0x07) = 0x{rx_idacmux[2]:02X} (attendu 0xFF)" if len(rx_idacmux)>=3 else f"ADC IDACMUX: réponse invalide {rx_idacmux}")
+                print(f"ADC FSCAL2    (0x0F) = 0x{rx_fscal2[2]:02X} (attendu 0x40)" if len(rx_fscal2)>=3 else f"ADC FSCAL2: réponse invalide {rx_fscal2}")
+                print(f"ADC GPIODAT   (0x10) = 0x{rx_gpiodat[2]:02X} (attendu 0x00)" if len(rx_gpiodat)>=3 else f"ADC GPIODAT: réponse invalide {rx_gpiodat}")
+                print(f"ADC GPIOCON   (0x11) = 0x{rx_gpiocon[2]:02X} (attendu 0x00)" if len(rx_gpiocon)>=3 else f"ADC GPIOCON: réponse invalide {rx_gpiocon}")
+                print("---")
+                time.sleep(1)
+        except KeyboardInterrupt:
+            print("Arrêt ADC demandé par l'utilisateur.")
+        finally:
+            spi.close()
+    except Exception as e:
+        print("ADC SPI error:", str(e))
 # -*- coding: utf-8 -*-
 # file: adc_ads124s08.py
 """
@@ -101,6 +149,20 @@ class Ads124s08:
         self.spi.bits_per_word = 8
         # DRDY
         self.gpio_drdy = GPIO(GPIO_CHIP_PATH, ADC_DRDY, "in")
+
+        # Test lecture ID ADC
+        adc_id = self.read_id()
+        if adc_id is None:
+            print("[ADC] Erreur: aucune réponse sur le registre ID (0x00)")
+        else:
+            print(f"[ADC] ID (0x00) = 0x{adc_id:02X}")
+
+    def read_id(self):
+        # Lecture du registre ID (0x00), 1 octet
+        rx = self.spi.xfer2([0x20, 0x00, 0x00])
+        if len(rx) >= 3:
+            return rx[2]
+        return None
 
     def close(self):
         try:
