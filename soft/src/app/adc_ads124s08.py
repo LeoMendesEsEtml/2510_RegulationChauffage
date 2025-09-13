@@ -194,12 +194,16 @@ class Ads124s08:
         self.spi.xfer2(tx)
 
     def wait_drdy(self, timeout_s):
+        print(f"[ADC] Attente DRDY (timeout={timeout_s}s)")
         t0 = time.time()
         while True:
             val = self.gpio_drdy.read()
+            print(f"[ADC] DRDY lu: {val}")
             if val is False:
+                print("[ADC] DRDY détecté (LOW)")
                 return True
             if time.time() - t0 > float(timeout_s):
+                print("[ADC] Timeout DRDY!")
                 return False
             time.sleep(0.001)
 
@@ -210,59 +214,74 @@ class Ads124s08:
         ainp = ch["ainp_idx"]
         ainn = ch["ainn_idx"]
         idac_src = ch["idac_src_idx"]
+        print(f"[ADC] Configuration canal {channel_index}: gain={pga_gain}, IDAC={idac_uA}uA")
 
         # INPMUX
         inpmux_val = ((ainp & 0x0F) << 4) | (ainn & 0x0F)
+        print(f"[ADC] INPMUX=0x{inpmux_val:02X}")
         self._wreg(REG_INPMUX, [inpmux_val])
 
         # PGA
         gain_code = encode_gain(pga_gain)
+        print(f"[ADC] PGA=0x{gain_code & 0x07:02X}")
         self._wreg(REG_PGA, [gain_code & 0x07])
 
         # DATARATE (0x14 vu dans tes lectures)
+        print("[ADC] DATARATE=0x14")
         self._wreg(REG_DATARATE, [0x14])
 
         # REF externe REFP0-REFN0 (0x10 vu dans tes lectures)
+        print("[ADC] REF=0x10")
         self._wreg(REG_REF, [0x10])
 
         # IDAC magnitude
         mag_code = encode_idac_uA(idac_uA)
+        print(f"[ADC] IDACMAG=0x{mag_code & 0x0F:02X}")
         self._wreg(REG_IDACMAG, [mag_code & 0x0F])
 
         # IDACMUX: IDAC1 -> idac_src ; IDAC2 -> off (0x0F)
         idac1_dest = idac_src & 0x0F
         idac2_dest = 0x0F
         idacmux_val = ((idac1_dest & 0x0F) << 4) | (idac2_dest & 0x0F)
+        print(f"[ADC] IDACMUX=0x{idacmux_val:02X}")
         self._wreg(REG_IDACMUX, [idacmux_val])
 
     def start(self):
+        print("[ADC] Lancement de la conversion (START)")
         self.spi.xfer2([CMD_START])
 
     def stop(self):
         self.spi.xfer2([CMD_STOP])
 
     def read_code24(self):
+        print("[ADC] Lecture du code ADC (RDATA)")
         rx = self.spi.xfer2([CMD_RDATA, 0x00, 0x00, 0x00])
+        print(f"[ADC] SPI RX: {rx}")
         if len(rx) < 4:
+            print("[ADC] Erreur: réponse SPI trop courte")
             return None
         b0 = rx[1]
         b1 = rx[2]
         b2 = rx[3]
         value = sign_extend_24(b0, b1, b2)
+        print(f"[ADC] Code ADC 24 bits: {value}")
         return value
 
     def measure_resistance(self, rref_ohm, pga_gain, timeout_s):
+        print(f"[ADC] Mesure résistance: rref={rref_ohm}, gain={pga_gain}, timeout={timeout_s}")
         # START
         self.start()
 
         ok = self.wait_drdy(timeout_s)
         if ok is False:
             self.stop()
+            print("[ADC] Erreur: DRDY non détecté, mesure annulée")
             return None
 
         code = self.read_code24()
         self.stop()
         if code is None:
+            print("[ADC] Erreur: code ADC non lu")
             return None
 
         if code < 0:
@@ -271,4 +290,5 @@ class Ads124s08:
         ratio = float(code) / float(FS)
         r_div_gain = float(rref_ohm) / float(pga_gain)
         r_sonde = ratio * r_div_gain
+        print(f"[ADC] Résistance mesurée: {r_sonde} ohms (code={code}, ratio={ratio})")
         return r_sonde

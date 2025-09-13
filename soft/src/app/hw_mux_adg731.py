@@ -2,7 +2,6 @@
 """
 hw_mux_adg731.py
 ADG731 MUX driver over SPI0.
-Même logique d'utilisation que ton code: SPI mode 1, xfer2([ctrl]) d'un octet.
 """
 
 import os
