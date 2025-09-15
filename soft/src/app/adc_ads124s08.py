@@ -40,10 +40,10 @@ FS = (1 << 23) - 1
 # Mapping canaux physiques
 # Mapping canaux physiques
 CHANNELS = {
-    1: {"ainp_idx": 1,  "ainn_idx": 2,  "rref_node_idx": 2},
-    2: {"ainp_idx": 4,  "ainn_idx": 5,  "rref_node_idx": 5},
-    3: {"ainp_idx": 7,  "ainn_idx": 8,  "rref_node_idx": 8},
-    4: {"ainp_idx": 10, "ainn_idx": 11, "rref_node_idx": 11}
+    1: {"idac_src_idx": 0,  "ainp_idx": 1,  "ainn_idx": 2},
+    2: {"idac_src_idx": 3,  "ainp_idx": 4,  "ainn_idx": 5},
+    3: {"idac_src_idx": 6,  "ainp_idx": 7,  "ainn_idx": 8},
+    4: {"idac_src_idx": 9,  "ainp_idx": 10, "ainn_idx": 11}
 }
 
 
