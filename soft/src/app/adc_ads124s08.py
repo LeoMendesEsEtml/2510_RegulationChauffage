@@ -267,7 +267,7 @@ class Ads124s08:
         value = sign_extend_24(b0, b1, b2)
         return value
 
-    def measure_resistance(self, rref_ohm, pga_gain, timeout_s, idac1):
+    def measure_resistance(self, rref_ohm, pga_gain, timeout_s):
         print("[ADC] Mesure résistance: rref=" + str(rref_ohm) + " gain=" + str(pga_gain) + " timeout=" + str(timeout_s))
 
         self.start()
@@ -280,26 +280,32 @@ class Ads124s08:
 
         code = self.read_code24()
         self.stop()
+
         if code is None:
             print("[ADC] Erreur: code ADC non lu")
             return None
 
+        print(f"[ADC DEBUG] Code brut: {code}")
+        print(f"[ADC DEBUG] FS: {FS}")
+        print(f"[ADC DEBUG] Rref: {rref_ohm} / Gain: {pga_gain}")
+
+        # Protéger contre les codes hors plage
+        if abs(code) > FS:
+            print("[ADC] Code ADC hors plage valide")
+            return None
+
+        # Étendre le code en valeur absolue
         if code < 0:
             code = -code
 
-        # Correction approfondie : Vérification des unités et ajustement de la formule
-        # idac1 est en µA, conversion en A
-        idac1_a = idac1 * 1e-6  # Convert µA to A
+        # Calculs avec précision forcée
+        code_f = float(code)
+        fs_f = float(FS)
+        rref_f = float(rref_ohm)
+        gain_f = float(pga_gain)
 
-        # Vérification de la valeur brute code
-        if code > FS:
-            print("[ADC] Erreur: valeur brute hors plage")
-            return None
+        ratio = code_f / fs_f
+        r_sonde = ratio * (rref_f / gain_f)
 
-        # Calcul de la résistance
-        ratio = float(code) / float(FS)
-        r_sonde = ratio * (float(rref_ohm) / float(pga_gain)) / idac1_a
-
-        print(f"[ADC] Résistance mesurée: {r_sonde:.6f} ohms")
-
+        print(f"[ADC] Résistance mesurée: {r_sonde:.1f} ohms")
         return r_sonde
