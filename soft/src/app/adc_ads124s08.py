@@ -287,11 +287,18 @@ class Ads124s08:
         if code < 0:
             code = -code
 
-        # Calcul unique de la résistance
-        # Correction : Vérification des unités et ajustement de la formule
-        idac1_a = idac1  # idac1 est déjà en ampères (A)
+        # Correction approfondie : Vérification des unités et ajustement de la formule
+        # idac1 est en µA, conversion en A
+        idac1_a = idac1 * 1e-6  # Convert µA to A
+
+        # Vérification de la valeur brute code
+        if code > FS:
+            print("[ADC] Erreur: valeur brute hors plage")
+            return None
+
+        # Calcul de la résistance
         ratio = float(code) / float(FS)
-        r_sonde = ratio * (float(rref_ohm) / float(pga_gain)) / idac1_a  # Division par le courant en A
+        r_sonde = ratio * (float(rref_ohm) / float(pga_gain)) / idac1_a
 
         print(f"[ADC] Résistance mesurée: {r_sonde:.6f} ohms")
 
