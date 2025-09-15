@@ -235,8 +235,8 @@ class Ads124s08:
         time.sleep(0.001)
 
     def start(self):
-    self._ensure_drdy_high(5.0)
-    self.spi.xfer2([CMD_START])
+        self._ensure_drdy_high(5.0)
+        self.spi.xfer2([CMD_START])
 
     def stop(self):
         self.spi.xfer2([CMD_STOP])
@@ -257,7 +257,7 @@ class Ads124s08:
 
         self.start()
 
-    ok = self.wait_drdy_falling_edge(timeout_s)
+        ok = self.wait_drdy_falling_edge(timeout_s)
         if ok is False:
             self.stop()
             print("[ADC] Erreur: DRDY non détecté, mesure annulée")
