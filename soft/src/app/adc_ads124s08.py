@@ -170,12 +170,18 @@ class Ads124s08:
                 return False
             time.sleep(0.001)
 
-    def wait_drdy(self, timeout_s):
+    def wait_drdy_falling_edge(self, timeout_s):
+        """
+        Attend un front descendant sur DRDY (HIGH -> LOW) avec timeout.
+        Retourne True si front observé, False sinon.
+        """
         t0 = time.time()
+        prev = self.gpio_drdy.read()
         while True:
             val = self.gpio_drdy.read()
-            if val is False:
+            if prev is True and val is False:
                 return True
+            prev = val
             if time.time() - t0 > float(timeout_s):
                 return False
             time.sleep(0.001)
@@ -206,7 +212,7 @@ class Ads124s08:
         print("[ADC] PGA=0x" + format(gain_code & 0x07, "02X"))
         self._wreg(REG_PGA, [gain_code & 0x07])
 
-        # DATARATE single-shot low-latency, DR=0x04 par défaut
+        # Mode single-shot low-latency, DR=0x04
         self.set_single_shot_lowlatency(0x04)
 
         # REF externe REFP0-REFN0
@@ -225,9 +231,12 @@ class Ads124s08:
         print("[ADC] IDACMUX=0x" + format(idacmux_val, "02X"))
         self._wreg(REG_IDACMUX, [idacmux_val])
 
+        # Délai de stabilisation après config
+        time.sleep(0.001)
+
     def start(self):
-        _ = self._ensure_drdy_high(5.0)
-        self.spi.xfer2([CMD_START])
+    self._ensure_drdy_high(5.0)
+    self.spi.xfer2([CMD_START])
 
     def stop(self):
         self.spi.xfer2([CMD_STOP])
@@ -248,7 +257,7 @@ class Ads124s08:
 
         self.start()
 
-        ok = self.wait_drdy(timeout_s)
+    ok = self.wait_drdy_falling_edge(timeout_s)
         if ok is False:
             self.stop()
             print("[ADC] Erreur: DRDY non détecté, mesure annulée")

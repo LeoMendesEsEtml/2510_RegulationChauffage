@@ -40,6 +40,8 @@ def main():
                 sensor_name = entry["sensor"]
                 profile = get_profile(sensor_name)
 
+                input(f"Appuyez sur Entrée pour mesurer le canal {ch} ({sensor_name})...")
+
                 # Sélection Rref
                 tmux.select_rref_ohm(profile["rref_ohm"])
 
