@@ -299,14 +299,14 @@ class Ads124s08:
         if code < 0:
             code = -code
 
-        # r_sonde = ratio * float(rref_ohm) / float(pga_gain)
+        # Calcul CORRIGÉ - ne pas diviser par le gain!
         ratio = float(code) / float(FS)
-        r_div_gain = float(rref_ohm) / float(pga_gain)
-        r_sonde = ratio * r_div_gain
+        r_sonde = ratio * float(rref_ohm)
         
-        # Ajout pour vérification
-        gain_factor = float(pga_gain)
-        r_sonde_alt = ratio * float(rref_ohm) / gain_factor
-        print(f"[ADC] Alternative: {r_sonde_alt:.1f} ohms (vérification)")
+        # Pour vérification, garde l'ancienne formule
+        r_old = ratio * (float(rref_ohm) / float(pga_gain))
+        
+        print(f"[ADC] Résistance corrigée: {r_sonde:.1f} ohms")
+        print(f"[ADC] Ancienne formule: {r_old:.1f} ohms")
         
         return r_sonde
