@@ -303,7 +303,7 @@ class Ads124s08:
 
         # Calcul unique de la résistance
         ratio = float(code) / float(FS)
-        r_sonde = ratio * (float(rref_ohm) / float(pga_gain))
+        r_sonde = ratio * (float(rref_ohm) / float(pga_gain)) * (idac1 / (idac1 + idac2))  # Updated to detailed ratiometric equation
         
         print(f"[ADC] Résistance mesurée: {r_sonde:.1f} ohms")
         
