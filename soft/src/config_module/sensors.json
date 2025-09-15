@@ -4,8 +4,8 @@
   "loop_sleep_s": 1.0,
   "channels": [
     { "channel": 1, "sensor": "Ni1000 TK5000" },
-    { "channel": 2, "sensor": "PT1000" },
-    { "channel": 3, "sensor": "NTC 10k 3977" },
-    { "channel": 4, "sensor": "Siemens QAC32" }
+    { "channel": 2, "sensor": "Ni1000 TK5000" },
+    { "channel": 3, "sensor": "Ni1000 TK5000" },
+    { "channel": 4, "sensor": "Ni1000 TK5000" }
   ]
 }
