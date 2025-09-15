@@ -180,9 +180,11 @@ class Ads124s08:
         while True:
             val = self.gpio_drdy.read()
             if prev is True and val is False:
+                print("[ADC] Front descendant DRDY détecté")
                 return True
             prev = val
             if time.time() - t0 > float(timeout_s):
+                print("[ADC] Timeout DRDY front descendant !")
                 return False
             time.sleep(0.001)
 
@@ -233,6 +235,19 @@ class Ads124s08:
 
         # Délai de stabilisation après config
         time.sleep(0.001)
+
+        # Lecture des registres clés ADC pour debug
+        reg_map = {
+            "INPMUX": REG_INPMUX,
+            "PGA": REG_PGA,
+            "DATARATE": REG_DATARATE,
+            "REF": REG_REF,
+            "IDACMAG": REG_IDACMAG,
+            "IDACMUX": REG_IDACMUX
+        }
+        for name, addr in reg_map.items():
+            val = self._rreg(addr, 1)
+            print(f"[ADC] {name} (0x{addr:02X}) = 0x{val[0]:02X}")
 
     def start(self):
         self._ensure_drdy_high(5.0)
