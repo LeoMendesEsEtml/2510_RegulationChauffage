@@ -267,8 +267,9 @@ class Ads124s08:
         value = sign_extend_24(b0, b1, b2)
         return value
 
-    def measure_resistance(self, rref_ohm, pga_gain, timeout_s):
+    def measure_resistance(self, rref_ohm, pga_gain, timeout_s, idac_a):
         print("[ADC] Mesure résistance: rref=" + str(rref_ohm) + " gain=" + str(pga_gain) + " timeout=" + str(timeout_s))
+        print(f"[ADC] Courant IDAC: {idac_a*1e6:.0f} µA")
 
         self.start()
 
@@ -304,8 +305,11 @@ class Ads124s08:
         rref_f = float(rref_ohm)
         gain_f = float(pga_gain)
 
+        # Le code ADC est proportionnel à V = R × I
+        # Donc R = V / I = (code/FS * Vref/gain) / I
         ratio = code_f / fs_f
-        r_sonde = ratio * (rref_f / gain_f)
+        v_mesuree = ratio * (rref_f / gain_f)
+        r_sonde = v_mesuree / idac_a
 
         print(f"[ADC] Résistance mesurée: {r_sonde:.1f} ohms")
         return r_sonde
