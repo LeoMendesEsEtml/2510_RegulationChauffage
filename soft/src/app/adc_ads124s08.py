@@ -281,7 +281,7 @@ class Ads124s08:
         value = sign_extend_24(b0, b1, b2)
         return value
 
-    def measure_resistance(self, rref_ohm, pga_gain, timeout_s):
+    def measure_resistance(self, rref_ohm, pga_gain, timeout_s, idac1, idac2):
         print("[ADC] Mesure résistance: rref=" + str(rref_ohm) + " gain=" + str(pga_gain) + " timeout=" + str(timeout_s))
 
         self.start()
