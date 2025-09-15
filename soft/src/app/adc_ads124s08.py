@@ -38,12 +38,14 @@ CMD_RDATA  = 0x12
 FS = (1 << 23) - 1
 
 # Mapping canaux physiques
+# Mapping canaux physiques
 CHANNELS = {
-    1: {"idac_src_idx": 0,  "ainp_idx": 1,  "ainn_idx": 2},
-    2: {"idac_src_idx": 3,  "ainp_idx": 4,  "ainn_idx": 5},
-    3: {"idac_src_idx": 6,  "ainp_idx": 7,  "ainn_idx": 8},
-    4: {"idac_src_idx": 9,  "ainp_idx": 10, "ainn_idx": 11}
+    1: {"ainp_idx": 1,  "ainn_idx": 2,  "rref_node_idx": 2},
+    2: {"ainp_idx": 4,  "ainn_idx": 5,  "rref_node_idx": 5},
+    3: {"ainp_idx": 7,  "ainn_idx": 8,  "rref_node_idx": 8},
+    4: {"ainp_idx": 10, "ainn_idx": 11, "rref_node_idx": 11}
 }
+
 
 def encode_gain(pga_gain):
     if pga_gain == 1:
@@ -226,12 +228,13 @@ class Ads124s08:
         print("[ADC] IDACMAG=0x" + format(mag_code & 0x0F, "02X"))
         self._wreg(REG_IDACMAG, [mag_code & 0x0F])
 
-        # IDACMUX: IDAC1 -> idac_src ; IDAC2 -> off (0x0F)
-        idac1_dest = idac_src & 0x0F
-        idac2_dest = 0x0F
-        idacmux_val = ((idac1_dest & 0x0F) << 4) | (idac2_dest & 0x0F)
+        # IDAC1 sur la borne + mesurée, IDAC2 sur le nœud Rref+ du canal
+        idac1_dest = ainp & 0x0F
+        idac2_dest = ch["rref_node_idx"] & 0x0F
+        idacmux_val = ((idac2_dest & 0x0F) << 4) | (idac1_dest & 0x0F)
         print("[ADC] IDACMUX=0x" + format(idacmux_val, "02X"))
         self._wreg(REG_IDACMUX, [idacmux_val])
+
 
         # Délai de stabilisation après config
         time.sleep(0.001)
