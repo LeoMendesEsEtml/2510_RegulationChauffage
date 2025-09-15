@@ -29,7 +29,7 @@ SENSOR_PROFILES = {
     "Ni1000 TK5000": {
         "rref_ohm": 10000,
         "idac_uA": 100,
-        "pga_gain": 4
+        "pga_gain": 8
     },
     "Ni1000 TK6180": {
         "rref_ohm": 10000,
