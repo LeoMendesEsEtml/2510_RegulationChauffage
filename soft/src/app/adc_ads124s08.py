@@ -308,5 +308,22 @@ class Ads124s08:
         gain_factor = float(pga_gain)
         r_sonde_alt = ratio * float(rref_ohm) / gain_factor
         print(f"[ADC] Alternative: {r_sonde_alt:.1f} ohms (vérification)")
+                
+        # Calcul de base
+        ratio = float(code) / float(FS)
+        r_raw = ratio * (float(rref_ohm) / float(pga_gain))
         
-        return r_sonde
+        # Correction pour la résistance parallèle de la TVS
+        r_tvs = 1300.0  # Résistance estimée de la TVS
+        
+        # Formule pour "annuler" l'effet d'une résistance en parallèle
+        r_corrected = (r_raw * r_tvs) / (r_tvs - r_raw)
+        
+        # Protection contre les valeurs aberrantes
+        if r_raw > 1200.0 or r_corrected < 0 or r_corrected > 10000:
+            r_corrected = r_raw  # Fallback à la valeur brute
+        
+        print(f"[ADC] Mesure brute: {r_raw:.1f} ohms")
+        print(f"[ADC] Corrigée (TVS compensée): {r_corrected:.1f} ohms")
+        
+        return r_corrected
