@@ -9,7 +9,7 @@ Séquence:
 - DATARATE: single-shot + low-latency (DR=0x04 par défaut)
 - START par commande
 - Attente DRDY bas, RDATA 24 bits, STOP
-- R = |code|/FS * (Rref / gain)
+- R = |code|/FS * (Rref / gain) * (I1 / (I1 + I2))  # Updated to detailed ratiometric equation
 """
 
 import spidev
