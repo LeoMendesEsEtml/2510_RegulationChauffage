@@ -50,7 +50,7 @@ def main():
 
                 # Mesure bloquante
                 idac1 = profile["idac_uA"] / 1e6  # Convert µA to A
-                r = adc.measure_resistance(profile["rref_ohm"], profile["pga_gain"], cfg["timeout_s"], idac1)
+                r = adc.measure_resistance(profile["rref_ohm"], profile["pga_gain"], cfg["timeout_s"])
 
                 if r is None:
                     print("NaN")
