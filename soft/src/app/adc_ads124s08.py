@@ -1,63 +1,15 @@
-import time
-import os
-
-def test_spi_adc():
-    print("=== ADC SPI test (ADS124S0x @ SPI1) ===")
-    spi = None
-    try:
-        # Adapter le chemin SPI pour Windows ou Linux
-        spi_path = "/dev/spidev1.0"
-        if not os.path.exists(spi_path):
-            print(f"FATAL: {spi_path} missing. Vérifiez la configuration SPI.")
-            return
-
-        import spidev
-        spi = spidev.SpiDev()
-        spi.open(1, 0)            # SPI1 CE0
-        spi.mode = 1              # Mode 1 (CPOL=0, CPHA=1)
-        spi.max_speed_hz = 100000
-        spi.bits_per_word = 8
-
-        print("ADC: lecture des registres clés en boucle (Ctrl+C pour arrêter)")
-        try:
-            while True:
-                rx_id = spi.xfer2([0x20, 0x00, 0x00])
-                rx_status = spi.xfer2([0x21, 0x00, 0x00])
-                rx_datarate = spi.xfer2([0x24, 0x00, 0x00])
-                rx_ref = spi.xfer2([0x25, 0x00, 0x00])
-                rx_idacmux = spi.xfer2([0x27, 0x00, 0x00])
-                rx_fscal2 = spi.xfer2([0x2F, 0x00, 0x00])
-                rx_gpiodat = spi.xfer2([0x30, 0x00, 0x00])
-                rx_gpiocon = spi.xfer2([0x31, 0x00, 0x00])
-
-                print(f"ADC ID        (0x00) = 0x{rx_id[2]:02X} (attendu ?)" if len(rx_id)>=3 else f"ADC ID: réponse invalide {rx_id}")
-                print(f"ADC STATUS    (0x01) = 0x{rx_status[2]:02X} (bit7 FL_POR={bool(rx_status[2] & 0x80)})" if len(rx_status)>=3 else f"ADC STATUS: réponse invalide {rx_status}")
-                print(f"ADC DATARATE  (0x04) = 0x{rx_datarate[2]:02X} (attendu 0x14)" if len(rx_datarate)>=3 else f"ADC DATARATE: réponse invalide {rx_datarate}")
-                print(f"ADC REF       (0x05) = 0x{rx_ref[2]:02X} (attendu 0x10)" if len(rx_ref)>=3 else f"ADC REF: réponse invalide {rx_ref}")
-                print(f"ADC IDACMUX   (0x07) = 0x{rx_idacmux[2]:02X} (attendu 0xFF)" if len(rx_idacmux)>=3 else f"ADC IDACMUX: réponse invalide {rx_idacmux}")
-                print(f"ADC FSCAL2    (0x0F) = 0x{rx_fscal2[2]:02X} (attendu 0x40)" if len(rx_fscal2)>=3 else f"ADC FSCAL2: réponse invalide {rx_fscal2}")
-                print(f"ADC GPIODAT   (0x10) = 0x{rx_gpiodat[2]:02X} (attendu 0x00)" if len(rx_gpiodat)>=3 else f"ADC GPIODAT: réponse invalide {rx_gpiodat}")
-                print(f"ADC GPIOCON   (0x11) = 0x{rx_gpiocon[2]:02X} (attendu 0x00)" if len(rx_gpiocon)>=3 else f"ADC GPIOCON: réponse invalide {rx_gpiocon}")
-                print("---")
-                time.sleep(1)
-        except KeyboardInterrupt:
-            print("Arrêt ADC demandé par l'utilisateur.")
-        finally:
-            spi.close()
-    except Exception as e:
-        print("ADC SPI error:", str(e))
 # -*- coding: utf-8 -*-
 # file: adc_ads124s08.py
 """
-ADS124S08 minimal, SPI1.0, mode 1, mesure bloquante.
+ADS124S08 — SPI1.0 mode 1 — mesure bloquante avec DRDY.
 
 Séquence:
-- Configurer INPMUX, PGA, DATARATE, REF, IDACMAG, IDACMUX selon canal et profil
-- START (commande)
-- Attendre DRDY ou timeout
-- RDATA (24 bits)
-- STOP
-- Convertir en résistance ratiométrique: R = code/FS * (Rref / gain)
+- Reset + délai + purge POR
+- INPMUX, PGA, REF, IDACMAG, IDACMUX
+- DATARATE: single-shot + low-latency (DR=0x04 par défaut)
+- START par commande
+- Attente DRDY bas, RDATA 24 bits, STOP
+- R = |code|/FS * (Rref / gain)
 """
 
 import spidev
@@ -73,6 +25,7 @@ REG_PGA       = 0x03
 REG_DATARATE  = 0x04
 REG_REF       = 0x05
 REG_IDACMUX   = 0x07
+REG_SYS       = 0x09
 REG_IDACMAG   = 0x0A
 
 # Commandes
@@ -81,7 +34,7 @@ CMD_START  = 0x08
 CMD_STOP   = 0x0A
 CMD_RDATA  = 0x12
 
-# Pleine échelle (24 bits bipolaire)
+# Pleine échelle 24 bits signé
 FS = (1 << 23) - 1
 
 # Mapping canaux physiques
@@ -112,7 +65,6 @@ def encode_gain(pga_gain):
     raise ValueError("PGA gain invalide: " + str(pga_gain))
 
 def encode_idac_uA(idac_uA):
-    # Table typique TI
     if idac_uA == 10:
         return 1
     if idac_uA == 50:
@@ -147,19 +99,26 @@ class Ads124s08:
         self.spi.mode = 1
         self.spi.max_speed_hz = SPI_ADC_SPEED_HZ
         self.spi.bits_per_word = 8
-        # DRDY
+
+        # DRDY (entrée, actif bas)
         self.gpio_drdy = GPIO(GPIO_CHIP_PATH, ADC_DRDY, "in")
 
-        # Test lecture ID ADC
+        # Reset + attente >= 4096*tCLK
+        self.spi.xfer2([CMD_RESET])
+        time.sleep(0.002)
+
+        # Purge flags (STATUS=0x00)
+        self._wreg(REG_STATUS, [0x00])
+
+        # Lecture ID pour sanity-check
         adc_id = self.read_id()
         if adc_id is None:
             print("[ADC] Erreur: aucune réponse sur le registre ID (0x00)")
         else:
-            print(f"[ADC] ID (0x00) = 0x{adc_id:02X}")
+            print("[ADC] ID (0x00) = 0x" + format(adc_id, "02X"))
 
     def read_id(self):
-        # Lecture du registre ID (0x00), 1 octet
-        rx = self.spi.xfer2([0x20, 0x00, 0x00])
+        rx = self.spi.xfer2([0x20, 0x00, 0x00])  # RREG 0x00, 1 byte
         if len(rx) >= 3:
             return rx[2]
         return None
@@ -193,19 +152,40 @@ class Ads124s08:
         tx = tx + list(data_bytes)
         self.spi.xfer2(tx)
 
+    def _sclk_nudge(self):
+        _ = self._rreg(REG_STATUS, 1)
+        time.sleep(0.0001)
+
+    def _ensure_drdy_high(self, timeout_ms):
+        t0 = time.time()
+        kicked = False
+        while True:
+            val = self.gpio_drdy.read()
+            if val is True:
+                return True
+            if kicked is False:
+                self._sclk_nudge()
+                kicked = True
+            if time.time() - t0 > float(timeout_ms) / 1000.0:
+                return False
+            time.sleep(0.001)
+
     def wait_drdy(self, timeout_s):
-        print(f"[ADC] Attente DRDY (timeout={timeout_s}s)")
         t0 = time.time()
         while True:
             val = self.gpio_drdy.read()
-            print(f"[ADC] DRDY lu: {val}")
             if val is False:
-                print("[ADC] DRDY détecté (LOW)")
                 return True
             if time.time() - t0 > float(timeout_s):
-                print("[ADC] Timeout DRDY!")
                 return False
             time.sleep(0.001)
+
+    def set_single_shot_lowlatency(self, dr_nibble):
+        value = 0
+        value = value | (1 << 5)           # MODE=1 single-shot
+        value = value | (1 << 4)           # FILTER=1 low-latency
+        value = value | (dr_nibble & 0x0F) # DR
+        self._wreg(REG_DATARATE, [value])
 
     def configure_channel(self, channel_index, pga_gain, idac_uA):
         if channel_index not in CHANNELS:
@@ -214,62 +194,58 @@ class Ads124s08:
         ainp = ch["ainp_idx"]
         ainn = ch["ainn_idx"]
         idac_src = ch["idac_src_idx"]
-        print(f"[ADC] Configuration canal {channel_index}: gain={pga_gain}, IDAC={idac_uA}uA")
+        print("[ADC] Configuration canal " + str(channel_index) + " gain=" + str(pga_gain) + " IDAC=" + str(idac_uA) + "uA")
 
         # INPMUX
         inpmux_val = ((ainp & 0x0F) << 4) | (ainn & 0x0F)
-        print(f"[ADC] INPMUX=0x{inpmux_val:02X}")
+        print("[ADC] INPMUX=0x" + format(inpmux_val, "02X"))
         self._wreg(REG_INPMUX, [inpmux_val])
 
         # PGA
         gain_code = encode_gain(pga_gain)
-        print(f"[ADC] PGA=0x{gain_code & 0x07:02X}")
+        print("[ADC] PGA=0x" + format(gain_code & 0x07, "02X"))
         self._wreg(REG_PGA, [gain_code & 0x07])
 
-        # DATARATE (0x14 vu dans tes lectures)
-        print("[ADC] DATARATE=0x14")
-        self._wreg(REG_DATARATE, [0x14])
+        # DATARATE single-shot low-latency, DR=0x04 par défaut
+        self.set_single_shot_lowlatency(0x04)
 
-        # REF externe REFP0-REFN0 (0x10 vu dans tes lectures)
+        # REF externe REFP0-REFN0
         print("[ADC] REF=0x10")
         self._wreg(REG_REF, [0x10])
 
         # IDAC magnitude
         mag_code = encode_idac_uA(idac_uA)
-        print(f"[ADC] IDACMAG=0x{mag_code & 0x0F:02X}")
+        print("[ADC] IDACMAG=0x" + format(mag_code & 0x0F, "02X"))
         self._wreg(REG_IDACMAG, [mag_code & 0x0F])
 
         # IDACMUX: IDAC1 -> idac_src ; IDAC2 -> off (0x0F)
         idac1_dest = idac_src & 0x0F
         idac2_dest = 0x0F
         idacmux_val = ((idac1_dest & 0x0F) << 4) | (idac2_dest & 0x0F)
-        print(f"[ADC] IDACMUX=0x{idacmux_val:02X}")
+        print("[ADC] IDACMUX=0x" + format(idacmux_val, "02X"))
         self._wreg(REG_IDACMUX, [idacmux_val])
 
     def start(self):
-        print("[ADC] Lancement de la conversion (START)")
+        _ = self._ensure_drdy_high(5.0)
         self.spi.xfer2([CMD_START])
 
     def stop(self):
         self.spi.xfer2([CMD_STOP])
 
     def read_code24(self):
-        print("[ADC] Lecture du code ADC (RDATA)")
         rx = self.spi.xfer2([CMD_RDATA, 0x00, 0x00, 0x00])
-        print(f"[ADC] SPI RX: {rx}")
         if len(rx) < 4:
-            print("[ADC] Erreur: réponse SPI trop courte")
+            print("[ADC] Erreur: réponse SPI trop courte " + str(rx))
             return None
         b0 = rx[1]
         b1 = rx[2]
         b2 = rx[3]
         value = sign_extend_24(b0, b1, b2)
-        print(f"[ADC] Code ADC 24 bits: {value}")
         return value
 
     def measure_resistance(self, rref_ohm, pga_gain, timeout_s):
-        print(f"[ADC] Mesure résistance: rref={rref_ohm}, gain={pga_gain}, timeout={timeout_s}")
-        # START
+        print("[ADC] Mesure résistance: rref=" + str(rref_ohm) + " gain=" + str(pga_gain) + " timeout=" + str(timeout_s))
+
         self.start()
 
         ok = self.wait_drdy(timeout_s)
@@ -290,5 +266,5 @@ class Ads124s08:
         ratio = float(code) / float(FS)
         r_div_gain = float(rref_ohm) / float(pga_gain)
         r_sonde = ratio * r_div_gain
-        print(f"[ADC] Résistance mesurée: {r_sonde} ohms (code={code}, ratio={ratio})")
+        print("[ADC] Résistance mesurée: " + str(r_sonde) + " ohms  code=" + str(code) + " ratio=" + str(ratio))
         return r_sonde
