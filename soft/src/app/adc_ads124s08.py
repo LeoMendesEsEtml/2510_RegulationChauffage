@@ -38,12 +38,11 @@ CMD_RDATA  = 0x12
 FS = (1 << 23) - 1
 
 # Mapping canaux physiques
-# Mapping canaux physiques
 CHANNELS = {
-    1: {"idac_src_idx": 0,  "ainp_idx": 1,  "ainn_idx": 2},
-    2: {"idac_src_idx": 3,  "ainp_idx": 4,  "ainn_idx": 5},
-    3: {"idac_src_idx": 6,  "ainp_idx": 7,  "ainn_idx": 8},
-    4: {"idac_src_idx": 9,  "ainp_idx": 10, "ainn_idx": 11}
+    1: {"ainp_idx": 1,  "ainn_idx": 2},
+    2: {"ainp_idx": 4,  "ainn_idx": 5},
+    3: {"ainp_idx": 7,  "ainn_idx": 8},
+    4: {"ainp_idx": 10, "ainn_idx": 11}
 }
 
 
@@ -203,7 +202,6 @@ class Ads124s08:
         ch = CHANNELS[channel_index]
         ainp = ch["ainp_idx"]
         ainn = ch["ainn_idx"]
-        idac_src = ch["idac_src_idx"]
         print("[ADC] Configuration canal " + str(channel_index) + " gain=" + str(pga_gain) + " IDAC=" + str(idac_uA) + "uA")
 
         # INPMUX
@@ -228,17 +226,6 @@ class Ads124s08:
         print("[ADC] IDACMAG=0x" + format(mag_code & 0x0F, "02X"))
         self._wreg(REG_IDACMAG, [mag_code & 0x0F])
 
-        # IDAC settings: I2MUX in bits 7:4, I1MUX in bits 3:0
-        # En 2-fils low-side ref: un seul IDAC sur la borne + mesurée (AINP)
-        # IDAC1 -> AINP ; IDAC2 -> OFF
-        # Bits 7:4 = I2MUX (IDAC2), bits 3:0 = I1MUX (IDAC1)
-        # Ratiométrique robuste: IDAC1 -> AINP, IDAC2 -> AINN (nœud Rref+)
-        i1mux = ainp & 0x0F         # ex. CH1: AIN1
-        i2mux = ainn & 0x0F         # ex. CH1: AIN2
-        idacmux_val = ((i2mux & 0x0F) << 4) | (i1mux & 0x0F)
-        print("[ADC] IDACMUX=0x" + format(idacmux_val, "02X"))
-        self._wreg(REG_IDACMUX, [idacmux_val])
-
         # Délai de stabilisation après config
         time.sleep(0.001)
 
@@ -248,8 +235,7 @@ class Ads124s08:
             "PGA": REG_PGA,
             "DATARATE": REG_DATARATE,
             "REF": REG_REF,
-            "IDACMAG": REG_IDACMAG,
-            "IDACMUX": REG_IDACMUX
+            "IDACMAG": REG_IDACMAG
         }
         for name, addr in reg_map.items():
             val = self._rreg(addr, 1)
@@ -281,7 +267,7 @@ class Ads124s08:
         value = sign_extend_24(b0, b1, b2)
         return value
 
-    def measure_resistance(self, rref_ohm, pga_gain, timeout_s, idac1, idac2):
+    def measure_resistance(self, rref_ohm, pga_gain, timeout_s, idac1):
         print("[ADC] Mesure résistance: rref=" + str(rref_ohm) + " gain=" + str(pga_gain) + " timeout=" + str(timeout_s))
 
         self.start()
@@ -303,8 +289,8 @@ class Ads124s08:
 
         # Calcul unique de la résistance
         ratio = float(code) / float(FS)
-        r_sonde = ratio * (float(rref_ohm) / float(pga_gain)) * (idac1 / (idac1 + idac2))  # Updated to detailed ratiometric equation
-        
+        r_sonde = ratio * (float(rref_ohm) / float(pga_gain)) * idac1  # Suppression de l'IDAC 2
+
         print(f"[ADC] Résistance mesurée: {r_sonde:.1f} ohms")
-        
+
         return r_sonde
