@@ -49,7 +49,9 @@ def main():
                 adc.configure_channel(ch, profile["pga_gain"], profile["idac_uA"])
 
                 # Mesure bloquante
-                r = adc.measure_resistance(profile["rref_ohm"], profile["pga_gain"], cfg["timeout_s"])
+                idac1 = profile["idac_uA"] / 1e6  # Convert µA to A
+                idac2 = profile["idac_uA"] / 1e6  # Assuming idac2 is the same as idac1
+                r = adc.measure_resistance(profile["rref_ohm"], profile["pga_gain"], cfg["timeout_s"], idac1, idac2)
 
                 if r is None:
                     print("NaN")
