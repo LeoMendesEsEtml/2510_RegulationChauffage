@@ -231,8 +231,10 @@ class Ads124s08:
         # IDAC settings: I2MUX in bits 7:4, I1MUX in bits 3:0
         # En 2-fils low-side ref: un seul IDAC sur la borne + mesurée (AINP)
         # IDAC1 -> AINP ; IDAC2 -> OFF
-        i2mux = 0x0F  # IDAC2 déconnecté
-        i1mux = ainp & 0x0F  # IDAC1 vers la borne + mesurée
+        # Bits 7:4 = I2MUX (IDAC2), bits 3:0 = I1MUX (IDAC1)
+        # Ratiométrique robuste: IDAC1 -> AINP, IDAC2 -> AINN (nœud Rref+)
+        i1mux = ainp & 0x0F         # ex. CH1: AIN1
+        i2mux = ainn & 0x0F         # ex. CH1: AIN2
         idacmux_val = ((i2mux & 0x0F) << 4) | (i1mux & 0x0F)
         print("[ADC] IDACMUX=0x" + format(idacmux_val, "02X"))
         self._wreg(REG_IDACMUX, [idacmux_val])
