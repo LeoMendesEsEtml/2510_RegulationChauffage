@@ -250,7 +250,15 @@ class Ads124s08:
             print(f"[ADC] {name} (0x{addr:02X}) = 0x{val[0]:02X}")
 
     def start(self):
-        self._ensure_drdy_high(5.0)
+        # Kick SCLK pour relâcher DRDY à HIGH
+        t0 = time.time()
+        while self.gpio_drdy.read() is not True:
+            self._rreg(REG_STATUS, 1)
+            time.sleep(0.001)
+            if time.time() - t0 > 1.0:
+                print("[ADC] Timeout: DRDY n'est pas remonté HIGH avant START !")
+                break
+        # START conversion
         self.spi.xfer2([CMD_START])
 
     def stop(self):
