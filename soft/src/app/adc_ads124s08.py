@@ -228,12 +228,14 @@ class Ads124s08:
         print("[ADC] IDACMAG=0x" + format(mag_code & 0x0F, "02X"))
         self._wreg(REG_IDACMAG, [mag_code & 0x0F])
 
-        # IDAC1 sur la source du canal, IDAC2 désactivé (0x0F)
-        idac1_dest = ch["idac_src_idx"] & 0x0F
-        idac2_dest = 0x0F
-        idacmux_val = ((idac1_dest & 0x0F) << 4) | (idac2_dest & 0x0F)
-        print("[ADC] IDACMUX=0x" + format(idacmux_val, "02X"))
-        self._wreg(REG_IDACMUX, [idacmux_val])
+    # IDAC settings: I2MUX in bits 7:4, I1MUX in bits 3:0
+    # En 2-fils low-side ref: un seul IDAC sur la borne + mesurée (AINP)
+    # IDAC1 -> AINP ; IDAC2 -> OFF
+    i2mux = 0x0F  # IDAC2 déconnecté
+    i1mux = ainp & 0x0F  # IDAC1 vers la borne + mesurée
+    idacmux_val = ((i2mux & 0x0F) << 4) | (i1mux & 0x0F)
+    print("[ADC] IDACMUX=0x" + format(idacmux_val, "02X"))
+    self._wreg(REG_IDACMUX, [idacmux_val])
 
 
         # Délai de stabilisation après config
