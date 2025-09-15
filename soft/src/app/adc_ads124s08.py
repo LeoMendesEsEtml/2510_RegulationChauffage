@@ -279,34 +279,30 @@ class Ads124s08:
         value = sign_extend_24(b0, b1, b2)
         return value
 
-    def measure_resistance(self, rref_ohm, pga_gain, timeout_s):
-        print("[ADC] Mesure résistance: rref=" + str(rref_ohm) + " gain=" + str(pga_gain) + " timeout=" + str(timeout_s))
+def measure_resistance(self, rref_ohm, pga_gain, timeout_s):
+    print("[ADC] Mesure résistance: rref=" + str(rref_ohm) + " gain=" + str(pga_gain) + " timeout=" + str(timeout_s))
 
-        self.start()
+    self.start()
 
-        ok = self.wait_drdy_falling_edge(timeout_s)
-        if ok is False:
-            self.stop()
-            print("[ADC] Erreur: DRDY non détecté, mesure annulée")
-            return None
-
-        code = self.read_code24()
+    ok = self.wait_drdy_falling_edge(timeout_s)
+    if ok is False:
         self.stop()
-        if code is None:
-            print("[ADC] Erreur: code ADC non lu")
-            return None
+        print("[ADC] Erreur: DRDY non détecté, mesure annulée")
+        return None
 
-        if code < 0:
-            code = -code
+    code = self.read_code24()
+    self.stop()
+    if code is None:
+        print("[ADC] Erreur: code ADC non lu")
+        return None
 
-        # Calcul CORRIGÉ - ne pas diviser par le gain!
-        ratio = float(code) / float(FS)
-        r_sonde = ratio * float(rref_ohm)
-        
-        # Pour vérification, garde l'ancienne formule
-        r_old = ratio * (float(rref_ohm) / float(pga_gain))
-        
-        print(f"[ADC] Résistance corrigée: {r_sonde:.1f} ohms")
-        print(f"[ADC] Ancienne formule: {r_old:.1f} ohms")
-        
-        return r_sonde
+    if code < 0:
+        code = -code
+
+    # Calcul unique de la résistance
+    ratio = float(code) / float(FS)
+    r_sonde = ratio * (float(rref_ohm) / float(pga_gain))
+    
+    print(f"[ADC] Résistance mesurée: {r_sonde:.1f} ohms")
+    
+    return r_sonde
