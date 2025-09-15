@@ -288,11 +288,11 @@ class Ads124s08:
             code = -code
 
         # Calcul unique de la résistance
-        # Correction : idac1 est en µA, conversion en A pour le calcul
-        idac1_a = idac1 * 1e-6  # Convert µA to A
+        # Correction : Vérification des unités et ajustement de la formule
+        idac1_a = idac1  # idac1 est déjà en ampères (A)
         ratio = float(code) / float(FS)
         r_sonde = ratio * (float(rref_ohm) / float(pga_gain)) / idac1_a  # Division par le courant en A
 
-        print(f"[ADC] Résistance mesurée: {r_sonde:.1f} ohms")
+        print(f"[ADC] Résistance mesurée: {r_sonde:.6f} ohms")
 
         return r_sonde
