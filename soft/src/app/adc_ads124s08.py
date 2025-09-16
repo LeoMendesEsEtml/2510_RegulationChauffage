@@ -215,14 +215,6 @@ class Ads124s08:
         ainn = ch["ainn_idx"]
         print(f"[ADC] Configuration canal {channel_index} gain={pga_gain} IDAC={idac_uA}µA")
 
-        # INPMUX - Configure entrées différentielles selon datasheet
-        # [7:4] = AINP (entrée positive)
-        # [3:0] = AINN (entrée négative)
-        # Pour mesure ratiométrique: AINx vs AINx+1
-        inpmux_val = ((ainp & 0x0F) << 4) | (ainn & 0x0F)
-        print(f"[ADC] INPMUX=0x{inpmux_val:02X} (AIN{ainp}-AIN{ainn})")
-        self._wreg(REG_INPMUX, [inpmux_val])
-
         # PGA configuration
         # Bits[2:0] = Gain
         # Autres bits à 0 (pas de bypass, etc)
@@ -250,15 +242,16 @@ class Ads124s08:
 
         # Configure IDACMUX - Route le courant d'excitation
         # IDACMUX register: [7:4]=IDAC2MUX (OFF), [3:0]=IDAC1MUX
-        # IDAC1 est routé vers AINx+ (ainp) pour l'excitation
-        # Pour mesure de résistance proche de 0, AINx- doit être connecté à AINCOM
+        # IDAC1 est routé vers l'entrée positive pour l'excitation
         idacmux_val = (0x0F << 4) | (ainp & 0x0F)  # IDAC1->AINx+, IDAC2=OFF
         print(f"[ADC] IDACMUX=0x{idacmux_val:02X} (IDAC1->AIN{ainp}, IDAC2=OFF)")
         self._wreg(REG_IDACMUX, [idacmux_val])
-        
+
         # Configure INPMUX pour la mesure différentielle
-        # Pour une résistance proche de 0, AINN doit être connecté à AINCOM
-        inpmux_val = ((ainp & 0x0F) << 4) | AINCOM  # AINx+ vs AINCOM
+        # Pour mesure de résistance proche de 0:
+        # - AINP connecté à l'entrée du courant IDAC
+        # - AINN connecté à la masse analogique AINCOM
+        inpmux_val = ((ainp & 0x0F) << 4) | AINCOM
         print(f"[ADC] INPMUX=0x{inpmux_val:02X} (AIN{ainp}-AINCOM)")
         self._wreg(REG_INPMUX, [inpmux_val])
 
@@ -272,7 +265,7 @@ class Ads124s08:
 
         # Lecture et vérification des registres clés ADC
         reg_map = {
-            "INPMUX": {"addr": REG_INPMUX, "desc": f"AIN{ainp}(+) et AIN{ainn}(-)"},
+            "INPMUX": {"addr": REG_INPMUX, "desc": f"AIN{ainp}-AINCOM"},
             "PGA": {"addr": REG_PGA, "desc": f"Gain={pga_gain}"},
             "DATARATE": {"addr": REG_DATARATE, "desc": "Single-shot, low-latency"},
             "REF": {"addr": REG_REF, "desc": "REF0 externe"},
