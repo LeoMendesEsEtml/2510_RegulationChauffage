@@ -6,11 +6,6 @@ Module pour convertir une résistance mesurée en température via interpolation
 
 from sensor_profiles import SENSOR_TABLES
 
-import parse_sensor_data
-
-# Load sensor data from CSV
-sensor_data = parse_sensor_data.parse_sensor_data("sensor_resistance_reference.csv")
-
 def resistance_to_temperature(resistance, table):
     """
     Convertit une résistance mesurée en température via interpolation linéaire.
@@ -51,14 +46,3 @@ def resistance_to_temperature_dynamic(resistance, sensor):
             return temperature
     # Si hors des limites de la table
     return None
-
-# Table des résistances et températures pour la sonde Ni1000 TK5000
-ni1000_table = [
-    (935, -15.0), (941, -13.5), (947, -12.0), (954, -10.5), (961, -9.0),
-    (967, -7.5), (973, -6.0), (980, -4.5), (987, -3.0), (993, -1.5),
-    (1000, 0.0), (1007, 1.5), (1014, 3.0), (1020, 4.5), (1027, 6.0),
-    (1033, 7.5), (1040, 9.0), (1047, 10.5), (1054, 12.0), (1061, 13.5),
-    (1067, 15.0), (1074, 16.5), (1082, 18.0), (1089, 19.5), (1095, 21.0),
-    (1102, 22.5), (1110, 24.0), (1116, 25.5), (1123, 27.0), (1131, 28.5),
-    (1138, 30.0), (1145, 31.5)
-]
