@@ -224,9 +224,12 @@ class Ads124s08:
         self._wreg(REG_REF, [0x10])
 
         # Configure IDACMUX - Route IDAC1 to channel's current source input
-        idac_source = ainp - 1  # Current source is the pin before AINP
-        idacmux_val = idac_source & 0x0F  # IDAC1 to AINx (current source), IDAC2 disabled
-        print(f"[ADC] IDACMUX=0x{idacmux_val:02X} (IDAC1->AIN{idac_source}, IDAC2 disabled)")
+        # IDACMUX register: [7:4]=IDAC2MUX, [3:0]=IDAC1MUX
+        # IDAC1 va sur le pin source du canal (AINx-1)
+        # IDAC2 est déconnecté (0x0F = disabled)
+        idac_source = ainp - 1
+        idacmux_val = (0x0F << 4) | (idac_source & 0x0F)
+        print(f"[ADC] IDACMUX=0x{idacmux_val:02X} (IDAC1->AIN{idac_source}, IDAC2=OFF)")
         self._wreg(REG_IDACMUX, [idacmux_val])
 
         # IDAC magnitude
