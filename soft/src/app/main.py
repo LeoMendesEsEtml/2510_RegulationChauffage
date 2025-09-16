@@ -64,7 +64,7 @@ def main():
                     print("{:.6f}".format(r))
 
                 # Mesure de la température
-                temperature = adc.measure_temperature(profile["rref_ohm"], profile["pga_gain"], cfg["timeout_s"])
+                temperature = adc.measure_temperature(sensor_name, profile["rref_ohm"], profile["pga_gain"], cfg["timeout_s"])
 
                 if temperature is None:
                     print(f"Canal {ch}: Température non mesurable ou saturation détectée.")
