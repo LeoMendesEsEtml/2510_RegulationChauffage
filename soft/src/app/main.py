@@ -21,40 +21,19 @@ from app.sensor_profiles import get_profile
 from hw_tmux1204 import Tmux1204
 from adc_ads124s08 import Ads124s08
 
-def cleanup_resources(*resources):
-    """Ferme proprement les ressources."""
-    for resource in resources:
-        try:
-            if resource:
-                resource.close()
-        except Exception as e:
-            print(f"Erreur lors de la fermeture: {e}")
-
 def main():
-    # Vérifie qu'une seule instance s'exécute
-    from app.lock_file import SingleInstanceLock
-    lock = SingleInstanceLock("/tmp/regulation_chauffage.lock")
-    if not lock.acquire():
-        print("Une autre instance du programme est déjà en cours d'exécution")
-        return
-
     CONFIG_FILE = os.path.join(SRC_DIR, "config_module", "sensors.json")
     cfg = load_config(CONFIG_FILE)
 
-    led = None
-    relay = None
-    tmux = None
-    adc = None
+    # LED ON permanente
+    led = GPIO(GPIO_CHIP_PATH, FRONT_LED, "out")
+    led.write(True)
+    relay = GPIO(GPIO_CHIP_PATH, CMD_RELAY, "out")
+    relay.write(True)
+    tmux = Tmux1204()
+    adc = Ads124s08()
 
     try:
-        # LED ON permanente
-        led = GPIO(GPIO_CHIP_PATH, FRONT_LED, "out")
-        led.write(True)
-        relay = GPIO(GPIO_CHIP_PATH, CMD_RELAY, "out")
-        relay.write(True)
-        tmux = Tmux1204()
-        adc = Ads124s08()
-
         while True:
             for entry in cfg["channels"]:
                 ch = entry["channel"]
@@ -83,17 +62,25 @@ def main():
 
             time.sleep(cfg["loop_sleep_s"])
     except KeyboardInterrupt:
-        print("\nProgramme arrêté par l'utilisateur")
-    except Exception as e:
-        print(f"\nErreur: {e}")
+        pass
     finally:
-        # Éteindre LED et relai
-        if led:
+        try:
+            adc.close()
+        except Exception:
+            pass
+        try:
+            tmux.close()
+        except Exception:
+            pass
+        try:
             led.write(False)
-        if relay:
+            led.close()
+        except Exception:
+            pass
+        try:
             relay.write(False)
-        
-        # Fermer toutes les ressources
-        cleanup_resources(adc, tmux, led, relay)
+            relay.close()
+        except Exception:
+            pass
 if __name__ == "__main__":
     main()
