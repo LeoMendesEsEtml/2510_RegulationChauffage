@@ -217,18 +217,20 @@ class Ads124s08:
         # Mode single-shot low-latency, DR=0x04
         self.set_single_shot_lowlatency(0x04)
 
-        # REF externe REFP0-REFN0
-        print("[ADC] REF=0x10")
-        self._wreg(REG_REF, [0x10])
+        # REF externe REFP0-REFN0 avec REF interne activée
+        print("[ADC] REF=0x12")  # REFSEL=00 (REFP0/REFN0), REFCON=10 (ref interne ON)
+        self._wreg(REG_REF, [0x12])
+        time.sleep(0.006)  # Attente pour stabilisation de la référence interne
 
-        # Configure IDACMUX - Route IDAC1 to AIN0 (Rref), IDAC2 disabled
-        print("[ADC] IDACMUX=0x01")  # IDAC1 to AIN0, IDAC2 disabled
-        self._wreg(REG_IDACMUX, [0x01])  
-
-        # IDAC magnitude
+        # IDAC magnitude (adresse corrigée à 0x06)
         mag_code = encode_idac_uA(idac_uA)
         print("[ADC] IDACMAG=0x" + format(mag_code & 0x0F, "02X"))
-        self._wreg(REG_IDACMAG, [mag_code & 0x0F])
+        self._wreg(0x06, [mag_code & 0x0F])
+
+        # IDACMUX dynamique selon le canal
+        idacmux_val = 0x01 + (channel_index - 1) * 3  # AIN0/3/6/9 pour ch1/2/3/4
+        print("[ADC] IDACMUX=0x" + format(idacmux_val, "02X"))
+        self._wreg(0x07, [idacmux_val])
 
         # Délai de stabilisation après config
         time.sleep(0.001)
@@ -239,7 +241,8 @@ class Ads124s08:
             "PGA": REG_PGA,
             "DATARATE": REG_DATARATE,
             "REF": REG_REF,
-            "IDACMAG": REG_IDACMAG
+            "IDACMAG": 0x06,
+            "IDACMUX": 0x07
         }
         for name, addr in reg_map.items():
             val = self._rreg(addr, 1)
@@ -301,3 +304,21 @@ class Ads124s08:
 
         print(f"[ADC] Résistance mesurée: {r_sonde:.1f} ohms")
         return r_sonde
+
+    def read_gain(self):
+        """Read the PGA gain register."""
+        val = self._rreg(REG_PGA, 1)
+        print(f"[ADC DEBUG] PGA Gain Register: 0x{val[0]:02X}")
+        return val[0]
+
+    def read_ref(self):
+        """Read the reference configuration register."""
+        val = self._rreg(REG_REF, 1)
+        print(f"[ADC DEBUG] Reference Register: 0x{val[0]:02X}")
+        return val[0]
+
+    def read_inpmux(self):
+        """Read the input multiplexer configuration register."""
+        val = self._rreg(REG_INPMUX, 1)
+        print(f"[ADC DEBUG] INPMUX Register: 0x{val[0]:02X}")
+        return val[0]

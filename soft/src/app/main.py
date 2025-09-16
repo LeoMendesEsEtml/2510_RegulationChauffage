@@ -48,6 +48,11 @@ def main():
                 # Configuration ADC pour le canal
                 adc.configure_channel(ch, profile["pga_gain"], profile["idac_uA"])
 
+                # Vérification des registres ADC après configuration
+                adc.read_gain()
+                adc.read_ref()
+                adc.read_inpmux()
+
                 # Mesure bloquante
                 idac1 = profile["idac_uA"] / 1e6  # Convert µA to A
                 r = adc.measure_resistance(profile["rref_ohm"], profile["pga_gain"], cfg["timeout_s"])
