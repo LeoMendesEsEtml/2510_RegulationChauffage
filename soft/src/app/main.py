@@ -31,6 +31,13 @@ def cleanup_resources(*resources):
             print(f"Erreur lors de la fermeture: {e}")
 
 def main():
+    # Vérifie qu'une seule instance s'exécute
+    from app.lock_file import SingleInstanceLock
+    lock = SingleInstanceLock("/tmp/regulation_chauffage.lock")
+    if not lock.acquire():
+        print("Une autre instance du programme est déjà en cours d'exécution")
+        return
+
     CONFIG_FILE = os.path.join(SRC_DIR, "config_module", "sensors.json")
     cfg = load_config(CONFIG_FILE)
 
