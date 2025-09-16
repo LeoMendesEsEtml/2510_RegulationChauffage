@@ -211,17 +211,30 @@ class Ads124s08:
         print("[ADC] INPMUX=0x" + format(inpmux_val, "02X"))
         self._wreg(REG_INPMUX, [inpmux_val])
 
-        # PGA
+        # PGA configuration
+        # Bits[2:0] = Gain
+        # Autres bits à 0 (pas de bypass, etc)
         gain_code = encode_gain(pga_gain)
-        print("[ADC] PGA=0x" + format(gain_code & 0x07, "02X"))
-        self._wreg(REG_PGA, [gain_code & 0x07])
+        print(f"[ADC] PGA=0x{gain_code:02X} (Gain={pga_gain})")
+        self._wreg(REG_PGA, [gain_code])
+
+        # Configure le registre SYS
+        # Bit 1 = 1 (Enable conversion start on SYNC falling edge)
+        # Autres bits par défaut
+        sys_val = 0x02
+        print(f"[ADC] SYS=0x{sys_val:02X}")
+        self._wreg(REG_SYS, [sys_val])
 
         # Mode single-shot low-latency, DR=0x04
         self.set_single_shot_lowlatency(0x04)
 
-        # REF externe REFP0-REFN0
-        print("[ADC] REF=0x10")
-        self._wreg(REG_REF, [0x10])
+        # Configuration référence
+        # Bit 5 = 0 (Internal ref off)
+        # Bit 4 = 1 (REF0 selected)
+        # Bits[3:0] = 0 (autres options désactivées)
+        ref_val = 0x10
+        print(f"[ADC] REF=0x{ref_val:02X} (REF0, ref interne OFF)")
+        self._wreg(REG_REF, [ref_val])
 
         # Configure IDACMUX - Route IDAC1 to channel's current source input
         # IDACMUX register: [7:4]=IDAC2MUX, [3:0]=IDAC1MUX
@@ -240,17 +253,22 @@ class Ads124s08:
         # Délai de stabilisation après config
         time.sleep(0.001)
 
-        # Lecture des registres clés ADC pour debug
+        # Lecture et vérification des registres clés ADC
         reg_map = {
-            "INPMUX": REG_INPMUX,
-            "PGA": REG_PGA,
-            "DATARATE": REG_DATARATE,
-            "REF": REG_REF,
-            "IDACMAG": REG_IDACMAG
+            "INPMUX": {"addr": REG_INPMUX, "desc": f"AIN{ainp}(+) et AIN{ainn}(-)"},
+            "PGA": {"addr": REG_PGA, "desc": f"Gain={pga_gain}"},
+            "DATARATE": {"addr": REG_DATARATE, "desc": "Single-shot, low-latency"},
+            "REF": {"addr": REG_REF, "desc": "REF0 externe"},
+            "IDACMUX": {"addr": REG_IDACMUX, "desc": f"IDAC1->AIN{idac_source}, IDAC2=OFF"},
+            "IDACMAG": {"addr": REG_IDACMAG, "desc": f"{idac_uA}µA"},
+            "SYS": {"addr": REG_SYS, "desc": "SYNC enabled"}
         }
-        for name, addr in reg_map.items():
-            val = self._rreg(addr, 1)
-            print(f"[ADC] {name} (0x{addr:02X}) = 0x{val[0]:02X}")
+        print("\n[ADC] Vérification configuration:")
+        print("-" * 50)
+        for name, info in reg_map.items():
+            val = self._rreg(info["addr"], 1)[0]
+            print(f"[ADC] {name:8} = 0x{val:02X} | {info['desc']}")
+        print("-" * 50)
 
     def start(self):
         # Kick SCLK pour relâcher DRDY à HIGH
@@ -302,9 +320,15 @@ class Ads124s08:
 
         if code < 0:
             code = -code
+            print("[ADC DEBUG] Code négatif détecté, utilisation valeur absolue")
 
+        # Calcul du ratio par rapport à la pleine échelle
         ratio = float(code) / float(FS)
-        r_sonde = ratio * (float(rref_ohm) / float(pga_gain))
+        print(f"[ADC DEBUG] Ratio mesure/FS: {ratio:.6f}")
 
+        # Calcul de la résistance
+        r_sonde = ratio * (float(rref_ohm) / float(pga_gain))
+        
+        print(f"[ADC DEBUG] Équation: {code} / {FS} * ({rref_ohm} / {pga_gain})")
         print(f"[ADC] Résistance mesurée: {r_sonde:.1f} ohms")
         return r_sonde
