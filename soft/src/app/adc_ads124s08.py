@@ -37,16 +37,12 @@ CMD_RDATA  = 0x12
 # Pleine échelle 24 bits signé
 FS = (1 << 23) - 1
 
-# Définition des canaux selon le schéma
-# Pour chaque canal :
-# - IDAC injecte dans AINx_src qui est connecté à AINx_p sur la carte
-# - RTD/fil entre AINx_p et AINx_n
-# - La tension aux bornes de la sonde est AINx_p - AINx_n
+# Mapping canaux physiques
 CHANNELS = {
-    1: {"idac_src": 0, "ainp_idx": 1, "ainn_idx": 2},    # IDAC->AIN0-[PCB]->AIN1-[RTD]->AIN2
-    2: {"idac_src": 3, "ainp_idx": 4, "ainn_idx": 5},    # IDAC->AIN3-[PCB]->AIN4-[RTD]->AIN5
-    3: {"idac_src": 6, "ainp_idx": 7, "ainn_idx": 8},    # IDAC->AIN6-[PCB]->AIN7-[RTD]->AIN8
-    4: {"idac_src": 9, "ainp_idx": 10, "ainn_idx": 11}   # IDAC->AIN9-[PCB]->AIN10-[RTD]->AIN11
+    1: {"ainp_idx": 1,  "ainn_idx": 2},
+    2: {"ainp_idx": 4,  "ainn_idx": 5},
+    3: {"ainp_idx": 7,  "ainn_idx": 8},
+    4: {"ainp_idx": 10, "ainn_idx": 11}
 }
 
 
@@ -193,100 +189,41 @@ class Ads124s08:
                 return False
             time.sleep(0.001)
 
-    def set_datarate_config(self, dr_nibble, filter_mode="normal"):
-        """Configure le taux d'échantillonnage et le mode de filtrage.
-        
-        dr_nibble: Valeur de 0 à 15 pour le taux d'échantillonnage:
-        - 0x00 = 2.5 SPS    (le plus lent, le plus stable)
-        - 0x01 = 5 SPS
-        - 0x02 = 10 SPS
-        - 0x03 = 16.6 SPS
-        - 0x04 = 20 SPS     (valeur par défaut)
-        - 0x05 = 50 SPS
-        - 0x06 = 60 SPS
-        - 0x07 = 100 SPS
-        - 0x08 = 400 SPS
-        - 0x09 = 1200 SPS
-        - 0x0A = 2400 SPS
-        - 0x0B = 4800 SPS
-        - 0x0C = 7200 SPS
-        - 0x0D = 14400 SPS
-        - 0x0E = 19200 SPS
-        - 0x0F = 25600 SPS  (le plus rapide, le moins stable)
-        
-        filter_mode: 'normal' ou 'low-latency'
-        - normal = meilleur filtrage, plus stable
-        - low-latency = réponse plus rapide, moins stable
-        """
+    def set_single_shot_lowlatency(self, dr_nibble):
         value = 0
         value = value | (1 << 5)           # MODE=1 single-shot
-        if filter_mode == "low-latency":
-            value = value | (1 << 4)       # FILTER=1 low-latency
-        # sinon FILTER=0 normal mode (meilleur filtrage)
+        value = value | (1 << 4)           # FILTER=1 low-latency
         value = value | (dr_nibble & 0x0F) # DR
         self._wreg(REG_DATARATE, [value])
-        
-        # Temps de stabilisation après changement de configuration
-        time.sleep(0.010)  # 10ms de stabilisation
 
     def configure_channel(self, channel_index, pga_gain, idac_uA):
-        """Configure un canal ADC selon la datasheet ADS124S08
-        - INPMUX: sélectionne les entrées différentielles
-        - PGA: configure le gain
-        - IDACMUX: route le courant d'excitation
-        - IDACMAG: définit l'amplitude du courant
-        - REF: sélectionne la référence externe
-        - SYS: configure le mode de conversion"""
         if channel_index not in CHANNELS:
             raise ValueError("Canal ADC inconnu: " + str(channel_index))
         ch = CHANNELS[channel_index]
-        idac_src = ch["idac_src"]  # AINx pour source IDAC
-        ainp = ch["ainp_idx"]      # AINx pour entrée positive
-        ainn = ch["ainn_idx"]      # AINx pour entrée négative
-        print(f"[ADC] Configuration canal {channel_index} gain={pga_gain} IDAC={idac_uA}µA")
+        ainp = ch["ainp_idx"]
+        ainn = ch["ainn_idx"]
+        print("[ADC] Configuration canal " + str(channel_index) + " gain=" + str(pga_gain) + " IDAC=" + str(idac_uA) + "uA")
 
-        # PGA configuration
-        # Bits[2:0] = Gain
-        # Autres bits à 0 (pas de bypass, etc)
-        gain_code = encode_gain(pga_gain)
-        print(f"[ADC] PGA=0x{gain_code:02X} (Gain={pga_gain})")
-        self._wreg(REG_PGA, [gain_code])
-
-        # Configure le registre SYS
-        # Bit 1 = 1 (Enable conversion start on SYNC falling edge)
-        # Autres bits par défaut
-        sys_val = 0x02
-        print(f"[ADC] SYS=0x{sys_val:02X}")
-        self._wreg(REG_SYS, [sys_val])
-
-        # Configuration du taux d'échantillonnage et du filtrage
-        # - DR=0x03 (16.6 SPS) pour plus de stabilité
-        # - Mode normal (meilleur filtrage)
-        self.set_datarate_config(0x03, "normal")
-
-        # Configuration référence
-        # Bit 5 = 0 (Internal ref off)
-        # Bit 4 = 1 (REF0 selected)
-        # Bits[3:0] = 0 (autres options désactivées)
-        ref_val = 0x10
-        print(f"[ADC] REF=0x{ref_val:02X} (REF0, ref interne OFF)")
-        self._wreg(REG_REF, [ref_val])
-
-        # Configure IDACMUX - Route le courant d'excitation
-        # IDACMUX register: [7:4]=IDAC2MUX (OFF), [3:0]=IDAC1MUX
-        # IDAC1 est routé vers la source de courant dédiée
-        idacmux_val = (0x0F << 4) | (idac_src & 0x0F)  # IDAC1->AINx(src), IDAC2=OFF
-        print(f"[ADC] IDACMUX=0x{idacmux_val:02X} (IDAC1->AIN{idac_src}, IDAC2=OFF)")
-        self._wreg(REG_IDACMUX, [idacmux_val])
-
-        # Configure INPMUX pour la mesure différentielle
-        # INPMUX register: [7:4]=AINP, [3:0]=AINN
-        # Connexion selon le schéma hardware:
-        # - AINP = AINx(+) de la sonde
-        # - AINN = AINx(-) de la sonde
+        # INPMUX
         inpmux_val = ((ainp & 0x0F) << 4) | (ainn & 0x0F)
-        print(f"[ADC] INPMUX=0x{inpmux_val:02X} (AIN{ainp}-AIN{ainn})")
+        print("[ADC] INPMUX=0x" + format(inpmux_val, "02X"))
         self._wreg(REG_INPMUX, [inpmux_val])
+
+        # PGA
+        gain_code = encode_gain(pga_gain)
+        print("[ADC] PGA=0x" + format(gain_code & 0x07, "02X"))
+        self._wreg(REG_PGA, [gain_code & 0x07])
+
+        # Mode single-shot low-latency, DR=0x04
+        self.set_single_shot_lowlatency(0x04)
+
+        # REF externe REFP0-REFN0
+        print("[ADC] REF=0x10")
+        self._wreg(REG_REF, [0x10])
+
+        # Configure IDACMUX - Route IDAC1 to AIN0 (Rref), IDAC2 disabled
+        print("[ADC] IDACMUX=0x01")  # IDAC1 to AIN0, IDAC2 disabled
+        self._wreg(REG_IDACMUX, [0x01])  
 
         # IDAC magnitude
         mag_code = encode_idac_uA(idac_uA)
@@ -296,22 +233,17 @@ class Ads124s08:
         # Délai de stabilisation après config
         time.sleep(0.001)
 
-        # Lecture et vérification des registres clés ADC
+        # Lecture des registres clés ADC pour debug
         reg_map = {
-            "INPMUX": {"addr": REG_INPMUX, "desc": f"AIN{ainp}(+) et AIN{ainn}(-)"},
-            "PGA": {"addr": REG_PGA, "desc": f"Gain={pga_gain}"},
-            "DATARATE": {"addr": REG_DATARATE, "desc": "Single-shot, low-latency"},
-            "REF": {"addr": REG_REF, "desc": "REF0 externe"},
-            "IDACMUX": {"addr": REG_IDACMUX, "desc": f"IDAC1->AIN{idac_src}, IDAC2=OFF"},
-            "IDACMAG": {"addr": REG_IDACMAG, "desc": f"{idac_uA}µA"},
-            "SYS": {"addr": REG_SYS, "desc": "SYNC enabled"}
+            "INPMUX": REG_INPMUX,
+            "PGA": REG_PGA,
+            "DATARATE": REG_DATARATE,
+            "REF": REG_REF,
+            "IDACMAG": REG_IDACMAG
         }
-        print("\n[ADC] Vérification configuration:")
-        print("-" * 50)
-        for name, info in reg_map.items():
-            val = self._rreg(info["addr"], 1)[0]
-            print(f"[ADC] {name:8} = 0x{val:02X} | {info['desc']}")
-        print("-" * 50)
+        for name, addr in reg_map.items():
+            val = self._rreg(addr, 1)
+            print(f"[ADC] {name} (0x{addr:02X}) = 0x{val[0]:02X}")
 
     def start(self):
         # Kick SCLK pour relâcher DRDY à HIGH
@@ -359,36 +291,13 @@ class Ads124s08:
 
         print(f"[ADC DEBUG] Code brut: {code}")
         print(f"[ADC DEBUG] FS: {FS}")
-        print(f"[ADC DEBUG] Rref: {rref_ohm} Ω")
+        print(f"[ADC DEBUG] Rref: {rref_ohm} / Gain: {pga_gain}")
 
         if code < 0:
             code = -code
-            print("[ADC DEBUG] Code négatif détecté, utilisation valeur absolue")
 
-        # Circuit selon datasheet (Fig 2-1):
-        #
-        # Mesure:
-        # IDAC1 --> AIN0 -[PCB]-> AIN1 --[RSENSE]--> AIN2
-        #                                    |
-        #                             Mesure tension
-        #
-        # Référence:
-        # REFP0 --[RREF]--> REFN0
-        #
-        # Les deux utilisent le même courant IDAC, donc:
-        # VSENSE = IDAC * RSENSE
-        # VREF = IDAC * RREF
-        # code/FS = VSENSE/VREF = (IDAC*RSENSE)/(IDAC*RREF) = RSENSE/RREF
-        #
-        # Donc simplement: RSENSE = RREF * (code/FS)
-        
-        # Calcul du ratio par rapport à la pleine échelle
         ratio = float(code) / float(FS)
-        print(f"[ADC DEBUG] Ratio mesure/FS: {ratio:.6f}")
+        r_sonde = ratio * (float(rref_ohm) / float(pga_gain))
 
-        # Calcul ratiométrique direct
-        r_sonde = float(rref_ohm) * ratio
-        
-        print(f"[ADC DEBUG] Équation: RSENSE = {rref_ohm}Ω * ({code}/{FS})")
         print(f"[ADC] Résistance mesurée: {r_sonde:.1f} ohms")
         return r_sonde
