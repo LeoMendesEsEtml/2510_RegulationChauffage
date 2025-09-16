@@ -218,8 +218,9 @@ class Ads124s08:
         # INPMUX - Configure entrées différentielles selon datasheet
         # [7:4] = AINP (entrée positive)
         # [3:0] = AINN (entrée négative)
+        # Pour mesure ratiométrique: AINx vs AINx+1
         inpmux_val = ((ainp & 0x0F) << 4) | (ainn & 0x0F)
-        print(f"[ADC] INPMUX=0x{inpmux_val:02X} (AIN{ainp} vs AVSS)")
+        print(f"[ADC] INPMUX=0x{inpmux_val:02X} (AIN{ainp}-AIN{ainn})")
         self._wreg(REG_INPMUX, [inpmux_val])
 
         # PGA configuration
@@ -247,13 +248,11 @@ class Ads124s08:
         print(f"[ADC] REF=0x{ref_val:02X} (REF0, ref interne OFF)")
         self._wreg(REG_REF, [ref_val])
 
-        # Configure IDACMUX - Route IDAC1 to channel's current source input
-        # IDACMUX register: [7:4]=IDAC2MUX, [3:0]=IDAC1MUX
-        # IDAC1 va sur le pin source du canal (AINx-1)
-        # IDAC2 est déconnecté (0x0F = disabled)
-        idac_source = ainp - 1
-        idacmux_val = (0x0F << 4) | (idac_source & 0x0F)
-        print(f"[ADC] IDACMUX=0x{idacmux_val:02X} (IDAC1->AIN{idac_source}, IDAC2=OFF)")
+        # Configure IDACMUX - Route le courant d'excitation
+        # IDACMUX register: [7:4]=IDAC2MUX (OFF), [3:0]=IDAC1MUX
+        # IDAC1 est routé vers AINx+ (ainp) pour l'excitation
+        idacmux_val = (0x0F << 4) | (ainp & 0x0F)  # IDAC1->AINx+, IDAC2=OFF
+        print(f"[ADC] IDACMUX=0x{idacmux_val:02X} (IDAC1->AIN{ainp}, IDAC2=OFF)")
         self._wreg(REG_IDACMUX, [idacmux_val])
 
         # IDAC magnitude
