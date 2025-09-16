@@ -16,7 +16,7 @@ import spidev
 import time
 from periphery import GPIO
 from pins_cm5 import SPI1_BUS, SPI1_DEV0, SPI_ADC_SPEED_HZ, GPIO_CHIP_PATH, ADC_DRDY
-from app.temperature_conversion import resistance_to_temperature, ni1000_table
+from app.temperature_conversion import resistance_to_temperature
 from sensor_profiles import SENSOR_TABLES
 
 # Registres
