@@ -251,9 +251,16 @@ class Ads124s08:
         # Configure IDACMUX - Route le courant d'excitation
         # IDACMUX register: [7:4]=IDAC2MUX (OFF), [3:0]=IDAC1MUX
         # IDAC1 est routé vers AINx+ (ainp) pour l'excitation
+        # Pour mesure de résistance proche de 0, AINx- doit être connecté à AINCOM
         idacmux_val = (0x0F << 4) | (ainp & 0x0F)  # IDAC1->AINx+, IDAC2=OFF
         print(f"[ADC] IDACMUX=0x{idacmux_val:02X} (IDAC1->AIN{ainp}, IDAC2=OFF)")
         self._wreg(REG_IDACMUX, [idacmux_val])
+        
+        # Configure INPMUX pour la mesure différentielle
+        # Pour une résistance proche de 0, AINN doit être connecté à AINCOM
+        inpmux_val = ((ainp & 0x0F) << 4) | AINCOM  # AINx+ vs AINCOM
+        print(f"[ADC] INPMUX=0x{inpmux_val:02X} (AIN{ainp}-AINCOM)")
+        self._wreg(REG_INPMUX, [inpmux_val])
 
         # IDAC magnitude
         mag_code = encode_idac_uA(idac_uA)
