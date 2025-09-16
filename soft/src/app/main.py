@@ -19,7 +19,8 @@ from pins_cm5 import GPIO_CHIP_PATH, FRONT_LED, CMD_RELAY
 from app.config_loader import load_config
 from app.sensor_profiles import get_profile
 from hw_tmux1204 import Tmux1204
-from adc_ads124s08 import Ads124s08
+from app.adc_ads124s08 import Ads124s08
+from app.temperature_conversion import ni1000_table
 
 def main():
     CONFIG_FILE = os.path.join(SRC_DIR, "config_module", "sensors.json")
@@ -62,6 +63,15 @@ def main():
                 else:
                     # Print uniquement la valeur de résistance
                     print("{:.6f}".format(r))
+
+                # Mesure de la température
+                temperature = adc.measure_temperature(profile["rref_ohm"], profile["pga_gain"], cfg["timeout_s"])
+
+                if temperature is None:
+                    print("NaN")
+                else:
+                    # Print uniquement la valeur de température
+                    print(f"Température: {temperature:.2f} °C")
 
                 time.sleep(cfg["inter_measure_sleep_s"])
 

@@ -16,6 +16,7 @@ import spidev
 import time
 from periphery import GPIO
 from pins_cm5 import SPI1_BUS, SPI1_DEV0, SPI_ADC_SPEED_HZ, GPIO_CHIP_PATH, ADC_DRDY
+from app.temperature_conversion import resistance_to_temperature, ni1000_table
 
 # Registres
 REG_ID        = 0x00
@@ -321,6 +322,23 @@ class Ads124s08:
 
         print(f"[ADC] Résistance mesurée: {r_sonde:.1f} ohms")
         return r_sonde
+
+    def measure_temperature(self, rref_ohm, pga_gain, timeout_s):
+        """
+        Mesure la température en utilisant la résistance mesurée.
+
+        :param rref_ohm: Résistance de référence (en ohms).
+        :param pga_gain: Gain PGA.
+        :param timeout_s: Timeout pour la mesure.
+        :return: Température mesurée (en °C).
+        """
+        resistance = self.measure_resistance(rref_ohm, pga_gain, timeout_s)
+        if resistance is None:
+            return None
+
+        temperature = resistance_to_temperature(resistance, ni1000_table)
+        print(f"[ADC] Température mesurée: {temperature:.2f} °C")
+        return temperature
 
     def read_gain(self):
         """Read the PGA gain register."""
