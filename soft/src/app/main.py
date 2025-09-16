@@ -20,7 +20,6 @@ from app.config_loader import load_config
 from app.sensor_profiles import get_profile
 from hw_tmux1204 import Tmux1204
 from app.adc_ads124s08 import Ads124s08
-from app.temperature_conversion import ni1000_table
 
 def main():
     CONFIG_FILE = os.path.join(SRC_DIR, "config_module", "sensors.json")
