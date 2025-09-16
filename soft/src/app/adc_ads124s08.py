@@ -249,10 +249,11 @@ class Ads124s08:
 
         # Configure INPMUX pour la mesure différentielle
         # Pour mesure de résistance proche de 0:
-        # - AINP connecté à l'entrée du courant IDAC
-        # - AINN connecté à la masse analogique AINCOM
-        inpmux_val = ((ainp & 0x0F) << 4) | AINCOM
-        print(f"[ADC] INPMUX=0x{inpmux_val:02X} (AIN{ainp}-AINCOM)")
+        # - AINP connecté à la masse analogique AINCOM (point bas)
+        # - AINN connecté à l'entrée du courant IDAC (point haut)
+        # Cela donne une tension positive quand le courant circule de AINx vers AINCOM
+        inpmux_val = (AINCOM << 4) | (ainp & 0x0F)
+        print(f"[ADC] INPMUX=0x{inpmux_val:02X} (AINCOM-AIN{ainp})")
         self._wreg(REG_INPMUX, [inpmux_val])
 
         # IDAC magnitude
@@ -265,7 +266,7 @@ class Ads124s08:
 
         # Lecture et vérification des registres clés ADC
         reg_map = {
-            "INPMUX": {"addr": REG_INPMUX, "desc": f"AIN{ainp}-AINCOM"},
+            "INPMUX": {"addr": REG_INPMUX, "desc": f"AINCOM-AIN{ainp}"},
             "PGA": {"addr": REG_PGA, "desc": f"Gain={pga_gain}"},
             "DATARATE": {"addr": REG_DATARATE, "desc": "Single-shot, low-latency"},
             "REF": {"addr": REG_REF, "desc": "REF0 externe"},
