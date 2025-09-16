@@ -68,7 +68,7 @@ def main():
                 temperature = adc.measure_temperature(profile["rref_ohm"], profile["pga_gain"], cfg["timeout_s"])
 
                 if temperature is None:
-                    print("NaN")
+                    print(f"Canal {ch}: Température non mesurable ou saturation détectée.")
                 else:
                     # Print uniquement la valeur de température
                     print(f"Température: {temperature:.2f} °C")

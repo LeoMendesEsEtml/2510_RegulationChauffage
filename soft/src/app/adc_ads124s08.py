@@ -330,13 +330,18 @@ class Ads124s08:
         :param rref_ohm: Résistance de référence (en ohms).
         :param pga_gain: Gain PGA.
         :param timeout_s: Timeout pour la mesure.
-        :return: Température mesurée (en °C).
+        :return: Température mesurée (en °C) ou None si saturation.
         """
         resistance = self.measure_resistance(rref_ohm, pga_gain, timeout_s)
         if resistance is None:
+            print("[ADC] Erreur: Résistance non mesurée ou saturation détectée.")
             return None
 
         temperature = resistance_to_temperature(resistance, ni1000_table)
+        if temperature is None:
+            print("[ADC] Erreur: Température non calculable (hors plage de la table).")
+            return None
+
         print(f"[ADC] Température mesurée: {temperature:.2f} °C")
         return temperature
 
