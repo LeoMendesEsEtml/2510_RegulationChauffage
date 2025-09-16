@@ -88,16 +88,5 @@ def main():
         
         # Fermer toutes les ressources
         cleanup_resources(adc, tmux, led, relay)
-            pass
-        try:
-            led.write(False)
-            led.close()
-        except Exception:
-            pass
-        try:
-            relay.write(False)
-            relay.close()
-        except Exception:
-            pass
 if __name__ == "__main__":
     main()
