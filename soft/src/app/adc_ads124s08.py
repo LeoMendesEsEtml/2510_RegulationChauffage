@@ -26,7 +26,7 @@ REG_DATARATE  = 0x04
 REG_REF       = 0x05
 REG_IDACMUX   = 0x07
 REG_SYS       = 0x09
-REG_IDACMAG   = 0x0A
+REG_IDACMAG   = 0x06  # Correct register constant for IDAC magnitude
 
 # Commandes
 CMD_RESET  = 0x06
@@ -209,10 +209,15 @@ class Ads124s08:
         print("[ADC] INPMUX=0x" + format(inpmux_val, "02X"))
         self._wreg(REG_INPMUX, [inpmux_val])
 
-        # PGA
-        gain_code = encode_gain(pga_gain)
-        print("[ADC] PGA=0x" + format(gain_code & 0x07, "02X"))
-        self._wreg(REG_PGA, [gain_code & 0x07])
+        # PGA avec activation
+        gain_code = encode_gain(pga_gain)              # 0..7
+        pga_val = 0
+        pga_val = pga_val | (1 << 3)                   # PGA_EN = 01b
+        pga_val = pga_val | (gain_code & 0x07)         # GAIN = xxx
+        print("[ADC] PGA=0x" + format(pga_val, "02X"))
+        self._wreg(REG_PGA, [pga_val])
+        val = self._rreg(REG_PGA, 1)
+        print("[ADC DEBUG] PGA readback: 0x" + format(val[0], "02X"))
 
         # Mode single-shot low-latency, DR=0x04
         self.set_single_shot_lowlatency(0x04)
@@ -221,16 +226,28 @@ class Ads124s08:
         print("[ADC] REF=0x12")  # REFSEL=00 (REFP0/REFN0), REFCON=10 (ref interne ON)
         self._wreg(REG_REF, [0x12])
         time.sleep(0.006)  # Attente pour stabilisation de la référence interne
+        val = self._rreg(REG_REF, 1)
+        print("[ADC DEBUG] REF readback: 0x" + format(val[0], "02X"))
 
-        # IDAC magnitude (adresse corrigée à 0x06)
+        # IDAC magnitude
         mag_code = encode_idac_uA(idac_uA)
         print("[ADC] IDACMAG=0x" + format(mag_code & 0x0F, "02X"))
-        self._wreg(0x06, [mag_code & 0x0F])
+        self._wreg(REG_IDACMAG, [mag_code & 0x0F])
+        val = self._rreg(REG_IDACMAG, 1)
+        print("[ADC DEBUG] IDACMAG readback: 0x" + format(val[0], "02X"))
 
-        # IDACMUX dynamique selon le canal
-        idacmux_val = 0x01 + (channel_index - 1) * 3  # AIN0/3/6/9 pour ch1/2/3/4
+        # IDACMUX dynamique: IDAC1 vers AIN0/3/6/9, IDAC2 déconnecté
+        idac1_route = 0 + (channel_index - 1) * 3      # 0, 3, 6, 9
+        if idac1_route < 0:
+            idac1_route = 0
+        if idac1_route > 15:
+            idac1_route = 15
+        idac2_route = 0x0F                             # disconnect
+        idacmux_val = ((idac2_route & 0x0F) << 4) | (idac1_route & 0x0F)
         print("[ADC] IDACMUX=0x" + format(idacmux_val, "02X"))
-        self._wreg(0x07, [idacmux_val])
+        self._wreg(REG_IDACMUX, [idacmux_val])
+        val = self._rreg(REG_IDACMUX, 1)
+        print("[ADC DEBUG] IDACMUX readback: 0x" + format(val[0], "02X"))
 
         # Délai de stabilisation après config
         time.sleep(0.001)
@@ -241,8 +258,8 @@ class Ads124s08:
             "PGA": REG_PGA,
             "DATARATE": REG_DATARATE,
             "REF": REG_REF,
-            "IDACMAG": 0x06,
-            "IDACMUX": 0x07
+            "IDACMAG": REG_IDACMAG,
+            "IDACMUX": REG_IDACMUX
         }
         for name, addr in reg_map.items():
             val = self._rreg(addr, 1)
