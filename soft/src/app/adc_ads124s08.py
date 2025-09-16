@@ -269,7 +269,7 @@ class Ads124s08:
             "PGA": {"addr": REG_PGA, "desc": f"Gain={pga_gain}"},
             "DATARATE": {"addr": REG_DATARATE, "desc": "Single-shot, low-latency"},
             "REF": {"addr": REG_REF, "desc": "REF0 externe"},
-            "IDACMUX": {"addr": REG_IDACMUX, "desc": f"IDAC1->AIN{idac_source}, IDAC2=OFF"},
+            "IDACMUX": {"addr": REG_IDACMUX, "desc": f"IDAC1->AIN{ainp}, IDAC2=OFF"},
             "IDACMAG": {"addr": REG_IDACMAG, "desc": f"{idac_uA}µA"},
             "SYS": {"addr": REG_SYS, "desc": "SYNC enabled"}
         }
@@ -332,17 +332,20 @@ class Ads124s08:
             code = -code
             print("[ADC DEBUG] Code négatif détecté, utilisation valeur absolue")
 
-        # Pour une mesure ratiométrique avec IDAC:
-        # Vsense = IDAC * Rsense
-        # code/FS = Vsense/Vref = (IDAC*Rsense)/(IDAC*Rref) = Rsense/Rref
+        # Pour une mesure différentielle avec IDAC:
+        # Vsense = code/FS * Vref/gain
+        # Rsense = Vsense/IDAC = (code/FS) * (Vref/IDAC/gain)
+        # Où Vref = IDAC * Rref, donc:
+        # Rsense = (code/FS) * (Rref/gain)
         
         # Calcul du ratio par rapport à la pleine échelle
         ratio = float(code) / float(FS)
         print(f"[ADC DEBUG] Ratio mesure/FS: {ratio:.6f}")
 
-        # La résistance est proportionnelle au ratio de tension
-        r_sonde = ratio * float(rref_ohm)
+        # La résistance est proportionnelle au ratio et à Rref, 
+        # et inversement proportionnelle au gain
+        r_sonde = ratio * float(rref_ohm) / float(pga_gain)
         
-        print(f"[ADC DEBUG] Équation ratiométrique: Rsense = ({code} / {FS}) * {rref_ohm}")
+        print(f"[ADC DEBUG] Équation: Rsense = ({code} / {FS}) * {rref_ohm} / {pga_gain}")
         print(f"[ADC] Résistance mesurée: {r_sonde:.1f} ohms")
         return r_sonde
