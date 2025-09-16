@@ -37,13 +37,16 @@ CMD_RDATA  = 0x12
 # Pleine échelle 24 bits signé
 FS = (1 << 23) - 1
 
-# Définition des canaux selon le schéma hardware
-# Format: idac_src, sonde_p, sonde_n
+# Définition des canaux selon le schéma
+# Pour chaque canal :
+# - IDAC injecte dans AINx_src qui est connecté à AINx_p sur la carte
+# - RTD/fil entre AINx_p et AINx_n
+# - La tension aux bornes de la sonde est AINx_p - AINx_n
 CHANNELS = {
-    1: {"idac_src": 0, "ainp_idx": 1, "ainn_idx": 2},    # Canal 1: IDAC->AIN0, AIN1-AIN2
-    2: {"idac_src": 3, "ainp_idx": 4, "ainn_idx": 5},    # Canal 2: IDAC->AIN3, AIN4-AIN5
-    3: {"idac_src": 6, "ainp_idx": 7, "ainn_idx": 8},    # Canal 3: IDAC->AIN6, AIN7-AIN8
-    4: {"idac_src": 9, "ainp_idx": 10, "ainn_idx": 11}   # Canal 4: IDAC->AIN9, AIN10-AIN11
+    1: {"idac_src": 0, "ainp_idx": 1, "ainn_idx": 2},    # IDAC->AIN0-[PCB]->AIN1-[RTD]->AIN2
+    2: {"idac_src": 3, "ainp_idx": 4, "ainn_idx": 5},    # IDAC->AIN3-[PCB]->AIN4-[RTD]->AIN5
+    3: {"idac_src": 6, "ainp_idx": 7, "ainn_idx": 8},    # IDAC->AIN6-[PCB]->AIN7-[RTD]->AIN8
+    4: {"idac_src": 9, "ainp_idx": 10, "ainn_idx": 11}   # IDAC->AIN9-[PCB]->AIN10-[RTD]->AIN11
 }
 
 
@@ -190,12 +193,41 @@ class Ads124s08:
                 return False
             time.sleep(0.001)
 
-    def set_single_shot_lowlatency(self, dr_nibble):
+    def set_datarate_config(self, dr_nibble, filter_mode="normal"):
+        """Configure le taux d'échantillonnage et le mode de filtrage.
+        
+        dr_nibble: Valeur de 0 à 15 pour le taux d'échantillonnage:
+        - 0x00 = 2.5 SPS    (le plus lent, le plus stable)
+        - 0x01 = 5 SPS
+        - 0x02 = 10 SPS
+        - 0x03 = 16.6 SPS
+        - 0x04 = 20 SPS     (valeur par défaut)
+        - 0x05 = 50 SPS
+        - 0x06 = 60 SPS
+        - 0x07 = 100 SPS
+        - 0x08 = 400 SPS
+        - 0x09 = 1200 SPS
+        - 0x0A = 2400 SPS
+        - 0x0B = 4800 SPS
+        - 0x0C = 7200 SPS
+        - 0x0D = 14400 SPS
+        - 0x0E = 19200 SPS
+        - 0x0F = 25600 SPS  (le plus rapide, le moins stable)
+        
+        filter_mode: 'normal' ou 'low-latency'
+        - normal = meilleur filtrage, plus stable
+        - low-latency = réponse plus rapide, moins stable
+        """
         value = 0
         value = value | (1 << 5)           # MODE=1 single-shot
-        value = value | (1 << 4)           # FILTER=1 low-latency
+        if filter_mode == "low-latency":
+            value = value | (1 << 4)       # FILTER=1 low-latency
+        # sinon FILTER=0 normal mode (meilleur filtrage)
         value = value | (dr_nibble & 0x0F) # DR
         self._wreg(REG_DATARATE, [value])
+        
+        # Temps de stabilisation après changement de configuration
+        time.sleep(0.010)  # 10ms de stabilisation
 
     def configure_channel(self, channel_index, pga_gain, idac_uA):
         """Configure un canal ADC selon la datasheet ADS124S08
@@ -227,8 +259,10 @@ class Ads124s08:
         print(f"[ADC] SYS=0x{sys_val:02X}")
         self._wreg(REG_SYS, [sys_val])
 
-        # Mode single-shot low-latency, DR=0x04
-        self.set_single_shot_lowlatency(0x04)
+        # Configuration du taux d'échantillonnage et du filtrage
+        # - DR=0x03 (16.6 SPS) pour plus de stabilité
+        # - Mode normal (meilleur filtrage)
+        self.set_datarate_config(0x03, "normal")
 
         # Configuration référence
         # Bit 5 = 0 (Internal ref off)
@@ -331,31 +365,23 @@ class Ads124s08:
             code = -code
             print("[ADC DEBUG] Code négatif détecté, utilisation valeur absolue")
 
-        # Configuration 3 points avec IDAC:
-        # - IDAC injecté dans AIN0
-        # - V+ sur AIN1
-        # - V- sur AIN2
-        #
-        # Circuit:
-        # IDAC --[Rsense]--> AIN1 --[Rref]--> AIN2
+        # Circuit selon datasheet:
+        # IDAC1 ---> AIN0 -[PCB]-> AIN1 --[RSENSE]--> AIN2
+        #                                   
+        # La mesure est ratiométrique:
+        # - IDAC crée V=R*I dans RSENSE et RREF
+        # - ADC mesure Vsense/Vref = Rsense/Rref
         # 
-        # La tension mesurée est:
-        # Vdiff = V(AIN1) - V(AIN2) = IDAC * Rsense
-        # code/FS = Vdiff/(Vref/gain)
-        # Avec Vref = IDAC * (Rsense + Rref)
-        #
-        # Donc:
-        # code/FS = (IDAC * Rsense)/(IDAC * (Rsense + Rref)/gain)
-        # code/FS = gain * Rsense/(Rsense + Rref)
-        # Rsense = (code * Rref)/(FS * gain - code)
+        # code/FS = Rsense/Rref / gain
+        # Rsense = Rref * code/(FS * gain)
         
         # Calcul du ratio par rapport à la pleine échelle
         ratio = float(code) / float(FS)
         print(f"[ADC DEBUG] Ratio mesure/FS: {ratio:.6f}")
 
-        # Calcul de la résistance en utilisant la formule corrigée
-        r_sonde = (code * float(rref_ohm)) / (FS * float(pga_gain) - code)
+        # Calcul ratiométrique avec Rref
+        r_sonde = float(rref_ohm) * ratio * float(pga_gain)
         
-        print(f"[ADC DEBUG] Équation: Rsense = ({code} * {rref_ohm}) / ({FS} * {pga_gain} - {code})")
+        print(f"[ADC DEBUG] Équation: Rsense = {rref_ohm} * ({code}/{FS}) * {pga_gain}")
         print(f"[ADC] Résistance mesurée: {r_sonde:.1f} ohms")
         return r_sonde
