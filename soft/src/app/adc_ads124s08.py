@@ -38,11 +38,13 @@ CMD_RDATA  = 0x12
 FS = (1 << 23) - 1
 
 # Mapping canaux physiques
+# Format: ainp_idx est l'entrée positive, ainn_idx est l'entrée négative
+# Le courant IDAC1 est routé vers (ainp_idx - 1) pour chaque canal
 CHANNELS = {
-    1: {"ainp_idx": 1,  "ainn_idx": 2},
-    2: {"ainp_idx": 4,  "ainn_idx": 5},
-    3: {"ainp_idx": 7,  "ainn_idx": 8},
-    4: {"ainp_idx": 10, "ainn_idx": 11}
+    1: {"ainp_idx": 1,  "ainn_idx": 2},   # IDAC1->AIN0, mesure AIN1-AIN2
+    2: {"ainp_idx": 4,  "ainn_idx": 5},   # IDAC1->AIN3, mesure AIN4-AIN5
+    3: {"ainp_idx": 7,  "ainn_idx": 8},   # IDAC1->AIN6, mesure AIN7-AIN8
+    4: {"ainp_idx": 10, "ainn_idx": 11}   # IDAC1->AIN9, mesure AIN10-AIN11
 }
 
 
@@ -220,6 +222,12 @@ class Ads124s08:
         # REF externe REFP0-REFN0
         print("[ADC] REF=0x10")
         self._wreg(REG_REF, [0x10])
+
+        # Configure IDACMUX - Route IDAC1 to channel's current source input
+        idac_source = ainp - 1  # Current source is the pin before AINP
+        idacmux_val = idac_source & 0x0F  # IDAC1 to AINx (current source), IDAC2 disabled
+        print(f"[ADC] IDACMUX=0x{idacmux_val:02X} (IDAC1->AIN{idac_source}, IDAC2 disabled)")
+        self._wreg(REG_IDACMUX, [idacmux_val])
 
         # IDAC magnitude
         mag_code = encode_idac_uA(idac_uA)
