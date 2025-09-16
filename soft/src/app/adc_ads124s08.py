@@ -17,6 +17,7 @@ import time
 from periphery import GPIO
 from pins_cm5 import SPI1_BUS, SPI1_DEV0, SPI_ADC_SPEED_HZ, GPIO_CHIP_PATH, ADC_DRDY
 from app.temperature_conversion import resistance_to_temperature, ni1000_table
+from sensor_profiles import SENSOR_TABLES
 
 # Registres
 REG_ID        = 0x00
@@ -323,10 +324,11 @@ class Ads124s08:
         print(f"[ADC] Résistance mesurée: {r_sonde:.1f} ohms")
         return r_sonde
 
-    def measure_temperature(self, rref_ohm, pga_gain, timeout_s):
+    def measure_temperature(self, sensor_name, rref_ohm, pga_gain, timeout_s):
         """
         Mesure la température en utilisant la résistance mesurée.
 
+        :param sensor_name: Nom du capteur.
         :param rref_ohm: Résistance de référence (en ohms).
         :param pga_gain: Gain PGA.
         :param timeout_s: Timeout pour la mesure.
@@ -337,7 +339,11 @@ class Ads124s08:
             print("[ADC] Erreur: Résistance non mesurée ou saturation détectée.")
             return None
 
-        temperature = resistance_to_temperature(resistance, ni1000_table)
+        if sensor_name not in SENSOR_TABLES:
+            print(f"[ADC] Erreur: Table de conversion introuvable pour le capteur {sensor_name}.")
+            return None
+
+        temperature = resistance_to_temperature(resistance, SENSOR_TABLES[sensor_name])
         if temperature is None:
             print("[ADC] Erreur: Température non calculable (hors plage de la table).")
             return None
