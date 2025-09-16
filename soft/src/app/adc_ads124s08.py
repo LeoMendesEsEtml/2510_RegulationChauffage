@@ -37,16 +37,13 @@ CMD_RDATA  = 0x12
 # Pleine échelle 24 bits signé
 FS = (1 << 23) - 1
 
-# Définition des canaux selon la datasheet
-# AINx sont les entrées physiques (0-11)
-# AINCOM (0x0C) est l'entrée commune
-AINCOM = 0x0C
-
+# Définition des canaux selon le schéma hardware
+# Format: idac_src, sonde_p, sonde_n
 CHANNELS = {
-    1: {"ainp_idx": 1,  "ainn_idx": 2},   # Canal 1: AIN1-AIN2
-    2: {"ainp_idx": 4,  "ainn_idx": 5},   # Canal 2: AIN4-AIN5
-    3: {"ainp_idx": 7,  "ainn_idx": 8},   # Canal 3: AIN7-AIN8
-    4: {"ainp_idx": 10, "ainn_idx": 11}   # Canal 4: AIN10-AIN11
+    1: {"idac_src": 0, "ainp_idx": 1, "ainn_idx": 2},    # Canal 1: IDAC->AIN0, AIN1-AIN2
+    2: {"idac_src": 3, "ainp_idx": 4, "ainn_idx": 5},    # Canal 2: IDAC->AIN3, AIN4-AIN5
+    3: {"idac_src": 6, "ainp_idx": 7, "ainn_idx": 8},    # Canal 3: IDAC->AIN6, AIN7-AIN8
+    4: {"idac_src": 9, "ainp_idx": 10, "ainn_idx": 11}   # Canal 4: IDAC->AIN9, AIN10-AIN11
 }
 
 
@@ -211,8 +208,9 @@ class Ads124s08:
         if channel_index not in CHANNELS:
             raise ValueError("Canal ADC inconnu: " + str(channel_index))
         ch = CHANNELS[channel_index]
-        ainp = ch["ainp_idx"]
-        ainn = ch["ainn_idx"]
+        idac_src = ch["idac_src"]  # AINx pour source IDAC
+        ainp = ch["ainp_idx"]      # AINx pour entrée positive
+        ainn = ch["ainn_idx"]      # AINx pour entrée négative
         print(f"[ADC] Configuration canal {channel_index} gain={pga_gain} IDAC={idac_uA}µA")
 
         # PGA configuration
@@ -242,18 +240,18 @@ class Ads124s08:
 
         # Configure IDACMUX - Route le courant d'excitation
         # IDACMUX register: [7:4]=IDAC2MUX (OFF), [3:0]=IDAC1MUX
-        # IDAC1 est routé vers l'entrée positive pour l'excitation
-        idacmux_val = (0x0F << 4) | (ainp & 0x0F)  # IDAC1->AINx+, IDAC2=OFF
-        print(f"[ADC] IDACMUX=0x{idacmux_val:02X} (IDAC1->AIN{ainp}, IDAC2=OFF)")
+        # IDAC1 est routé vers la source de courant dédiée
+        idacmux_val = (0x0F << 4) | (idac_src & 0x0F)  # IDAC1->AINx(src), IDAC2=OFF
+        print(f"[ADC] IDACMUX=0x{idacmux_val:02X} (IDAC1->AIN{idac_src}, IDAC2=OFF)")
         self._wreg(REG_IDACMUX, [idacmux_val])
 
         # Configure INPMUX pour la mesure différentielle
-        # Pour mesure de résistance proche de 0:
-        # - AINP connecté à la masse analogique AINCOM (point bas)
-        # - AINN connecté à l'entrée du courant IDAC (point haut)
-        # Cela donne une tension positive quand le courant circule de AINx vers AINCOM
-        inpmux_val = (AINCOM << 4) | (ainp & 0x0F)
-        print(f"[ADC] INPMUX=0x{inpmux_val:02X} (AINCOM-AIN{ainp})")
+        # INPMUX register: [7:4]=AINP, [3:0]=AINN
+        # Connexion selon le schéma hardware:
+        # - AINP = AINx(+) de la sonde
+        # - AINN = AINx(-) de la sonde
+        inpmux_val = ((ainp & 0x0F) << 4) | (ainn & 0x0F)
+        print(f"[ADC] INPMUX=0x{inpmux_val:02X} (AIN{ainp}-AIN{ainn})")
         self._wreg(REG_INPMUX, [inpmux_val])
 
         # IDAC magnitude
@@ -266,11 +264,11 @@ class Ads124s08:
 
         # Lecture et vérification des registres clés ADC
         reg_map = {
-            "INPMUX": {"addr": REG_INPMUX, "desc": f"AINCOM-AIN{ainp}"},
+            "INPMUX": {"addr": REG_INPMUX, "desc": f"AIN{ainp}(+) et AIN{ainn}(-)"},
             "PGA": {"addr": REG_PGA, "desc": f"Gain={pga_gain}"},
             "DATARATE": {"addr": REG_DATARATE, "desc": "Single-shot, low-latency"},
             "REF": {"addr": REG_REF, "desc": "REF0 externe"},
-            "IDACMUX": {"addr": REG_IDACMUX, "desc": f"IDAC1->AIN{ainp}, IDAC2=OFF"},
+            "IDACMUX": {"addr": REG_IDACMUX, "desc": f"IDAC1->AIN{idac_src}, IDAC2=OFF"},
             "IDACMAG": {"addr": REG_IDACMAG, "desc": f"{idac_uA}µA"},
             "SYS": {"addr": REG_SYS, "desc": "SYNC enabled"}
         }
