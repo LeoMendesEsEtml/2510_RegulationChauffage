@@ -4,7 +4,7 @@
 Module pour convertir une résistance mesurée en température via interpolation linéaire.
 """
 
-from sensor_profiles import SENSOR_TABLES
+from app.sensor_profiles import SENSOR_TABLES
 
 def resistance_to_temperature(resistance, table):
     """

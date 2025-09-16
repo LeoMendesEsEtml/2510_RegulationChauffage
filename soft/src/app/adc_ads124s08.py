@@ -16,8 +16,8 @@ import spidev
 import time
 from periphery import GPIO
 from pins_cm5 import SPI1_BUS, SPI1_DEV0, SPI_ADC_SPEED_HZ, GPIO_CHIP_PATH, ADC_DRDY
-from app.temperature_conversion import resistance_to_temperature
-from sensor_profiles import SENSOR_TABLES
+from app.temperature_conversion import resistance_to_temperature_dynamic
+from app.sensor_profiles import SENSOR_TABLES
 
 # Registres
 REG_ID        = 0x00
@@ -343,7 +343,7 @@ class Ads124s08:
             print(f"[ADC] Erreur: Table de conversion introuvable pour le capteur {sensor_name}.")
             return None
 
-        temperature = resistance_to_temperature(resistance, SENSOR_TABLES[sensor_name])
+        temperature = resistance_to_temperature_dynamic(resistance, sensor_name)
         if temperature is None:
             print("[ADC] Erreur: Température non calculable (hors plage de la table).")
             return None
