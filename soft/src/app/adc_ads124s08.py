@@ -359,7 +359,7 @@ class Ads124s08:
 
         print(f"[ADC DEBUG] Code brut: {code}")
         print(f"[ADC DEBUG] FS: {FS}")
-        print(f"[ADC DEBUG] Rref: {rref_ohm} / Gain: {pga_gain}")
+        print(f"[ADC DEBUG] Rref: {rref_ohm} Ω")
 
         if code < 0:
             code = -code
@@ -368,23 +368,20 @@ class Ads124s08:
         # Circuit selon datasheet (Fig 2-1):
         # IDAC1 ---> AIN0 -[PCB]-> AIN1 --[RSENSE]--> AIN2
         #
-        # Mesure ratiométrique :
-        # VSENSE = IDAC * RSENSE
-        # VREF = IDAC * RREF
+        # Mesure ratiométrique (le gain s'annule):
+        # - VSENSE = IDAC * RSENSE  (tension mesurée sur RSENSE)
+        # - VTOTAL = IDAC * (RSENSE + RREF)  (tension totale = référence)
+        # - code/FS = VSENSE/VTOTAL = RSENSE/(RSENSE + RREF)
         #
-        # L'ADC mesure: code/FS = (VSENSE/gain)/(VREF/gain)
-        # Le gain s'annule car il affecte les deux tensions!
-        # 
-        # code/FS = VSENSE/VREF = (IDAC*RSENSE)/(IDAC*RREF) = RSENSE/RREF
-        # Donc : RSENSE = RREF * (code/FS)
+        # Donc: RSENSE = RREF * (code/FS)/(1 - code/FS)
         
         # Calcul du ratio par rapport à la pleine échelle
         ratio = float(code) / float(FS)
         print(f"[ADC DEBUG] Ratio mesure/FS: {ratio:.6f}")
 
-        # Calcul ratiométrique simple (le gain s'annule !)
-        r_sonde = float(rref_ohm) * ratio
+        # Calcul ratiométrique avec résistances en série
+        r_sonde = float(rref_ohm) * ratio / (1.0 - ratio)
         
-        print(f"[ADC DEBUG] Équation: Rsense = {rref_ohm} * ({code}/{FS})")
+        print(f"[ADC DEBUG] Équation: RSENSE = {rref_ohm}Ω * ({code}/{FS})/(1 - {code}/{FS})")
         print(f"[ADC] Résistance mesurée: {r_sonde:.1f} ohms")
         return r_sonde
