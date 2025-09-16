@@ -37,14 +37,16 @@ CMD_RDATA  = 0x12
 # Pleine échelle 24 bits signé
 FS = (1 << 23) - 1
 
-# Mapping canaux physiques
-# Format: ainp_idx est l'entrée positive, ainn_idx est l'entrée négative
-# Le courant IDAC1 est routé vers (ainp_idx - 1) pour chaque canal
+# Définition des canaux selon la datasheet
+# AINx sont les entrées physiques (0-11)
+# AINCOM (0x0C) est l'entrée commune
+AINCOM = 0x0C
+
 CHANNELS = {
-    1: {"ainp_idx": 1,  "ainn_idx": 2},   # IDAC1->AIN0, mesure AIN1-AIN2
-    2: {"ainp_idx": 4,  "ainn_idx": 5},   # IDAC1->AIN3, mesure AIN4-AIN5
-    3: {"ainp_idx": 7,  "ainn_idx": 8},   # IDAC1->AIN6, mesure AIN7-AIN8
-    4: {"ainp_idx": 10, "ainn_idx": 11}   # IDAC1->AIN9, mesure AIN10-AIN11
+    1: {"ainp_idx": 1,  "ainn_idx": 2},   # Canal 1: AIN1-AIN2
+    2: {"ainp_idx": 4,  "ainn_idx": 5},   # Canal 2: AIN4-AIN5
+    3: {"ainp_idx": 7,  "ainn_idx": 8},   # Canal 3: AIN7-AIN8
+    4: {"ainp_idx": 10, "ainn_idx": 11}   # Canal 4: AIN10-AIN11
 }
 
 
@@ -199,16 +201,25 @@ class Ads124s08:
         self._wreg(REG_DATARATE, [value])
 
     def configure_channel(self, channel_index, pga_gain, idac_uA):
+        """Configure un canal ADC selon la datasheet ADS124S08
+        - INPMUX: sélectionne les entrées différentielles
+        - PGA: configure le gain
+        - IDACMUX: route le courant d'excitation
+        - IDACMAG: définit l'amplitude du courant
+        - REF: sélectionne la référence externe
+        - SYS: configure le mode de conversion"""
         if channel_index not in CHANNELS:
             raise ValueError("Canal ADC inconnu: " + str(channel_index))
         ch = CHANNELS[channel_index]
         ainp = ch["ainp_idx"]
         ainn = ch["ainn_idx"]
-        print("[ADC] Configuration canal " + str(channel_index) + " gain=" + str(pga_gain) + " IDAC=" + str(idac_uA) + "uA")
+        print(f"[ADC] Configuration canal {channel_index} gain={pga_gain} IDAC={idac_uA}µA")
 
-        # INPMUX
+        # INPMUX - Configure entrées différentielles selon datasheet
+        # [7:4] = AINP (entrée positive)
+        # [3:0] = AINN (entrée négative)
         inpmux_val = ((ainp & 0x0F) << 4) | (ainn & 0x0F)
-        print("[ADC] INPMUX=0x" + format(inpmux_val, "02X"))
+        print(f"[ADC] INPMUX=0x{inpmux_val:02X} (AIN{ainp} vs AVSS)")
         self._wreg(REG_INPMUX, [inpmux_val])
 
         # PGA configuration
@@ -322,13 +333,17 @@ class Ads124s08:
             code = -code
             print("[ADC DEBUG] Code négatif détecté, utilisation valeur absolue")
 
+        # Pour une mesure ratiométrique avec IDAC:
+        # Vsense = IDAC * Rsense
+        # code/FS = Vsense/Vref = (IDAC*Rsense)/(IDAC*Rref) = Rsense/Rref
+        
         # Calcul du ratio par rapport à la pleine échelle
         ratio = float(code) / float(FS)
         print(f"[ADC DEBUG] Ratio mesure/FS: {ratio:.6f}")
 
-        # Calcul de la résistance
-        r_sonde = ratio * (float(rref_ohm) / float(pga_gain))
+        # La résistance est proportionnelle au ratio de tension
+        r_sonde = ratio * float(rref_ohm)
         
-        print(f"[ADC DEBUG] Équation: {code} / {FS} * ({rref_ohm} / {pga_gain})")
+        print(f"[ADC DEBUG] Équation ratiométrique: Rsense = ({code} / {FS}) * {rref_ohm}")
         print(f"[ADC] Résistance mesurée: {r_sonde:.1f} ohms")
         return r_sonde
