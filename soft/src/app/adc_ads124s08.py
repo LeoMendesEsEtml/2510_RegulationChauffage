@@ -331,20 +331,31 @@ class Ads124s08:
             code = -code
             print("[ADC DEBUG] Code négatif détecté, utilisation valeur absolue")
 
-        # Pour une mesure différentielle avec IDAC:
-        # Vsense = code/FS * Vref/gain
-        # Rsense = Vsense/IDAC = (code/FS) * (Vref/IDAC/gain)
-        # Où Vref = IDAC * Rref, donc:
-        # Rsense = (code/FS) * (Rref/gain)
+        # Configuration 3 points avec IDAC:
+        # - IDAC injecté dans AIN0
+        # - V+ sur AIN1
+        # - V- sur AIN2
+        #
+        # Circuit:
+        # IDAC --[Rsense]--> AIN1 --[Rref]--> AIN2
+        # 
+        # La tension mesurée est:
+        # Vdiff = V(AIN1) - V(AIN2) = IDAC * Rsense
+        # code/FS = Vdiff/(Vref/gain)
+        # Avec Vref = IDAC * (Rsense + Rref)
+        #
+        # Donc:
+        # code/FS = (IDAC * Rsense)/(IDAC * (Rsense + Rref)/gain)
+        # code/FS = gain * Rsense/(Rsense + Rref)
+        # Rsense = (code * Rref)/(FS * gain - code)
         
         # Calcul du ratio par rapport à la pleine échelle
         ratio = float(code) / float(FS)
         print(f"[ADC DEBUG] Ratio mesure/FS: {ratio:.6f}")
 
-        # La résistance est proportionnelle au ratio et à Rref, 
-        # et inversement proportionnelle au gain
-        r_sonde = ratio * float(rref_ohm) / float(pga_gain)
+        # Calcul de la résistance en utilisant la formule corrigée
+        r_sonde = (code * float(rref_ohm)) / (FS * float(pga_gain) - code)
         
-        print(f"[ADC DEBUG] Équation: Rsense = ({code} / {FS}) * {rref_ohm} / {pga_gain}")
+        print(f"[ADC DEBUG] Équation: Rsense = ({code} * {rref_ohm}) / ({FS} * {pga_gain} - {code})")
         print(f"[ADC] Résistance mesurée: {r_sonde:.1f} ohms")
         return r_sonde
