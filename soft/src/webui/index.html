@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>CM5 WebUI - Config et Dernières valeurs</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<h1>CM5 WebUI</h1>
+
+<section>
+  <h2>Configuration</h2>
+  <div>
+    <label>mac_address</label>
+    <input id="mac_address" type="text">
+  </div>
+  <div>
+    <label>timeout_s</label>
+    <input id="timeout_s" type="number" step="1" min="0">
+  </div>
+  <div>
+    <label>inter_measure_sleep_s</label>
+    <input id="inter_measure_sleep_s" type="number" step="0.001" min="0">
+  </div>
+  <div>
+    <label>loop_sleep_s</label>
+    <input id="loop_sleep_s" type="number" step="0.001" min="0">
+  </div>
+  <div>
+    <label>sequence_interval_minutes</label>
+    <input id="sequence_interval_minutes" type="number" step="1" min="0">
+  </div>
+  <div>
+    <label>auto_sequence</label>
+    <input id="auto_sequence" type="checkbox">
+  </div>
+
+  <h3>Channels</h3>
+  <table id="channels_table" border="1" cellpadding="4">
+    <thead>
+      <tr>
+        <th>channel</th>
+        <th>sensor</th>
+        <th>enabled</th>
+      </tr>
+    </thead>
+    <tbody id="channels_body"></tbody>
+  </table>
+
+  <div style="margin-top:8px;">
+    <button id="reload_btn">Recharger</button>
+    <button id="save_btn">Enregistrer</button>
+    <span id="save_status"></span>
+  </div>
+</section>
+
+<hr>
+
+<section>
+  <h2>Dernières valeurs</h2>
+  <div>timestamp: <span id="ts">-</span></div>
+  <div>channel: <span id="last_channel">-</span></div>
+  <div>resistance_ohm: <span id="last_res">-</span></div>
+  <div>temperature_c: <span id="last_temp">-</span></div>
+  <div>temperature_sim_c: <span id="last_tsim">-</span></div>
+  <div>erreur: <span id="last_err">-</span></div>
+  <div>age_s: <span id="age_s">-</span></div>
+</section>
+
+<script>
+function sensorOptions() {
+  return [
+    "Ni1000 TK5000",
+    "Ni1000 TK6180",
+    "PT1000",
+    "NTC 1k 3528",
+    "De Dietrich AF60",
+    "Siemens QAC32",
+    "Autre"
+  ];
+}
+
+var currentConfig = null;
+var lastData = null;
+
+function el(id) {
+  return document.getElementById(id);
+}
+
+function numberOrNull(value) {
+  if (value === null) {
+    return null;
+  }
+  var n = Number(value);
+  if (isNaN(n)) {
+    return null;
+  }
+  return n;
+}
+
+function loadConfig() {
+  fetch("/api/config").then(function(resp) {
+    return resp.json();
+  }).then(function(data) {
+    currentConfig = data;
+    el("mac_address").value = data.mac_address || "";
+    el("timeout_s").value = data.timeout_s;
+    el("inter_measure_sleep_s").value = data.inter_measure_sleep_s;
+    el("loop_sleep_s").value = data.loop_sleep_s;
+    el("sequence_interval_minutes").value = data.sequence_interval_minutes;
+    el("auto_sequence").checked = !!data.auto_sequence;
+
+    var body = el("channels_body");
+    body.innerHTML = "";
+
+    if (Array.isArray(data.channels)) {
+      var i = 0;
+      while (i < data.channels.length) {
+        var ch = data.channels[i];
+
+        var tr = document.createElement("tr");
+
+        var tdChan = document.createElement("td");
+        tdChan.textContent = ch.channel;
+        tr.appendChild(tdChan);
+
+        var tdSensor = document.createElement("td");
+        var sel = document.createElement("select");
+        var opts = sensorOptions();
+        var j = 0;
+        while (j < opts.length) {
+          var o = document.createElement("option");
+          o.value = opts[j];
+          o.textContent = opts[j];
+          sel.appendChild(o);
+          j = j + 1;
+        }
+        if (opts.indexOf(ch.sensor) === -1) {
+          var o2 = document.createElement("option");
+          o2.value = ch.sensor;
+          o2.textContent = ch.sensor;
+          sel.appendChild(o2);
+        }
+        sel.value = ch.sensor;
+        sel.setAttribute("data-index", String(i));
+        tdSensor.appendChild(sel);
+        tr.appendChild(tdSensor);
+
+        var tdEn = document.createElement("td");
+        var cb = document.createElement("input");
+        cb.type = "checkbox";
+        cb.checked = !!ch.enabled;
+        cb.setAttribute("data-index", String(i));
+        tdEn.appendChild(cb);
+        tr.appendChild(tdEn);
+
+        body.appendChild(tr);
+        i = i + 1;
+      }
+    }
+    el("save_status").textContent = "";
+  }).catch(function(err) {
+    el("save_status").textContent = "Erreur chargement config: " + String(err);
+  });
+}
+
+function collectConfigFromForm() {
+  var cfg = {};
+  cfg.mac_address = el("mac_address").value;
+
+  var t_out = Number(el("timeout_s").value);
+  cfg.timeout_s = t_out;
+
+  var ims = Number(el("inter_measure_sleep_s").value);
+  cfg.inter_measure_sleep_s = ims;
+
+  var lps = Number(el("loop_sleep_s").value);
+  cfg.loop_sleep_s = lps;
+
+  var sim = Number(el("sequence_interval_minutes").value);
+  cfg.sequence_interval_minutes = sim;
+
+  cfg.auto_sequence = el("auto_sequence").checked;
+
+  cfg.channels = [];
+  if (currentConfig && Array.isArray(currentConfig.channels)) {
+    var i = 0;
+    while (i < currentConfig.channels.length) {
+      var row = currentConfig.channels[i];
+
+      var tr = el("channels_body").children[i];
+      var sel = tr.children[1].querySelector("select");
+      var cb = tr.children[2].querySelector("input");
+
+      var chObj = {};
+      chObj.channel = row.channel;
+      chObj.sensor = sel.value;
+      chObj.enabled = cb.checked;
+
+      cfg.channels.push(chObj);
+      i = i + 1;
+    }
+  }
+  return cfg;
+}
+
+function saveConfig() {
+  var cfg = collectConfigFromForm();
+
+  if (cfg.timeout_s < 0) {
+    el("save_status").textContent = "timeout_s invalide";
+    return;
+  }
+  if (cfg.inter_measure_sleep_s < 0) {
+    el("save_status").textContent = "inter_measure_sleep_s invalide";
+    return;
+  }
+  if (cfg.loop_sleep_s < 0) {
+    el("save_status").textContent = "loop_sleep_s invalide";
+    return;
+  }
+  if (cfg.sequence_interval_minutes < 0) {
+    el("save_status").textContent = "sequence_interval_minutes invalide";
+    return;
+  }
+
+  fetch("/api/config", {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(cfg)
+  }).then(function(resp) {
+    if (resp.ok) {
+      el("save_status").textContent = "Enregistré";
+      return loadConfig();
+    } else {
+      return resp.json().then(function(j) {
+        el("save_status").textContent = "Erreur: " + JSON.stringify(j);
+      });
+    }
+  }).catch(function(err) {
+    el("save_status").textContent = "Erreur réseau: " + String(err);
+  });
+}
+
+function refreshLast() {
+  fetch("/api/last").then(function(resp) {
+    return resp.json();
+  }).then(function(d) {
+    lastData = d;
+    el("ts").textContent = d.timestamp === null ? "-" : String(d.timestamp);
+    el("last_channel").textContent = d.channel === null ? "-" : String(d.channel);
+    el("last_res").textContent = d.resistance_ohm === null ? "-" : String(d.resistance_ohm);
+    el("last_temp").textContent = d.temperature_c === null ? "-" : String(d.temperature_c);
+    el("last_tsim").textContent = d.temperature_sim_c === null ? "-" : String(d.temperature_sim_c);
+    el("last_err").textContent = d.error ? String(d.error) : "";
+    var age = "-";
+    if (d.timestamp) {
+      var t = Date.parse(d.timestamp);
+      if (isNaN(t) === false) {
+        var nowMs = Date.now();
+        var diff = nowMs - t;
+        if (diff < 0) {
+          diff = 0;
+        }
+        age = Math.round(diff / 1000);
+      }
+    }
+    el("age_s").textContent = String(age);
+  }).catch(function(err) {
+    el("last_err").textContent = "Erreur lecture last_state: " + String(err);
+  });
+}
+
+function setup() {
+  el("reload_btn").addEventListener("click", function() { loadConfig(); });
+  el("save_btn").addEventListener("click", function() { saveConfig(); });
+  loadConfig();
+  refreshLast();
+  setInterval(function() { refreshLast(); }, 1500);
+}
+
+document.addEventListener("DOMContentLoaded", function() { setup(); });
+</script>
+</body>
+</html>

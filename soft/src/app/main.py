@@ -25,6 +25,8 @@ import signal
 import select
 import sys
 import requests
+import json
+import os
 from datetime import datetime, timedelta
 from periphery import GPIO
 from pins_cm5 import GPIO_CHIP_PATH, FRONT_LED, CMD_RELAY
@@ -39,6 +41,16 @@ from resistance_simulation import ResistanceSimulator
 from front_led_management import create_led_indicator
 from mesure_24v_dry_contact import test_24v_dry_contact, get_dry_contact_status
 
+def start_webui_server():
+    """Lance le serveur web dans un thread séparé"""
+    try:
+        import webui_server
+        webui_server.app.run(host="0.0.0.0", port=8080, debug=False, use_reloader=False)
+    except ImportError:
+        print("[WEBUI] Module webui_server non trouvé")
+    except Exception as e:
+        print(f"[WEBUI] Erreur serveur web: {e}")
+
 # Variable globale pour le contrôle du séquenceur
 sequencer_running = False
 stop_event = threading.Event()
@@ -46,6 +58,28 @@ force_sequence = threading.Event()
 
 # Instance globale de gestion LED
 led_indicator = None
+
+def save_last_state(channel=None, resistance_ohm=None, temperature_c=None, temperature_sim_c=None, error=None):
+    """Sauvegarde l'état actuel dans state/last_state.json"""
+    try:
+        state_dir = os.path.join(os.path.dirname(CURRENT_DIR), "state")
+        os.makedirs(state_dir, exist_ok=True)
+        state_path = os.path.join(state_dir, "last_state.json")
+        
+        state_data = {
+            "timestamp": datetime.now().isoformat(),
+            "channel": channel,
+            "resistance_ohm": resistance_ohm,
+            "temperature_c": temperature_c,
+            "temperature_sim_c": temperature_sim_c,
+            "error": error
+        }
+        
+        with open(state_path, "w", encoding="utf-8") as f:
+            json.dump(state_data, f, ensure_ascii=False, indent=2)
+    except Exception as e:
+        print(f"[STATE] Erreur sauvegarde état: {e}")
+
 def signal_handler(sig, frame):
     """Gestionnaire pour arrêt propre avec Ctrl+C"""
     global sequencer_running
@@ -156,6 +190,9 @@ def run_measurement_sequence(cfg, mac_address, adc, tmux):
             else:
                 print(f"[MESURE] Température mesurée: {temperature:.2f}°C")
                 
+                # Sauvegarde de l'état avec la mesure
+                save_last_state(channel=ch, resistance_ohm=r, temperature_c=temperature, error=None)
+                
                 # Envoi de la température mesurée vers l'API
                 from app.api_client import send_temperature_measurement
                 try:
@@ -185,6 +222,9 @@ def run_measurement_sequence(cfg, mac_address, adc, tmux):
                 show_error_and_continue('measure_failed')
                 continue
             print(f"[SIMULATION] Température simulée: {t_sim:.2f}°C")
+            
+            # Mise à jour de l'état avec la température simulée
+            save_last_state(channel=ch, resistance_ohm=r, temperature_c=temperature, temperature_sim_c=t_sim, error=None)
 
             resistance_target = convert_temperature_to_resistance(t_sim, sensor_name)
             if resistance_target is None:
@@ -237,6 +277,7 @@ def main():
     parser = argparse.ArgumentParser(description="Système de mesure et simulation de température")
     parser.add_argument("--manual", action="store_true", help="Mode manuel (demande confirmation à chaque séquence)")
     parser.add_argument("--once", action="store_true", help="Exécute une seule séquence puis s'arrête")
+    parser.add_argument("--webui", action="store_true", help="Lance le serveur web sur le port 8080")
     args = parser.parse_args()
     
     print("=== SYSTÈME DE MESURE ET SIMULATION ===")
@@ -273,6 +314,14 @@ def main():
         print(f"[CONFIG]   - Tapez 'q' pour quitter")
     else:
         print(f"[CONFIG] Mode: MANUEL (auto_sequence=false dans config)")
+    
+    # Démarrage optionnel du serveur web
+    webui_thread = None
+    if args.webui:
+        print(f"[WEBUI] Démarrage du serveur web sur http://localhost:8080")
+        webui_thread = threading.Thread(target=start_webui_server, daemon=True)
+        webui_thread.start()
+        time.sleep(2)  # Laisser le temps au serveur de démarrer
     
     # Affichage des patterns LED
     print(f"\n[LED] Patterns d'erreur disponibles:")
