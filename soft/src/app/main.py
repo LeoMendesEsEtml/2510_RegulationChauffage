@@ -24,6 +24,7 @@ import threading
 import signal
 import select
 import sys
+import requests
 from datetime import datetime, timedelta
 from periphery import GPIO
 from pins_cm5 import GPIO_CHIP_PATH, FRONT_LED, CMD_RELAY
@@ -35,12 +36,15 @@ from app.temperature_conversion import convert_temperature_to_resistance
 from api_client import ApiClient
 from temperature_simulation import run_temperature_simulation
 from resistance_simulation import ResistanceSimulator
+from front_led_management import create_led_indicator
 
 # Variable globale pour le contrôle du séquenceur
 sequencer_running = False
 stop_event = threading.Event()
 force_sequence = threading.Event()
 
+# Instance globale de gestion LED
+led_indicator = None
 def signal_handler(sig, frame):
     """Gestionnaire pour arrêt propre avec Ctrl+C"""
     global sequencer_running
@@ -66,8 +70,15 @@ def input_monitor():
             pass  # Ignore les erreurs d'entrée
 
 def run_measurement_sequence(cfg, mac_address, adc, tmux):
-    """Exécute une séquence complète de mesures"""
+    """Exécute une séquence complète de mesures avec gestion d'erreurs LED"""
+    global led_indicator
     print(f"\n[SEQUENCER] === NOUVELLE SÉQUENCE - {datetime.now().strftime('%H:%M:%S')} ===")
+    
+    # LED en mode séquence
+    if led_indicator:
+        led_indicator.set_pattern('sequence_running')
+    
+    sequence_success = True
     
     # 1. Récupération des paramètres API au début de la séquence
     from app.api_client import get_simulation_data
@@ -75,12 +86,24 @@ def run_measurement_sequence(cfg, mac_address, adc, tmux):
         simulation_data = get_simulation_data(mac_address)
         if simulation_data is None:
             print("[SIMULATION] Erreur: impossible de récupérer les paramètres API")
+            if led_indicator:
+                led_indicator.set_pattern('api_failed')
             return False
+    except requests.exceptions.ConnectionError:
+        print("[SIMULATION] Erreur: Pas de connexion Internet")
+        if led_indicator:
+            led_indicator.set_pattern('no_internet')
+        return False
     except Exception as e:
-        print(f"[SIMULATION] Erreur API: {e}")
+        print(f"[SIMULATION] Erreur API critique: {e}")
+        if led_indicator:
+            led_indicator.set_pattern('api_failed')
         return False
 
     # 2. Traitement de chaque canal activé
+    channels_processed = 0
+    channels_failed = 0
+    
     for entry in cfg["channels"]:
         ch = entry["channel"]
         sensor_name = entry["sensor"]
@@ -92,6 +115,7 @@ def run_measurement_sequence(cfg, mac_address, adc, tmux):
             continue
         
         profile = get_profile(sensor_name)
+        channels_processed += 1
         
         print(f"\n[MESURE] Canal {ch} - {sensor_name}")
         try:
@@ -103,7 +127,11 @@ def run_measurement_sequence(cfg, mac_address, adc, tmux):
 
             r = adc.measure_resistance(profile["rref_ohm"], profile["pga_gain"], cfg["timeout_s"])
             if r is None:
-                print("[MESURE] Résistance: NaN")
+                print("[MESURE] Résistance: NaN - Erreur de mesure")
+                channels_failed += 1
+                if led_indicator:
+                    led_indicator.set_pattern('measure_failed')
+                time.sleep(2)  # Pause pour voir l'erreur
                 continue
             else:
                 print(f"[MESURE] Résistance: {r:.6f} ohms")
@@ -111,16 +139,34 @@ def run_measurement_sequence(cfg, mac_address, adc, tmux):
             temperature = adc.measure_temperature(sensor_name, profile["rref_ohm"], profile["pga_gain"], cfg["timeout_s"])
             if temperature is None:
                 print(f"[MESURE] Température non mesurable ou saturation détectée")
+                channels_failed += 1
+                if led_indicator:
+                    led_indicator.set_pattern('measure_failed')
+                time.sleep(2)  # Pause pour voir l'erreur
                 continue
             else:
                 print(f"[MESURE] Température mesurée: {temperature:.2f}°C")
                 
                 # Envoi de la température mesurée vers l'API
                 from app.api_client import send_temperature_measurement
-                if send_temperature_measurement(mac_address, temperature, ch):
-                    print(f"[API] Température {temperature:.2f}°C envoyée avec succès pour le canal {ch}")
-                else:
-                    print(f"[API] Erreur lors de l'envoi de la température pour le canal {ch}")
+                try:
+                    if send_temperature_measurement(mac_address, temperature, ch):
+                        print(f"[API] Température {temperature:.2f}°C envoyée avec succès pour le canal {ch}")
+                    else:
+                        print(f"[API] Erreur lors de l'envoi de la température pour le canal {ch}")
+                        if led_indicator:
+                            led_indicator.set_pattern('api_failed')
+                        time.sleep(1)  # Pause pour voir l'erreur
+                except requests.exceptions.ConnectionError:
+                    print(f"[API] Erreur connexion pour canal {ch}")
+                    if led_indicator:
+                        led_indicator.set_pattern('no_internet')
+                    time.sleep(1)
+                except Exception as e:
+                    print(f"[API] Erreur envoi canal {ch}: {e}")
+                    if led_indicator:
+                        led_indicator.set_pattern('api_failed')
+                    time.sleep(1)
 
             # 3. Calcul et application simulation
             print("[SIMULATION] Calcul et application...")
@@ -132,12 +178,14 @@ def run_measurement_sequence(cfg, mac_address, adc, tmux):
             t_sim = run_temperature_simulation(simulation_data)
             if t_sim is None:
                 print("[SIMULATION] Erreur lors du calcul de T_sim")
+                channels_failed += 1
                 continue
             print(f"[SIMULATION] Température simulée: {t_sim:.2f}°C")
 
             resistance_target = convert_temperature_to_resistance(t_sim, sensor_name)
             if resistance_target is None:
                 print(f"[SIMULATION] Erreur conversion T_sim → résistance pour {sensor_name}")
+                channels_failed += 1
                 continue
             print(f"[SIMULATION] Résistance cible: {resistance_target:.2f} ohms")
 
@@ -146,19 +194,41 @@ def run_measurement_sequence(cfg, mac_address, adc, tmux):
                 print(f"[SIMULATION] Résistance appliquée via MUX sur canal {ch} (sonde: {sensor_name})")
             else:
                 print(f"[SIMULATION] Erreur lors de l'application MUX sur canal {ch}")
+                channels_failed += 1
 
             time.sleep(cfg["inter_measure_sleep_s"])
             
         except Exception as e:
             print(f"[ERREUR] Canal {ch}: {e}")
+            channels_failed += 1
+            if led_indicator:
+                led_indicator.set_pattern('critical_error')
+            time.sleep(2)  # Pause pour voir l'erreur
             continue
 
+    # Évaluation globale de la séquence
+    if channels_failed == 0:
+        print(f"[SEQUENCER] Séquence réussie - {channels_processed} canaux traités")
+        if led_indicator:
+            led_indicator.set_pattern('standby')
+        sequence_success = True
+    elif channels_failed < channels_processed:
+        print(f"[SEQUENCER] Séquence partielle - {channels_processed - channels_failed}/{channels_processed} canaux réussis")
+        if led_indicator:
+            led_indicator.set_pattern('measure_failed')
+        sequence_success = True
+    else:
+        print(f"[SEQUENCER] Séquence échouée - Tous les canaux ont échoué")
+        if led_indicator:
+            led_indicator.set_pattern('critical_error')
+        sequence_success = False
+    
     print(f"[SEQUENCER] Séquence terminée - {datetime.now().strftime('%H:%M:%S')}")
-    return True
+    return sequence_success
 
 def main():
-    """Logique principale : mesure + simulation avec séquenceur automatique"""
-    global sequencer_running
+    """Logique principale : mesure + simulation avec séquenceur automatique et gestion LED"""
+    global sequencer_running, led_indicator
     
     parser = argparse.ArgumentParser(description="Système de mesure et simulation de température")
     parser.add_argument("--manual", action="store_true", help="Mode manuel (demande confirmation à chaque séquence)")
@@ -200,14 +270,29 @@ def main():
     else:
         print(f"[CONFIG] Mode: MANUEL (auto_sequence=false dans config)")
     
+    # Affichage des patterns LED
+    print(f"\n[LED] Patterns d'erreur disponibles:")
+    print(f"[LED]   - NORMAL: LED allumée en continu")
+    print(f"[LED]   - SEQUENCE: Clignotement continu pendant mesure")
+    print(f"[LED]   - NO_INTERNET: 1 clignotement sur 10s (pas de connexion Internet)")
+    print(f"[LED]   - API_FAILED: 2 clignotements sur 10s (erreur API/connexion)")
+    print(f"[LED]   - MEASURE_FAILED: 3 clignotements sur 10s (erreur mesure ADC/résistance)")
+    print(f"[LED]   - CRITICAL_ERROR: 4 clignotements sur 10s (erreur critique système)")
+    print(f"[LED]   - CONFIG_ERROR: 5 clignotements sur 10s (erreur de configuration)")
+    
     print()
 
     # Gestionnaire de signal pour arrêt propre
     signal.signal(signal.SIGINT, signal_handler)
     
-    # LED ON permanente
-    led = GPIO(GPIO_CHIP_PATH, FRONT_LED, "out")
-    led.write(True)
+    # Initialisation LED avec gestion d'erreur
+    led_indicator = create_led_indicator(GPIO_CHIP_PATH, FRONT_LED)
+    if led_indicator:
+        print("[LED] Système LED initialisé - LED normale ON")
+    else:
+        print("[LED] Erreur : Impossible d'initialiser la LED")
+    
+    # Initialisation matériel
     relay = GPIO(GPIO_CHIP_PATH, CMD_RELAY, "out")
     relay.write(True)
     tmux = Tmux1204()
@@ -260,10 +345,14 @@ def main():
             if should_run:
                 print(f"[SEQUENCER] Démarrage séquence {sequence_reason} - {current_time.strftime('%H:%M:%S')}")
                 success = run_measurement_sequence(cfg, mac_address, adc, tmux)
-                if not success:
-                    print("[SEQUENCER] Erreur lors de la séquence")
-                else:
-                    print(f"[SEQUENCER] Séquence {sequence_reason} terminée avec succès")
+            if success:
+                print(f"[SEQUENCER] Séquence {sequence_reason} terminée avec succès")
+                # Retour LED normale après succès
+                if led_indicator:
+                    led_indicator.set_pattern('normal')
+            else:
+                print("[SEQUENCER] Erreur lors de la séquence")
+                # LED d'erreur déjà activée dans run_measurement_sequence
             
             # Attente avant vérification suivante (mode auto seulement)
             if auto_sequence and not args.manual and not args.once and sequencer_running:
@@ -289,8 +378,8 @@ def main():
         except Exception:
             pass
         try:
-            led.write(False)
-            led.close()
+            if led_indicator:
+                led_indicator.close()
         except Exception:
             pass
         try:
