@@ -52,28 +52,21 @@ class ApiClient:
                 if response.status_code != 200:
                     raise ApiError(f"Erreur HTTP {response.status_code}: {response.text}")
                 
-                data = response.json()
-                
-                # Vérification des champs requis
-                required_fields = ["probe_type", "n", "k_m", "temperature"]
-                missing_fields = [field for field in required_fields if field not in data]
-                
-                if missing_fields:
-                    raise ApiError(f"Champs manquants dans la réponse: {missing_fields}")
-                
-                # Validation des types de données
-                if not isinstance(data.get("probe_type"), str):
-                    raise ApiError("probe_type doit être une chaîne de caractères")
-                
-                try:
-                    float(data["n"])
-                    float(data["k_m"])
-                    float(data["temperature"])
-                except (ValueError, TypeError):
-                    raise ApiError("n, k_m et temperature doivent être des nombres")
-                
-                print(f"[API] Paramètres récupérés: {data}")
-                return data
+                    data = response.json()
+                    if "param" not in data or not data["param"]:
+                        raise ApiError("Champ 'param' manquant ou vide")
+                    entry = data["param"][0]
+                    probe_type = entry["probe_type"]
+                    n = entry["n"]
+                    k_m = entry["k_m"]
+                    temperature = entry["temperature"]
+                    print(f"[API] Paramètres récupérés: {entry}")
+                    return {
+                        "probe_type": probe_type,
+                        "n": n,
+                        "k_m": k_m,
+                        "temperature": temperature
+                    }
                 
             except requests.exceptions.RequestException as e:
                 print(f"[API] Tentative {attempt + 1}/{MAX_RETRIES} échouée: {e}")
