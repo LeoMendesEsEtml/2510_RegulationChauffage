@@ -37,6 +37,7 @@ from api_client import ApiClient
 from temperature_simulation import run_temperature_simulation
 from resistance_simulation import ResistanceSimulator
 from front_led_management import create_led_indicator
+from mesure_24v_dry_contact import test_24v_dry_contact, get_dry_contact_status
 
 # Variable globale pour le contrôle du séquenceur
 sequencer_running = False
@@ -99,6 +100,9 @@ def run_measurement_sequence(cfg, mac_address, adc, tmux):
         if led_indicator:
             led_indicator.set_pattern('api_failed')
         return False
+
+    # 1.5. Test I/O 24V (contacts secs) - après API, avant mesures sondes
+    test_24v_dry_contact()
 
     # 2. Traitement de chaque canal activé
     channels_processed = 0
