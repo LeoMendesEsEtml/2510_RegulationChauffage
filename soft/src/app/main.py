@@ -41,6 +41,21 @@ def main():
     
     CONFIG_FILE = os.path.join(SRC_DIR, "config_module", "sensors.json")
     cfg = load_config(CONFIG_FILE)
+    
+    # Affichage des canaux configurés
+    enabled_channels = [entry for entry in cfg["channels"] if entry.get("enabled", True)]
+    disabled_channels = [entry for entry in cfg["channels"] if not entry.get("enabled", True)]
+    
+    print(f"[CONFIG] Canaux activés: {len(enabled_channels)}")
+    for entry in enabled_channels:
+        print(f"[CONFIG]   Canal {entry['channel']}: {entry['sensor']}")
+    
+    if disabled_channels:
+        print(f"[CONFIG] Canaux désactivés: {len(disabled_channels)}")
+        for entry in disabled_channels:
+            print(f"[CONFIG]   Canal {entry['channel']}: {entry['sensor']} (OFF)")
+    
+    print()
 
     # LED ON permanente
     led = GPIO(GPIO_CHIP_PATH, FRONT_LED, "out")
@@ -64,6 +79,13 @@ def main():
             for entry in cfg["channels"]:
                 ch = entry["channel"]
                 sensor_name = entry["sensor"]
+                enabled = entry.get("enabled", True)  # Par défaut True pour rétrocompatibilité
+                
+                # Ignorer les canaux désactivés
+                if not enabled:
+                    print(f"[CONFIG] Canal {ch} désactivé - ignoré")
+                    continue
+                
                 profile = get_profile(sensor_name)
 
                 input(f"Appuyez sur Entrée pour mesurer et simuler le canal {ch} ({sensor_name})...")

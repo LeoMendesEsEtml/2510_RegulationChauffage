@@ -4,9 +4,9 @@
   "inter_measure_sleep_s": 0.1,
   "loop_sleep_s": 1.0,
   "channels": [
-    { "channel": 1, "sensor": "Ni1000 TK5000" },
-    { "channel": 2, "sensor": "Ni1000 TK5000" },
-    { "channel": 3, "sensor": "Ni1000 TK5000" },
-    { "channel": 4, "sensor": "Ni1000 TK5000" }
+    { "channel": 1, "sensor": "Ni1000 TK5000", "enabled": true },
+    { "channel": 2, "sensor": "Ni1000 TK5000", "enabled": false },
+    { "channel": 3, "sensor": "Ni1000 TK5000", "enabled": false },
+    { "channel": 4, "sensor": "Ni1000 TK5000", "enabled": false }
   ]
 }
