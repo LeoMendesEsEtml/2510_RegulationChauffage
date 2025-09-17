@@ -122,22 +122,25 @@ class ApiClient:
         """
         url = f"{self.base_url}/td25_param"
         
-        # Préparation des données à envoyer
+        # Préparation des paramètres URL (comme pour GET)
+        params = {"mac_address": self.mac_address}
+        
+        # Préparation des données à envoyer dans le body
         payload = {
-            "mac_address": self.mac_address,
             "measured_temperature": temperature
         }
         
         if channel is not None:
             payload["channel"] = channel
             
-        print(f"[API] POST {url} payload={payload}")
+        print(f"[API] POST {url} params={params} payload={payload}")
         
         for attempt in range(MAX_RETRIES):
             try:
                 response = requests.post(
                     url, 
-                    json=payload, 
+                    params=params,  # mac_address en paramètre URL
+                    json=payload,   # données dans le body
                     timeout=REQUEST_TIMEOUT,
                     headers={'Content-Type': 'application/json'}
                 )
