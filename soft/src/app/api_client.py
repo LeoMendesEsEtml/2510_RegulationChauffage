@@ -113,6 +113,56 @@ class ApiClient:
             except json.JSONDecodeError as e:
                 raise ApiError(f"Réponse JSON invalide: {e}")
 
+    def post_measured_temperature(self, temperature: float, channel: int = None) -> bool:
+        """
+        Envoie la température mesurée vers l'API td25_param
+        :param temperature: Température mesurée en °C
+        :param channel: Canal de mesure (optionnel)
+        :return: True si succès, False sinon
+        """
+        url = f"{self.base_url}/td25_param"
+        
+        # Préparation des données à envoyer
+        payload = {
+            "mac_address": self.mac_address,
+            "measured_temperature": temperature
+        }
+        
+        if channel is not None:
+            payload["channel"] = channel
+            
+        print(f"[API] POST {url} payload={payload}")
+        
+        for attempt in range(MAX_RETRIES):
+            try:
+                response = requests.post(
+                    url, 
+                    json=payload, 
+                    timeout=REQUEST_TIMEOUT,
+                    headers={'Content-Type': 'application/json'}
+                )
+                
+                if response.status_code in [200, 201]:
+                    print(f"[API] Température envoyée avec succès: {temperature}°C")
+                    return True
+                else:
+                    print(f"[API] Erreur HTTP {response.status_code}: {response.text}")
+                    if attempt < MAX_RETRIES - 1:
+                        time.sleep(RETRY_DELAY)
+                        continue
+                    else:
+                        return False
+                        
+            except requests.exceptions.RequestException as e:
+                print(f"[API] Tentative {attempt + 1}/{MAX_RETRIES} d'envoi échouée: {e}")
+                if attempt < MAX_RETRIES - 1:
+                    time.sleep(RETRY_DELAY)
+                else:
+                    print(f"[API] Impossible d'envoyer la température après {MAX_RETRIES} tentatives")
+                    return False
+        
+        return False
+
 def get_simulation_data(mac_address: str) -> Dict[str, Any]:
     """
     Récupère les données de simulation depuis les APIs
@@ -143,6 +193,23 @@ def get_simulation_data(mac_address: str) -> Dict[str, Any]:
     
     print("[SIMULATION] Données récupérées automatiquement avec succès")
     return simulation_data
+
+def send_temperature_measurement(mac_address: str, temperature: float, channel: int = None) -> bool:
+    """
+    Envoie une mesure de température vers l'API
+    
+    :param mac_address: Adresse MAC du dispositif
+    :param temperature: Température mesurée en °C
+    :param channel: Canal de mesure (optionnel)
+    :return: True si succès, False sinon
+    """
+    client = ApiClient(mac_address)
+    
+    try:
+        return client.post_measured_temperature(temperature, channel)
+    except Exception as e:
+        print(f"[API] Erreur lors de l'envoi de la température: {e}")
+        return False
 
 # Test du module (à des fins de développement)
 if __name__ == "__main__":

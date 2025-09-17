@@ -55,7 +55,8 @@ def main():
             print("\n--- Nouvelle séquence de simulation ---")
             # 1. Récupération des paramètres API au début de la séquence
             from app.api_client import get_simulation_data
-            simulation_data = get_simulation_data("0030DEABCDEF")
+            mac_address = cfg.get("mac_address", "0030DEABCDEF")
+            simulation_data = get_simulation_data(mac_address)
             if simulation_data is None:
                 print("[SIMULATION] Erreur: impossible de récupérer les paramètres API")
                 break
@@ -87,6 +88,13 @@ def main():
                     continue
                 else:
                     print(f"[MESURE] Température mesurée: {temperature:.2f}°C")
+                    
+                    # Envoi de la température mesurée vers l'API
+                    from app.api_client import send_temperature_measurement
+                    if send_temperature_measurement(mac_address, temperature, ch):
+                        print(f"[API] Température {temperature:.2f}°C envoyée avec succès pour le canal {ch}")
+                    else:
+                        print(f"[API] Erreur lors de l'envoi de la température pour le canal {ch}")
 
                 # 2. Calcul et application simulation
                 print("[SIMULATION] Calcul et application...")
