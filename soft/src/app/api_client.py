@@ -96,13 +96,13 @@ class ApiClient:
                 if response.status_code != 200:
                     raise ApiError(f"Erreur HTTP {response.status_code}: {response.text}")
                 
-                    data = response.json()
-                    if "forecast" not in data or not data["forecast"]:
-                        raise ApiError("Champ 'forecast' manquant ou vide")
-                    forecast = data["forecast"][0]
-                    temperature_forecast = forecast["temperature"]
-                    print(f"[API] Prévisions récupérées: {forecast}")
-                    return {"temperature": temperature_forecast}
+                data = response.json()
+                if "forecast" not in data or not data["forecast"]:
+                    raise ApiError("Champ 'forecast' manquant ou vide")
+                forecast = data["forecast"][0]
+                temperature_forecast = forecast["temperature"]
+                print(f"[API] Prévisions récupérées: {forecast}")
+                return {"temperature": temperature_forecast}
                 
             except requests.exceptions.RequestException as e:
                 print(f"[API] Tentative {attempt + 1}/{MAX_RETRIES} échouée: {e}")
@@ -113,81 +113,9 @@ class ApiClient:
             except json.JSONDecodeError as e:
                 raise ApiError(f"Réponse JSON invalide: {e}")
 
-def validate_manual_input(probe_type: str, n: float, k_m: float, t_mes: float, t_prev: float) -> bool:
-    """
-    Valide les données saisies manuellement
-    
-    :param probe_type: Type de sonde
-    :param n: Paramètre n
-    :param k_m: Paramètre k_m
-    :param t_mes: Température mesurée
-    :param t_prev: Température prévue
-    :return: True si toutes les données sont valides
-    """
-    # Vérification du type de sonde
-    valid_probe_types = ["PT1000", "Ni1000_TK5000", "NTC_10k"]
-    if probe_type not in valid_probe_types:
-        print(f"[VALIDATION] Type de sonde invalide: {probe_type}")
-        print(f"[VALIDATION] Types supportés: {valid_probe_types}")
-        return False
-    
-    # Vérification des plages de valeurs
-    if not (-1.0 <= n <= 1.0):
-        print(f"[VALIDATION] Paramètre n hors plage [-1.0, 1.0]: {n}")
-        return False
-    
-    if not (-10.0 <= k_m <= 10.0):
-        print(f"[VALIDATION] Paramètre k_m hors plage [-10.0, 10.0]: {k_m}")
-        return False
-    
-    if not (-50.0 <= t_mes <= 100.0):
-        print(f"[VALIDATION] Température mesurée hors plage [-50°C, 100°C]: {t_mes}")
-        return False
-    
-    if not (-50.0 <= t_prev <= 100.0):
-        print(f"[VALIDATION] Température prévue hors plage [-50°C, 100°C]: {t_prev}")
-        return False
-    
-    return True
-
-def get_manual_input() -> Optional[Dict[str, Any]]:
-    """
-    Demande à l'utilisateur de saisir manuellement les données manquantes
-    
-    :return: Dictionnaire avec les données saisies ou None si annulation
-    """
-    print("\n=== Saisie manuelle des paramètres ===")
-    
-    try:
-        # Type de sonde
-        print("Types de sondes supportés: PT1000, Ni1000_TK5000, NTC_10k")
-        probe_type = input("Type de sonde: ").strip()
-        
-        # Paramètres numériques
-        n = float(input("Paramètre n (-1.0 à 1.0): "))
-        k_m = float(input("Paramètre k_m (-10.0 à 10.0): "))
-        t_mes = float(input("Température mesurée (°C): "))
-        t_prev = float(input("Température prévue (°C): "))
-        
-        # Validation
-        if not validate_manual_input(probe_type, n, k_m, t_mes, t_prev):
-            return None
-        
-        return {
-            "probe_type": probe_type,
-            "n": n,
-            "k_m": k_m,
-            "temperature": t_mes,
-            "forecast_temperature": t_prev
-        }
-        
-    except (ValueError, KeyboardInterrupt):
-        print("\n[INPUT] Saisie annulée ou données invalides")
-        return None
-
 def get_simulation_data(mac_address: str) -> Dict[str, Any]:
     """
-    Récupère les données de simulation depuis les APIs ou par saisie manuelle
+    Récupère les données de simulation depuis les APIs
     
     :param mac_address: Adresse MAC du dispositif
     :return: Dictionnaire avec toutes les données nécessaires
@@ -195,38 +123,26 @@ def get_simulation_data(mac_address: str) -> Dict[str, Any]:
     """
     client = ApiClient(mac_address)
     
-    try:
-        # Tentative de récupération automatique
-        print("[SIMULATION] Tentative de récupération automatique des données...")
-        
-        # Récupération des paramètres
-        params = client.get_parameters()
-        
-        # Récupération des prévisions
-        forecast = client.get_forecast()
-        
-        # Combinaison des données
-        simulation_data = {
-            "probe_type": params["probe_type"],
-            "n": float(params["n"]),
-            "k_m": float(params["k_m"]),
-            "temperature": float(params["temperature"]),
-            "forecast_temperature": float(forecast["temperature"])
-        }
-        
-        print("[SIMULATION] Données récupérées automatiquement avec succès")
-        return simulation_data
-        
-    except ApiError as e:
-        print(f"[SIMULATION] Erreur API: {e}")
-        print("[SIMULATION] Basculement vers saisie manuelle...")
-        
-        # Saisie manuelle en cas d'échec
-        manual_data = get_manual_input()
-        if manual_data is None:
-            raise ApiError("Aucune donnée valide fournie (API et saisie manuelle échouées)")
-        
-        return manual_data
+    # Récupération automatique
+    print("[SIMULATION] Tentative de récupération automatique des données...")
+    
+    # Récupération des paramètres
+    params = client.get_parameters()
+    
+    # Récupération des prévisions
+    forecast = client.get_forecast()
+    
+    # Combinaison des données
+    simulation_data = {
+        "probe_type": params["probe_type"],
+        "n": float(params["n"]),
+        "k_m": float(params["k_m"]),
+        "temperature": float(params["temperature"]),
+        "forecast_temperature": float(forecast["temperature"])
+    }
+    
+    print("[SIMULATION] Données récupérées automatiquement avec succès")
+    return simulation_data
 
 # Test du module (à des fins de développement)
 if __name__ == "__main__":
