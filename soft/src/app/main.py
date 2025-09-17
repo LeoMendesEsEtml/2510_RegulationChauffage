@@ -52,95 +52,73 @@ def main():
 
     try:
         while True:
+            print("\n--- Nouvelle séquence de simulation ---")
+            # 1. Récupération des paramètres API au début de la séquence
+            api_client = ApiClient()
+            simulation_data = api_client.get_simulation_parameters()
+            if simulation_data is None:
+                print("[SIMULATION] Erreur: impossible de récupérer les paramètres API")
+                break
+
             for entry in cfg["channels"]:
                 ch = entry["channel"]
                 sensor_name = entry["sensor"]
                 profile = get_profile(sensor_name)
 
-                input(f"Appuyez sur Entrée pour mesurer le canal {ch} ({sensor_name})...")
+                input(f"Appuyez sur Entrée pour mesurer et simuler le canal {ch} ({sensor_name})...")
 
-                # 1. MESURE ADC → RÉSISTANCE → TEMPÉRATURE
                 print(f"[MESURE] Canal {ch} - {sensor_name}")
-                
-                # Sélection Rref
                 tmux.select_rref_ohm(profile["rref_ohm"])
-                
-                # Configuration ADC pour le canal
                 adc.configure_channel(ch, profile["pga_gain"], profile["idac_uA"])
-                
-                # Vérification des registres ADC après configuration
                 adc.read_gain()
                 adc.read_ref()
                 adc.read_inpmux()
 
-                # Mesure résistance
                 r = adc.measure_resistance(profile["rref_ohm"], profile["pga_gain"], cfg["timeout_s"])
-                
                 if r is None:
                     print("[MESURE] Résistance: NaN")
                     continue
                 else:
                     print(f"[MESURE] Résistance: {r:.6f} ohms")
 
-                # Mesure température
                 temperature = adc.measure_temperature(sensor_name, profile["rref_ohm"], profile["pga_gain"], cfg["timeout_s"])
-                
                 if temperature is None:
                     print(f"[MESURE] Température non mesurable ou saturation détectée")
                     continue
                 else:
                     print(f"[MESURE] Température mesurée: {temperature:.2f}°C")
 
-                # 2. SIMULATION (si activée)
-                if args.simulation:
-                    print("\n[SIMULATION] Début du processus de simulation...")
-                    
-                    # Récupération des paramètres API
-                    api_client = ApiClient()
-                    simulation_data = api_client.get_simulation_parameters()
-                    
-                    if simulation_data is None:
-                        print("[SIMULATION] Erreur: impossible de récupérer les paramètres API")
-                        continue
-                    
-                    # Mise à jour avec la température mesurée
-                    simulation_data["temperature"] = temperature
-                    simulation_data["probe_type"] = sensor_name
-                    
-                    print(f"[SIMULATION] Paramètres: n={simulation_data['n']}, k_m={simulation_data['k_m']}")
-                    print(f"[SIMULATION] T_mes={temperature:.2f}°C, T_prev={simulation_data['forecast_temperature']:.2f}°C")
-                    
-                    # Calcul température simulée
-                    t_sim = run_temperature_simulation(simulation_data)
-                    
-                    if t_sim is None:
-                        print("[SIMULATION] Erreur lors du calcul de T_sim")
-                        continue
-                    
-                    print(f"[SIMULATION] Température simulée: {t_sim:.2f}°C")
-                    
-                    # Conversion T_sim → résistance simulée
-                    resistance_target = convert_temperature_to_resistance(t_sim, sensor_name)
-                    
-                    if resistance_target is None:
-                        print(f"[SIMULATION] Erreur conversion T_sim → résistance pour {sensor_name}")
-                        continue
-                    
-                    print(f"[SIMULATION] Résistance cible: {resistance_target:.2f} ohms")
-                    
-                    # Application via MUX de simulation
-                    resistance_sim = ResistanceSimulator()
-                    
-                    if resistance_sim.apply_resistance_simulation(resistance_target):
-                        print("[SIMULATION] Résistance appliquée via MUX de simulation")
-                    else:
-                        print("[SIMULATION] Erreur lors de l'application MUX")
+                # 2. Calcul et application simulation
+                print("[SIMULATION] Calcul et application...")
+                simulation_data["temperature"] = temperature
+                simulation_data["probe_type"] = sensor_name
+                print(f"[SIMULATION] Paramètres: n={simulation_data['n']}, k_m={simulation_data['k_m']}")
+                print(f"[SIMULATION] T_mes={temperature:.2f}°C, T_prev={simulation_data['forecast_temperature']:.2f}°C")
+
+                t_sim = run_temperature_simulation(simulation_data)
+                if t_sim is None:
+                    print("[SIMULATION] Erreur lors du calcul de T_sim")
+                    continue
+                print(f"[SIMULATION] Température simulée: {t_sim:.2f}°C")
+
+                resistance_target = convert_temperature_to_resistance(t_sim, sensor_name)
+                if resistance_target is None:
+                    print(f"[SIMULATION] Erreur conversion T_sim → résistance pour {sensor_name}")
+                    continue
+                print(f"[SIMULATION] Résistance cible: {resistance_target:.2f} ohms")
+
+                resistance_sim = ResistanceSimulator()
+                if resistance_sim.apply_resistance_simulation(resistance_target):
+                    print("[SIMULATION] Résistance appliquée via MUX de simulation")
+                else:
+                    print("[SIMULATION] Erreur lors de l'application MUX")
 
                 print()
                 time.sleep(cfg["inter_measure_sleep_s"])
 
+            print("Séquence terminée. Appuyez sur Entrée pour relancer une nouvelle séquence (API sera relue)...")
+            input()
             time.sleep(cfg["loop_sleep_s"])
-            
     except KeyboardInterrupt:
         print("\nArrêt demandé...")
     finally:
