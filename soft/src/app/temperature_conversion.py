@@ -22,6 +22,13 @@ def resistance_to_temperature(resistance, table):
             temperature = t1 + (resistance - r1) / (r2 - r1) * (t2 - t1)
             return temperature
     # Si hors des limites de la table
+    # min/max
+    r_min, t_min = table[0]
+    r_max, t_max = table[-1]
+    if resistance < r_min:
+        return t_min
+    if resistance > r_max:
+        return t_max
     return None
 
 def resistance_to_temperature_dynamic(resistance, sensor):
@@ -44,5 +51,11 @@ def resistance_to_temperature_dynamic(resistance, sensor):
             # Interpolation linéaire
             temperature = t1 + (resistance - r1) / (r2 - r1) * (t2 - t1)
             return temperature
-    # Si hors des limites de la table
+    # min/max
+    t_min, r_min = table[0]
+    t_max, r_max = table[-1]
+    if resistance < r_min:
+        return t_min
+    if resistance > r_max:
+        return t_max
     return None
