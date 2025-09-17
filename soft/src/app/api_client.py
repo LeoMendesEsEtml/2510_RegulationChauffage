@@ -56,10 +56,12 @@ class ApiClient:
                     if "param" not in data or not data["param"]:
                         raise ApiError("Champ 'param' manquant ou vide")
                     entry = data["param"][0]
-                    probe_type = entry["probe_type"]
-                    n = entry["n"]
-                    k_m = entry["k_m"]
-                    temperature = entry["temperature"]
+                    probe_type = entry.get("probe_type")
+                    n = entry.get("n")
+                    k_m = entry.get("k_m")
+                    temperature = entry.get("temperature")
+                    if None in (probe_type, n, k_m, temperature):
+                        raise ApiError("Un ou plusieurs champs requis sont manquants dans la réponse API")
                     print(f"[API] Paramètres récupérés: {entry}")
                     return {
                         "probe_type": probe_type,
