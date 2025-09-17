@@ -4,44 +4,84 @@
 <meta charset="utf-8">
 <title>CM5 WebUI - Config et Dernières valeurs</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  body { font-family: Arial, sans-serif; margin: 20px; }
+  .param-group { margin: 10px 0; padding: 8px; border: 1px solid #ddd; border-radius: 4px; }
+  .param-label { font-weight: bold; margin-bottom: 4px; }
+  .param-desc { font-size: 0.9em; color: #666; margin-bottom: 6px; }
+  .param-input { width: 200px; padding: 4px; }
+  table { border-collapse: collapse; margin: 10px 0; }
+  th, td { padding: 8px; text-align: left; }
+  button { padding: 8px 12px; margin: 4px; cursor: pointer; }
+  .info-box { background: #f0f8ff; border-left: 4px solid #2196F3; padding: 10px; margin: 10px 0; }
+  .channel-info { background: #f9f9f9; padding: 8px; margin: 4px 0; border-radius: 4px; }
+</style>
 </head>
 <body>
 <h1>CM5 WebUI</h1>
 
 <section>
-  <h2>Configuration</h2>
-  <div>
-    <label>mac_address</label>
-    <input id="mac_address" type="text">
+  <h2>📊 Configuration du système de mesure</h2>
+  
+  <div class="info-box">
+    <strong>ℹ️ Information:</strong> Cette interface permet de configurer les paramètres de mesure et simulation de température.
+    Les modifications sont appliquées automatiquement lors de la prochaine séquence de mesure.
   </div>
-  <div>
-    <label>timeout_s</label>
-    <input id="timeout_s" type="number" step="1" min="0">
+
+  <div class="param-group">
+    <div class="param-label">Adresse MAC du dispositif</div>
+    <div class="param-desc">Identifiant unique du Raspberry Pi CM5 pour l'API. Format: 6 octets en hexadécimal.</div>
+    <input id="mac_address" type="text" class="param-input" placeholder="ex: 0030DEABCDEF">
   </div>
-  <div>
-    <label>inter_measure_sleep_s</label>
-    <input id="inter_measure_sleep_s" type="number" step="0.001" min="0">
+
+  <div class="param-group">
+    <div class="param-label">Timeout de mesure (secondes)</div>
+    <div class="param-desc">Temps maximum d'attente pour une mesure ADC avant abandon. Valeur recommandée: 180s.</div>
+    <input id="timeout_s" type="number" step="1" min="1" max="3600" class="param-input">
   </div>
-  <div>
-    <label>loop_sleep_s</label>
-    <input id="loop_sleep_s" type="number" step="0.001" min="0">
+
+  <div class="param-group">
+    <div class="param-label">Délai entre mesures (secondes)</div>
+    <div class="param-desc">Pause entre chaque échantillonnage ADC pour stabilisation. Valeur recommandée: 0.1s.</div>
+    <input id="inter_measure_sleep_s" type="number" step="0.001" min="0" max="10" class="param-input">
   </div>
-  <div>
-    <label>sequence_interval_minutes</label>
-    <input id="sequence_interval_minutes" type="number" step="1" min="0">
+
+  <div class="param-group">
+    <div class="param-label">Délai de boucle principale (secondes)</div>
+    <div class="param-desc">Pause dans la boucle principale du programme. Affecte la réactivité système. Valeur recommandée: 1.0s.</div>
+    <input id="loop_sleep_s" type="number" step="0.001" min="0" max="60" class="param-input">
   </div>
-  <div>
-    <label>auto_sequence</label>
+
+  <div class="param-group">
+    <div class="param-label">Intervalle des séquences automatiques (minutes)</div>
+    <div class="param-desc">Fréquence d'exécution automatique des mesures complètes. 0 = désactivé. Valeur recommandée: 5 min.</div>
+    <input id="sequence_interval_minutes" type="number" step="1" min="0" max="1440" class="param-input">
+  </div>
+
+  <div class="param-group">
+    <div class="param-label">Mode automatique</div>
+    <div class="param-desc">Active/désactive l'exécution automatique des séquences de mesure selon l'intervalle défini.</div>
     <input id="auto_sequence" type="checkbox">
   </div>
 
-  <h3>Channels</h3>
+  <h3>🔌 Configuration des canaux de mesure</h3>
+  <div class="info-box">
+    <strong>Types de capteurs supportés:</strong><br>
+    • <strong>De Dietrich AF60:</strong> Capteur de température industriel<br>
+    • <strong>Siemens QAC32:</strong> Capteur de température ambiante<br>
+    • <strong>PT1000:</strong> Sonde platine haute précision (-200°C à +850°C)<br>
+    • <strong>Ni1000 TK5000/TK6180:</strong> Sonde nickel standard/haute précision<br>
+    • <strong>NTC (1k, 2k, 2.2k, 10k):</strong> Thermistances à coefficient négatif<br>
+    • <strong>KTY81-210:</strong> Capteur silicium linéaire
+  </div>
+
   <table id="channels_table" border="1" cellpadding="4">
     <thead>
       <tr>
-        <th>channel</th>
-        <th>sensor</th>
-        <th>enabled</th>
+        <th>Canal</th>
+        <th>Type de capteur</th>
+        <th>État</th>
+        <th>Description</th>
       </tr>
     </thead>
     <tbody id="channels_body"></tbody>
@@ -50,6 +90,7 @@
   <div style="margin-top:8px;">
     <button id="reload_btn">Recharger</button>
     <button id="save_btn">Enregistrer</button>
+    <button id="force_reload_btn">🔄 Forcer rechargement config</button>
     <span id="save_status"></span>
   </div>
 </section>
@@ -57,26 +98,36 @@
 <hr>
 
 <section>
-  <h2>Dernières valeurs</h2>
-  <div>timestamp: <span id="ts">-</span></div>
-  <div>channel: <span id="last_channel">-</span></div>
-  <div>resistance_ohm: <span id="last_res">-</span></div>
-  <div>temperature_c: <span id="last_temp">-</span></div>
-  <div>temperature_sim_c: <span id="last_tsim">-</span></div>
-  <div>erreur: <span id="last_err">-</span></div>
-  <div>age_s: <span id="age_s">-</span></div>
+  <h2>📊 Données en temps réel</h2>
+  <div id="channels_data">
+    <!-- Les données par canal seront affichées ici -->
+  </div>
+  
+  <h3>🔄 Dernière mesure globale</h3>
+  <div class="channel-info">
+    <div><strong>Timestamp:</strong> <span id="ts">-</span></div>
+    <div><strong>Canal mesuré:</strong> <span id="last_channel">-</span></div>
+    <div><strong>Résistance mesurée:</strong> <span id="last_res">-</span> Ω</div>
+    <div><strong>Température calculée:</strong> <span id="last_temp">-</span> °C</div>
+    <div><strong>Température simulée:</strong> <span id="last_tsim">-</span> °C</div>
+    <div><strong>Erreur:</strong> <span id="last_err">-</span></div>
+    <div><strong>Âge de la mesure:</strong> <span id="age_s">-</span> secondes</div>
+  </div>
 </section>
 
 <script>
 function sensorOptions() {
   return [
+    "De Dietrich AF60",
+    "Siemens QAC32", 
+    "PT1000",
     "Ni1000 TK5000",
     "Ni1000 TK6180",
-    "PT1000",
     "NTC 1k 3528",
-    "De Dietrich AF60",
-    "Siemens QAC32",
-    "Autre"
+    "KTY81-210",
+    "NTC 2k 3390",
+    "NTC 2.2k 3528", 
+    "NTC 10k 3977"
   ];
 }
 
@@ -96,6 +147,22 @@ function numberOrNull(value) {
     return null;
   }
   return n;
+}
+
+function getSensorDescription(sensorName) {
+  var descriptions = {
+    "De Dietrich AF60": "Capteur industriel pour chaudières, plage: -30°C à +130°C",
+    "Siemens QAC32": "Capteur température ambiante, plage: -35°C à +35°C", 
+    "PT1000": "Sonde platine haute précision, plage: -200°C à +850°C",
+    "Ni1000 TK5000": "Sonde nickel standard, plage: -60°C à +250°C",
+    "Ni1000 TK6180": "Sonde nickel haute précision, plage: -60°C à +250°C",
+    "NTC 1k 3528": "Thermistance 1kΩ, courbe β=3528K, plage: -40°C à +125°C",
+    "KTY81-210": "Capteur silicium linéaire, plage: -55°C à +150°C",
+    "NTC 2k 3390": "Thermistance 2kΩ, courbe β=3390K, plage: -40°C à +125°C",
+    "NTC 2.2k 3528": "Thermistance 2.2kΩ, courbe β=3528K, plage: -40°C à +125°C",
+    "NTC 10k 3977": "Thermistance 10kΩ, courbe β=3977K, plage: -40°C à +125°C"
+  };
+  return descriptions[sensorName] || "Capteur non documenté";
 }
 
 function loadConfig() {
@@ -119,13 +186,21 @@ function loadConfig() {
         var ch = data.channels[i];
 
         var tr = document.createElement("tr");
+        if (ch.enabled) {
+          tr.style.backgroundColor = "#e8f5e8";
+        } else {
+          tr.style.backgroundColor = "#f5f5f5";
+        }
 
+        // Colonne canal
         var tdChan = document.createElement("td");
-        tdChan.textContent = ch.channel;
+        tdChan.innerHTML = "<strong>Canal " + ch.channel + "</strong>";
         tr.appendChild(tdChan);
 
+        // Colonne capteur avec sélecteur
         var tdSensor = document.createElement("td");
         var sel = document.createElement("select");
+        sel.style.width = "100%";
         var opts = sensorOptions();
         var j = 0;
         while (j < opts.length) {
@@ -138,7 +213,7 @@ function loadConfig() {
         if (opts.indexOf(ch.sensor) === -1) {
           var o2 = document.createElement("option");
           o2.value = ch.sensor;
-          o2.textContent = ch.sensor;
+          o2.textContent = ch.sensor + " (non standard)";
           sel.appendChild(o2);
         }
         sel.value = ch.sensor;
@@ -146,13 +221,24 @@ function loadConfig() {
         tdSensor.appendChild(sel);
         tr.appendChild(tdSensor);
 
+        // Colonne état avec checkbox
         var tdEn = document.createElement("td");
         var cb = document.createElement("input");
         cb.type = "checkbox";
         cb.checked = !!ch.enabled;
         cb.setAttribute("data-index", String(i));
-        tdEn.appendChild(cb);
+        var label = document.createElement("label");
+        label.appendChild(cb);
+        label.appendChild(document.createTextNode(ch.enabled ? " ✅ Actif" : " ❌ Inactif"));
+        tdEn.appendChild(label);
         tr.appendChild(tdEn);
+
+        // Colonne description
+        var tdDesc = document.createElement("td");
+        tdDesc.innerHTML = "<small>" + getSensorDescription(ch.sensor) + "</small>";
+        tdDesc.style.fontSize = "0.8em";
+        tdDesc.style.color = "#666";
+        tr.appendChild(tdDesc);
 
         body.appendChild(tr);
         i = i + 1;
@@ -247,15 +333,76 @@ function refreshLast() {
     return resp.json();
   }).then(function(d) {
     lastData = d;
-    el("ts").textContent = d.timestamp === null ? "-" : String(d.timestamp);
-    el("last_channel").textContent = d.channel === null ? "-" : String(d.channel);
-    el("last_res").textContent = d.resistance_ohm === null ? "-" : String(d.resistance_ohm);
-    el("last_temp").textContent = d.temperature_c === null ? "-" : String(d.temperature_c);
-    el("last_tsim").textContent = d.temperature_sim_c === null ? "-" : String(d.temperature_sim_c);
-    el("last_err").textContent = d.error ? String(d.error) : "";
+    
+    // Affichage des données par canal
+    var channelsDiv = el("channels_data");
+    if (d.channels) {
+      var html = "<div class='info-box'><strong>� Historique des mesures par canal actif</strong></div>";
+      var channelKeys = Object.keys(d.channels).sort(function(a, b) { return parseInt(a) - parseInt(b); });
+      
+      if (channelKeys.length > 0) {
+        html += "<table border='1' cellpadding='8' style='margin-bottom: 15px; width: 100%;'>";
+        html += "<thead style='background: #f0f0f0;'><tr><th>Canal</th><th>🌡️ Température mesurée</th><th>🔧 Résistance</th><th>🎯 T_simulée</th><th>⏰ Dernière mesure</th></tr></thead><tbody>";
+        
+        var i = 0;
+        while (i < channelKeys.length) {
+          var chKey = channelKeys[i];
+          var chData = d.channels[chKey];
+          var age = "-";
+          var ageColor = "";
+          
+          if (chData.timestamp) {
+            var t = Date.parse(chData.timestamp);
+            if (isNaN(t) === false) {
+              var nowMs = Date.now();
+              var diff = nowMs - t;
+              if (diff < 0) diff = 0;
+              var ageSeconds = Math.round(diff / 1000);
+              
+              if (ageSeconds < 30) {
+                age = ageSeconds + "s";
+                ageColor = "color: green; font-weight: bold;";
+              } else if (ageSeconds < 300) {
+                age = ageSeconds + "s";
+                ageColor = "color: orange;";
+              } else {
+                age = ageSeconds + "s";
+                ageColor = "color: red;";
+              }
+            }
+          }
+          
+          var rowColor = (i % 2 === 0) ? "#f9f9f9" : "#ffffff";
+          
+          html += "<tr style='background: " + rowColor + ";'>";
+          html += "<td><strong>Canal " + chKey + "</strong></td>";
+          html += "<td>" + (chData.temperature_c !== null ? "<strong>" + chData.temperature_c.toFixed(2) + "°C</strong>" : "<em>Pas de mesure</em>") + "</td>";
+          html += "<td>" + (chData.resistance_ohm !== null ? chData.resistance_ohm.toFixed(0) + " Ω" : "-") + "</td>";
+          html += "<td>" + (chData.temperature_sim_c !== null ? chData.temperature_sim_c.toFixed(2) + "°C" : "-") + "</td>";
+          html += "<td style='" + ageColor + "'>" + age + "</td>";
+          html += "</tr>";
+          i = i + 1;
+        }
+        html += "</tbody></table>";
+      } else {
+        html += "<div class='channel-info'><em>⚠️ Aucune donnée de canal disponible - Aucune mesure effectuée ou tous les canaux sont désactivés</em></div>";
+      }
+      channelsDiv.innerHTML = html;
+    } else {
+      channelsDiv.innerHTML = "<div class='channel-info'><em>⚠️ Structure de données ancienne - Redémarrez l'application principale</em></div>";
+    }
+    
+    // Données globales (dernière mesure)
+    el("ts").textContent = d.last_timestamp ? String(d.last_timestamp) : "-";
+    el("last_channel").textContent = d.last_channel !== null ? String(d.last_channel) : "-";
+    el("last_res").textContent = d.last_resistance_ohm !== null ? String(d.last_resistance_ohm) : "-";
+    el("last_temp").textContent = d.last_temperature_c !== null ? String(d.last_temperature_c) : "-";
+    el("last_tsim").textContent = d.last_temperature_sim_c !== null ? String(d.last_temperature_sim_c) : "-";
+    el("last_err").textContent = d.last_error ? String(d.last_error) : "";
+    
     var age = "-";
-    if (d.timestamp) {
-      var t = Date.parse(d.timestamp);
+    if (d.last_timestamp) {
+      var t = Date.parse(d.last_timestamp);
       if (isNaN(t) === false) {
         var nowMs = Date.now();
         var diff = nowMs - t;
@@ -274,9 +421,25 @@ function refreshLast() {
 function setup() {
   el("reload_btn").addEventListener("click", function() { loadConfig(); });
   el("save_btn").addEventListener("click", function() { saveConfig(); });
+  el("force_reload_btn").addEventListener("click", function() { forceReload(); });
   loadConfig();
   refreshLast();
-  setInterval(function() { refreshLast(); }, 1500);
+  setInterval(function() { refreshLast(); }, 5000);  // 5 secondes au lieu de 1.5
+}
+
+function forceReload() {
+  fetch("/api/force-reload", {
+    method: "POST"
+  }).then(function(resp) {
+    if (resp.ok) {
+      el("save_status").textContent = "🔄 Rechargement demandé";
+      setTimeout(function() { el("save_status").textContent = ""; }, 3000);
+    } else {
+      el("save_status").textContent = "❌ Erreur rechargement";
+    }
+  }).catch(function(err) {
+    el("save_status").textContent = "❌ Erreur: " + String(err);
+  });
 }
 
 document.addEventListener("DOMContentLoaded", function() { setup(); });

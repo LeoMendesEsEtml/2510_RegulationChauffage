@@ -60,25 +60,48 @@ force_sequence = threading.Event()
 led_indicator = None
 
 def save_last_state(channel=None, resistance_ohm=None, temperature_c=None, temperature_sim_c=None, error=None):
-    """Sauvegarde l'état actuel dans state/last_state.json"""
+    """Sauvegarde l'état actuel dans state/last_state.json avec historique par canal"""
     try:
         state_dir = os.path.join(os.path.dirname(CURRENT_DIR), "state")
         os.makedirs(state_dir, exist_ok=True)
         state_path = os.path.join(state_dir, "last_state.json")
         
-        state_data = {
-            "timestamp": datetime.now().isoformat(),
-            "channel": channel,
-            "resistance_ohm": resistance_ohm,
-            "temperature_c": temperature_c,
-            "temperature_sim_c": temperature_sim_c,
-            "error": error
-        }
+        # Charger l'état existant
+        try:
+            with open(state_path, "r", encoding="utf-8") as f:
+                existing_data = json.load(f)
+        except (FileNotFoundError, json.JSONDecodeError):
+            existing_data = {"channels": {}}
+        
+        # S'assurer qu'il y a une structure "channels"
+        if "channels" not in existing_data:
+            existing_data["channels"] = {}
+        
+        # Mettre à jour les données du canal spécifique
+        if channel is not None:
+            existing_data["channels"][str(channel)] = {
+                "timestamp": datetime.now().isoformat(),
+                "resistance_ohm": resistance_ohm,
+                "temperature_c": temperature_c,
+                "temperature_sim_c": temperature_sim_c,
+                "error": error
+            }
+            print(f"[STATE] 💾 Canal {channel} sauvegardé: {temperature_c}°C")
+        
+        # Mettre à jour les données globales (dernière mesure)
+        existing_data.update({
+            "last_timestamp": datetime.now().isoformat(),
+            "last_channel": channel,
+            "last_resistance_ohm": resistance_ohm,
+            "last_temperature_c": temperature_c,
+            "last_temperature_sim_c": temperature_sim_c,
+            "last_error": error
+        })
         
         with open(state_path, "w", encoding="utf-8") as f:
-            json.dump(state_data, f, ensure_ascii=False, indent=2)
+            json.dump(existing_data, f, ensure_ascii=False, indent=2)
     except Exception as e:
-        print(f"[STATE] Erreur sauvegarde état: {e}")
+        print(f"[STATE] ❌ Erreur sauvegarde état: {e}")
 
 def signal_handler(sig, frame):
     """Gestionnaire pour arrêt propre avec Ctrl+C"""
@@ -117,6 +140,19 @@ def run_measurement_sequence(cfg, mac_address, adc, tmux):
     """Exécute une séquence complète de mesures avec gestion d'erreurs LED"""
     global led_indicator
     print(f"\n[SEQUENCER] === NOUVELLE SÉQUENCE - {datetime.now().strftime('%H:%M:%S')} ===")
+    
+    # 🔄 Rechargement de la configuration avant chaque séquence
+    print(f"[CONFIG] 🔄 Rechargement configuration...")
+    CONFIG_FILE = os.path.join(SRC_DIR, "config_module", "sensors.json")
+    try:
+        cfg = load_config(CONFIG_FILE)
+        enabled_channels = [ch for ch in cfg.get("channels", []) if ch.get("enabled")]
+        print(f"[CONFIG] ✅ Config rechargée: {len(enabled_channels)} canaux actifs")
+        for ch_info in enabled_channels:
+            print(f"[CONFIG] 🔌 Canal {ch_info['channel']}: {ch_info['sensor']}")
+    except Exception as e:
+        print(f"[CONFIG] ❌ Erreur rechargement: {e}")
+        return False
     
     # LED en mode séquence
     if led_indicator:
