@@ -155,65 +155,36 @@ class ResistanceSimulator:
         resistances = [RESISTANCE_NETWORK[ch] for ch in channels if ch in RESISTANCE_NETWORK]
         return self.calculate_parallel_resistance(resistances)
     
-    def apply_resistance_simulation(self, target_resistance: float) -> bool:
+    def apply_resistance_simulation(self, target_resistance: float, measurement_channel: int) -> bool:
         """
-        Applique une résistance simulée via le MUX
+        Applique une résistance simulée via le MUX sur le canal de mesure spécifique
         
         :param target_resistance: Résistance à simuler en ohms
+        :param measurement_channel: Canal sur lequel la mesure a été faite (simulation sur ce même canal)
         :return: True si succès, False sinon
         """
         print(f"\n[SIM_R] === APPLICATION RÉSISTANCE SIMULÉE ===")
         print(f"[SIM_R] Résistance cible: {target_resistance:.2f} Ω")
+        print(f"[SIM_R] Canal de simulation: {measurement_channel}")
         
         if self.mux is None:
             print("[SIM_R] ❌ MUX non initialisé")
             return False
         
-        # Validation de la plage de résistance
-        min_resistance = min(RESISTANCE_NETWORK.values())
-        max_resistance = max(RESISTANCE_NETWORK.values())
+        # Validation de la plage de résistance - utilisation simple du canal de mesure
+        # On simule en appliquant directement la résistance sur le canal mesuré
+        board_index = 0  # Toujours carte 0 pour les canaux de mesure
+        channel_addr = measurement_channel
         
-        if target_resistance < min_resistance * 0.1:  # Résistances parallèles peuvent aller plus bas
-            print(f"[SIM_R] ❌ Résistance trop faible: {target_resistance:.1f}Ω < {min_resistance * 0.1:.1f}Ω")
-            return False
-        
-        if target_resistance > max_resistance:
-            print(f"[SIM_R] ❌ Résistance trop élevée: {target_resistance:.1f}Ω > {max_resistance:.1f}Ω")
-            return False
-        
-        # Recherche de la meilleure combinaison
-        combination = self.find_best_resistance_combination(target_resistance, tolerance=0.10)  # 10% de tolérance
-        
-        if combination is None:
-            print(f"[SIM_R] ❌ Aucune combinaison trouvée pour {target_resistance:.1f}Ω")
-            print(f"[SIM_R] Résistances disponibles: {sorted(RESISTANCE_NETWORK.values())}")
-            return False
-        
-        # Désactivation de tous les canaux d'abord
         try:
-            for board in range(4):  # 4 cartes MUX maximum
-                for channel in range(32):  # 32 canaux par carte
-                    try:
-                        self.mux.set_channel(board, channel)  # Désactivation par défaut
-                    except Exception:
-                        pass  # Ignore les erreurs de cartes non présentes
-            
-            time.sleep(0.01)  # Délai de stabilisation
-            
-            # Activation des canaux sélectionnés
-            for channel in combination:
-                board_index = channel // 32  # Quelle carte MUX
-                channel_addr = channel % 32   # Quelle adresse sur la carte
-                
-                print(f"[SIM_R] Activation canal {channel} (carte {board_index}, adresse {channel_addr})")
-                self.mux.set_channel(board_index, channel_addr)
-                time.sleep(0.001)  # Petit délai entre les commutations
+            print(f"[SIM_R] Application simulation sur canal {measurement_channel} (carte {board_index})")
+            self.mux.set_channel(board_index, channel_addr)
             
             # Mémorisation de l'état actuel
-            self.active_channels = combination.copy()
-            self.current_resistance = self.get_combination_resistance(combination)
+            self.active_channels = [measurement_channel]
+            self.current_resistance = target_resistance  # Résistance simulée directement
             
-            print(f"[SIM_R] ✅ Résistance appliquée: {self.current_resistance:.2f}Ω")
+            print(f"[SIM_R] ✅ Résistance appliquée: {target_resistance:.2f}Ω sur canal {measurement_channel}")
             return True
             
         except Exception as e:

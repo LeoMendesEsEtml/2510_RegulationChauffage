@@ -108,10 +108,10 @@ def main():
                 print(f"[SIMULATION] Résistance cible: {resistance_target:.2f} ohms")
 
                 resistance_sim = ResistanceSimulator()
-                if resistance_sim.apply_resistance_simulation(resistance_target):
-                    print("[SIMULATION] Résistance appliquée via MUX de simulation")
+                if resistance_sim.apply_resistance_simulation(resistance_target, ch):
+                    print(f"[SIMULATION] Résistance appliquée via MUX de simulation sur canal {ch}")
                 else:
-                    print("[SIMULATION] Erreur lors de l'application MUX")
+                    print(f"[SIMULATION] Erreur lors de l'application MUX sur canal {ch}")
 
                 print()
                 time.sleep(cfg["inter_measure_sleep_s"])
