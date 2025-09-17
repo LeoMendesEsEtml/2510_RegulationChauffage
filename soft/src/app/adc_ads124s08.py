@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# file: adc_ads124s08.py
+# fichier : adc_ads124s08.py
 """
 ADS124S08 — SPI1.0 mode 1 — mesure bloquante avec DRDY.
 
@@ -9,46 +9,47 @@ Séquence:
 - DATARATE: single-shot + low-latency (DR=0x04 par défaut)
 - START par commande
 - Attente DRDY bas, RDATA 24 bits, STOP
-- R = |code|/FS * (Rref / gain) * (I1 / (I1 + I2))  # Updated to detailed ratiometric equation
+- R = |code|/FS * (Rref / gain) * (I1 / (I1 + I2))  # Équation détaillée ratiométrique mise à jour
 """
 
-import spidev
-import time
-from periphery import GPIO
-from pins_cm5 import SPI1_BUS, SPI1_DEV0, SPI_ADC_SPEED_HZ, GPIO_CHIP_PATH, ADC_DRDY
-from app.temperature_conversion import resistance_to_temperature_dynamic
-from app.sensor_profiles import SENSOR_TABLES
+import spidev  # Bibliothèque pour la communication SPI
+import time  # Module pour la gestion du temps
+from periphery import GPIO  # Bibliothèque pour la gestion des GPIO
+from pins_cm5 import SPI1_BUS, SPI1_DEV0, SPI_ADC_SPEED_HZ, GPIO_CHIP_PATH, ADC_DRDY  # Importation des constantes matérielles
+from app.temperature_conversion import resistance_to_temperature_dynamic  # Conversion résistance -> température
+from app.sensor_profiles import SENSOR_TABLES  # Tables de conversion des capteurs
 
-# Registres
-REG_ID        = 0x00
-REG_STATUS    = 0x01
-REG_INPMUX    = 0x02
-REG_PGA       = 0x03
-REG_DATARATE  = 0x04
-REG_REF       = 0x05
-REG_IDACMUX   = 0x07
-REG_SYS       = 0x09
-REG_IDACMAG   = 0x06  # Correct register constant for IDAC magnitude
+# Définition des registres ADC
+REG_ID        = 0x00  # Registre ID
+REG_STATUS    = 0x01  # Registre STATUS
+REG_INPMUX    = 0x02  # Registre INPMUX (multiplexeur d'entrée)
+REG_PGA       = 0x03  # Registre PGA (amplificateur programmable)
+REG_DATARATE  = 0x04  # Registre DATARATE (taux d'échantillonnage)
+REG_REF       = 0x05  # Registre REF (configuration de la référence)
+REG_IDACMUX   = 0x07  # Registre IDACMUX (multiplexeur IDAC)
+REG_SYS       = 0x09  # Registre SYS (configuration système)
+REG_IDACMAG   = 0x06  # Registre IDACMAG (magnitude IDAC)
 
-# Commandes
-CMD_RESET  = 0x06
-CMD_START  = 0x08
-CMD_STOP   = 0x0A
-CMD_RDATA  = 0x12
+# Définition des commandes ADC
+CMD_RESET  = 0x06  # Commande RESET
+CMD_START  = 0x08  # Commande START
+CMD_STOP   = 0x0A  # Commande STOP
+CMD_RDATA  = 0x12  # Commande RDATA (lecture des données)
 
 # Pleine échelle 24 bits signé
-FS = (1 << 23) - 1
+FS = (1 << 23) - 1  # Valeur maximale pour un code 24 bits signé
 
-# Mapping canaux physiques
+# Mapping des canaux physiques ADC
 CHANNELS = {
-    1: {"ainp_idx": 1,  "ainn_idx": 2},
-    2: {"ainp_idx": 4,  "ainn_idx": 5},
-    3: {"ainp_idx": 7,  "ainn_idx": 8},
-    4: {"ainp_idx": 10, "ainn_idx": 11}
+    1: {"ainp_idx": 1,  "ainn_idx": 2},  # Canal 1
+    2: {"ainp_idx": 4,  "ainn_idx": 5},  # Canal 2
+    3: {"ainp_idx": 7,  "ainn_idx": 8},  # Canal 3
+    4: {"ainp_idx": 10, "ainn_idx": 11}  # Canal 4
 }
 
 
 def encode_gain(pga_gain):
+    """Encode le gain PGA en code binaire."""
     if pga_gain == 1:
         return 0
     if pga_gain == 2:
@@ -68,6 +69,7 @@ def encode_gain(pga_gain):
     raise ValueError("PGA gain invalide: " + str(pga_gain))
 
 def encode_idac_uA(idac_uA):
+    """Encode la magnitude IDAC en code binaire."""
     if idac_uA == 10:
         return 1
     if idac_uA == 50:
@@ -87,6 +89,7 @@ def encode_idac_uA(idac_uA):
     raise ValueError("IDAC µA non supporté: " + str(idac_uA))
 
 def sign_extend_24(b0, b1, b2):
+    """Étend le signe d'un code 24 bits."""
     raw = (b0 << 16) | (b1 << 8) | b2
     if (raw & 0x800000) != 0:
         value = raw | 0xFF000000
@@ -96,24 +99,24 @@ def sign_extend_24(b0, b1, b2):
 
 class Ads124s08:
     def __init__(self):
-        # SPI
+        # Initialisation SPI
         self.spi = spidev.SpiDev()
         self.spi.open(SPI1_BUS, SPI1_DEV0)
-        self.spi.mode = 1
-        self.spi.max_speed_hz = SPI_ADC_SPEED_HZ
-        self.spi.bits_per_word = 8
+        self.spi.mode = 1  # Mode SPI 1.0
+        self.spi.max_speed_hz = SPI_ADC_SPEED_HZ  # Vitesse SPI
+        self.spi.bits_per_word = 8  # Taille des mots SPI
 
-        # DRDY (entrée, actif bas)
+        # Initialisation GPIO pour DRDY
         self.gpio_drdy = GPIO(GPIO_CHIP_PATH, ADC_DRDY, "in")
 
-        # Reset + attente >= 4096*tCLK
+        # Réinitialisation ADC
         self.spi.xfer2([CMD_RESET])
-        time.sleep(0.002)
+        time.sleep(0.002)  # Délai après RESET
 
-        # Purge flags (STATUS=0x00)
+        # Purge des flags STATUS
         self._wreg(REG_STATUS, [0x00])
 
-        # Lecture ID pour sanity-check
+        # Lecture du registre ID pour vérification
         adc_id = self.read_id()
         if adc_id is None:
             print("[ADC] Erreur: aucune réponse sur le registre ID (0x00)")
@@ -121,12 +124,14 @@ class Ads124s08:
             print("[ADC] ID (0x00) = 0x" + format(adc_id, "02X"))
 
     def read_id(self):
+        """Lit le registre ID de l'ADC."""
         rx = self.spi.xfer2([0x20, 0x00, 0x00])  # RREG 0x00, 1 byte
         if len(rx) >= 3:
             return rx[2]
         return None
 
     def close(self):
+        """Ferme les interfaces SPI et GPIO."""
         try:
             self.spi.close()
         except Exception:
@@ -137,6 +142,7 @@ class Ads124s08:
             pass
 
     def _rreg(self, addr, nbytes):
+        """Lit un registre ADC."""
         cmd = 0x20 | (addr & 0x1F)
         count = nbytes - 1
         tx = [cmd, count]
@@ -149,6 +155,7 @@ class Ads124s08:
         return data
 
     def _wreg(self, addr, data_bytes):
+        """Écrit dans un registre ADC."""
         cmd = 0x40 | (addr & 0x1F)
         count = len(data_bytes) - 1
         tx = [cmd, count]
@@ -156,10 +163,12 @@ class Ads124s08:
         self.spi.xfer2(tx)
 
     def _sclk_nudge(self):
+        """Envoie un coup de pouce sur SCLK pour synchroniser."""
         _ = self._rreg(REG_STATUS, 1)
         time.sleep(0.0001)
 
     def _ensure_drdy_high(self, timeout_ms):
+        """Assure que DRDY est à l'état HIGH."""
         t0 = time.time()
         kicked = False
         while True:
@@ -192,6 +201,7 @@ class Ads124s08:
             time.sleep(0.001)
 
     def set_single_shot_lowlatency(self, dr_nibble):
+        """Configure le mode single-shot low-latency."""
         value = 0
         value = value | (1 << 5)           # MODE=1 single-shot
         value = value | (1 << 4)           # FILTER=1 low-latency
@@ -199,6 +209,13 @@ class Ads124s08:
         self._wreg(REG_DATARATE, [value])
 
     def configure_channel(self, channel_index, pga_gain, idac_uA):
+        """
+        Configure un canal ADC.
+
+        :param channel_index: Index du canal (1-4).
+        :param pga_gain: Gain PGA.
+        :param idac_uA: Courant IDAC en microamperes.
+        """
         if channel_index not in CHANNELS:
             raise ValueError("Canal ADC inconnu: " + str(channel_index))
         ch = CHANNELS[channel_index]
@@ -268,6 +285,7 @@ class Ads124s08:
             print(f"[ADC] {name} (0x{addr:02X}) = 0x{val[0]:02X}")
 
     def start(self):
+        """Démarre une conversion ADC."""
         # Kick SCLK pour relâcher DRDY à HIGH
         t0 = time.time()
         while self.gpio_drdy.read() is not True:
@@ -280,9 +298,11 @@ class Ads124s08:
         self.spi.xfer2([CMD_START])
 
     def stop(self):
+        """Arrête une conversion ADC."""
         self.spi.xfer2([CMD_STOP])
 
     def read_code24(self):
+        """Lit un code de données 24 bits."""
         rx = self.spi.xfer2([CMD_RDATA, 0x00, 0x00, 0x00])
         if len(rx) < 4:
             print("[ADC] Erreur: réponse SPI trop courte " + str(rx))
@@ -294,6 +314,14 @@ class Ads124s08:
         return value
 
     def measure_resistance(self, rref_ohm, pga_gain, timeout_s):
+        """
+        Mesure la résistance en utilisant l'ADC.
+
+        :param rref_ohm: Résistance de référence (en ohms).
+        :param pga_gain: Gain PGA.
+        :param timeout_s: Timeout pour la mesure.
+        :return: Résistance mesurée (en ohms) ou None en cas d'erreur.
+        """
         print("[ADC] Mesure résistance: rref=" + str(rref_ohm) + " gain=" + str(pga_gain) + " timeout=" + str(timeout_s))
 
         self.start()
@@ -352,19 +380,19 @@ class Ads124s08:
         return temperature
 
     def read_gain(self):
-        """Read the PGA gain register."""
+        """Lit le registre de gain PGA."""
         val = self._rreg(REG_PGA, 1)
         print(f"[ADC DEBUG] PGA Gain Register: 0x{val[0]:02X}")
         return val[0]
 
     def read_ref(self):
-        """Read the reference configuration register."""
+        """Lit le registre de configuration de la référence."""
         val = self._rreg(REG_REF, 1)
         print(f"[ADC DEBUG] Reference Register: 0x{val[0]:02X}")
         return val[0]
 
     def read_inpmux(self):
-        """Read the input multiplexer configuration register."""
+        """Lit le registre de configuration du multiplexeur d'entrée."""
         val = self._rreg(REG_INPMUX, 1)
         print(f"[ADC DEBUG] INPMUX Register: 0x{val[0]:02X}")
         return val[0]
