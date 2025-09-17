@@ -210,7 +210,7 @@ def run_measurement_sequence(cfg, mac_address, adc, tmux):
     if channels_failed == 0:
         print(f"[SEQUENCER] Séquence réussie - {channels_processed} canaux traités")
         if led_indicator:
-            led_indicator.set_pattern('standby')
+            led_indicator.set_pattern('standby')  # LED éteinte après succès
         sequence_success = True
     elif channels_failed < channels_processed:
         print(f"[SEQUENCER] Séquence partielle - {channels_processed - channels_failed}/{channels_processed} canaux réussis")
@@ -345,14 +345,14 @@ def main():
             if should_run:
                 print(f"[SEQUENCER] Démarrage séquence {sequence_reason} - {current_time.strftime('%H:%M:%S')}")
                 success = run_measurement_sequence(cfg, mac_address, adc, tmux)
-            if success:
-                print(f"[SEQUENCER] Séquence {sequence_reason} terminée avec succès")
-                # Retour LED normale après succès
-                if led_indicator:
-                    led_indicator.set_pattern('normal')
-            else:
-                print("[SEQUENCER] Erreur lors de la séquence")
-                # LED d'erreur déjà activée dans run_measurement_sequence
+                if success:
+                    print(f"[SEQUENCER] Séquence {sequence_reason} terminée avec succès")
+                    # LED éteinte après succès (évite les répétitions)
+                    if led_indicator:
+                        led_indicator.set_pattern('standby')
+                else:
+                    print("[SEQUENCER] Erreur lors de la séquence")
+                    # LED d'erreur déjà activée dans run_measurement_sequence
             
             # Attente avant vérification suivante (mode auto seulement)
             if auto_sequence and not args.manual and not args.once and sequencer_running:

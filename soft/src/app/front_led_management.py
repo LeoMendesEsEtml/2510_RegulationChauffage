@@ -19,6 +19,9 @@ class LedErrorIndicator:
         # LED normalement allumée en continu
         'normal': 'solid_on',
         
+        # LED éteinte (standby)
+        'standby': 'solid_off',
+        
         # Clignotement continu pendant séquence de mesure
         'sequence_running': 'continuous_blink',
         
@@ -43,6 +46,10 @@ class LedErrorIndicator:
         if pattern_name not in self.ERROR_PATTERNS:
             print(f"[LED] Pattern inconnu: {pattern_name}")
             return
+        
+        # Ne rien faire si c'est déjà le pattern actuel
+        if self.current_pattern == pattern_name:
+            return
             
         with self.led_lock:
             # Arrêt du pattern précédent
@@ -60,6 +67,10 @@ class LedErrorIndicator:
                 # LED allumée en continu
                 self.led.write(True)
                 print(f"[LED] Pattern activé: {pattern_name} (LED allumée)")
+            elif pattern_value == 'solid_off':
+                # LED éteinte en continu
+                self.led.write(False)
+                print(f"[LED] Pattern activé: {pattern_name} (LED éteinte)")
             elif pattern_value == 'continuous_blink':
                 # Clignotement continu
                 self.pattern_thread = threading.Thread(target=self._continuous_blink, daemon=True)
