@@ -5,7 +5,7 @@ Module pour la gestion des clignotements et états de la LED frontale
 
 import threading
 import time
-from app.pins_cm5 import GPIO
+from periphery import GPIO
 
 
 class LedErrorIndicator:
