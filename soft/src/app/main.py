@@ -54,7 +54,7 @@ def main():
         while True:
             print("\n--- Nouvelle séquence de simulation ---")
             # 1. Récupération des paramètres API au début de la séquence
-            api_client = ApiClient()
+            api_client = ApiClient("0030DEABCDEF")
             simulation_data = api_client.get_simulation_parameters()
             if simulation_data is None:
                 print("[SIMULATION] Erreur: impossible de récupérer les paramètres API")
