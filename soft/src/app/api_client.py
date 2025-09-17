@@ -94,20 +94,13 @@ class ApiClient:
                 if response.status_code != 200:
                     raise ApiError(f"Erreur HTTP {response.status_code}: {response.text}")
                 
-                data = response.json()
-                
-                # Vérification du champ requis
-                if "temperature" not in data:
-                    raise ApiError("Champ 'temperature' manquant dans la réponse prévisions")
-                
-                # Validation du type de données
-                try:
-                    float(data["temperature"])
-                except (ValueError, TypeError):
-                    raise ApiError("La température prévue doit être un nombre")
-                
-                print(f"[API] Prévisions récupérées: {data}")
-                return data
+                    data = response.json()
+                    if "forecast" not in data or not data["forecast"]:
+                        raise ApiError("Champ 'forecast' manquant ou vide")
+                    forecast = data["forecast"][0]
+                    temperature_forecast = forecast["temperature"]
+                    print(f"[API] Prévisions récupérées: {forecast}")
+                    return {"temperature": temperature_forecast}
                 
             except requests.exceptions.RequestException as e:
                 print(f"[API] Tentative {attempt + 1}/{MAX_RETRIES} échouée: {e}")
