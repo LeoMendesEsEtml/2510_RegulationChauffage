@@ -33,7 +33,7 @@ class ApiClient:
         :param mac_address: Adresse MAC du dispositif (ex: "0030DEABCDEF")
         """
         self.mac_address = mac_address
-        self.base_url = "https://oblosolutions.ch"
+    self.base_url = "https://dev.oblosolutions.ch"
 
     def get_parameters(self) -> Dict[str, Any]:
         """
