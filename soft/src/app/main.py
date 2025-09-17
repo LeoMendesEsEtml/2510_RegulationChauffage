@@ -70,6 +70,15 @@ def input_monitor():
         except Exception as e:
             pass  # Ignore les erreurs d'entrée
 
+def show_error_and_continue(error_pattern, sleep_time=2):
+    """Affiche une erreur temporairement puis remet en mode séquence"""
+    global led_indicator
+    if led_indicator:
+        led_indicator.set_pattern(error_pattern)
+    time.sleep(sleep_time)
+    if led_indicator:
+        led_indicator.set_pattern('sequence_running')  # Remettre en mode séquence
+
 def run_measurement_sequence(cfg, mac_address, adc, tmux):
     """Exécute une séquence complète de mesures avec gestion d'erreurs LED"""
     global led_indicator
@@ -133,9 +142,7 @@ def run_measurement_sequence(cfg, mac_address, adc, tmux):
             if r is None:
                 print("[MESURE] Résistance: NaN - Erreur de mesure")
                 channels_failed += 1
-                if led_indicator:
-                    led_indicator.set_pattern('measure_failed')
-                time.sleep(2)  # Pause pour voir l'erreur
+                show_error_and_continue('measure_failed')
                 continue
             else:
                 print(f"[MESURE] Résistance: {r:.6f} ohms")
@@ -144,9 +151,7 @@ def run_measurement_sequence(cfg, mac_address, adc, tmux):
             if temperature is None:
                 print(f"[MESURE] Température non mesurable ou saturation détectée")
                 channels_failed += 1
-                if led_indicator:
-                    led_indicator.set_pattern('measure_failed')
-                time.sleep(2)  # Pause pour voir l'erreur
+                show_error_and_continue('measure_failed')
                 continue
             else:
                 print(f"[MESURE] Température mesurée: {temperature:.2f}°C")
@@ -158,19 +163,13 @@ def run_measurement_sequence(cfg, mac_address, adc, tmux):
                         print(f"[API] Température {temperature:.2f}°C envoyée avec succès pour le canal {ch}")
                     else:
                         print(f"[API] Erreur lors de l'envoi de la température pour le canal {ch}")
-                        if led_indicator:
-                            led_indicator.set_pattern('api_failed')
-                        time.sleep(1)  # Pause pour voir l'erreur
+                        show_error_and_continue('api_failed', 1)
                 except requests.exceptions.ConnectionError:
                     print(f"[API] Erreur connexion pour canal {ch}")
-                    if led_indicator:
-                        led_indicator.set_pattern('no_internet')
-                    time.sleep(1)
+                    show_error_and_continue('no_internet', 1)
                 except Exception as e:
                     print(f"[API] Erreur envoi canal {ch}: {e}")
-                    if led_indicator:
-                        led_indicator.set_pattern('api_failed')
-                    time.sleep(1)
+                    show_error_and_continue('api_failed', 1)
 
             # 3. Calcul et application simulation
             print("[SIMULATION] Calcul et application...")
@@ -183,6 +182,7 @@ def run_measurement_sequence(cfg, mac_address, adc, tmux):
             if t_sim is None:
                 print("[SIMULATION] Erreur lors du calcul de T_sim")
                 channels_failed += 1
+                show_error_and_continue('measure_failed')
                 continue
             print(f"[SIMULATION] Température simulée: {t_sim:.2f}°C")
 
@@ -190,6 +190,7 @@ def run_measurement_sequence(cfg, mac_address, adc, tmux):
             if resistance_target is None:
                 print(f"[SIMULATION] Erreur conversion T_sim → résistance pour {sensor_name}")
                 channels_failed += 1
+                show_error_and_continue('measure_failed')
                 continue
             print(f"[SIMULATION] Résistance cible: {resistance_target:.2f} ohms")
 
@@ -199,15 +200,14 @@ def run_measurement_sequence(cfg, mac_address, adc, tmux):
             else:
                 print(f"[SIMULATION] Erreur lors de l'application MUX sur canal {ch}")
                 channels_failed += 1
+                show_error_and_continue('measure_failed')
 
             time.sleep(cfg["inter_measure_sleep_s"])
             
         except Exception as e:
             print(f"[ERREUR] Canal {ch}: {e}")
             channels_failed += 1
-            if led_indicator:
-                led_indicator.set_pattern('critical_error')
-            time.sleep(2)  # Pause pour voir l'erreur
+            show_error_and_continue('critical_error')
             continue
 
     # Évaluation globale de la séquence

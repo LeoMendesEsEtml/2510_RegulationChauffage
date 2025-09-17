@@ -12,7 +12,7 @@ class LedErrorIndicator:
     """Gestionnaire de LED avec patterns d'erreur"""
     
     # Définition des patterns d'erreur (temps de base pour clignotement)
-    BASE_BLINK_TIME = 0.5  # 500ms ON/OFF pour un clignotement
+    BASE_BLINK_TIME = 0.2  # 200ms ON/OFF pour un clignotement plus rapide
     CYCLE_TIME = 10.0      # Cycle de 10 secondes
     
     ERROR_PATTERNS = {
