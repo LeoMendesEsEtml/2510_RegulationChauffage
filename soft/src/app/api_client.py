@@ -25,25 +25,23 @@ class ApiError(Exception):
 class ApiClient:
     """Client pour interroger les APIs oblosolutions.ch"""
     
-    API_PATH_PREFIX = "/api"  # Peut être vide ou '/api' selon le serveur
+    API_PATH_PREFIX = ""  # Pas de préfixe, endpoints à la racine
 
     def __init__(self, mac_address: str):
         """
         Initialise le client API
-        
         :param mac_address: Adresse MAC du dispositif (ex: "0030DEABCDEF")
         """
         self.mac_address = mac_address
         self.base_url = "https://oblosolutions.ch"
-        
+
     def get_parameters(self) -> Dict[str, Any]:
         """
         Récupère les paramètres depuis l'API td25_param
-        
         :return: Dictionnaire contenant probe_type, n, k_m, temperature
         :raises ApiError: En cas d'erreur de récupération des données
         """
-        url = f"{self.base_url}{self.API_PATH_PREFIX}/td25_param"
+        url = f"{self.base_url}/td25_param"
         params = {"mac_address": self.mac_address}
         print(f"[API] GET {url} params={params}")
         
@@ -89,11 +87,10 @@ class ApiClient:
     def get_forecast(self) -> Dict[str, Any]:
         """
         Récupère la température prévue depuis l'API td25_forecast
-        
         :return: Dictionnaire contenant temperature prévue
         :raises ApiError: En cas d'erreur de récupération des données
         """
-        url = f"{self.base_url}{self.API_PATH_PREFIX}/td25_forecast"
+        url = f"{self.base_url}/td25_forecast"
         params = {"mac_address": self.mac_address}
         print(f"[API] GET {url} params={params}")
         
