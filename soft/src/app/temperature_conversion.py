@@ -125,14 +125,14 @@ def convert_temperature_to_resistance(temperature, probe_type):
         resistance = temperature_to_resistance_dynamic(temperature, normalized_probe)
         
         if resistance is None:
-            print(f"[CONV] ❌ Température {temperature:.2f}°C hors plage pour {normalized_probe}")
+            print(f"[CONV] Température {temperature:.2f}°C hors plage pour {normalized_probe}")
             return None
         
-        print(f"[CONV] ✅ Conversion réussie: {temperature:.2f}°C -> {resistance:.2f} ohms")
+        print(f"[CONV] Conversion réussie: {temperature:.2f}°C -> {resistance:.2f} ohms")
         return resistance
         
     except ValueError as e:
-        print(f"[CONV] ❌ Erreur de conversion: {e}")
+        print(f"[CONV] Erreur de conversion: {e}")
         
         # Tentative avec d'autres variantes de noms
         alternative_names = [
@@ -150,12 +150,12 @@ def convert_temperature_to_resistance(temperature, probe_type):
                 try:
                     resistance = temperature_to_resistance_dynamic(temperature, alt_name)
                     if resistance is not None:
-                        print(f"[CONV] ✅ Conversion avec nom alternatif '{alt_name}': {temperature:.2f}°C -> {resistance:.2f} ohms")
+                        print(f"[CONV] Conversion avec nom alternatif '{alt_name}': {temperature:.2f}°C -> {resistance:.2f} ohms")
                         return resistance
                 except ValueError:
                     continue
         
-        print(f"[CONV] ❌ Aucune sonde compatible trouvée pour '{probe_type}'")
+        print(f"[CONV] Aucune sonde compatible trouvée pour '{probe_type}'")
         print(f"[CONV] Sondes disponibles: {list(SENSOR_TABLES.keys())}")
         return None
 
