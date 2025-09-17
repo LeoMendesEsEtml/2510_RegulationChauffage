@@ -13,28 +13,7 @@ Ce module gère:
 import time
 from typing import Optional, List, Dict, Tuple
 from app.hw_mux_adg731 import Adg731MuxSpi
-
-# Configuration des résistances disponibles (en ohms)
-# Réseau de résistances simulées typique
-RESISTANCE_NETWORK = {
-    0: 1000,      # 1k ohm
-    1: 2200,      # 2.2k ohm  
-    2: 4700,      # 4.7k ohm
-    3: 10000,     # 10k ohm
-    4: 22000,     # 22k ohm
-    5: 47000,     # 47k ohm
-    6: 100000,    # 100k ohm
-    7: 220000,    # 220k ohm
-    8: 470000,    # 470k ohm
-    9: 1000000,   # 1M ohm
-    # Résistances parallèles pour valeurs intermédiaires
-    10: 330,      # 330 ohm
-    11: 680,      # 680 ohm
-    12: 1500,     # 1.5k ohm
-    13: 3300,     # 3.3k ohm
-    14: 6800,     # 6.8k ohm
-    15: 15000,    # 15k ohm
-}
+from app.resistance_mapping import get_channel_mux_map, find_closest_channel
 
 class ResistanceSimulationError(Exception):
     """Exception pour les erreurs de simulation de résistance"""
@@ -58,7 +37,7 @@ class ResistanceSimulator:
             self.mux = Adg731MuxSpi(speed_hz=speed_hz)
             print(f"[SIM_R] Simulateur de résistance initialisé (SPI: {speed_hz} Hz)")
         except Exception as e:
-            print(f"[SIM_R] ❌ Erreur d'initialisation du MUX: {e}")
+            print(f"[SIM_R] ERREUR d'initialisation du MUX: {e}")
             raise ResistanceSimulationError(f"Impossible d'initialiser le MUX: {e}")
     
     def close(self):
@@ -87,108 +66,55 @@ class ResistanceSimulator:
         reciprocal_sum = sum(1.0 / r for r in resistances)
         return 1.0 / reciprocal_sum
     
-    def find_best_resistance_combination(self, target_resistance: float, tolerance: float = 0.05) -> Optional[List[int]]:
-        """
-        Trouve la meilleure combinaison de résistances pour atteindre la valeur cible
-        
-        :param target_resistance: Résistance cible en ohms
-        :param tolerance: Tolérance relative (0.05 = 5%)
-        :return: Liste des canaux à activer ou None si impossible
-        """
-        best_combination = None
-        best_error = float('inf')
-        
-        # Test de toutes les combinaisons possibles (force brute optimisée)
-        max_channels = len(RESISTANCE_NETWORK)
-        
-        # Test des résistances individuelles d'abord
-        for channel, resistance in RESISTANCE_NETWORK.items():
-            error = abs(resistance - target_resistance) / target_resistance
-            if error < best_error and error <= tolerance:
-                best_error = error
-                best_combination = [channel]
-        
-        # Test des combinaisons de 2 résistances en parallèle
-        if best_error > tolerance:
-            for i in range(max_channels):
-                for j in range(i + 1, max_channels):
-                    r1 = RESISTANCE_NETWORK[i]
-                    r2 = RESISTANCE_NETWORK[j]
-                    parallel_r = self.calculate_parallel_resistance([r1, r2])
-                    
-                    error = abs(parallel_r - target_resistance) / target_resistance
-                    if error < best_error and error <= tolerance:
-                        best_error = error
-                        best_combination = [i, j]
-        
-        # Test des combinaisons de 3 résistances si nécessaire
-        if best_error > tolerance:
-            for i in range(max_channels):
-                for j in range(i + 1, max_channels):
-                    for k in range(j + 1, max_channels):
-                        r1 = RESISTANCE_NETWORK[i]
-                        r2 = RESISTANCE_NETWORK[j]
-                        r3 = RESISTANCE_NETWORK[k]
-                        parallel_r = self.calculate_parallel_resistance([r1, r2, r3])
-                        
-                        error = abs(parallel_r - target_resistance) / target_resistance
-                        if error < best_error and error <= tolerance:
-                            best_error = error
-                            best_combination = [i, j, k]
-        
-        if best_combination:
-            actual_resistance = self.get_combination_resistance(best_combination)
-            error_percent = abs(actual_resistance - target_resistance) / target_resistance * 100
-            print(f"[SIM_R] Combinaison trouvée: canaux {best_combination}")
-            print(f"[SIM_R] Résistance réelle: {actual_resistance:.1f}Ω (cible: {target_resistance:.1f}Ω)")
-            print(f"[SIM_R] Erreur: {error_percent:.1f}%")
-        
-        return best_combination
-    
-    def get_combination_resistance(self, channels: List[int]) -> float:
-        """
-        Calcule la résistance d'une combinaison de canaux
-        
-        :param channels: Liste des canaux actifs
-        :return: Résistance équivalente
-        """
-        resistances = [RESISTANCE_NETWORK[ch] for ch in channels if ch in RESISTANCE_NETWORK]
-        return self.calculate_parallel_resistance(resistances)
-    
-    def apply_resistance_simulation(self, target_resistance: float, measurement_channel: int) -> bool:
+    def apply_resistance_simulation(self, target_resistance: float, measurement_channel: int, sensor_type: str = "Ni1000 TK5000") -> bool:
         """
         Applique une résistance simulée via le MUX sur le canal de mesure spécifique
         
         :param target_resistance: Résistance à simuler en ohms
-        :param measurement_channel: Canal sur lequel la mesure a été faite (simulation sur ce même canal)
+        :param measurement_channel: Canal sur lequel la mesure a été faite (pour info seulement)
+        :param sensor_type: Type de sonde pour sélectionner la bonne carte MUX
         :return: True si succès, False sinon
         """
         print(f"\n[SIM_R] === APPLICATION RÉSISTANCE SIMULÉE ===")
         print(f"[SIM_R] Résistance cible: {target_resistance:.2f} Ω")
-        print(f"[SIM_R] Canal de simulation: {measurement_channel}")
+        print(f"[SIM_R] Canal de mesure: {measurement_channel}")
+        print(f"[SIM_R] Type de sonde: {sensor_type}")
         
         if self.mux is None:
-            print("[SIM_R] ❌ MUX non initialisé")
+            print("[SIM_R] ERREUR MUX non initialisé")
             return False
         
-        # Validation de la plage de résistance - utilisation simple du canal de mesure
-        # On simule en appliquant directement la résistance sur le canal mesuré
-        board_index = 0  # Toujours carte 0 pour les canaux de mesure
-        channel_addr = measurement_channel
+        # Trouve le canal MUX le plus proche en utilisant le mapping dynamique
+        try:
+            channel, actual_resistance, error_percent = find_closest_channel(target_resistance, sensor_type)
+            
+            if channel is None:
+                print(f"[SIM_R] ERREUR Aucun canal MUX trouvé pour {target_resistance:.1f}Ω")
+                return False
+            
+            print(f"[SIM_R] Canal MUX trouvé: {channel}")
+            print(f"[SIM_R] Résistance MUX: {actual_resistance}Ω (cible: {target_resistance:.1f}Ω)")
+            print(f"[SIM_R] Erreur: {error_percent:.1f}%")
+            
+        except KeyError as e:
+            print(f"[SIM_R] ERREUR {e}")
+            return False
         
         try:
-            print(f"[SIM_R] Application simulation sur canal {measurement_channel} (carte {board_index})")
-            self.mux.set_channel(board_index, channel_addr)
+            # Application sur le MUX (toujours carte 0)
+            board_index = 0  
+            print(f"[SIM_R] Application MUX canal {channel} (carte {board_index})")
+            self.mux.set_channel(board_index, channel)
             
             # Mémorisation de l'état actuel
-            self.active_channels = [measurement_channel]
-            self.current_resistance = target_resistance  # Résistance simulée directement
+            self.active_channels = [channel]
+            self.current_resistance = actual_resistance
             
-            print(f"[SIM_R] ✅ Résistance appliquée: {target_resistance:.2f}Ω sur canal {measurement_channel}")
+            print(f"[SIM_R] SUCCES Résistance appliquée: {actual_resistance}Ω sur canal MUX {channel}")
             return True
             
         except Exception as e:
-            print(f"[SIM_R] ❌ Erreur lors de l'application: {e}")
+            print(f"[SIM_R] ERREUR lors de l'application: {e}")
             return False
     
     def get_current_simulation(self) -> Dict[str, any]:
@@ -200,7 +126,7 @@ class ResistanceSimulator:
         return {
             "resistance": self.current_resistance,
             "active_channels": self.active_channels.copy() if self.active_channels else [],
-            "network": RESISTANCE_NETWORK.copy()
+            "mux_available": True
         }
     
     def validate_resistance_applied(self, expected_resistance: float, tolerance: float = 0.10) -> bool:
@@ -212,16 +138,16 @@ class ResistanceSimulator:
         :return: True si la résistance est dans la tolérance
         """
         if self.current_resistance is None:
-            print("[SIM_R] ❌ Aucune résistance actuellement appliquée")
+            print("[SIM_R] ERREUR Aucune résistance actuellement appliquée")
             return False
         
         error = abs(self.current_resistance - expected_resistance) / expected_resistance
         
         if error <= tolerance:
-            print(f"[SIM_R] ✅ Validation OK: {self.current_resistance:.2f}Ω (attendu: {expected_resistance:.2f}Ω, erreur: {error*100:.1f}%)")
+            print(f"[SIM_R] VALIDATION OK: {self.current_resistance:.2f}Ω (attendu: {expected_resistance:.2f}Ω, erreur: {error*100:.1f}%)")
             return True
         else:
-            print(f"[SIM_R] ❌ Validation KO: {self.current_resistance:.2f}Ω (attendu: {expected_resistance:.2f}Ω, erreur: {error*100:.1f}%)")
+            print(f"[SIM_R] VALIDATION KO: {self.current_resistance:.2f}Ω (attendu: {expected_resistance:.2f}Ω, erreur: {error*100:.1f}%)")
             return False
     
     def reset_simulation(self):
@@ -242,10 +168,10 @@ class ResistanceSimulator:
             
             self.active_channels = []
             self.current_resistance = None
-            print("[SIM_R] ✅ Simulation remise à zéro")
+            print("[SIM_R] SUCCES Simulation remise à zéro")
             
         except Exception as e:
-            print(f"[SIM_R] ❌ Erreur lors de la remise à zéro: {e}")
+            print(f"[SIM_R] ERREUR lors de la remise à zéro: {e}")
 
 # Fonction principale d'application de résistance
 def apply_resistance_simulation(resistance_ohm: float) -> bool:
@@ -260,7 +186,7 @@ def apply_resistance_simulation(resistance_ohm: float) -> bool:
         simulator = ResistanceSimulator()
         return simulator.apply_resistance_simulation(resistance_ohm)
     except Exception as e:
-        print(f"[SIM_R] ❌ Erreur dans apply_resistance_simulation: {e}")
+        print(f"[SIM_R] ERREUR dans apply_resistance_simulation: {e}")
         return False
     finally:
         if simulator:

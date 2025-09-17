@@ -200,29 +200,3 @@ def run_temperature_simulation(simulation_data: dict) -> Optional[float]:
         print(f"[SIM] Erreur inattendue: {e}")
         return None
 
-# Test du module (à des fins de développement)
-if __name__ == "__main__":
-    # Test des calculs
-    print("=== Tests du module de simulation ===")
-    
-    # Test 1: Calcul normal
-    print("\nTest 1: Calcul normal")
-    result = calculate_simulated_temperature(20.0, 25.0, 0.5, 0.1)
-    print(f"Résultat: {result}")
-    
-    # Test 2: Paramètres extrêmes
-    print("\nTest 2: Paramètres extrêmes")
-    result = calculate_simulated_temperature(0.0, 100.0, 1.0, 5.0)
-    print(f"Résultat: {result}")
-    
-    # Test 3: Simulation complète
-    print("\nTest 3: Simulation complète")
-    test_data = {
-        "probe_type": "PT1000",
-        "n": 0.3,
-        "k_m": 0.5,
-        "temperature": 22.5,
-        "forecast_temperature": 28.0
-    }
-    result = run_temperature_simulation(test_data)
-    print(f"Résultat final: {result}")
