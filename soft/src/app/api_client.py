@@ -52,23 +52,23 @@ class ApiClient:
                 if response.status_code != 200:
                     raise ApiError(f"Erreur HTTP {response.status_code}: {response.text}")
                 
-                    data = response.json()
-                    if "param" not in data or not data["param"]:
-                        raise ApiError("Champ 'param' manquant ou vide")
-                    entry = data["param"][0]
-                    probe_type = entry.get("probe_type")
-                    n = entry.get("n")
-                    k_m = entry.get("k_m")
-                    temperature = entry.get("temperature")
-                    if None in (probe_type, n, k_m, temperature):
-                        raise ApiError("Un ou plusieurs champs requis sont manquants dans la réponse API")
-                    print(f"[API] Paramètres récupérés: {entry}")
-                    return {
-                        "probe_type": probe_type,
-                        "n": n,
-                        "k_m": k_m,
-                        "temperature": temperature
-                    }
+                data = response.json()
+                if "param" not in data or not data["param"]:
+                    raise ApiError("Champ 'param' manquant ou vide")
+                entry = data["param"][0]
+                probe_type = entry.get("probe_type")
+                n = entry.get("n")
+                k_m = entry.get("k_m")
+                temperature = entry.get("temperature")
+                if None in (probe_type, n, k_m, temperature):
+                    raise ApiError("Un ou plusieurs champs requis sont manquants dans la réponse API")
+                print(f"[API] Paramètres récupérés: {entry}")
+                return {
+                    "probe_type": probe_type,
+                    "n": n,
+                    "k_m": k_m,
+                    "temperature": temperature
+                }
                 
             except requests.exceptions.RequestException as e:
                 print(f"[API] Tentative {attempt + 1}/{MAX_RETRIES} échouée: {e}")
