@@ -13,7 +13,7 @@ CONFIG_PATH = os.path.join(BASE_DIR, "config_module", "sensors.json")
 STATE_PATH = os.path.join(BASE_DIR, "state", "last_state.json")
 WEBUI_DIR = os.path.join(BASE_DIR, "webui")
 
-app = Flask(__name__, static_folder=None)
+app = Flask(__name__, static_folder=WEBUI_DIR, static_url_path="")
 
 @app.route("/", methods=["GET"])
 def serve_index():
