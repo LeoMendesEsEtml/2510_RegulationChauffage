@@ -11,17 +11,13 @@ from flask import Flask, request, jsonify, send_from_directory
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 CONFIG_PATH = os.path.join(BASE_DIR, "config_module", "sensors.json")
 STATE_PATH = os.path.join(BASE_DIR, "state", "last_state.json")
-WEBUI_DIR = os.path.join(BASE_DIR, "webui")
+WEBUI_DIR = os.path.dirname(__file__)  # Le dossier webui lui-même
 
-app = Flask(__name__, static_folder=WEBUI_DIR, static_url_path="")
+app = Flask(__name__, static_folder=WEBUI_DIR, static_url_path='/static')
 
 @app.route("/", methods=["GET"])
 def serve_index():
   return send_from_directory(WEBUI_DIR, "index.html")
-
-@app.route("/<path:filename>")
-def serve_static(filename):
-  return send_from_directory(WEBUI_DIR, filename)
 
 @app.route("/api/config", methods=["GET"])
 def get_config():

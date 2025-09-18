@@ -45,7 +45,7 @@ def start_webui_server():
     """Lance le serveur web dans un thread séparé"""
     try:
         from webui import webui_server
-        webui_server.app.run(host="0.0.0.0", port=8080, debug=False, use_reloader=False)
+        webui_server.app.run(host="192.168.1.109", port=8080, debug=False, use_reloader=False)
     except ImportError:
         print("[WEBUI] Module webui_server non trouvé")
     except Exception as e:
