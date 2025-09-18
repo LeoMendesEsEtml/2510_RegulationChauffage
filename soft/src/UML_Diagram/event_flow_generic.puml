@@ -1,80 +1,84 @@
 @startuml EventFlow
 
-' Acteurs et composants
-actor "Utilisateur" as user
-participant "Application Principale" as main
-participant "Configuration" as config
-participant "MUX" as mux
-participant "ADC" as adc
-participant "Profils Capteurs" as profiles
-participant "Convertisseur" as converter
-participant "Régulation" as regulation
-participant "API Externe" as api
-participant "Interface E/S" as io
-participant "Gestionnaire Erreurs" as errorhandler
-participant "Tâches Planifiées" as scheduler
+' Acteurs et composants logiques
+actor "Opérateur" as user
+participant "Système Central" as main
+participant "Gestionnaire Config" as config
+participant "Sélecteur Canaux" as selector
+participant "Capteur Acquisition" as sensor
+participant "Tables Conversion" as tables
+participant "Moteur Calcul" as calculator
+participant "Algorithme Régulation" as regulation
+participant "Interface Réseau" as network
+participant "Contrôleur E/S" as io
+participant "Superviseur Erreurs" as monitor
+participant "Ordonnanceur" as scheduler
 
 ' Séquence d'initialisation
-== Initialisation ==
-user -> main : Démarrage système
-main -> config : Charger configuration
-config --> main : Configuration chargée
-main -> io : Initialiser interfaces matérielles
-main -> mux : Initialiser multiplexeur
-main -> adc : Initialiser convertisseur
+== Phase d'Initialisation ==
+user -> main : Lancement du système
+main -> config : Chargement paramètres
+config --> main : Paramètres système
+main -> io : Initialisation matériel
+main -> selector : Configuration multiplexage
+main -> sensor : Préparation acquisition
 
 ' Séquence de cycle principal
-== Cycle Principal ==
-main -> scheduler : Démarrer planificateur
-scheduler -> scheduler : Exécuter tâches périodiques
+== Cycle Opérationnel ==
+main -> scheduler : Activation planification
+scheduler -> scheduler : Exécution cycles automatiques
 
 ' Séquence de mesure
-== Cycle de Mesure ==
-group Acquisition des Mesures
-    main -> io : Lire contacts secs
-    io --> main : États des contacts
+== Phase d'Acquisition ==
+group Collecte des Données
+    main -> io : Lecture états binaires
+    io --> main : États système
     
-    loop Pour Chaque Canal de Température
-        main -> mux : Sélectionner carte et canal
-        main -> adc : Configurer (gain, vitesse, référence)
-        main -> adc : Configurer sources de courant
-        main -> adc : Configurer sélection de canal
-        main -> adc : Démarrer conversion
-        main -> adc : Attendre données prêtes
-        adc --> main : Mesure brute
-        main -> adc : Convertir en ratio/résistance
-        adc --> main : Valeur de ratio/résistance
-        main -> converter : Convertir en température
-        converter --> main : Valeur de température
+    loop Pour Chaque Point de Mesure
+        main -> selector : Sélection canal physique
+        main -> sensor : Configuration paramètres acquisition
+        main -> sensor : Réglage amplification
+        main -> sensor : Configuration référence
+        main -> sensor : Démarrage mesure
+        main -> sensor : Attente fin conversion
+        sensor --> main : Valeur brute
+        main -> calculator : Conversion en grandeur physique
+        calculator --> main : Valeur résistance
+        main -> tables : Recherche correspondance
+        tables --> main : Valeur température
     end
 end
 
 ' Séquence de régulation
-== Régulation ==
-group Cycle de Régulation
-    main -> api : Obtenir paramètres
-    api --> main : Paramètres (N, kM, Tprévue)
-    main -> regulation : réguler(Tmes, paramètres)
-    regulation --> main : Commandes de contrôle
-    main -> io : Appliquer commandes
-    main -> api : Envoyer mesures et état
+== Phase de Régulation ==
+group Cycle de Contrôle
+    main -> network : Récupération paramètres distants
+    network --> main : Coefficients de régulation
+    main -> regulation : Application algorithme prédictif
+    regulation --> main : Consignes de commande
+    main -> calculator : Calcul simulation température
+    calculator --> main : Valeur température simulée
+    main -> tables : Conversion en grandeur électrique
+    tables --> main : Valeur résistance simulée
+    main -> io : Application simulation physique
+    main -> network : Transmission données système
 end
 
 ' Séquence de traitement d'erreur
-== Gestion des Erreurs ==
-group Traitement d'Erreur
-    main -> errorhandler : Signaler erreur
-    errorhandler -> io : Mettre en état sécurisé
-    errorhandler -> io : Indiquer erreur
-    errorhandler -> main : État d'erreur
-    main -> api : Envoyer information d'erreur
+== Gestion des Anomalies ==
+group Traitement des Erreurs
+    main -> monitor : Détection problème
+    monitor -> io : Activation mode sécurisé
+    monitor -> io : Signalisation état
+    monitor -> main : Notification erreur
+    main -> network : Remontée information problème
 end
 
 ' Séquence d'arrêt
-== Arrêt Système ==
-user -> main : Signal d'arrêt
-main -> adc : Arrêter conversions
-main -> adc : Mise en veille
-main -> io : Libérer ressources
+== Phase d'Arrêt ==
+user -> main : Demande arrêt système
+main -> sensor : Arrêt acquisitions
+main -> sensor : Mise en veille composants
+main -> io : Libération ressources matérielles
 
 @enduml

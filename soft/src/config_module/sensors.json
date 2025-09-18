@@ -33,7 +33,7 @@
   "_comment_section_channels": "--- Configuration des canaux de mesure ---",
   "channels": [
     {
-      "_comment_channel_1": "Canal 1 - Configuration du premier capteur de température",
+      "_comment_channel_1": "Canal 1 - Configuration du premier capteur",
       "channel": 1,
       "_comment_channel_num": "Numéro de canal physique sur le multiplexeur ADC",
       "sensor": "Ni1000 TK5000",
@@ -42,19 +42,19 @@
       "_comment_enabled": "État d'activation du canal. true = mesures actives, false = canal ignoré"
     },
     {
-      "_comment_channel_2": "Canal 2 - Configuration du deuxième capteur (désactivé)",
+      "_comment_channel_2": "Canal 2 - Configuration du deuxième capteur ",
       "channel": 2,
       "sensor": "Ni1000 TK5000",
       "enabled": false
     },
     {
-      "_comment_channel_3": "Canal 3 - Configuration du troisième capteur (désactivé)",
+      "_comment_channel_3": "Canal 3 - Configuration du troisième capteur",
       "channel": 3,
       "sensor": "Ni1000 TK5000",
       "enabled": false
     },
     {
-      "_comment_channel_4": "Canal 4 - Configuration du quatrième capteur (désactivé)",
+      "_comment_channel_4": "Canal 4 - Configuration du quatrième capteur",
       "channel": 4,
       "sensor": "Ni1000 TK5000",
       "enabled": false
