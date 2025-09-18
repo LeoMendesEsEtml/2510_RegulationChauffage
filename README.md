@@ -30,6 +30,112 @@ Le système lit des sondes réelles, calcule une température « simulée » à 
 - Service **systemd** et logs JSON rotatifs
 - Simulation et validation complète des mesures
 
+## Commandes principales
+
+### Lancement manuel
+```bash
+# Mode automatique avec cycles 5 minutes
+python3 /home/oblo/proj/2510_RegulationChauffage_soft/soft/src/app/main.py
+
+# Mode manuel avec interface web
+python3 /home/oblo/proj/2510_RegulationChauffage_soft/soft/src/app/main.py --webui
+
+# Mode manuel sans cycles automatiques
+python3 /home/oblo/proj/2510_RegulationChauffage_soft/soft/src/app/main.py --manual
+
+# Exécution unique (test)
+python3 /home/oblo/proj/2510_RegulationChauffage_soft/soft/src/app/main.py --once
+```
+
+### Service systemd (production)
+```bash
+# Créer le fichier de service
+sudo tee /etc/systemd/system/2510-regulation.service > /dev/null << 'EOF'
+[Unit]
+Description=2510 Regulation Chauffage Service
+After=network.target
+Wants=network.target
+
+[Service]
+Type=simple
+User=oblo
+Group=oblo
+WorkingDirectory=/home/oblo/proj/2510_RegulationChauffage_soft/soft/src
+ExecStart=/usr/bin/python3 /home/oblo/proj/2510_RegulationChauffage_soft/soft/src/app/main.py
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+Environment=PYTHONPATH=/home/oblo/proj/2510_RegulationChauffage_soft/soft/src
+Environment=HOME=/home/oblo
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+# Activer et démarrer le service
+sudo systemctl daemon-reload
+sudo systemctl enable 2510-regulation
+sudo systemctl start 2510-regulation
+```
+
+### Contrôle du service
+```bash
+# Vérifier le statut du service
+sudo systemctl status 2510-regulation
+
+# Vérifier si le service est actif
+sudo systemctl is-active 2510-regulation
+
+# Arrêter le service
+sudo systemctl stop 2510-regulation
+
+# Redémarrer le service
+sudo systemctl restart 2510-regulation
+
+# Voir les logs en temps réel
+sudo journalctl -u 2510-regulation -f
+
+# Voir les derniers logs
+sudo journalctl -u 2510-regulation -n 50
+```
+
+### Monitoring et diagnostic
+```bash
+# Vérifier le processus Python
+ps aux | grep main.py
+
+# Vérifier l'interface web (port 8080)
+curl -s http://localhost:8080 > /dev/null && echo "Interface web active" || echo "Interface web inaccessible"
+
+# Vérifier les ports d'écoute
+sudo ss -tlnp | grep 8080
+
+# Status complet en une commande
+echo "Service:" && sudo systemctl is-active 2510-regulation && echo "Process:" && ps aux | grep -v grep | grep main.py && echo "Port 8080:" && sudo ss -tlnp | grep 8080
+```
+
+## Installation et déploiement
+
+### Installation système
+```bash
+# Dépendances système
+sudo apt update
+sudo apt install python3-pip python3-venv
+
+# Dépendances Python
+pip3 install spidev periphery requests flask
+
+# Configuration SPI
+sudo raspi-config  # Activer SPI0 et SPI1
+```
+
+### Accès interface web
+- **URL locale** : `http://192.168.1.109:8080`
+- **Configuration** : Types capteurs, timeouts, intervalles
+- **Monitoring** : Données temps réel, historique des mesures
+- **API REST** : `/api/config`, `/api/state`
+
 ## Flux opératoire (cycle 5 min)
 
 ### Séquence de mesure
@@ -51,60 +157,11 @@ Le système lit des sondes réelles, calcule une température « simulée » à 
 - **Relais bypass** - Sécurité en cas de défaut
 - **Logs JSON** - Traçabilité complète des événements
 
-## Interface utilisateur et contrôle
-
-### Interface web intégrée
-- **URL locale** : `http://192.168.1.109:8080`
-- **Configuration** : Types capteurs, timeouts, intervalles
-- **Monitoring** : Données temps réel, historique des mesures
-- **API REST** : `/api/config`, `/api/state`
-
-### Types de capteurs supportés
+## Types de capteurs supportés
 - **De Dietrich AF60**, **Siemens QAC32**
 - **PT1000**, **Ni1000 TK5000/TK6180**
 - **NTC 1k/2k/2.2k/10k** (diverses courbes)
 - **KTY81-210**
-
-## Installation et déploiement
-
-### Installation système
-```bash
-# Dépendances système
-sudo apt update
-sudo apt install python3-pip python3-venv
-
-# Dépendances Python
-pip3 install spidev periphery requests flask
-
-# Configuration SPI
-sudo raspi-config  # Activer SPI0 et SPI1
-```
-
-### Lancement du système
-```bash
-# Mode automatique avec cycles 5 minutes
-python3 /home/oblo/proj/2510_RegulationChauffage_soft/soft/src/app/main.py
-
-# Mode manuel avec interface web
-python3 /home/oblo/proj/2510_RegulationChauffage_soft/soft/src/app/main.py --webui
-
-# Mode manuel sans cycles automatiques
-python3 /home/oblo/proj/2510_RegulationChauffage_soft/soft/src/app/main.py --manual
-
-# Exécution unique (test)
-python3 /home/oblo/proj/2510_RegulationChauffage_soft/soft/src/app/main.py --once
-```
-
-### Service systemd (production)
-```bash
-# Installation service automatique
-sudo cp 2510-regulation.service /etc/systemd/system/
-sudo systemctl enable 2510-regulation
-sudo systemctl start 2510-regulation
-
-# Vérification statut
-sudo systemctl status 2510-regulation
-```
 
 ## API et connectivité
 
@@ -149,44 +206,59 @@ sudo systemctl status 2510-regulation
 | **FRONT LED**        | 26    | Indicateur état            | Status visuel système     |
 | **CMD RELAY**        | 16    | Relais bypass              | Sécurité défaillance      |
 
-## Validation et diagnostics
+## Fichiers de configuration et état
 
-### Tests système
-- **Communication ADC** : Vérification SPI et conversion
-- **Simulation résistance** : Validation calculs et MUX
-- **API connectivity** : Test endpoints oblosolutions.ch
-- **Temperature accuracy** : Calibration capteurs
+### Fichiers système
+```bash
+# Configuration capteurs
+/home/oblo/proj/2510_RegulationChauffage_soft/soft/src/config_module/sensors.json
+
+# État système (dernières mesures)
+/home/oblo/proj/2510_RegulationChauffage_soft/soft/src/state/last_state.json
+
+# Logs système
+sudo journalctl -u 2510-regulation
+
+# Configuration service
+/etc/systemd/system/2510-regulation.service
+```
 
 ### Monitoring système
-- **État système** : last_state.json (dernières mesures)
 - **Patterns LED** : 
   - 1Hz : Fonctionnement normal
   - 2Hz : Erreur système
   - Fixe : Mode manuel
-- **Interface web** : Dashboard temps réel
+- **Interface web** : Dashboard temps réel à `http://192.168.1.109:8080`
 - **Logs JSON** : Historique complet des événements
 
-### Sécurité et robustesse
-- **Gestion d'exceptions** : Toutes les communications
-- **Validation paramètres** : Avant simulation résistance
-- **Timeouts configurables** : API et communications série
-- **État de repli** : Relais bypass en cas d'erreur critique
-- **Watchdog logiciel** : Redémarrage automatique
+## Validation et diagnostics
 
-## Conformité hardware
+### Tests système
+```bash
+# Test communication ADC
+python3 -c "from app.adc_ads124s08 import *; print('ADC Test')"
 
-### Checklist CEM
-- **Découplage** : Condensateurs proche de chaque IC
-- **Plans de masse** : Retour propre autour ADC
-- **Routage SPI** : Longueurs égalisées, impédance contrôlée
-- **Réseau résistif** : Tolérances 0.1%, TCR < 25ppm/°C
-- **Testpoints** : Tous signaux critiques accessibles
+# Test interface web
+curl http://localhost:8080/api/state
 
-### Points de mesure
-- **Signaux SPI** : DRDY, SCLK, MOSI, MISO, CS
-- **Alimentations** : 3.3V, 5V, 24V
-- **Références** : Rref, AVDD, AVSS
-- **GPIO** : A0, A1, contrôles multiplexeurs
+# Test API oblosolutions (si connecté)
+curl "http://api.oblosolutions.ch/td25_param?mac_address=YOUR_MAC"
+```
+
+### Troubleshooting
+```bash
+# Vérifier SPI activé
+ls /dev/spi*
+
+# Vérifier permissions GPIO
+groups oblo
+
+# Redémarrer service en cas de problème
+sudo systemctl restart 2510-regulation
+
+# Logs détaillés
+sudo journalctl -u 2510-regulation --since "1 hour ago"
+```
 
 ---
 
