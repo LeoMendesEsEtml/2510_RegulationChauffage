@@ -244,19 +244,6 @@ sudo journalctl -u 2510-regulation
 - Dashboard temps réel à `http://192.168.1.109:8080`
 
 ## Validation et diagnostics
-
-### Tests système
-```bash
-# Test communication ADC
-python3 -c "from app.adc_ads124s08 import *; print('ADC Test')"
-
-# Test interface web
-curl http://localhost:8080/api/state
-
-# Test API oblosolutions (si connecté)
-curl "http://api.oblosolutions.ch/td25_param?mac_address=YOUR_MAC"
-```
-
 ### Troubleshooting
 ```bash
 # Vérifier SPI activé
