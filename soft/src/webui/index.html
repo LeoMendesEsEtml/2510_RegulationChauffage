@@ -15,26 +15,17 @@
   button { padding: 8px 12px; margin: 4px; cursor: pointer; }
   .info-box { background: #f0f8ff; border-left: 4px solid #2196F3; padding: 10px; margin: 10px 0; }
   .channel-info { background: #f9f9f9; padding: 8px; margin: 4px 0; border-radius: 4px; }
-  .logo-placeholder { 
+  .logo { 
     width: 50px; 
     height: 50px; 
-    background: linear-gradient(135deg, #666, #999); 
-    border-radius: 8px; 
-    display: flex; 
-    align-items: center; 
-    justify-content: center; 
-    font-size: 10px; 
-    font-weight: bold;
-    color: white;
     margin-right: 15px;
-    border: 2px solid #ccc;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    object-fit: contain;
   }
 </style>
 </head>
 <body>
 <header style="display: flex; align-items: center; margin-bottom: 20px; padding: 10px; border-bottom: 2px solid #ddd;">
-  <div class="logo-placeholder">OBLO</div>
+  <img src="oblo_vignette.png" alt="OBLO Logo" class="logo">
   <h1 style="margin: 0;">CM5 WebUI</h1>
 </header>
 
@@ -65,12 +56,6 @@
   </div>
 
   <div class="param-group">
-    <div class="param-label">Délai de boucle principale (secondes)</div>
-    <div class="param-desc">Pause dans la boucle principale du programme. Affecte la réactivité système. Valeur recommandée: 1.0s.</div>
-    <input id="loop_sleep_s" type="number" step="0.001" min="0" max="60" class="param-input">
-  </div>
-
-  <div class="param-group">
     <div class="param-label">Intervalle des séquences automatiques (minutes)</div>
     <div class="param-desc">Fréquence d'exécution automatique des mesures complètes. 0 = désactivé. Valeur recommandée: 5 min.</div>
     <input id="sequence_interval_minutes" type="number" step="1" min="0" max="1440" class="param-input">
@@ -83,15 +68,6 @@
   </div>
 
   <h3>Configuration des canaux de mesure</h3>
-  <div class="info-box">
-    <strong>Types de capteurs supportés:</strong><br>
-    • <strong>De Dietrich AF60:</strong> Capteur de température industriel<br>
-    • <strong>Siemens QAC32:</strong> Capteur de température ambiante<br>
-    • <strong>PT1000:</strong> Sonde platine haute précision (-200°C à +850°C)<br>
-    • <strong>Ni1000 TK5000/TK6180:</strong> Sonde nickel standard/haute précision<br>
-    • <strong>NTC (1k, 2k, 2.2k, 10k):</strong> Thermistances à coefficient négatif<br>
-    • <strong>KTY81-210:</strong> Capteur silicium linéaire
-  </div>
 
   <table id="channels_table" border="1" cellpadding="4">
     <thead>
@@ -99,7 +75,6 @@
         <th>Canal</th>
         <th>Type de capteur</th>
         <th>État</th>
-        <th>Description</th>
       </tr>
     </thead>
     <tbody id="channels_body"></tbody>
@@ -167,22 +142,6 @@ function numberOrNull(value) {
   return n;
 }
 
-function getSensorDescription(sensorName) {
-  var descriptions = {
-    "De Dietrich AF60": "Capteur industriel pour chaudières, plage: -30°C à +130°C",
-    "Siemens QAC32": "Capteur température ambiante, plage: -35°C à +35°C", 
-    "PT1000": "Sonde platine haute précision, plage: -200°C à +850°C",
-    "Ni1000 TK5000": "Sonde nickel standard, plage: -60°C à +250°C",
-    "Ni1000 TK6180": "Sonde nickel haute précision, plage: -60°C à +250°C",
-    "NTC 1k 3528": "Thermistance 1kΩ, courbe β=3528K, plage: -40°C à +125°C",
-    "KTY81-210": "Capteur silicium linéaire, plage: -55°C à +150°C",
-    "NTC 2k 3390": "Thermistance 2kΩ, courbe β=3390K, plage: -40°C à +125°C",
-    "NTC 2.2k 3528": "Thermistance 2.2kΩ, courbe β=3528K, plage: -40°C à +125°C",
-    "NTC 10k 3977": "Thermistance 10kΩ, courbe β=3977K, plage: -40°C à +125°C"
-  };
-  return descriptions[sensorName] || "Capteur non documenté";
-}
-
 function loadConfig() {
   fetch("/api/config").then(function(resp) {
     return resp.json();
@@ -191,7 +150,6 @@ function loadConfig() {
     el("mac_address").value = data.mac_address || "";
     el("timeout_s").value = data.timeout_s;
     el("inter_measure_sleep_s").value = data.inter_measure_sleep_s;
-    el("loop_sleep_s").value = data.loop_sleep_s;
     el("sequence_interval_minutes").value = data.sequence_interval_minutes;
     el("auto_sequence").checked = !!data.auto_sequence;
 
@@ -251,13 +209,6 @@ function loadConfig() {
         tdEn.appendChild(label);
         tr.appendChild(tdEn);
 
-        // Colonne description
-        var tdDesc = document.createElement("td");
-        tdDesc.innerHTML = "<small>" + getSensorDescription(ch.sensor) + "</small>";
-        tdDesc.style.fontSize = "0.8em";
-        tdDesc.style.color = "#666";
-        tr.appendChild(tdDesc);
-
         body.appendChild(tr);
         i = i + 1;
       }
@@ -277,9 +228,6 @@ function collectConfigFromForm() {
 
   var ims = Number(el("inter_measure_sleep_s").value);
   cfg.inter_measure_sleep_s = ims;
-
-  var lps = Number(el("loop_sleep_s").value);
-  cfg.loop_sleep_s = lps;
 
   var sim = Number(el("sequence_interval_minutes").value);
   cfg.sequence_interval_minutes = sim;
@@ -317,10 +265,6 @@ function saveConfig() {
   }
   if (cfg.inter_measure_sleep_s < 0) {
     el("save_status").textContent = "inter_measure_sleep_s invalide";
-    return;
-  }
-  if (cfg.loop_sleep_s < 0) {
-    el("save_status").textContent = "loop_sleep_s invalide";
     return;
   }
   if (cfg.sequence_interval_minutes < 0) {
