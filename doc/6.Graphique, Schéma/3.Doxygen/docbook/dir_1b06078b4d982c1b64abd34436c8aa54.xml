@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_dir_1b06078b4d982c1b64abd34436c8aa54" xml:lang="fr">
+<title>Répertoire de référence de C:/Users/thebi/Documents/2510_RegulationChauffage</title>
+<indexterm><primary>Répertoire de référence de C:/Users/thebi/Documents/2510_RegulationChauffage</primary></indexterm>
+Graphe des dépendances de répertoires pour 2510_RegulationChauffage:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="dir_1b06078b4d982c1b64abd34436c8aa54_dep.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+<simplesect>
+    <title>Répertoires    </title>
+        <itemizedlist>
+            <listitem><para>répertoire <link linkend="_dir_9ce5bac9cd81f23a20cf451fc30b31c2">doc</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+</section>

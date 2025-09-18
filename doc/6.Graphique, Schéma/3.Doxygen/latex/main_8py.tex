@@ -1,0 +1,65 @@
+\doxysection{Référence du fichier C\+:/\+Users/thebi/\+Documents/2510\+\_\+\+Regulation\+Chauffage/doc/9.Soft\+Ware/\+Doxygen/src/app/main.py}
+\hypertarget{main_8py}{}\label{main_8py}\index{C:/Users/thebi/Documents/2510\_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/main.py@{C:/Users/thebi/Documents/2510\_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/main.py}}
+
+
+Système de mesure et simulation de température.  
+
+
+\doxysubsubsection*{Espaces de nommage}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespaceapp}{app}}
+\item 
+namespace \mbox{\hyperlink{namespaceapp_1_1main}{app.\+main}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Fonctions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceapp_1_1main_ad21574e7873c2ce3e62f3b74e9a10f6a}{app.\+main.\+start\+\_\+webui\+\_\+server}} ()
+\begin{DoxyCompactList}\small\item\em Lance le serveur web local dans un thread séparé. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespaceapp_1_1main_a7e7d269529399106243cc74fc3c73b6a}{app.\+main.\+save\+\_\+last\+\_\+state}} (channel=None, resistance\+\_\+ohm=None, temperature\+\_\+c=None, temperature\+\_\+sim\+\_\+c=None, error=None)
+\begin{DoxyCompactList}\small\item\em Sauvegarde l\textquotesingle{}état courant et historique par canal dans un fichier JSON. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespaceapp_1_1main_abe819be4d1d22ae06c4753392322a35b}{app.\+main.\+signal\+\_\+handler}} (sig, frame)
+\begin{DoxyCompactList}\small\item\em Gestionnaire POSIX pour les signaux (Ctrl+C). \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespaceapp_1_1main_ab98791c04a040ea7d728c8cda86d0677}{app.\+main.\+input\+\_\+monitor}} ()
+\begin{DoxyCompactList}\small\item\em Thread d\textquotesingle{}écoute des commandes utilisateur depuis stdin. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespaceapp_1_1main_a1b3211e7ab2da62ed461ce881f0ce556}{app.\+main.\+show\+\_\+error\+\_\+and\+\_\+continue}} (error\+\_\+pattern, sleep\+\_\+time=2)
+\begin{DoxyCompactList}\small\item\em Affiche un motif LED d\textquotesingle{}erreur pendant un temps donné puis remet l\textquotesingle{}indicateur en mode \textquotesingle{}sequence\+\_\+running\textquotesingle{}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespaceapp_1_1main_abde8d10de044e070eb5eab1e448cd558}{app.\+main.\+run\+\_\+measurement\+\_\+sequence}} (cfg, mac\+\_\+address, adc, tmux)
+\begin{DoxyCompactList}\small\item\em Exécute une séquence complète de mesures pour tous les canaux activés selon la configuration fournie. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespaceapp_1_1main_a2d15309f12a3472b94e8cace0ace5a6b}{app.\+main.\+reload\+\_\+timing\+\_\+config}} ()
+\begin{DoxyCompactList}\small\item\em Recharge les paramètres de temporisation depuis le fichier de configuration. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespaceapp_1_1main_a3e4dda2887e910e984519bea9a420dc2}{app.\+main.\+main}} ()
+\begin{DoxyCompactList}\small\item\em Point d\textquotesingle{}entrée principal du programme. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceapp_1_1main_aff7cd4e0e9d7b9068e94858a4c527314}{app.\+main.\+CURRENT\+\_\+\+DIR}} = os.\+path.\+dirname(os.\+path.\+abspath(\+\_\+\+\_\+file\+\_\+\+\_\+))
+\item 
+\mbox{\hyperlink{namespaceapp_1_1main_ad64332bd025eb979f3c8b5aa2267bfd3}{app.\+main.\+SRC\+\_\+\+DIR}} = os.\+path.\+dirname(\mbox{\hyperlink{namespaceapp_1_1main_aff7cd4e0e9d7b9068e94858a4c527314}{CURRENT\+\_\+\+DIR}})
+\item 
+bool \mbox{\hyperlink{namespaceapp_1_1main_a4a86ee89abd84627e36c0320969924ac}{app.\+main.\+sequencer\+\_\+running}} = False
+\item 
+\mbox{\hyperlink{namespaceapp_1_1main_a35b15b3661aab25e707f368b9d8999ec}{app.\+main.\+stop\+\_\+event}} = threading.\+Event()
+\item 
+\mbox{\hyperlink{namespaceapp_1_1main_adcd9b846c9a069d44dad6fb465d9840c}{app.\+main.\+force\+\_\+sequence}} = threading.\+Event()
+\item 
+\mbox{\hyperlink{namespaceapp_1_1main_a0d1f132bf1e682ae958346b489d89772}{app.\+main.\+led\+\_\+indicator}} = None
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+Système de mesure et simulation de température. 
+
+Ce module exécute des cycles de mesure ADC, convertit les valeurs en résistances puis en températures, récupère des paramètres via une API distante, calcule une température simulée, convertit cette température en résistance cible et applique la simulation via un multiplexeur matériel. Le module gère également un petit serveur web optionnel et un indicateur LED. \begin{DoxyAuthor}{Auteur}
+Léo Mendes @project 2510\+\_\+\+Regulations\+Chauffage @\+Mandant Oblo\+\_\+solution 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2025-\/09-\/18 
+\end{DoxyDate}
+\begin{DoxyVersion}{Version}
+1.\+0.\+0 
+\end{DoxyVersion}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2025 
+\end{DoxyCopyright}

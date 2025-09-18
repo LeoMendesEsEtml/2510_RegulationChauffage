@@ -1,0 +1,111 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="fr">
+  <compounddef id="_c_1_2_users_2thebi_2_documents_22510__regulation_chauffage_2doc_29_8_soft_ware_2_doxygen_2src_2app_2config_loader_8py-example" kind="example">
+    <compoundname>C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/config_loader.py</compoundname>
+    <briefdescription>
+<para>Charge un fichier de configuration JSON. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Charge un fichier de configuration JSON. Vérifie l&apos;existence du fichier, l&apos;ouvre en UTF-8 et parse le contenu JSON. Le format attendu inclut les timeouts, délais entre mesures et configuration des canaux de capteurs.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>path</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Chemin vers le fichier de configuration JSON.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Dictionnaire Python contenant les données de configuration.</para>
+</simplesect>
+<parameterlist kind="exception"><parameteritem>
+<parameternamelist>
+<parametername>FileNotFoundError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Si le fichier n&apos;existe pas. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>json.JSONDecodeError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Si le fichier n&apos;est pas un JSON valide.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+Format JSON attendu: <programlisting><codeline><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="stringliteral">&quot;timeout_s&quot;</highlight><highlight class="normal">:<sp/>180,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="stringliteral">&quot;inter_measure_sleep_s&quot;</highlight><highlight class="normal">:<sp/>0.1,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="stringliteral">&quot;loop_sleep_s&quot;</highlight><highlight class="normal">:<sp/>1.0,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="stringliteral">&quot;channels&quot;</highlight><highlight class="normal">:<sp/>[</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>{<sp/></highlight><highlight class="stringliteral">&quot;channel&quot;</highlight><highlight class="normal">:<sp/>1,<sp/></highlight><highlight class="stringliteral">&quot;sensor&quot;</highlight><highlight class="normal">:<sp/></highlight><highlight class="stringliteral">&quot;Ni1000<sp/>TK5000&quot;</highlight><highlight class="normal"><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>]</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+</programlisting> <programlisting filename="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/config_loader.py"><codeline><highlight class="comment">#<sp/>-*-<sp/>coding:<sp/>utf-8<sp/>-*-</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="stringliteral">&quot;&quot;&quot;</highlight></codeline>
+<codeline><highlight class="stringliteral">@file<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>config_loader.py</highlight></codeline>
+<codeline><highlight class="stringliteral">@brief<sp/><sp/><sp/><sp/><sp/><sp/><sp/>Chargeur<sp/>de<sp/>configuration<sp/>JSON<sp/>pour<sp/>le<sp/>système<sp/>de<sp/>mesure.</highlight></codeline>
+<codeline><highlight class="stringliteral">@details<sp/><sp/><sp/><sp/><sp/>Ce<sp/>module<sp/>fournit<sp/>une<sp/>fonction<sp/>simple<sp/>pour<sp/>charger<sp/>et<sp/>parser</highlight></codeline>
+<codeline><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>un<sp/>fichier<sp/>de<sp/>configuration<sp/>JSON<sp/>contenant<sp/>les<sp/>paramètres</highlight></codeline>
+<codeline><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>des<sp/>capteurs,<sp/>timeouts<sp/>et<sp/>autres<sp/>paramètres<sp/>système.</highlight></codeline>
+<codeline><highlight class="stringliteral">@author<sp/><sp/><sp/><sp/><sp/><sp/>Léo<sp/>Mendes</highlight></codeline>
+<codeline><highlight class="stringliteral">@project<sp/><sp/><sp/><sp/><sp/>2510_RegulationsChauffage</highlight></codeline>
+<codeline><highlight class="stringliteral">@Mandant<sp/><sp/><sp/><sp/><sp/>Oblo_solution</highlight></codeline>
+<codeline><highlight class="stringliteral">@date<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2025-09-18</highlight></codeline>
+<codeline><highlight class="stringliteral">@version<sp/><sp/><sp/><sp/><sp/>1.0.0</highlight></codeline>
+<codeline><highlight class="stringliteral">@copyright<sp/><sp/><sp/>Copyright<sp/>(c)<sp/>2025</highlight></codeline>
+<codeline><highlight class="stringliteral">&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/>__future__<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>annotations</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="comment">#<sp/>Sérialisation/désérialisation<sp/>JSON</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>json</highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="comment">#<sp/>Opérations<sp/>sur<sp/>les<sp/>chemins<sp/>et<sp/>fichiers</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>os</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="comment">#<sp/>---------------------------------------------------------------------------</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="comment">#<sp/>Fonctions<sp/>utilitaires</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="comment">#<sp/>---------------------------------------------------------------------------</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">load_config(path):</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;</highlight></codeline>
+<codeline><highlight class="stringliteral"><sp/><sp/><sp/><sp/>@brief<sp/><sp/><sp/>Charge<sp/>un<sp/>fichier<sp/>de<sp/>configuration<sp/>JSON.</highlight></codeline>
+<codeline><highlight class="stringliteral"><sp/><sp/><sp/><sp/>@details<sp/>Vérifie<sp/>l&apos;existence<sp/>du<sp/>fichier,<sp/>l&apos;ouvre<sp/>en<sp/>UTF-8<sp/>et<sp/>parse</highlight></codeline>
+<codeline><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>le<sp/>contenu<sp/>JSON.<sp/>Le<sp/>format<sp/>attendu<sp/>inclut<sp/>les<sp/>timeouts,</highlight></codeline>
+<codeline><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>délais<sp/>entre<sp/>mesures<sp/>et<sp/>configuration<sp/>des<sp/>canaux<sp/>de<sp/>capteurs.</highlight></codeline>
+<codeline><highlight class="stringliteral"></highlight></codeline>
+<codeline><highlight class="stringliteral"><sp/><sp/><sp/><sp/>@param<sp/><sp/><sp/>path<sp/>Chemin<sp/>vers<sp/>le<sp/>fichier<sp/>de<sp/>configuration<sp/>JSON.</highlight></codeline>
+<codeline><highlight class="stringliteral"></highlight></codeline>
+<codeline><highlight class="stringliteral"><sp/><sp/><sp/><sp/>@return<sp/><sp/>Dictionnaire<sp/>Python<sp/>contenant<sp/>les<sp/>données<sp/>de<sp/>configuration.</highlight></codeline>
+<codeline><highlight class="stringliteral"></highlight></codeline>
+<codeline><highlight class="stringliteral"><sp/><sp/><sp/><sp/>@exception<sp/>FileNotFoundError<sp/>Si<sp/>le<sp/>fichier<sp/>n&apos;existe<sp/>pas.</highlight></codeline>
+<codeline><highlight class="stringliteral"><sp/><sp/><sp/><sp/>@exception<sp/>json.JSONDecodeError<sp/>Si<sp/>le<sp/>fichier<sp/>n&apos;est<sp/>pas<sp/>un<sp/>JSON<sp/>valide.</highlight></codeline>
+<codeline><highlight class="stringliteral"></highlight></codeline>
+<codeline><highlight class="stringliteral"><sp/><sp/><sp/><sp/>@example</highlight></codeline>
+<codeline><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/>Format<sp/>JSON<sp/>attendu:</highlight></codeline>
+<codeline><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;timeout_s&quot;:<sp/>180,</highlight></codeline>
+<codeline><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;inter_measure_sleep_s&quot;:<sp/>0.1,</highlight></codeline>
+<codeline><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;loop_sleep_s&quot;:<sp/>1.0,</highlight></codeline>
+<codeline><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;channels&quot;:<sp/>[</highlight></codeline>
+<codeline><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>&quot;channel&quot;:<sp/>1,<sp/>&quot;sensor&quot;:<sp/>&quot;Ni1000<sp/>TK5000&quot;<sp/>}</highlight></codeline>
+<codeline><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>]</highlight></codeline>
+<codeline><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="stringliteral"><sp/><sp/><sp/><sp/>&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Vérification<sp/>de<sp/>l&apos;existence<sp/>du<sp/>fichier</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>os.path.exists(path)<sp/></highlight><highlight class="keywordflow">is</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">False</highlight><highlight class="normal">:</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Lever<sp/>une<sp/>exception<sp/>si<sp/>le<sp/>fichier<sp/>n&apos;existe<sp/>pas</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">raise</highlight><highlight class="normal"><sp/>FileNotFoundError(</highlight><highlight class="stringliteral">&quot;Config<sp/>introuvable:<sp/>&quot;</highlight><highlight class="normal"><sp/>+<sp/>str(path))</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Ouverture<sp/>et<sp/>lecture<sp/>du<sp/>fichier<sp/>JSON</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">with</highlight><highlight class="normal"><sp/>open(path,<sp/></highlight><highlight class="stringliteral">&quot;r&quot;</highlight><highlight class="normal">,<sp/>encoding=</highlight><highlight class="stringliteral">&quot;utf-8&quot;</highlight><highlight class="normal">)<sp/></highlight><highlight class="keyword">as</highlight><highlight class="normal"><sp/>f:</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Parsing<sp/>du<sp/>contenu<sp/>JSON</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>data<sp/>=<sp/>json.load(f)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Retour<sp/>des<sp/>données<sp/>parsées</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>data</highlight></codeline>
+</programlisting> </para>
+    </detaileddescription>
+    <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/config_loader.py"/>
+  </compounddef>
+</doxygen>

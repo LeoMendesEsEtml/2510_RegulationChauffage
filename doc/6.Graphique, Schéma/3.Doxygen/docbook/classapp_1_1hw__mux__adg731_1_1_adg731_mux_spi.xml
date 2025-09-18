@@ -1,0 +1,282 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_classapp_1_1hw__mux__adg731_1_1_adg731_mux_spi" xml:lang="fr">
+<title>Référence de la classe app.hw_mux_adg731.Adg731MuxSpi</title>
+<indexterm><primary>app.hw_mux_adg731.Adg731MuxSpi</primary></indexterm>
+<para>
+
+<para>Pilote SPI pour multiplexeurs ADG731. </para>
+ 
+</para>
+Graphe de collaboration de app.hw_mux_adg731.Adg731MuxSpi:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classapp_1_1hw__mux__adg731_1_1_adg731_mux_spi__coll__graph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+<simplesect>
+    <title>Fonctions membres publiques    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classapp_1_1hw__mux__adg731_1_1_adg731_mux_spi_1a38043de4d45add48839b60c3c1e4aef0">__init__</link> (self, speed_hz=100000)</para>
+
+<para>Initialise le pilote pour les multiplexeurs ADG731. </para>
+</listitem>
+            <listitem><para><link linkend="_classapp_1_1hw__mux__adg731_1_1_adg731_mux_spi_1a98d7e0145243c76bb250d0b7601d54c9">close</link> (self)</para>
+
+<para>Ferme toutes les interfaces SPI. </para>
+</listitem>
+            <listitem><para><link linkend="_classapp_1_1hw__mux__adg731_1_1_adg731_mux_spi_1a1d21810662e9c89483f4a8d5430167cd">set_channel</link> (self, board_index, address)</para>
+
+<para>Active un canal spécifique sur une carte donnée. </para>
+</listitem>
+            <listitem><para><link linkend="_classapp_1_1hw__mux__adg731_1_1_adg731_mux_spi_1a847670de338ddbc0e2257f8d821cd82a">set_output_channel</link> (self, channel_index)</para>
+
+<para>Utilitaire simple pour sélectionner un canal de sortie. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Attributs publics    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classapp_1_1hw__mux__adg731_1_1_adg731_mux_spi_1a3f9d44d59b25aaec550ee234dfa55efd">speed</link> = speed_hz</para>
+</listitem>
+            <listitem><para>list <link linkend="_classapp_1_1hw__mux__adg731_1_1_adg731_mux_spi_1a8660e960365a4eccad962d9cd878f0b7">handles</link> = []</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Attributs publics statiques    </title>
+        <itemizedlist>
+            <listitem><para>list <link linkend="_classapp_1_1hw__mux__adg731_1_1_adg731_mux_spi_1a45d7743b30c6b2238fb9bf8ec1fc4814">DEV</link> = [&quot;/dev/spidev0.0&quot;, &quot;/dev/spidev0.1&quot;, &quot;/dev/spidev0.2&quot;, &quot;/dev/spidev0.3&quot;]</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Description détaillée</title>
+
+<para>Pilote SPI pour multiplexeurs ADG731. </para>
+
+
+
+<para>Classe pour contrôler jusqu&apos;à 4 multiplexeurs ADG731 via l&apos;interface SPI0. Chaque multiplexeur peut gérer 32 canaux. Configure automatiquement les paramètres SPI optimaux et gère la communication avec les circuits. </para>
+</section>
+<section>
+<title>Documentation des constructeurs et destructeur</title>
+<anchor xml:id="_classapp_1_1hw__mux__adg731_1_1_adg731_mux_spi_1a38043de4d45add48839b60c3c1e4aef0"/><section>
+    <title>__init__()</title>
+<indexterm><primary>__init__</primary><secondary>app.hw_mux_adg731.Adg731MuxSpi</secondary></indexterm>
+<indexterm><primary>app.hw_mux_adg731.Adg731MuxSpi</primary><secondary>__init__</secondary></indexterm>
+<para><computeroutput>app.hw_mux_adg731.Adg731MuxSpi.__init__ ( self,  speed_hz = <computeroutput>100000</computeroutput>
+)</computeroutput></para><para>
+
+<para>Initialise le pilote pour les multiplexeurs ADG731. </para>
+</para>
+
+<para>Configure l&apos;interface SPI pour chaque canal disponible, définit les paramètres de communication et initialise les handles pour jusqu&apos;à 4 cartes multiplexeurs.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Paramètres</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>speed_hz</entry><entry>
+<para>Vitesse SPI en Hz (par défaut 100kHz). </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+</section>
+</section>
+<section>
+<title>Documentation des fonctions membres</title>
+<anchor xml:id="_classapp_1_1hw__mux__adg731_1_1_adg731_mux_spi_1a98d7e0145243c76bb250d0b7601d54c9"/><section>
+    <title>close()</title>
+<indexterm><primary>close</primary><secondary>app.hw_mux_adg731.Adg731MuxSpi</secondary></indexterm>
+<indexterm><primary>app.hw_mux_adg731.Adg731MuxSpi</primary><secondary>close</secondary></indexterm>
+<para><computeroutput>app.hw_mux_adg731.Adg731MuxSpi.close ( self)</computeroutput></para><para>
+
+<para>Ferme toutes les interfaces SPI. </para>
+</para>
+
+<para>Parcourt tous les handles SPI ouverts et les ferme proprement. Gère les erreurs de fermeture pour éviter les exceptions lors du nettoyage. </para>
+</section>
+<anchor xml:id="_classapp_1_1hw__mux__adg731_1_1_adg731_mux_spi_1a1d21810662e9c89483f4a8d5430167cd"/><section>
+    <title>set_channel()</title>
+<indexterm><primary>set_channel</primary><secondary>app.hw_mux_adg731.Adg731MuxSpi</secondary></indexterm>
+<indexterm><primary>app.hw_mux_adg731.Adg731MuxSpi</primary><secondary>set_channel</secondary></indexterm>
+<para><computeroutput>app.hw_mux_adg731.Adg731MuxSpi.set_channel ( self,  board_index,  address)</computeroutput></para><para>
+
+<para>Active un canal spécifique sur une carte donnée. </para>
+</para>
+
+<para>Envoie la commande de sélection de canal vers la carte multiplexeur spécifiée. Génère l&apos;octet de contrôle et l&apos;envoie via SPI.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Paramètres</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>board_index</entry><entry>
+<para>Index de la carte (0-3). </para>
+</entry>
+                            </row>
+                            <row>
+<entry>address</entry><entry>
+<para>Adresse du canal à activer (0-31).</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Renvoie</title>
+
+<para>Octet de contrôle envoyé, ou None si erreur.</para>
+</formalpara>
+
+                <formalpara>
+                    <title>
+Exceptions</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>ValueError</entry><entry>
+<para>Si l&apos;index de carte est hors plage. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+Voici le graphe d&apos;appel pour cette fonction :<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classapp_1_1hw__mux__adg731_1_1_adg731_mux_spi_a1d21810662e9c89483f4a8d5430167cd_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Voici le graphe des appelants de cette fonction :<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classapp_1_1hw__mux__adg731_1_1_adg731_mux_spi_a1d21810662e9c89483f4a8d5430167cd_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classapp_1_1hw__mux__adg731_1_1_adg731_mux_spi_1a847670de338ddbc0e2257f8d821cd82a"/><section>
+    <title>set_output_channel()</title>
+<indexterm><primary>set_output_channel</primary><secondary>app.hw_mux_adg731.Adg731MuxSpi</secondary></indexterm>
+<indexterm><primary>app.hw_mux_adg731.Adg731MuxSpi</primary><secondary>set_output_channel</secondary></indexterm>
+<para><computeroutput>app.hw_mux_adg731.Adg731MuxSpi.set_output_channel ( self,  channel_index)</computeroutput></para><para>
+
+<para>Utilitaire simple pour sélectionner un canal de sortie. </para>
+</para>
+
+<para>Fonction de commodité qui utilise automatiquement la carte 0 et mappe directement l&apos;index de canal sur l&apos;adresse du multiplexeur.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Paramètres</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>channel_index</entry><entry>
+<para>Index du canal de sortie (0-31).</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Renvoie</title>
+
+<para>Octet de contrôle envoyé, ou None si erreur.</para>
+</formalpara>
+
+                <formalpara>
+                    <title>
+Exceptions</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>ValueError</entry><entry>
+<para>Si l&apos;index de canal est hors plage. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+Voici le graphe d&apos;appel pour cette fonction :<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classapp_1_1hw__mux__adg731_1_1_adg731_mux_spi_a847670de338ddbc0e2257f8d821cd82a_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+</section>
+<section>
+<title>Documentation des données membres</title>
+<anchor xml:id="_classapp_1_1hw__mux__adg731_1_1_adg731_mux_spi_1a45d7743b30c6b2238fb9bf8ec1fc4814"/><section>
+    <title>DEV</title>
+<indexterm><primary>DEV</primary><secondary>app.hw_mux_adg731.Adg731MuxSpi</secondary></indexterm>
+<indexterm><primary>app.hw_mux_adg731.Adg731MuxSpi</primary><secondary>DEV</secondary></indexterm>
+<para><computeroutput>list app.hw_mux_adg731.Adg731MuxSpi.DEV = [&quot;/dev/spidev0.0&quot;, &quot;/dev/spidev0.1&quot;, &quot;/dev/spidev0.2&quot;, &quot;/dev/spidev0.3&quot;]<computeroutput>[static]</computeroutput></computeroutput></para></section>
+<anchor xml:id="_classapp_1_1hw__mux__adg731_1_1_adg731_mux_spi_1a8660e960365a4eccad962d9cd878f0b7"/><section>
+    <title>handles</title>
+<indexterm><primary>handles</primary><secondary>app.hw_mux_adg731.Adg731MuxSpi</secondary></indexterm>
+<indexterm><primary>app.hw_mux_adg731.Adg731MuxSpi</primary><secondary>handles</secondary></indexterm>
+<para><computeroutput>list app.hw_mux_adg731.Adg731MuxSpi.handles = []</computeroutput></para></section>
+<anchor xml:id="_classapp_1_1hw__mux__adg731_1_1_adg731_mux_spi_1a3f9d44d59b25aaec550ee234dfa55efd"/><section>
+    <title>speed</title>
+<indexterm><primary>speed</primary><secondary>app.hw_mux_adg731.Adg731MuxSpi</secondary></indexterm>
+<indexterm><primary>app.hw_mux_adg731.Adg731MuxSpi</primary><secondary>speed</secondary></indexterm>
+<para><computeroutput>app.hw_mux_adg731.Adg731MuxSpi.speed = speed_hz</computeroutput></para></section>
+<para>
+La documentation de cette classe a été générée à partir du fichier suivant :</para>
+C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/<link linkend="_hw__mux__adg731_8py">hw_mux_adg731.py</link></section>
+</section>

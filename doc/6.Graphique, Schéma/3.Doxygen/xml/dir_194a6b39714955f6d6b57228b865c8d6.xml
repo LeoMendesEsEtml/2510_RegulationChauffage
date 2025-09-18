@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="fr">
+  <compounddef id="dir_194a6b39714955f6d6b57228b865c8d6" kind="dir">
+    <compoundname>C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app</compoundname>
+    <innerfile refid="app_2____init_____8py">__init__.py</innerfile>
+    <innerfile refid="adc__ads124s08_8py">adc_ads124s08.py</innerfile>
+    <innerfile refid="api__client_8py">api_client.py</innerfile>
+    <innerfile refid="config__loader_8py">config_loader.py</innerfile>
+    <innerfile refid="front__led__management_8py">front_led_management.py</innerfile>
+    <innerfile refid="hw__mux__adg731_8py">hw_mux_adg731.py</innerfile>
+    <innerfile refid="hw__tmux1204_8py">hw_tmux1204.py</innerfile>
+    <innerfile refid="main_8py">main.py</innerfile>
+    <innerfile refid="mesure__24v__dry__contact_8py">mesure_24v_dry_contact.py</innerfile>
+    <innerfile refid="pins__cm5_8py">pins_cm5.py</innerfile>
+    <innerfile refid="resistance__mapping_8py">resistance_mapping.py</innerfile>
+    <innerfile refid="resistance__simulation_8py">resistance_simulation.py</innerfile>
+    <innerfile refid="sensor__profiles_8py">sensor_profiles.py</innerfile>
+    <innerfile refid="temperature__conversion_8py">temperature_conversion.py</innerfile>
+    <innerfile refid="temperature__simulation_8py">temperature_simulation.py</innerfile>
+    <innerfile refid="test__lm70__compatible_8py">test_lm70_compatible.py</innerfile>
+    <innerfile refid="test__spi__adc_8py">test_spi_adc.py</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/"/>
+  </compounddef>
+</doxygen>

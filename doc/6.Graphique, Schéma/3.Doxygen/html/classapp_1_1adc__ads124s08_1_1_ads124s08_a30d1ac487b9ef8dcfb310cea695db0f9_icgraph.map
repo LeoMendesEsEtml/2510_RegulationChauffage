@@ -1,0 +1,6 @@
+<map id="app.adc_ads124s08.Ads124s08.stop" name="app.adc_ads124s08.Ads124s08.stop">
+<area shape="rect" id="Node000001" title="Arrête une conversion ADC en cours." alt="" coords="314,37,549,64"/>
+<area shape="rect" id="Node000002" href="$classapp_1_1adc__ads124s08_1_1_ads124s08.html#a6c3422094f1375f8e91bff96eb299f69" title="Mesure la résistance d&#39;une sonde via l&#39;ADC." alt="" coords="5,29,266,72"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="298,53,266,53,266,48,298,48"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="184,16,166,10,135,8,107,10,90,15,83,21,85,28,80,29,78,19,87,10,106,5,136,3,167,5,186,11"/>
+</map>

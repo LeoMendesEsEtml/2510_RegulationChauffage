@@ -1,0 +1,433 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_namespaceapp_1_1main" xml:lang="fr">
+<title>Référence de l&apos;espace de nommage app.main</title>
+<indexterm><primary>app.main</primary></indexterm>
+<simplesect>
+    <title>Fonctions    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_namespaceapp_1_1main_1ad21574e7873c2ce3e62f3b74e9a10f6a">start_webui_server</link> ()</para>
+
+<para>Lance le serveur web local dans un thread séparé. </para>
+</listitem>
+            <listitem><para><link linkend="_namespaceapp_1_1main_1a7e7d269529399106243cc74fc3c73b6a">save_last_state</link> (channel=None, resistance_ohm=None, temperature_c=None, temperature_sim_c=None, error=None)</para>
+
+<para>Sauvegarde l&apos;état courant et historique par canal dans un fichier JSON. </para>
+</listitem>
+            <listitem><para><link linkend="_namespaceapp_1_1main_1abe819be4d1d22ae06c4753392322a35b">signal_handler</link> (sig, frame)</para>
+
+<para>Gestionnaire POSIX pour les signaux (Ctrl+C). </para>
+</listitem>
+            <listitem><para><link linkend="_namespaceapp_1_1main_1ab98791c04a040ea7d728c8cda86d0677">input_monitor</link> ()</para>
+
+<para>Thread d&apos;écoute des commandes utilisateur depuis stdin. </para>
+</listitem>
+            <listitem><para><link linkend="_namespaceapp_1_1main_1a1b3211e7ab2da62ed461ce881f0ce556">show_error_and_continue</link> (error_pattern, sleep_time=2)</para>
+
+<para>Affiche un motif LED d&apos;erreur pendant un temps donné puis remet l&apos;indicateur en mode &apos;sequence_running&apos;. </para>
+</listitem>
+            <listitem><para><link linkend="_namespaceapp_1_1main_1abde8d10de044e070eb5eab1e448cd558">run_measurement_sequence</link> (cfg, mac_address, adc, tmux)</para>
+
+<para>Exécute une séquence complète de mesures pour tous les canaux activés selon la configuration fournie. </para>
+</listitem>
+            <listitem><para><link linkend="_namespaceapp_1_1main_1a2d15309f12a3472b94e8cace0ace5a6b">reload_timing_config</link> ()</para>
+
+<para>Recharge les paramètres de temporisation depuis le fichier de configuration. </para>
+</listitem>
+            <listitem><para><link linkend="_namespaceapp_1_1main_1a3e4dda2887e910e984519bea9a420dc2">main</link> ()</para>
+
+<para>Point d&apos;entrée principal du programme. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Variables    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_namespaceapp_1_1main_1aff7cd4e0e9d7b9068e94858a4c527314">CURRENT_DIR</link> = os.path.dirname(os.path.abspath(__file__))</para>
+</listitem>
+            <listitem><para><link linkend="_namespaceapp_1_1main_1ad64332bd025eb979f3c8b5aa2267bfd3">SRC_DIR</link> = os.path.dirname(<link linkend="_namespaceapp_1_1main_1aff7cd4e0e9d7b9068e94858a4c527314">CURRENT_DIR</link>)</para>
+</listitem>
+            <listitem><para>bool <link linkend="_namespaceapp_1_1main_1a4a86ee89abd84627e36c0320969924ac">sequencer_running</link> = False</para>
+</listitem>
+            <listitem><para><link linkend="_namespaceapp_1_1main_1a35b15b3661aab25e707f368b9d8999ec">stop_event</link> = threading.Event()</para>
+</listitem>
+            <listitem><para><link linkend="_namespaceapp_1_1main_1adcd9b846c9a069d44dad6fb465d9840c">force_sequence</link> = threading.Event()</para>
+</listitem>
+            <listitem><para><link linkend="_namespaceapp_1_1main_1a0d1f132bf1e682ae958346b489d89772">led_indicator</link> = None</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Documentation des fonctions</title>
+<anchor xml:id="_namespaceapp_1_1main_1ab98791c04a040ea7d728c8cda86d0677"/><section>
+    <title>input_monitor()</title>
+<indexterm><primary>input_monitor</primary><secondary>app.main</secondary></indexterm>
+<indexterm><primary>app.main</primary><secondary>input_monitor</secondary></indexterm>
+<para><computeroutput>app.main.input_monitor ( )</computeroutput></para><para>
+
+<para>Thread d&apos;écoute des commandes utilisateur depuis stdin. </para>
+</para>
+
+<para>Permet de forcer une séquence (touche Entrée ou &apos;s&apos;) ou de demander l&apos;arrêt (&apos;q&apos;). Les exceptions d&apos;E/S sont gérées pour permettre la terminaison propre du thread. <formalpara><title>Renvoie</title>
+
+<para>None </para>
+</formalpara>
+</para>
+Voici le graphe d&apos;appel pour cette fonction :<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespaceapp_1_1main_ab98791c04a040ea7d728c8cda86d0677_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_namespaceapp_1_1main_1a3e4dda2887e910e984519bea9a420dc2"/><section>
+    <title>main()</title>
+<indexterm><primary>main</primary><secondary>app.main</secondary></indexterm>
+<indexterm><primary>app.main</primary><secondary>main</secondary></indexterm>
+<para><computeroutput>app.main.main ( )</computeroutput></para><para>
+
+<para>Point d&apos;entrée principal du programme. </para>
+</para>
+
+<para>Parse les arguments de la ligne de commande, initialise le matériel (GPIO, ADC, MUX), le gestionnaire LED, et exécute le séquenceur en mode automatique ou manuel selon la configuration. <formalpara><title>Renvoie</title>
+
+<para>None </para>
+</formalpara>
+</para>
+Voici le graphe d&apos;appel pour cette fonction :<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespaceapp_1_1main_a3e4dda2887e910e984519bea9a420dc2_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Voici le graphe des appelants de cette fonction :<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespaceapp_1_1main_a3e4dda2887e910e984519bea9a420dc2_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_namespaceapp_1_1main_1a2d15309f12a3472b94e8cace0ace5a6b"/><section>
+    <title>reload_timing_config()</title>
+<indexterm><primary>reload_timing_config</primary><secondary>app.main</secondary></indexterm>
+<indexterm><primary>app.main</primary><secondary>reload_timing_config</secondary></indexterm>
+<para><computeroutput>app.main.reload_timing_config ( )</computeroutput></para><para>
+
+<para>Recharge les paramètres de temporisation depuis le fichier de configuration. </para>
+</para>
+
+<para>Lit uniquement les paramètres de temporisation pour mise à jour dynamique sans perturber le reste du système. Utilisé pour permettre la modification des intervalles de séquence et du mode automatique via l&apos;interface web.</para>
+
+<para><formalpara><title>Renvoie</title>
+
+<para>Tuple (auto_sequence, sequence_interval_minutes, success) où success indique si le rechargement a réussi. </para>
+</formalpara>
+</para>
+Voici le graphe des appelants de cette fonction :<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespaceapp_1_1main_a2d15309f12a3472b94e8cace0ace5a6b_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_namespaceapp_1_1main_1abde8d10de044e070eb5eab1e448cd558"/><section>
+    <title>run_measurement_sequence()</title>
+<indexterm><primary>run_measurement_sequence</primary><secondary>app.main</secondary></indexterm>
+<indexterm><primary>app.main</primary><secondary>run_measurement_sequence</secondary></indexterm>
+<para><computeroutput>app.main.run_measurement_sequence ( cfg,  mac_address,  adc,  tmux)</computeroutput></para><para>
+
+<para>Exécute une séquence complète de mesures pour tous les canaux activés selon la configuration fournie. </para>
+</para>
+
+<para>Pour chaque canal actif : sélection du rref, configuration ADC, lecture des valeurs, conversion en température, envoi API, calcul de la température simulée et application via le simulateur de résistance. Les motifs LED sont ajustés en fonction des erreurs.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Paramètres</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>cfg</entry><entry>
+<para>Dictionnaire de configuration chargé depuis JSON. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>mac_address</entry><entry>
+<para>Adresse MAC ou identifiant pour les appels API. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>adc</entry><entry>
+<para>Instance de l&apos;ADC (<link linkend="_classapp_1_1adc__ads124s08_1_1_ads124s08">Ads124s08</link>). </para>
+</entry>
+                            </row>
+                            <row>
+<entry>tmux</entry><entry>
+<para>Instance du multiplexeur (<link linkend="_classapp_1_1hw__tmux1204_1_1_tmux1204">Tmux1204</link>). </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Renvoie</title>
+
+<para>bool True si la séquence est globalement considérée comme réussie, False sinon. </para>
+</formalpara>
+</para>
+Voici le graphe d&apos;appel pour cette fonction :<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespaceapp_1_1main_abde8d10de044e070eb5eab1e448cd558_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Voici le graphe des appelants de cette fonction :<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespaceapp_1_1main_abde8d10de044e070eb5eab1e448cd558_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_namespaceapp_1_1main_1a7e7d269529399106243cc74fc3c73b6a"/><section>
+    <title>save_last_state()</title>
+<indexterm><primary>save_last_state</primary><secondary>app.main</secondary></indexterm>
+<indexterm><primary>app.main</primary><secondary>save_last_state</secondary></indexterm>
+<para><computeroutput>app.main.save_last_state ( channel = <computeroutput>None</computeroutput>
+,  resistance_ohm = <computeroutput>None</computeroutput>
+,  temperature_c = <computeroutput>None</computeroutput>
+,  temperature_sim_c = <computeroutput>None</computeroutput>
+,  error = <computeroutput>None</computeroutput>
+)</computeroutput></para><para>
+
+<para>Sauvegarde l&apos;état courant et historique par canal dans un fichier JSON. </para>
+</para>
+
+<para>Crée le dossier <computeroutput>state</computeroutput> si nécessaire, lit le fichier <computeroutput>last_state.json</computeroutput> existant, met à jour les informations du canal fourni et écrit le document au format JSON. Les erreurs internes sont capturées et affichées sur la sortie standard.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Paramètres</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>channel</entry><entry>
+<para>Numéro du canal (ou None). </para>
+</entry>
+                            </row>
+                            <row>
+<entry>resistance_ohm</entry><entry>
+<para>Résistance mesurée (ou None). </para>
+</entry>
+                            </row>
+                            <row>
+<entry>temperature_c</entry><entry>
+<para>Température mesurée [°C] (ou None). </para>
+</entry>
+                            </row>
+                            <row>
+<entry>temperature_sim_c</entry><entry>
+<para>Température simulée [°C] (ou None). </para>
+</entry>
+                            </row>
+                            <row>
+<entry>error</entry><entry>
+<para>Message d&apos;erreur s&apos;il y en a un (ou None). </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Renvoie</title>
+
+<para>None </para>
+</formalpara>
+</para>
+Voici le graphe des appelants de cette fonction :<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespaceapp_1_1main_a7e7d269529399106243cc74fc3c73b6a_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_namespaceapp_1_1main_1a1b3211e7ab2da62ed461ce881f0ce556"/><section>
+    <title>show_error_and_continue()</title>
+<indexterm><primary>show_error_and_continue</primary><secondary>app.main</secondary></indexterm>
+<indexterm><primary>app.main</primary><secondary>show_error_and_continue</secondary></indexterm>
+<para><computeroutput>app.main.show_error_and_continue ( error_pattern,  sleep_time = <computeroutput>2</computeroutput>
+)</computeroutput></para><para>
+
+<para>Affiche un motif LED d&apos;erreur pendant un temps donné puis remet l&apos;indicateur en mode &apos;sequence_running&apos;. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Paramètres</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>error_pattern</entry><entry>
+<para>Nom du motif LED à afficher. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>sleep_time</entry><entry>
+<para>Durée d&apos;affichage en secondes (par défaut 2s). </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Renvoie</title>
+
+<para>None </para>
+</formalpara>
+</para>
+Voici le graphe des appelants de cette fonction :<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespaceapp_1_1main_a1b3211e7ab2da62ed461ce881f0ce556_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_namespaceapp_1_1main_1abe819be4d1d22ae06c4753392322a35b"/><section>
+    <title>signal_handler()</title>
+<indexterm><primary>signal_handler</primary><secondary>app.main</secondary></indexterm>
+<indexterm><primary>app.main</primary><secondary>signal_handler</secondary></indexterm>
+<para><computeroutput>app.main.signal_handler ( sig,  frame)</computeroutput></para><para>
+
+<para>Gestionnaire POSIX pour les signaux (Ctrl+C). </para>
+</para>
+
+<para>Met le drapeau <computeroutput>sequencer_running</computeroutput> à False et déclenche l&apos;événement <computeroutput>stop_event</computeroutput> pour demander un arrêt propre. 
+                <formalpara>
+                    <title>
+Paramètres</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>sig</entry><entry>
+<para>Signal reçu (int). </para>
+</entry>
+                            </row>
+                            <row>
+<entry>frame</entry><entry>
+<para>Contexte d&apos;exécution (non utilisé). </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Renvoie</title>
+
+<para>None </para>
+</formalpara>
+</para>
+Voici le graphe des appelants de cette fonction :<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespaceapp_1_1main_abe819be4d1d22ae06c4753392322a35b_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_namespaceapp_1_1main_1ad21574e7873c2ce3e62f3b74e9a10f6a"/><section>
+    <title>start_webui_server()</title>
+<indexterm><primary>start_webui_server</primary><secondary>app.main</secondary></indexterm>
+<indexterm><primary>app.main</primary><secondary>start_webui_server</secondary></indexterm>
+<para><computeroutput>app.main.start_webui_server ( )</computeroutput></para><para>
+
+<para>Lance le serveur web local dans un thread séparé. </para>
+</para>
+
+<para>Import dynamique du module <computeroutput><link linkend="_namespacewebui_1_1webui__server">webui.webui_server</link></computeroutput> et démarrage de l&apos;application Flask/WSGI. Les exceptions sont interceptées et converties en messages sur la sortie standard pour ne pas interrompre le thread principal. <formalpara><title>Renvoie</title>
+
+<para>None </para>
+</formalpara>
+</para>
+</section>
+</section>
+<section>
+<title>Documentation des variables</title>
+<anchor xml:id="_namespaceapp_1_1main_1aff7cd4e0e9d7b9068e94858a4c527314"/><section>
+    <title>CURRENT_DIR</title>
+<indexterm><primary>CURRENT_DIR</primary><secondary>app.main</secondary></indexterm>
+<indexterm><primary>app.main</primary><secondary>CURRENT_DIR</secondary></indexterm>
+<para><computeroutput>app.main.CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))</computeroutput></para></section>
+<anchor xml:id="_namespaceapp_1_1main_1adcd9b846c9a069d44dad6fb465d9840c"/><section>
+    <title>force_sequence</title>
+<indexterm><primary>force_sequence</primary><secondary>app.main</secondary></indexterm>
+<indexterm><primary>app.main</primary><secondary>force_sequence</secondary></indexterm>
+<para><computeroutput>app.main.force_sequence = threading.Event()</computeroutput></para></section>
+<anchor xml:id="_namespaceapp_1_1main_1a0d1f132bf1e682ae958346b489d89772"/><section>
+    <title>led_indicator</title>
+<indexterm><primary>led_indicator</primary><secondary>app.main</secondary></indexterm>
+<indexterm><primary>app.main</primary><secondary>led_indicator</secondary></indexterm>
+<para><computeroutput>app.main.led_indicator = None</computeroutput></para></section>
+<anchor xml:id="_namespaceapp_1_1main_1a4a86ee89abd84627e36c0320969924ac"/><section>
+    <title>sequencer_running</title>
+<indexterm><primary>sequencer_running</primary><secondary>app.main</secondary></indexterm>
+<indexterm><primary>app.main</primary><secondary>sequencer_running</secondary></indexterm>
+<para><computeroutput>bool app.main.sequencer_running = False</computeroutput></para></section>
+<anchor xml:id="_namespaceapp_1_1main_1ad64332bd025eb979f3c8b5aa2267bfd3"/><section>
+    <title>SRC_DIR</title>
+<indexterm><primary>SRC_DIR</primary><secondary>app.main</secondary></indexterm>
+<indexterm><primary>app.main</primary><secondary>SRC_DIR</secondary></indexterm>
+<para><computeroutput>app.main.SRC_DIR = os.path.dirname(<link linkend="_namespaceapp_1_1main_1aff7cd4e0e9d7b9068e94858a4c527314">CURRENT_DIR</link>)</computeroutput></para></section>
+<anchor xml:id="_namespaceapp_1_1main_1a35b15b3661aab25e707f368b9d8999ec"/><section>
+    <title>stop_event</title>
+<indexterm><primary>stop_event</primary><secondary>app.main</secondary></indexterm>
+<indexterm><primary>app.main</primary><secondary>stop_event</secondary></indexterm>
+<para><computeroutput>app.main.stop_event = threading.Event()</computeroutput></para></section>
+</section>
+</section>

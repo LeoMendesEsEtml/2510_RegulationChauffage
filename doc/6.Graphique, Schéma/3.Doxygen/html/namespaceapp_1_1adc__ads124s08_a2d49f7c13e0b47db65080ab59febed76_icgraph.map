@@ -1,0 +1,8 @@
+<map id="app.adc_ads124s08.sign_extend_24" name="app.adc_ads124s08.sign_extend_24">
+<area shape="rect" id="Node000001" title="Étend le signe d&#39;un code ADC 24 bits vers 32 bits." alt="" coords="597,29,762,72"/>
+<area shape="rect" id="Node000002" href="$classapp_1_1adc__ads124s08_1_1_ads124s08.html#ac53728ccbaada975b3204c4e3a4364aa" title="Lit un code de données 24 bits depuis l&#39;ADC." alt="" coords="314,29,549,72"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="581,53,550,53,550,48,581,48"/>
+<area shape="rect" id="Node000003" href="$classapp_1_1adc__ads124s08_1_1_ads124s08.html#a6c3422094f1375f8e91bff96eb299f69" title="Mesure la résistance d&#39;une sonde via l&#39;ADC." alt="" coords="5,29,266,72"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="298,53,266,53,266,48,298,48"/>
+<area shape="poly" id="edge3_Node000003_Node000003" title=" " alt="" coords="184,16,166,10,135,8,107,10,90,15,83,21,85,28,80,29,78,19,87,10,106,5,136,3,167,5,186,11"/>
+</map>

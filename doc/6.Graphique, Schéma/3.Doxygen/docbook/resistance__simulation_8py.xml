@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_resistance__simulation_8py" xml:lang="fr">
+<title>Référence du fichier C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/resistance_simulation.py</title>
+<indexterm><primary>C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/resistance_simulation.py</primary></indexterm>
+<para>
+
+<para>Module pour commander le MUX de simulation de résistance. </para>
+ 
+</para>
+<simplesect>
+    <title>Classes    </title>
+        <itemizedlist>
+            <listitem><para>class <link linkend="_classapp_1_1resistance__simulation_1_1_resistance_simulation_error">app.resistance_simulation.ResistanceSimulationError</link></para>
+
+<para>Exception pour les erreurs de simulation de résistance. </para>
+</listitem>
+            <listitem><para>class <link linkend="_classapp_1_1resistance__simulation_1_1_resistance_simulator">app.resistance_simulation.ResistanceSimulator</link></para>
+
+<para>Contrôleur pour la simulation de résistance via MUX. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Espaces de nommage    </title>
+        <itemizedlist>
+            <listitem><para>namespace <link linkend="_namespaceapp">app</link></para>
+</listitem>
+            <listitem><para>namespace <link linkend="_namespaceapp_1_1resistance__simulation">app.resistance_simulation</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Fonctions    </title>
+        <itemizedlist>
+            <listitem><para>bool <link linkend="_namespaceapp_1_1resistance__simulation_1ab4df858485a2008da66e5eaed218f67b">app.resistance_simulation.apply_resistance_simulation</link> (float resistance_ohm)</para>
+
+<para>Fonction utilitaire pour appliquer une résistance simulée. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Variables    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_namespaceapp_1_1resistance__simulation_1a1e0083edc4bb5cd3cf145384e73c9fb3">app.resistance_simulation.sim</link> = <link linkend="_classapp_1_1resistance__simulation_1_1_resistance_simulator">ResistanceSimulator</link>()</para>
+</listitem>
+            <listitem><para>bool <link linkend="_namespaceapp_1_1resistance__simulation_1af7b157026a22cabc88ac2a1df2bf0a45">app.resistance_simulation.success</link> = sim.apply_resistance_simulation(1000.0)</para>
+</listitem>
+            <listitem><para><link linkend="_namespaceapp_1_1resistance__simulation_1a0b6740f840f43350912072a8757fb6e5">app.resistance_simulation.valid</link> = sim.validate_resistance_applied(667.0, tolerance=0.15)</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Description détaillée</title>
+
+<para>Module pour commander le MUX de simulation de résistance. </para>
+
+<para>Ce module permet d&apos;appliquer une résistance simulée R_sim via le réseau de résistances contrôlé par multiplexeur ADG731. Il gère le calcul des commutateurs à activer, la commande du multiplexeur, et la validation des valeurs appliquées. <formalpara><title>Auteur</title>
+
+<para>Léo Mendes @project 2510_RegulationsChauffage @Mandant Oblo_solution </para>
+</formalpara>
+<formalpara><title>Date</title>
+
+<para>2025-09-18 </para>
+</formalpara>
+<formalpara><title>Version</title>
+
+<para>1.0.0 </para>
+</formalpara>
+<formalpara><title>Copyright</title>
+
+<para>Copyright (c) 2025 </para>
+</formalpara>
+</para>
+</section>
+</section>

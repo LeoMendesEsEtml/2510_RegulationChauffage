@@ -1,0 +1,129 @@
+.TH "app.hw_mux_adg731.Adg731MuxSpi" 3 "2510_RegulationChauffage" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+app.hw_mux_adg731.Adg731MuxSpi \- Pilote SPI pour multiplexeurs ADG731\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Fonctions membres publiques"
+
+.in +1c
+.ti -1c
+.RI "\fB__init__\fP (self, speed_hz=100000)"
+.br
+.RI "Initialise le pilote pour les multiplexeurs ADG731\&. "
+.ti -1c
+.RI "\fBclose\fP (self)"
+.br
+.RI "Ferme toutes les interfaces SPI\&. "
+.ti -1c
+.RI "\fBset_channel\fP (self, board_index, address)"
+.br
+.RI "Active un canal spécifique sur une carte donnée\&. "
+.ti -1c
+.RI "\fBset_output_channel\fP (self, channel_index)"
+.br
+.RI "Utilitaire simple pour sélectionner un canal de sortie\&. "
+.in -1c
+.SS "Attributs publics"
+
+.in +1c
+.ti -1c
+.RI "\fBspeed\fP = speed_hz"
+.br
+.ti -1c
+.RI "list \fBhandles\fP = []"
+.br
+.in -1c
+.SS "Attributs publics statiques"
+
+.in +1c
+.ti -1c
+.RI "list \fBDEV\fP = ['/dev/spidev0\&.0', '/dev/spidev0\&.1', '/dev/spidev0\&.2', '/dev/spidev0\&.3']"
+.br
+.in -1c
+.SH "Description détaillée"
+.PP 
+Pilote SPI pour multiplexeurs ADG731\&. 
+
+Classe pour contrôler jusqu'à 4 multiplexeurs ADG731 via l'interface SPI0\&. Chaque multiplexeur peut gérer 32 canaux\&. Configure automatiquement les paramètres SPI optimaux et gère la communication avec les circuits\&. 
+.SH "Documentation des constructeurs et destructeur"
+.PP 
+.SS "app\&.hw_mux_adg731\&.Adg731MuxSpi\&.__init__ ( self,  speed_hz = \fR100000\fP)"
+
+.PP
+Initialise le pilote pour les multiplexeurs ADG731\&. Configure l'interface SPI pour chaque canal disponible, définit les paramètres de communication et initialise les handles pour jusqu'à 4 cartes multiplexeurs\&.
+
+.PP
+\fBParamètres\fP
+.RS 4
+\fIspeed_hz\fP Vitesse SPI en Hz (par défaut 100kHz)\&. 
+.RE
+.PP
+
+.SH "Documentation des fonctions membres"
+.PP 
+.SS "app\&.hw_mux_adg731\&.Adg731MuxSpi\&.close ( self)"
+
+.PP
+Ferme toutes les interfaces SPI\&. Parcourt tous les handles SPI ouverts et les ferme proprement\&. Gère les erreurs de fermeture pour éviter les exceptions lors du nettoyage\&. 
+.SS "app\&.hw_mux_adg731\&.Adg731MuxSpi\&.set_channel ( self,  board_index,  address)"
+
+.PP
+Active un canal spécifique sur une carte donnée\&. Envoie la commande de sélection de canal vers la carte multiplexeur spécifiée\&. Génère l'octet de contrôle et l'envoie via SPI\&.
+
+.PP
+\fBParamètres\fP
+.RS 4
+\fIboard_index\fP Index de la carte (0-3)\&. 
+.br
+\fIaddress\fP Adresse du canal à activer (0-31)\&.
+.RE
+.PP
+\fBRenvoie\fP
+.RS 4
+Octet de contrôle envoyé, ou None si erreur\&.
+.RE
+.PP
+\fBExceptions\fP
+.RS 4
+\fIValueError\fP Si l'index de carte est hors plage\&. 
+.RE
+.PP
+
+.SS "app\&.hw_mux_adg731\&.Adg731MuxSpi\&.set_output_channel ( self,  channel_index)"
+
+.PP
+Utilitaire simple pour sélectionner un canal de sortie\&. Fonction de commodité qui utilise automatiquement la carte 0 et mappe directement l'index de canal sur l'adresse du multiplexeur\&.
+
+.PP
+\fBParamètres\fP
+.RS 4
+\fIchannel_index\fP Index du canal de sortie (0-31)\&.
+.RE
+.PP
+\fBRenvoie\fP
+.RS 4
+Octet de contrôle envoyé, ou None si erreur\&.
+.RE
+.PP
+\fBExceptions\fP
+.RS 4
+\fIValueError\fP Si l'index de canal est hors plage\&. 
+.RE
+.PP
+
+.SH "Documentation des données membres"
+.PP 
+.SS "list app\&.hw_mux_adg731\&.Adg731MuxSpi\&.DEV = ['/dev/spidev0\&.0', '/dev/spidev0\&.1', '/dev/spidev0\&.2', '/dev/spidev0\&.3']\fR [static]\fP"
+
+.SS "list app\&.hw_mux_adg731\&.Adg731MuxSpi\&.handles = []"
+
+.SS "app\&.hw_mux_adg731\&.Adg731MuxSpi\&.speed = speed_hz"
+
+
+.SH "Auteur"
+.PP 
+Généré automatiquement par Doxygen pour 2510_RegulationChauffage à partir du code source\&.

@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_hw__mux__adg731_8py" xml:lang="fr">
+<title>Référence du fichier C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/hw_mux_adg731.py</title>
+<indexterm><primary>C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/hw_mux_adg731.py</primary></indexterm>
+<para>
+
+<para>Pilote pour multiplexeur ADG731 via interface SPI. </para>
+ 
+</para>
+<simplesect>
+    <title>Classes    </title>
+        <itemizedlist>
+            <listitem><para>class <link linkend="_classapp_1_1hw__mux__adg731_1_1_adg731_mux_spi">app.hw_mux_adg731.Adg731MuxSpi</link></para>
+
+<para>Pilote SPI pour multiplexeurs ADG731. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Espaces de nommage    </title>
+        <itemizedlist>
+            <listitem><para>namespace <link linkend="_namespaceapp">app</link></para>
+</listitem>
+            <listitem><para>namespace <link linkend="_namespaceapp_1_1hw__mux__adg731">app.hw_mux_adg731</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Fonctions    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_namespaceapp_1_1hw__mux__adg731_1a191556bfaa023e4d6e1f2099dca9db46">app.hw_mux_adg731.adg731_ctrl_byte</link> (address, enable=True)</para>
+
+<para>Génère le byte de contrôle pour l&apos;ADG731. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Description détaillée</title>
+
+<para>Pilote pour multiplexeur ADG731 via interface SPI. </para>
+
+<para>Ce module fournit un pilote pour contrôler les multiplexeurs ADG731 via l&apos;interface SPI0. Supporte jusqu&apos;à 4 cartes avec 32 canaux chacune. Gère la configuration SPI et l&apos;envoi des commandes de contrôle pour la sélection des canaux. <formalpara><title>Auteur</title>
+
+<para>Léo Mendes @project 2510_RegulationsChauffage @Mandant Oblo_solution </para>
+</formalpara>
+<formalpara><title>Date</title>
+
+<para>2025-09-18 </para>
+</formalpara>
+<formalpara><title>Version</title>
+
+<para>1.0.0 </para>
+</formalpara>
+<formalpara><title>Copyright</title>
+
+<para>Copyright (c) 2025 </para>
+</formalpara>
+</para>
+</section>
+</section>

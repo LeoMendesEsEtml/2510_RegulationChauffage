@@ -1,0 +1,236 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="fr">
+  <compounddef id="namespaceapp_1_1test__lm70__compatible" kind="namespace" language="Python">
+    <compoundname>app::test_lm70_compatible</compoundname>
+    <sectiondef kind="var">
+      <memberdef kind="variable" id="namespaceapp_1_1test__lm70__compatible_1a6144e5814c4b07e44b35663388492ccf" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>app::test_lm70_compatible.level</definition>
+        <argsstring></argsstring>
+        <name>level</name>
+        <qualifiedname>app.test_lm70_compatible.level</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/test_lm70_compatible.py" line="22" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/test_lm70_compatible.py" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceapp_1_1test__lm70__compatible_1a3a80c3c5818d76fa540d2608b8eb5251" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>app::test_lm70_compatible.format</definition>
+        <argsstring></argsstring>
+        <name>format</name>
+        <qualifiedname>app.test_lm70_compatible.format</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/test_lm70_compatible.py" line="23" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/test_lm70_compatible.py" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceapp_1_1test__lm70__compatible_1a3634281bf1f55048d00aea77532f59dd" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>app::test_lm70_compatible.handlers</definition>
+        <argsstring></argsstring>
+        <name>handlers</name>
+        <qualifiedname>app.test_lm70_compatible.handlers</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/test_lm70_compatible.py" line="24" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/test_lm70_compatible.py" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceapp_1_1test__lm70__compatible_1a57491bf19a08b2bf673b87010c9cf817" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>app::test_lm70_compatible.logger</definition>
+        <argsstring></argsstring>
+        <name>logger</name>
+        <qualifiedname>app.test_lm70_compatible.logger</qualifiedname>
+        <initializer>=  logging.getLogger(&quot;LM70-Test&quot;)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/test_lm70_compatible.py" line="28" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/test_lm70_compatible.py" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceapp_1_1test__lm70__compatible_1ae1e57a5467abd88aebe4e8a4ef2f8c47" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int app::test_lm70_compatible.LM70_CS_GPIO</definition>
+        <argsstring></argsstring>
+        <name>LM70_CS_GPIO</name>
+        <qualifiedname>app.test_lm70_compatible.LM70_CS_GPIO</qualifiedname>
+        <initializer>=  18</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/test_lm70_compatible.py" line="31" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/test_lm70_compatible.py" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceapp_1_1test__lm70__compatible_1ab158092e70bb66d47e0a9fd2cc1ea342" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int app::test_lm70_compatible.SPI_MOSI_ADC_GPIO</definition>
+        <argsstring></argsstring>
+        <name>SPI_MOSI_ADC_GPIO</name>
+        <qualifiedname>app.test_lm70_compatible.SPI_MOSI_ADC_GPIO</qualifiedname>
+        <initializer>=  20</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/test_lm70_compatible.py" line="32" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/test_lm70_compatible.py" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceapp_1_1test__lm70__compatible_1a9e3001ec2848de215182db26ce3b4828" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int app::test_lm70_compatible.SPI_MISO_ADC_GPIO</definition>
+        <argsstring></argsstring>
+        <name>SPI_MISO_ADC_GPIO</name>
+        <qualifiedname>app.test_lm70_compatible.SPI_MISO_ADC_GPIO</qualifiedname>
+        <initializer>=  19</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/test_lm70_compatible.py" line="33" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/test_lm70_compatible.py" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceapp_1_1test__lm70__compatible_1a2a6df630baf4617a726e2cd0d0b2ab6b" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int app::test_lm70_compatible.SPI_SCLK_ADC_GPIO</definition>
+        <argsstring></argsstring>
+        <name>SPI_SCLK_ADC_GPIO</name>
+        <qualifiedname>app.test_lm70_compatible.SPI_SCLK_ADC_GPIO</qualifiedname>
+        <initializer>=  21</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/test_lm70_compatible.py" line="34" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/test_lm70_compatible.py" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceapp_1_1test__lm70__compatible_1a71a3572d1e3aed0054cb2dedfa506fd6" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>app::test_lm70_compatible.current_dir</definition>
+        <argsstring></argsstring>
+        <name>current_dir</name>
+        <qualifiedname>app.test_lm70_compatible.current_dir</qualifiedname>
+        <initializer>=  os.path.dirname(os.path.abspath(__file__))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/test_lm70_compatible.py" line="37" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/test_lm70_compatible.py" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceapp_1_1test__lm70__compatible_1ae03ea432cb4b4f1e7d77dd39a1bf3ec1" prot="public" static="no" mutable="no">
+        <type>str</type>
+        <definition>str app::test_lm70_compatible.src_dir</definition>
+        <argsstring></argsstring>
+        <name>src_dir</name>
+        <qualifiedname>app.test_lm70_compatible.src_dir</qualifiedname>
+        <initializer>=  os.path.dirname(<ref refid="namespaceapp_1_1test__lm70__compatible_1a71a3572d1e3aed0054cb2dedfa506fd6" kindref="member">current_dir</ref>) if &quot;src&quot; in <ref refid="namespaceapp_1_1test__lm70__compatible_1a71a3572d1e3aed0054cb2dedfa506fd6" kindref="member">current_dir</ref> else <ref refid="namespaceapp_1_1test__lm70__compatible_1a71a3572d1e3aed0054cb2dedfa506fd6" kindref="member">current_dir</ref></initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/test_lm70_compatible.py" line="38" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/test_lm70_compatible.py" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceapp_1_1test__lm70__compatible_1a142361b80c799ba1f4b3ae421b992bc9" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>app::test_lm70_compatible.spi</definition>
+        <argsstring></argsstring>
+        <name>spi</name>
+        <qualifiedname>app.test_lm70_compatible.spi</qualifiedname>
+        <initializer>=  spidev.SpiDev()</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/test_lm70_compatible.py" line="51" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/test_lm70_compatible.py" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceapp_1_1test__lm70__compatible_1a06d07a4e6af2b1db673085b33a2deda8" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>app::test_lm70_compatible.max_speed_hz</definition>
+        <argsstring></argsstring>
+        <name>max_speed_hz</name>
+        <qualifiedname>app.test_lm70_compatible.max_speed_hz</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/test_lm70_compatible.py" line="53" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/test_lm70_compatible.py" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceapp_1_1test__lm70__compatible_1a03dc9acc375bdb9ed7305b35a1652c06" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>app::test_lm70_compatible.mode</definition>
+        <argsstring></argsstring>
+        <name>mode</name>
+        <qualifiedname>app.test_lm70_compatible.mode</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/test_lm70_compatible.py" line="54" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/test_lm70_compatible.py" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceapp_1_1test__lm70__compatible_1a931848fa47b9f7e6158745ac557b5d6b" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>app::test_lm70_compatible.bits_per_word</definition>
+        <argsstring></argsstring>
+        <name>bits_per_word</name>
+        <qualifiedname>app.test_lm70_compatible.bits_per_word</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/test_lm70_compatible.py" line="55" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/test_lm70_compatible.py" bodystart="55" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="namespaceapp_1_1test__lm70__compatible_1af5b44993c1442a69936834f072f09bd8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>app.test_lm70_compatible.test_lm70</definition>
+        <argsstring>()</argsstring>
+        <name>test_lm70</name>
+        <qualifiedname>app.test_lm70_compatible.test_lm70</qualifiedname>
+        <briefdescription>
+<para>Test de communication SPI avec le capteur LM70. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/test_lm70_compatible.py" line="58" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/test_lm70_compatible.py" bodystart="58" bodyend="112"/>
+        <references refid="namespaceapp_1_1test__lm70__compatible_1af5b44993c1442a69936834f072f09bd8" compoundref="test__lm70__compatible_8py" startline="58" endline="112">app.test_lm70_compatible.test_lm70</references>
+        <referencedby refid="namespaceapp_1_1test__lm70__compatible_1af5b44993c1442a69936834f072f09bd8" compoundref="test__lm70__compatible_8py" startline="58" endline="112">app.test_lm70_compatible.test_lm70</referencedby>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/test_lm70_compatible.py" line="1" column="1"/>
+  </compounddef>
+</doxygen>

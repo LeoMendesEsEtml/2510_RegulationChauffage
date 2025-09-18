@@ -1,0 +1,61 @@
+.TH "app.sensor_profiles" 3 "2510_RegulationChauffage" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+app.sensor_profiles
+.SH SYNOPSIS
+.br
+.PP
+.SS "Fonctions"
+
+.in +1c
+.ti -1c
+.RI "\fBget_profile\fP (sensor_name)"
+.br
+.RI "Récupère le profil de configuration ADC pour un capteur donné\&. "
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "dict \fBSENSOR_PROFILES\fP"
+.br
+.in -1c
+.SH "Documentation des fonctions"
+.PP 
+.SS "app\&.sensor_profiles\&.get_profile ( sensor_name)"
+
+.PP
+Récupère le profil de configuration ADC pour un capteur donné\&. Fonction d'accès qui retourne le dictionnaire de configuration contenant les paramètres optimisés (Rref, IDAC, PGA) pour un type de capteur spécifique\&.
+
+.PP
+\fBParamètres\fP
+.RS 4
+\fIsensor_name\fP Nom du type de capteur recherché\&.
+.RE
+.PP
+\fBRenvoie\fP
+.RS 4
+Dictionnaire contenant les paramètres de configuration:
+.IP "\(bu" 2
+rref_ohm: résistance de référence [Ohms]
+.IP "\(bu" 2
+idac_uA: courant d'excitation [microampères]
+.IP "\(bu" 2
+pga_gain: gain programmable [1-128]
+.PP
+.RE
+.PP
+\fBExceptions\fP
+.RS 4
+\fIKeyError\fP si le type de capteur n'est pas reconnu\&. 
+.RE
+.PP
+
+.SH "Documentation des variables"
+.PP 
+.SS "dict app\&.sensor_profiles\&.SENSOR_PROFILES"
+
+.SH "Auteur"
+.PP 
+Généré automatiquement par Doxygen pour 2510_RegulationChauffage à partir du code source\&.

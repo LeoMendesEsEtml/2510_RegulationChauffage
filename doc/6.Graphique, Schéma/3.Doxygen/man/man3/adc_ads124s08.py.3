@@ -1,0 +1,122 @@
+.TH "C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/adc_ads124s08.py" 3 "2510_RegulationChauffage" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/adc_ads124s08.py \- Driver pour l'ADC ADS124S08 avec communication SPI\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "class \fBapp\&.adc_ads124s08\&.Ads124s08\fP"
+.br
+.RI "Driver pour l'ADC ADS124S08 avec interface SPI\&. "
+.in -1c
+.SS "Espaces de nommage"
+
+.in +1c
+.ti -1c
+.RI "namespace \fBapp\fP"
+.br
+.ti -1c
+.RI "namespace \fBapp\&.adc_ads124s08\fP"
+.br
+.in -1c
+.SS "Fonctions"
+
+.in +1c
+.ti -1c
+.RI "\fBapp\&.adc_ads124s08\&.encode_gain\fP (pga_gain)"
+.br
+.RI "Encode le gain PGA en code binaire pour le registre\&. "
+.ti -1c
+.RI "\fBapp\&.adc_ads124s08\&.encode_idac_uA\fP (idac_uA)"
+.br
+.RI "Encode la magnitude IDAC en code binaire pour le registre\&. "
+.ti -1c
+.RI "\fBapp\&.adc_ads124s08\&.sign_extend_24\fP (b0, b1, b2)"
+.br
+.RI "Étend le signe d'un code ADC 24 bits vers 32 bits\&. "
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "int \fBapp\&.adc_ads124s08\&.REG_ID\fP = 0x00"
+.br
+.ti -1c
+.RI "int \fBapp\&.adc_ads124s08\&.REG_STATUS\fP = 0x01"
+.br
+.ti -1c
+.RI "int \fBapp\&.adc_ads124s08\&.REG_INPMUX\fP = 0x02"
+.br
+.ti -1c
+.RI "int \fBapp\&.adc_ads124s08\&.REG_PGA\fP = 0x03"
+.br
+.ti -1c
+.RI "int \fBapp\&.adc_ads124s08\&.REG_DATARATE\fP = 0x04"
+.br
+.ti -1c
+.RI "int \fBapp\&.adc_ads124s08\&.REG_REF\fP = 0x05"
+.br
+.ti -1c
+.RI "int \fBapp\&.adc_ads124s08\&.REG_IDACMUX\fP = 0x07"
+.br
+.ti -1c
+.RI "int \fBapp\&.adc_ads124s08\&.REG_SYS\fP = 0x09"
+.br
+.ti -1c
+.RI "int \fBapp\&.adc_ads124s08\&.REG_IDACMAG\fP = 0x06"
+.br
+.ti -1c
+.RI "int \fBapp\&.adc_ads124s08\&.CMD_RESET\fP = 0x06"
+.br
+.ti -1c
+.RI "int \fBapp\&.adc_ads124s08\&.CMD_START\fP = 0x08"
+.br
+.ti -1c
+.RI "int \fBapp\&.adc_ads124s08\&.CMD_STOP\fP = 0x0A"
+.br
+.ti -1c
+.RI "int \fBapp\&.adc_ads124s08\&.CMD_RDATA\fP = 0x12"
+.br
+.ti -1c
+.RI "tuple \fBapp\&.adc_ads124s08\&.FS\fP = (1 << 23) \- 1"
+.br
+.ti -1c
+.RI "dict \fBapp\&.adc_ads124s08\&.CHANNELS\fP"
+.br
+.in -1c
+.SH "Description détaillée"
+.PP 
+Driver pour l'ADC ADS124S08 avec communication SPI\&. 
+
+Ce module fournit une interface complète pour la communication avec l'ADC ADS124S08 via SPI en mode 1\&.0\&. Supporte la mesure de résistance et température avec configuration automatique des registres\&. S� Reset → Configuration → Mesure bloquante avec DRDY\&. 
+.PP
+\fBAuteur\fP
+.RS 4
+Léo Mendes @project 2510_RegulationsChauffage @Mandant Oblo_solution 
+.RE
+.PP
+\fBDate\fP
+.RS 4
+2025-09-18 
+.RE
+.PP
+\fBVersion\fP
+.RS 4
+1\&.0\&.0 
+.RE
+.PP
+\fBCopyright\fP
+.RS 4
+Copyright (c) 2025 
+.RE
+.PP
+
+.SH "Auteur"
+.PP 
+Généré automatiquement par Doxygen pour 2510_RegulationChauffage à partir du code source\&.

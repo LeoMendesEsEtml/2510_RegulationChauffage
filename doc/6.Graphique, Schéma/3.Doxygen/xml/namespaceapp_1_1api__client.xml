@@ -1,0 +1,190 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="fr">
+  <compounddef id="namespaceapp_1_1api__client" kind="namespace" language="Python">
+    <compoundname>app::api_client</compoundname>
+    <innerclass refid="classapp_1_1api__client_1_1_api_client" prot="public">app::api_client::ApiClient</innerclass>
+    <innerclass refid="classapp_1_1api__client_1_1_api_error" prot="public">app::api_client::ApiError</innerclass>
+    <sectiondef kind="var">
+      <memberdef kind="variable" id="namespaceapp_1_1api__client_1ac070ba1d4d0b10ca200ef77c3bd68fd5" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int app::api_client.REQUEST_TIMEOUT</definition>
+        <argsstring></argsstring>
+        <name>REQUEST_TIMEOUT</name>
+        <qualifiedname>app.api_client.REQUEST_TIMEOUT</qualifiedname>
+        <initializer>=  10</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/api_client.py" line="34" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/api_client.py" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceapp_1_1api__client_1a3a47289c37788e389f3f62c12ee9312a" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int app::api_client.MAX_RETRIES</definition>
+        <argsstring></argsstring>
+        <name>MAX_RETRIES</name>
+        <qualifiedname>app.api_client.MAX_RETRIES</qualifiedname>
+        <initializer>=  3</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/api_client.py" line="36" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/api_client.py" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceapp_1_1api__client_1a58ef9b423e01b1428c03ba4c7b7a7e1b" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int app::api_client.RETRY_DELAY</definition>
+        <argsstring></argsstring>
+        <name>RETRY_DELAY</name>
+        <qualifiedname>app.api_client.RETRY_DELAY</qualifiedname>
+        <initializer>=  1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/api_client.py" line="38" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/api_client.py" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceapp_1_1api__client_1a1f94a135976701bdeeb72eb5acf4bbd4" prot="public" static="no" mutable="no">
+        <type>str</type>
+        <definition>str app::api_client.test_mac</definition>
+        <argsstring></argsstring>
+        <name>test_mac</name>
+        <qualifiedname>app.api_client.test_mac</qualifiedname>
+        <initializer>=  &quot;0030DEABCDEF&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/api_client.py" line="347" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/api_client.py" bodystart="347" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceapp_1_1api__client_1ac478207d8e3a7c898761fd35c77390d0" prot="public" static="no" mutable="no">
+        <type>Dict[str, Any]</type>
+        <definition>Dict[str, Any] app::api_client.data</definition>
+        <argsstring></argsstring>
+        <name>data</name>
+        <qualifiedname>app.api_client.data</qualifiedname>
+        <initializer>=  <ref refid="namespaceapp_1_1api__client_1af48f8165ee988985679357bd07baafdb" kindref="member">get_simulation_data</ref>(<ref refid="namespaceapp_1_1api__client_1a1f94a135976701bdeeb72eb5acf4bbd4" kindref="member">test_mac</ref>)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/api_client.py" line="351" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/api_client.py" bodystart="351" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="namespaceapp_1_1api__client_1af48f8165ee988985679357bd07baafdb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>Dict[str, Any]</type>
+        <definition> Dict[str, Any] app.api_client.get_simulation_data</definition>
+        <argsstring>(str mac_address)</argsstring>
+        <name>get_simulation_data</name>
+        <qualifiedname>app.api_client.get_simulation_data</qualifiedname>
+        <param>
+          <type>str</type>
+          <declname>mac_address</declname>
+        </param>
+        <briefdescription>
+<para>Récupère les données de simulation depuis les APIs. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Combine les appels vers td25_param et td25_forecast pour récupérer tous les paramètres nécessaires à la simulation de température. Utilise le client <ref refid="classapp_1_1api__client_1_1_api_client" kindref="compound">ApiClient</ref> pour gérer les retries et les erreurs automatiquement.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>mac_address</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Adresse MAC du dispositif.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Dictionnaire avec toutes les données nécessaires pour la simulation.</para>
+</simplesect>
+<parameterlist kind="exception"><parameteritem>
+<parameternamelist>
+<parametername><ref refid="classapp_1_1api__client_1_1_api_error" kindref="compound">ApiError</ref></parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Si aucune donnée valide n&apos;est obtenue. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/api_client.py" line="289" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/api_client.py" bodystart="289" bodyend="315"/>
+      </memberdef>
+      <memberdef kind="function" id="namespaceapp_1_1api__client_1abf9801a9e4bcf9817f44a2c08e68d938" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition> bool app.api_client.send_temperature_measurement</definition>
+        <argsstring>(str mac_address, float temperature, int channel=None)</argsstring>
+        <name>send_temperature_measurement</name>
+        <qualifiedname>app.api_client.send_temperature_measurement</qualifiedname>
+        <param>
+          <type>str</type>
+          <declname>mac_address</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>temperature</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>channel</declname>
+          <defval>None</defval>
+        </param>
+        <briefdescription>
+<para>Envoie une mesure de température vers l&apos;API. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Fonction utilitaire qui crée un client <ref refid="classapp_1_1api__client_1_1_api_client" kindref="compound">ApiClient</ref> et utilise la méthode post_measured_temperature pour envoyer la température mesurée. Gère les exceptions et retourne un booléen simple.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>mac_address</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Adresse MAC du dispositif. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>temperature</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Température mesurée en °C. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>channel</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Canal de mesure (optionnel).</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>True si succès, False sinon. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/api_client.py" line="328" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/api_client.py" bodystart="328" bodyend="344"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/api_client.py" line="1" column="1"/>
+  </compounddef>
+</doxygen>

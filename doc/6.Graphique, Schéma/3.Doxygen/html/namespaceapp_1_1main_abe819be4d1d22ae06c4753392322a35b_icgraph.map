@@ -1,0 +1,5 @@
+<map id="app.main.signal_handler" name="app.main.signal_handler">
+<area shape="rect" id="Node000001" title="Gestionnaire POSIX pour les signaux (Ctrl+C)." alt="" coords="210,5,371,32"/>
+<area shape="rect" id="Node000002" href="$namespaceapp_1_1main.html#ab98791c04a040ea7d728c8cda86d0677" title="Thread d&#39;écoute des commandes utilisateur depuis stdin." alt="" coords="5,5,162,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="194,21,162,21,162,16,194,16"/>
+</map>

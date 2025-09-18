@@ -1,0 +1,173 @@
+\doxysection{Référence de l\textquotesingle{}espace de nommage app.\+temperature\+\_\+conversion}
+\hypertarget{namespaceapp_1_1temperature__conversion}{}\label{namespaceapp_1_1temperature__conversion}\index{app.temperature\_conversion@{app.temperature\_conversion}}
+\doxysubsubsection*{Fonctions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceapp_1_1temperature__conversion_a2f762505fc59cc6983734bb32a6a1688}{resistance\+\_\+to\+\_\+temperature}} (resistance, table)
+\begin{DoxyCompactList}\small\item\em Convertit une résistance mesurée en température via interpolation linéaire. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespaceapp_1_1temperature__conversion_aff1ea0c25c07f16216abc29f0b51dbcb}{resistance\+\_\+to\+\_\+temperature\+\_\+dynamic}} (resistance, sensor)
+\begin{DoxyCompactList}\small\item\em Convertit une résistance mesurée en température pour un capteur donné. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespaceapp_1_1temperature__conversion_ae4de96194237eecce3dd936d5c6ee5f1}{temperature\+\_\+to\+\_\+resistance\+\_\+dynamic}} (temperature, sensor)
+\begin{DoxyCompactList}\small\item\em Convertit une température en résistance pour un capteur donné (conversion inverse). \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespaceapp_1_1temperature__conversion_a2955653dd2d798b6d389f79519b3b747}{convert\+\_\+temperature\+\_\+to\+\_\+resistance}} (temperature, probe\+\_\+type)
+\begin{DoxyCompactList}\small\item\em Fonction de conversion principale pour la simulation de résistance. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespaceapp_1_1temperature__conversion_aa8915bfda252299d2cda2ea561b46ffe}{get\+\_\+supported\+\_\+probe\+\_\+types}} ()
+\begin{DoxyCompactList}\small\item\em Retourne la liste des types de sondes supportés. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespaceapp_1_1temperature__conversion_aa8da477a88ed675741e3be17b99fac56}{validate\+\_\+temperature\+\_\+range}} (temperature, probe\+\_\+type)
+\begin{DoxyCompactList}\small\item\em Valide si une température est dans la plage supportée par une sonde. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{namespaceapp_1_1temperature__conversion_doc-func-members}
+\doxysubsection{Documentation des fonctions}
+\Hypertarget{namespaceapp_1_1temperature__conversion_a2955653dd2d798b6d389f79519b3b747}\index{app.temperature\_conversion@{app.temperature\_conversion}!convert\_temperature\_to\_resistance@{convert\_temperature\_to\_resistance}}
+\index{convert\_temperature\_to\_resistance@{convert\_temperature\_to\_resistance}!app.temperature\_conversion@{app.temperature\_conversion}}
+\doxysubsubsection{\texorpdfstring{convert\_temperature\_to\_resistance()}{convert\_temperature\_to\_resistance()}}
+{\footnotesize\ttfamily \label{namespaceapp_1_1temperature__conversion_a2955653dd2d798b6d389f79519b3b747} 
+app.\+temperature\+\_\+conversion.\+convert\+\_\+temperature\+\_\+to\+\_\+resistance (\begin{DoxyParamCaption}\item[{}]{temperature}{, }\item[{}]{probe\+\_\+type}{}\end{DoxyParamCaption})}
+
+
+
+Fonction de conversion principale pour la simulation de résistance. 
+
+Fonction de haut niveau qui supporte différents types de sondes avec leurs caractéristiques spécifiques. Inclut la normalisation des noms de sondes et la gestion des variantes de nomenclature.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em temperature} & Température simulée \mbox{[}°C\mbox{]}. \\
+\hline
+{\em probe\+\_\+type} & Type de sonde (formats multiples supportés).\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+Résistance simulée \mbox{[}Ohms\mbox{]} ou None si échec. 
+\end{DoxyReturn}
+Voici le graphe d\textquotesingle{}appel pour cette fonction \+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespaceapp_1_1temperature__conversion_a2955653dd2d798b6d389f79519b3b747_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespaceapp_1_1temperature__conversion_aa8915bfda252299d2cda2ea561b46ffe}\index{app.temperature\_conversion@{app.temperature\_conversion}!get\_supported\_probe\_types@{get\_supported\_probe\_types}}
+\index{get\_supported\_probe\_types@{get\_supported\_probe\_types}!app.temperature\_conversion@{app.temperature\_conversion}}
+\doxysubsubsection{\texorpdfstring{get\_supported\_probe\_types()}{get\_supported\_probe\_types()}}
+{\footnotesize\ttfamily \label{namespaceapp_1_1temperature__conversion_aa8915bfda252299d2cda2ea561b46ffe} 
+app.\+temperature\+\_\+conversion.\+get\+\_\+supported\+\_\+probe\+\_\+types (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Retourne la liste des types de sondes supportés. 
+
+Fonction utilitaire qui extrait la liste complète des noms de capteurs disponibles dans les tables de conversion.
+
+\begin{DoxyReturn}{Renvoie}
+Liste des noms de capteurs disponibles pour conversion. 
+\end{DoxyReturn}
+\Hypertarget{namespaceapp_1_1temperature__conversion_a2f762505fc59cc6983734bb32a6a1688}\index{app.temperature\_conversion@{app.temperature\_conversion}!resistance\_to\_temperature@{resistance\_to\_temperature}}
+\index{resistance\_to\_temperature@{resistance\_to\_temperature}!app.temperature\_conversion@{app.temperature\_conversion}}
+\doxysubsubsection{\texorpdfstring{resistance\_to\_temperature()}{resistance\_to\_temperature()}}
+{\footnotesize\ttfamily \label{namespaceapp_1_1temperature__conversion_a2f762505fc59cc6983734bb32a6a1688} 
+app.\+temperature\+\_\+conversion.\+resistance\+\_\+to\+\_\+temperature (\begin{DoxyParamCaption}\item[{}]{resistance}{, }\item[{}]{table}{}\end{DoxyParamCaption})}
+
+
+
+Convertit une résistance mesurée en température via interpolation linéaire. 
+
+Algorithme d\textquotesingle{}interpolation linéaire qui recherche l\textquotesingle{}intervalle contenant la résistance mesurée et calcule la température correspondante. Gère les cas limites hors plage de mesure.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em resistance} & Résistance mesurée \mbox{[}Ohms\mbox{]}. \\
+\hline
+{\em table} & Liste de tuples (résistance, température) pour interpolation.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+Température interpolée \mbox{[}°C\mbox{]}, ou valeurs limites si hors plage. 
+\end{DoxyReturn}
+\Hypertarget{namespaceapp_1_1temperature__conversion_aff1ea0c25c07f16216abc29f0b51dbcb}\index{app.temperature\_conversion@{app.temperature\_conversion}!resistance\_to\_temperature\_dynamic@{resistance\_to\_temperature\_dynamic}}
+\index{resistance\_to\_temperature\_dynamic@{resistance\_to\_temperature\_dynamic}!app.temperature\_conversion@{app.temperature\_conversion}}
+\doxysubsubsection{\texorpdfstring{resistance\_to\_temperature\_dynamic()}{resistance\_to\_temperature\_dynamic()}}
+{\footnotesize\ttfamily \label{namespaceapp_1_1temperature__conversion_aff1ea0c25c07f16216abc29f0b51dbcb} 
+app.\+temperature\+\_\+conversion.\+resistance\+\_\+to\+\_\+temperature\+\_\+dynamic (\begin{DoxyParamCaption}\item[{}]{resistance}{, }\item[{}]{sensor}{}\end{DoxyParamCaption})}
+
+
+
+Convertit une résistance mesurée en température pour un capteur donné. 
+
+Fonction dynamique qui sélectionne automatiquement la table de conversion appropriée selon le type de capteur spécifié. Effectue la validation du capteur avant conversion.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em resistance} & Résistance mesurée \mbox{[}Ohms\mbox{]}. \\
+\hline
+{\em sensor} & Nom du type de capteur à utiliser.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+Température interpolée \mbox{[}°C\mbox{]} ou None si hors limites.
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Value\+Error} & si le capteur n\textquotesingle{}est pas reconnu. \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{namespaceapp_1_1temperature__conversion_ae4de96194237eecce3dd936d5c6ee5f1}\index{app.temperature\_conversion@{app.temperature\_conversion}!temperature\_to\_resistance\_dynamic@{temperature\_to\_resistance\_dynamic}}
+\index{temperature\_to\_resistance\_dynamic@{temperature\_to\_resistance\_dynamic}!app.temperature\_conversion@{app.temperature\_conversion}}
+\doxysubsubsection{\texorpdfstring{temperature\_to\_resistance\_dynamic()}{temperature\_to\_resistance\_dynamic()}}
+{\footnotesize\ttfamily \label{namespaceapp_1_1temperature__conversion_ae4de96194237eecce3dd936d5c6ee5f1} 
+app.\+temperature\+\_\+conversion.\+temperature\+\_\+to\+\_\+resistance\+\_\+dynamic (\begin{DoxyParamCaption}\item[{}]{temperature}{, }\item[{}]{sensor}{}\end{DoxyParamCaption})}
+
+
+
+Convertit une température en résistance pour un capteur donné (conversion inverse). 
+
+Fonction de conversion inverse utilisée pour la simulation de résistance. Effectue l\textquotesingle{}interpolation linéaire sur l\textquotesingle{}axe température pour obtenir la résistance correspondante selon le type de capteur.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em temperature} & Température d\textquotesingle{}entrée \mbox{[}°C\mbox{]}. \\
+\hline
+{\em sensor} & Nom du type de capteur à utiliser.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+Résistance interpolée \mbox{[}Ohms\mbox{]} ou None si hors limites.
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Value\+Error} & si le capteur n\textquotesingle{}est pas reconnu. \\
+\hline
+\end{DoxyExceptions}
+Voici le graphe des appelants de cette fonction \+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespaceapp_1_1temperature__conversion_ae4de96194237eecce3dd936d5c6ee5f1_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespaceapp_1_1temperature__conversion_aa8da477a88ed675741e3be17b99fac56}\index{app.temperature\_conversion@{app.temperature\_conversion}!validate\_temperature\_range@{validate\_temperature\_range}}
+\index{validate\_temperature\_range@{validate\_temperature\_range}!app.temperature\_conversion@{app.temperature\_conversion}}
+\doxysubsubsection{\texorpdfstring{validate\_temperature\_range()}{validate\_temperature\_range()}}
+{\footnotesize\ttfamily \label{namespaceapp_1_1temperature__conversion_aa8da477a88ed675741e3be17b99fac56} 
+app.\+temperature\+\_\+conversion.\+validate\+\_\+temperature\+\_\+range (\begin{DoxyParamCaption}\item[{}]{temperature}{, }\item[{}]{probe\+\_\+type}{}\end{DoxyParamCaption})}
+
+
+
+Valide si une température est dans la plage supportée par une sonde. 
+
+Fonction de validation qui vérifie si une température donnée est compatible avec la plage de fonctionnement d\textquotesingle{}un type de capteur spécifique selon sa table de calibration.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em temperature} & Température à valider \mbox{[}°C\mbox{]}. \\
+\hline
+{\em probe\+\_\+type} & Type de sonde à vérifier.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+True si la température est dans la plage supportée. 
+\end{DoxyReturn}

@@ -1,0 +1,252 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_classapp_1_1hw__tmux1204_1_1_tmux1204" xml:lang="fr">
+<title>Référence de la classe app.hw_tmux1204.Tmux1204</title>
+<indexterm><primary>app.hw_tmux1204.Tmux1204</primary></indexterm>
+<para>
+
+<para>Pilote pour le multiplexeur TMUX1204. </para>
+ 
+</para>
+Graphe de collaboration de app.hw_tmux1204.Tmux1204:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classapp_1_1hw__tmux1204_1_1_tmux1204__coll__graph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+<simplesect>
+    <title>Fonctions membres publiques    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classapp_1_1hw__tmux1204_1_1_tmux1204_1ab0f13b4513248f3d296baeab7e559fe2">__init__</link> (self)</para>
+
+<para>Initialise le pilote TMUX1204. </para>
+</listitem>
+            <listitem><para><link linkend="_classapp_1_1hw__tmux1204_1_1_tmux1204_1aeece5a8953354758865f35beb5d0e911">close</link> (self)</para>
+
+<para>Ferme les interfaces GPIO. </para>
+</listitem>
+            <listitem><para><link linkend="_classapp_1_1hw__tmux1204_1_1_tmux1204_1a2ffdb1f55fc229434ee7f0c8de822a80">set_bits</link> (self, bit_a1, bit_a0)</para>
+
+<para>Définit les bits de contrôle A1 et A0. </para>
+</listitem>
+            <listitem><para><link linkend="_classapp_1_1hw__tmux1204_1_1_tmux1204_1af3580f52e52bd0726dfb5fb09b6eaf7e">select_rref_ohm</link> (self, rref_ohm)</para>
+
+<para>Sélectionne la résistance de référence Rref. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Attributs publics    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classapp_1_1hw__tmux1204_1_1_tmux1204_1ae24903744a302da76471ed0b57efcc33">gpio_a1</link> = GPIO(GPIO_CHIP_PATH, ADC_A1, &quot;out&quot;)</para>
+</listitem>
+            <listitem><para><link linkend="_classapp_1_1hw__tmux1204_1_1_tmux1204_1af3bcd7ec404eef12d3dc588631b76685">gpio_a0</link> = GPIO(GPIO_CHIP_PATH, ADC_A0, &quot;out&quot;)</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Description détaillée</title>
+
+<para>Pilote pour le multiplexeur TMUX1204. </para>
+
+
+
+<para>Classe pour gérer la sélection de résistance de référence via le multiplexeur TMUX1204. Utilise deux signaux de contrôle (A1, A0) pour sélectionner parmi quatre valeurs de Rref selon la table de vérité :<itemizedlist>
+<listitem>
+<para>A1=0, A0=0 : 2.2k ohms</para>
+</listitem><listitem>
+<para>A1=0, A0=1 : 2.7k ohms</para>
+</listitem><listitem>
+<para>A1=1, A0=0 : 10k ohms</para>
+</listitem><listitem>
+<para>A1=1, A0=1 : 100k ohms </para>
+</listitem></itemizedlist>
+</para>
+</section>
+<section>
+<title>Documentation des constructeurs et destructeur</title>
+<anchor xml:id="_classapp_1_1hw__tmux1204_1_1_tmux1204_1ab0f13b4513248f3d296baeab7e559fe2"/><section>
+    <title>__init__()</title>
+<indexterm><primary>__init__</primary><secondary>app.hw_tmux1204.Tmux1204</secondary></indexterm>
+<indexterm><primary>app.hw_tmux1204.Tmux1204</primary><secondary>__init__</secondary></indexterm>
+<para><computeroutput>app.hw_tmux1204.Tmux1204.__init__ ( self)</computeroutput></para><para>
+
+<para>Initialise le pilote TMUX1204. </para>
+</para>
+
+<para>Configure les GPIO pour les signaux de contrôle A1 et A0 en mode sortie. Utilise les constantes matérielles définies dans le module <link linkend="_namespaceapp_1_1pins__cm5">pins_cm5</link>. </para>
+</section>
+</section>
+<section>
+<title>Documentation des fonctions membres</title>
+<anchor xml:id="_classapp_1_1hw__tmux1204_1_1_tmux1204_1aeece5a8953354758865f35beb5d0e911"/><section>
+    <title>close()</title>
+<indexterm><primary>close</primary><secondary>app.hw_tmux1204.Tmux1204</secondary></indexterm>
+<indexterm><primary>app.hw_tmux1204.Tmux1204</primary><secondary>close</secondary></indexterm>
+<para><computeroutput>app.hw_tmux1204.Tmux1204.close ( self)</computeroutput></para><para>
+
+<para>Ferme les interfaces GPIO. </para>
+</para>
+
+<para>Ferme proprement les GPIO A1 et A0 pour libérer les ressources système. Gère les erreurs de fermeture pour éviter les exceptions lors du nettoyage. </para>
+Voici le graphe d&apos;appel pour cette fonction :<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classapp_1_1hw__tmux1204_1_1_tmux1204_aeece5a8953354758865f35beb5d0e911_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Voici le graphe des appelants de cette fonction :<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classapp_1_1hw__tmux1204_1_1_tmux1204_aeece5a8953354758865f35beb5d0e911_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classapp_1_1hw__tmux1204_1_1_tmux1204_1af3580f52e52bd0726dfb5fb09b6eaf7e"/><section>
+    <title>select_rref_ohm()</title>
+<indexterm><primary>select_rref_ohm</primary><secondary>app.hw_tmux1204.Tmux1204</secondary></indexterm>
+<indexterm><primary>app.hw_tmux1204.Tmux1204</primary><secondary>select_rref_ohm</secondary></indexterm>
+<para><computeroutput>app.hw_tmux1204.Tmux1204.select_rref_ohm ( self,  rref_ohm)</computeroutput></para><para>
+
+<para>Sélectionne la résistance de référence Rref. </para>
+</para>
+
+<para>Configure les signaux de contrôle selon la table de vérité pour sélectionner la résistance de référence demandée. Supporte quatre valeurs fixes : 2200, 2700, 10000, 100000 ohms.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Paramètres</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>rref_ohm</entry><entry>
+<para>Valeur de résistance de référence en ohms.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                
+                <formalpara>
+                    <title>
+Exceptions</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>ValueError</entry><entry>
+<para>Si la valeur de Rref n&apos;est pas supportée.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <note><title>Note</title>
+
+<para>Table de vérité TMUX1204 :<itemizedlist>
+<listitem>
+<para>2200 ohms : A1=0, A0=0</para>
+</listitem><listitem>
+<para>2700 ohms : A1=0, A0=1</para>
+</listitem><listitem>
+<para>10000 ohms : A1=1, A0=0</para>
+</listitem><listitem>
+<para>100000 ohms: A1=1, A0=1 </para>
+</listitem></itemizedlist>
+</para>
+</note>
+</para>
+Voici le graphe d&apos;appel pour cette fonction :<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classapp_1_1hw__tmux1204_1_1_tmux1204_af3580f52e52bd0726dfb5fb09b6eaf7e_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classapp_1_1hw__tmux1204_1_1_tmux1204_1a2ffdb1f55fc229434ee7f0c8de822a80"/><section>
+    <title>set_bits()</title>
+<indexterm><primary>set_bits</primary><secondary>app.hw_tmux1204.Tmux1204</secondary></indexterm>
+<indexterm><primary>app.hw_tmux1204.Tmux1204</primary><secondary>set_bits</secondary></indexterm>
+<para><computeroutput>app.hw_tmux1204.Tmux1204.set_bits ( self,  bit_a1,  bit_a0)</computeroutput></para><para>
+
+<para>Définit les bits de contrôle A1 et A0. </para>
+</para>
+
+<para>Applique les niveaux logiques sur les signaux de contrôle du multiplexeur. Convertit les valeurs numériques (0/1) en niveaux logiques GPIO (False/True).</para>
+
+<para>
+                <formalpara>
+                    <title>
+Paramètres</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>bit_a1</entry><entry>
+<para>Valeur du bit A1 (0 ou 1). </para>
+</entry>
+                            </row>
+                            <row>
+<entry>bit_a0</entry><entry>
+<para>Valeur du bit A0 (0 ou 1). </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+Voici le graphe des appelants de cette fonction :<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classapp_1_1hw__tmux1204_1_1_tmux1204_a2ffdb1f55fc229434ee7f0c8de822a80_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+</section>
+<section>
+<title>Documentation des données membres</title>
+<anchor xml:id="_classapp_1_1hw__tmux1204_1_1_tmux1204_1af3bcd7ec404eef12d3dc588631b76685"/><section>
+    <title>gpio_a0</title>
+<indexterm><primary>gpio_a0</primary><secondary>app.hw_tmux1204.Tmux1204</secondary></indexterm>
+<indexterm><primary>app.hw_tmux1204.Tmux1204</primary><secondary>gpio_a0</secondary></indexterm>
+<para><computeroutput>app.hw_tmux1204.Tmux1204.gpio_a0 = GPIO(GPIO_CHIP_PATH, ADC_A0, &quot;out&quot;)</computeroutput></para></section>
+<anchor xml:id="_classapp_1_1hw__tmux1204_1_1_tmux1204_1ae24903744a302da76471ed0b57efcc33"/><section>
+    <title>gpio_a1</title>
+<indexterm><primary>gpio_a1</primary><secondary>app.hw_tmux1204.Tmux1204</secondary></indexterm>
+<indexterm><primary>app.hw_tmux1204.Tmux1204</primary><secondary>gpio_a1</secondary></indexterm>
+<para><computeroutput>app.hw_tmux1204.Tmux1204.gpio_a1 = GPIO(GPIO_CHIP_PATH, ADC_A1, &quot;out&quot;)</computeroutput></para></section>
+<para>
+La documentation de cette classe a été générée à partir du fichier suivant :</para>
+C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/<link linkend="_hw__tmux1204_8py">hw_tmux1204.py</link></section>
+</section>

@@ -1,0 +1,5 @@
+<map id="app.resistance_mapping.find_closest_channel" name="app.resistance_mapping.find_closest_channel">
+<area shape="rect" id="Node000001" title="Trouve le canal MUX le plus proche pour une résistance cible." alt="" coords="5,5,193,48"/>
+<area shape="rect" id="Node000002" href="$namespaceapp_1_1resistance__mapping.html#abcef5f0352c26d7e5540d9bc85a3e3fa" title="Retourne le mapping CHANNEL_MUX pour un type de sonde donné." alt="" coords="241,5,425,48"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="193,24,225,24,225,29,193,29"/>
+</map>

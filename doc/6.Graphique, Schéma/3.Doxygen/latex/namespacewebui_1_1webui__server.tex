@@ -1,0 +1,159 @@
+\doxysection{Référence de l\textquotesingle{}espace de nommage webui.\+webui\+\_\+server}
+\hypertarget{namespacewebui_1_1webui__server}{}\label{namespacewebui_1_1webui__server}\index{webui.webui\_server@{webui.webui\_server}}
+\doxysubsubsection*{Fonctions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacewebui_1_1webui__server_ab49b8a0bc3425c50079480de48990dcc}{serve\+\_\+index}} ()
+\begin{DoxyCompactList}\small\item\em Sert la page principale de l\textquotesingle{}interface web. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespacewebui_1_1webui__server_a4c0c0ae9a45c748c0089996cf34a199e}{get\+\_\+config}} ()
+\begin{DoxyCompactList}\small\item\em Récupère la configuration actuelle des capteurs. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespacewebui_1_1webui__server_a5e3c84f0b6e1334a0fb7d3375965e0f6}{put\+\_\+config}} ()
+\begin{DoxyCompactList}\small\item\em Sauvegarde une nouvelle configuration des capteurs. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespacewebui_1_1webui__server_a1e99eca46e51fb406153841d145748cc}{get\+\_\+last}} ()
+\begin{DoxyCompactList}\small\item\em Récupère le dernier état du système de mesure. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespacewebui_1_1webui__server_a431000dffb42d4b4cd2ce023fa0c4a1e}{force\+\_\+reload}} ()
+\begin{DoxyCompactList}\small\item\em Force le rechargement de la configuration au prochain cycle. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacewebui_1_1webui__server_a5de8cf19497f30c68ef48229ed037e2d}{BASE\+\_\+\+DIR}} = os.\+path.\+abspath(os.\+path.\+join(os.\+path.\+dirname(\+\_\+\+\_\+file\+\_\+\+\_\+), "{}.."{}))
+\item 
+\mbox{\hyperlink{namespacewebui_1_1webui__server_ad1e31aeef058a01b14bbfa0e216b43d6}{CONFIG\+\_\+\+PATH}} = os.\+path.\+join(\mbox{\hyperlink{namespacewebui_1_1webui__server_a5de8cf19497f30c68ef48229ed037e2d}{BASE\+\_\+\+DIR}}, "{}config\+\_\+module"{}, "{}sensors.\+json"{})
+\item 
+\mbox{\hyperlink{namespacewebui_1_1webui__server_a9f76ef91507216717dc653f7b9479cbb}{STATE\+\_\+\+PATH}} = os.\+path.\+join(\mbox{\hyperlink{namespacewebui_1_1webui__server_a5de8cf19497f30c68ef48229ed037e2d}{BASE\+\_\+\+DIR}}, "{}state"{}, "{}last\+\_\+state.\+json"{})
+\item 
+\mbox{\hyperlink{namespacewebui_1_1webui__server_ad2ed404946ddf35648333368e4392c28}{WEBUI\+\_\+\+DIR}} = os.\+path.\+dirname(\+\_\+\+\_\+file\+\_\+\+\_\+)
+\item 
+\mbox{\hyperlink{namespacewebui_1_1webui__server_a7a4894526f1923df3ef5c7000ba4232c}{app}} = Flask(\+\_\+\+\_\+name\+\_\+\+\_\+, static\+\_\+folder=\mbox{\hyperlink{namespacewebui_1_1webui__server_ad2ed404946ddf35648333368e4392c28}{WEBUI\+\_\+\+DIR}}, static\+\_\+url\+\_\+path=\textquotesingle{}/static\textquotesingle{})
+\item 
+\mbox{\hyperlink{namespacewebui_1_1webui__server_a3eb0a70910bd6aab440ad5d5fc00f39d}{host}}
+\item 
+\mbox{\hyperlink{namespacewebui_1_1webui__server_ab660a159b0414ddafb0b1e81ae6a476b}{port}}
+\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{namespacewebui_1_1webui__server_doc-func-members}
+\doxysubsection{Documentation des fonctions}
+\Hypertarget{namespacewebui_1_1webui__server_a431000dffb42d4b4cd2ce023fa0c4a1e}\index{webui.webui\_server@{webui.webui\_server}!force\_reload@{force\_reload}}
+\index{force\_reload@{force\_reload}!webui.webui\_server@{webui.webui\_server}}
+\doxysubsubsection{\texorpdfstring{force\_reload()}{force\_reload()}}
+{\footnotesize\ttfamily \label{namespacewebui_1_1webui__server_a431000dffb42d4b4cd2ce023fa0c4a1e} 
+webui.\+webui\+\_\+server.\+force\+\_\+reload (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Force le rechargement de la configuration au prochain cycle. 
+
+Crée un fichier flag force\+\_\+reload.\+flag avec horodatage pour déclencher le rechargement de configuration par le processus principal lors du prochain cycle de mesure.
+
+\begin{DoxyReturn}{Renvoie}
+Confirmation de demande ou message d\textquotesingle{}erreur avec code HTTP. 
+\end{DoxyReturn}
+\Hypertarget{namespacewebui_1_1webui__server_a4c0c0ae9a45c748c0089996cf34a199e}\index{webui.webui\_server@{webui.webui\_server}!get\_config@{get\_config}}
+\index{get\_config@{get\_config}!webui.webui\_server@{webui.webui\_server}}
+\doxysubsubsection{\texorpdfstring{get\_config()}{get\_config()}}
+{\footnotesize\ttfamily \label{namespacewebui_1_1webui__server_a4c0c0ae9a45c748c0089996cf34a199e} 
+webui.\+webui\+\_\+server.\+get\+\_\+config (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Récupère la configuration actuelle des capteurs. 
+
+Lecture du fichier sensors.\+json et retour des données de configuration en format JSON. Gère les erreurs de lecture et affiche des informations de débogage.
+
+\begin{DoxyReturn}{Renvoie}
+Configuration JSON ou message d\textquotesingle{}erreur avec code HTTP. 
+\end{DoxyReturn}
+\Hypertarget{namespacewebui_1_1webui__server_a1e99eca46e51fb406153841d145748cc}\index{webui.webui\_server@{webui.webui\_server}!get\_last@{get\_last}}
+\index{get\_last@{get\_last}!webui.webui\_server@{webui.webui\_server}}
+\doxysubsubsection{\texorpdfstring{get\_last()}{get\_last()}}
+{\footnotesize\ttfamily \label{namespacewebui_1_1webui__server_a1e99eca46e51fb406153841d145748cc} 
+webui.\+webui\+\_\+server.\+get\+\_\+last (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Récupère le dernier état du système de mesure. 
+
+Lecture du fichier last\+\_\+state.\+json contenant les dernières mesures, températures et statuts. Gère le cas où le fichier n\textquotesingle{}existe pas encore et retourne un état par défaut.
+
+\begin{DoxyReturn}{Renvoie}
+État JSON du système ou structure par défaut si fichier absent. 
+\end{DoxyReturn}
+\Hypertarget{namespacewebui_1_1webui__server_a5e3c84f0b6e1334a0fb7d3375965e0f6}\index{webui.webui\_server@{webui.webui\_server}!put\_config@{put\_config}}
+\index{put\_config@{put\_config}!webui.webui\_server@{webui.webui\_server}}
+\doxysubsubsection{\texorpdfstring{put\_config()}{put\_config()}}
+{\footnotesize\ttfamily \label{namespacewebui_1_1webui__server_a5e3c84f0b6e1334a0fb7d3375965e0f6} 
+webui.\+webui\+\_\+server.\+put\+\_\+config (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Sauvegarde une nouvelle configuration des capteurs. 
+
+Reçoit des données JSON, valide le contenu et sauvegarde dans sensors.\+json avec sauvegarde atomique via fichier temporaire. Affiche un résumé des changements principaux.
+
+\begin{DoxyReturn}{Renvoie}
+Statut de sauvegarde ou message d\textquotesingle{}erreur avec code HTTP. 
+\end{DoxyReturn}
+\Hypertarget{namespacewebui_1_1webui__server_ab49b8a0bc3425c50079480de48990dcc}\index{webui.webui\_server@{webui.webui\_server}!serve\_index@{serve\_index}}
+\index{serve\_index@{serve\_index}!webui.webui\_server@{webui.webui\_server}}
+\doxysubsubsection{\texorpdfstring{serve\_index()}{serve\_index()}}
+{\footnotesize\ttfamily \label{namespacewebui_1_1webui__server_ab49b8a0bc3425c50079480de48990dcc} 
+webui.\+webui\+\_\+server.\+serve\+\_\+index (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Sert la page principale de l\textquotesingle{}interface web. 
+
+Route racine qui retourne le fichier index.\+html depuis le répertoire webui pour affichage de l\textquotesingle{}interface utilisateur.
+
+\begin{DoxyReturn}{Renvoie}
+Fichier HTML de l\textquotesingle{}interface principale. 
+\end{DoxyReturn}
+
+
+\label{doc-var-members}
+\Hypertarget{namespacewebui_1_1webui__server_doc-var-members}
+\doxysubsection{Documentation des variables}
+\Hypertarget{namespacewebui_1_1webui__server_a7a4894526f1923df3ef5c7000ba4232c}\index{webui.webui\_server@{webui.webui\_server}!app@{app}}
+\index{app@{app}!webui.webui\_server@{webui.webui\_server}}
+\doxysubsubsection{\texorpdfstring{app}{app}}
+{\footnotesize\ttfamily \label{namespacewebui_1_1webui__server_a7a4894526f1923df3ef5c7000ba4232c} 
+webui.\+webui\+\_\+server.\+app = Flask(\+\_\+\+\_\+name\+\_\+\+\_\+, static\+\_\+folder=\mbox{\hyperlink{namespacewebui_1_1webui__server_ad2ed404946ddf35648333368e4392c28}{WEBUI\+\_\+\+DIR}}, static\+\_\+url\+\_\+path=\textquotesingle{}/static\textquotesingle{})}
+
+\Hypertarget{namespacewebui_1_1webui__server_a5de8cf19497f30c68ef48229ed037e2d}\index{webui.webui\_server@{webui.webui\_server}!BASE\_DIR@{BASE\_DIR}}
+\index{BASE\_DIR@{BASE\_DIR}!webui.webui\_server@{webui.webui\_server}}
+\doxysubsubsection{\texorpdfstring{BASE\_DIR}{BASE\_DIR}}
+{\footnotesize\ttfamily \label{namespacewebui_1_1webui__server_a5de8cf19497f30c68ef48229ed037e2d} 
+webui.\+webui\+\_\+server.\+BASE\+\_\+\+DIR = os.\+path.\+abspath(os.\+path.\+join(os.\+path.\+dirname(\+\_\+\+\_\+file\+\_\+\+\_\+), "{}.."{}))}
+
+\Hypertarget{namespacewebui_1_1webui__server_ad1e31aeef058a01b14bbfa0e216b43d6}\index{webui.webui\_server@{webui.webui\_server}!CONFIG\_PATH@{CONFIG\_PATH}}
+\index{CONFIG\_PATH@{CONFIG\_PATH}!webui.webui\_server@{webui.webui\_server}}
+\doxysubsubsection{\texorpdfstring{CONFIG\_PATH}{CONFIG\_PATH}}
+{\footnotesize\ttfamily \label{namespacewebui_1_1webui__server_ad1e31aeef058a01b14bbfa0e216b43d6} 
+webui.\+webui\+\_\+server.\+CONFIG\+\_\+\+PATH = os.\+path.\+join(\mbox{\hyperlink{namespacewebui_1_1webui__server_a5de8cf19497f30c68ef48229ed037e2d}{BASE\+\_\+\+DIR}}, "{}config\+\_\+module"{}, "{}sensors.\+json"{})}
+
+\Hypertarget{namespacewebui_1_1webui__server_a3eb0a70910bd6aab440ad5d5fc00f39d}\index{webui.webui\_server@{webui.webui\_server}!host@{host}}
+\index{host@{host}!webui.webui\_server@{webui.webui\_server}}
+\doxysubsubsection{\texorpdfstring{host}{host}}
+{\footnotesize\ttfamily \label{namespacewebui_1_1webui__server_a3eb0a70910bd6aab440ad5d5fc00f39d} 
+webui.\+webui\+\_\+server.\+host}
+
+\Hypertarget{namespacewebui_1_1webui__server_ab660a159b0414ddafb0b1e81ae6a476b}\index{webui.webui\_server@{webui.webui\_server}!port@{port}}
+\index{port@{port}!webui.webui\_server@{webui.webui\_server}}
+\doxysubsubsection{\texorpdfstring{port}{port}}
+{\footnotesize\ttfamily \label{namespacewebui_1_1webui__server_ab660a159b0414ddafb0b1e81ae6a476b} 
+webui.\+webui\+\_\+server.\+port}
+
+\Hypertarget{namespacewebui_1_1webui__server_a9f76ef91507216717dc653f7b9479cbb}\index{webui.webui\_server@{webui.webui\_server}!STATE\_PATH@{STATE\_PATH}}
+\index{STATE\_PATH@{STATE\_PATH}!webui.webui\_server@{webui.webui\_server}}
+\doxysubsubsection{\texorpdfstring{STATE\_PATH}{STATE\_PATH}}
+{\footnotesize\ttfamily \label{namespacewebui_1_1webui__server_a9f76ef91507216717dc653f7b9479cbb} 
+webui.\+webui\+\_\+server.\+STATE\+\_\+\+PATH = os.\+path.\+join(\mbox{\hyperlink{namespacewebui_1_1webui__server_a5de8cf19497f30c68ef48229ed037e2d}{BASE\+\_\+\+DIR}}, "{}state"{}, "{}last\+\_\+state.\+json"{})}
+
+\Hypertarget{namespacewebui_1_1webui__server_ad2ed404946ddf35648333368e4392c28}\index{webui.webui\_server@{webui.webui\_server}!WEBUI\_DIR@{WEBUI\_DIR}}
+\index{WEBUI\_DIR@{WEBUI\_DIR}!webui.webui\_server@{webui.webui\_server}}
+\doxysubsubsection{\texorpdfstring{WEBUI\_DIR}{WEBUI\_DIR}}
+{\footnotesize\ttfamily \label{namespacewebui_1_1webui__server_ad2ed404946ddf35648333368e4392c28} 
+webui.\+webui\+\_\+server.\+WEBUI\+\_\+\+DIR = os.\+path.\+dirname(\+\_\+\+\_\+file\+\_\+\+\_\+)}
+

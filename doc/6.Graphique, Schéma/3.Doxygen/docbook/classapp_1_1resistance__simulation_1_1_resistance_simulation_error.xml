@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_classapp_1_1resistance__simulation_1_1_resistance_simulation_error" xml:lang="fr">
+<title>Référence de la classe app.resistance_simulation.ResistanceSimulationError</title>
+<indexterm><primary>app.resistance_simulation.ResistanceSimulationError</primary></indexterm>
+<para>
+
+<para>Exception pour les erreurs de simulation de résistance. </para>
+ 
+</para>
+Graphe d&apos;héritage de app.resistance_simulation.ResistanceSimulationError:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classapp_1_1resistance__simulation_1_1_resistance_simulation_error__inherit__graph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Graphe de collaboration de app.resistance_simulation.ResistanceSimulationError:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classapp_1_1resistance__simulation_1_1_resistance_simulation_error__coll__graph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+<section>
+<title>Description détaillée</title>
+
+<para>Exception pour les erreurs de simulation de résistance. </para>
+
+
+
+<para>Exception spécialisée levée lors d&apos;erreurs dans le processus de simulation de résistance via le multiplexeur. </para>
+<para>
+La documentation de cette classe a été générée à partir du fichier suivant :</para>
+C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/<link linkend="_resistance__simulation_8py">resistance_simulation.py</link></section>
+</section>

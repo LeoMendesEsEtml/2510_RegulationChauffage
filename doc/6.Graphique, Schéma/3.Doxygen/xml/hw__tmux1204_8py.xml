@@ -1,0 +1,167 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="fr">
+  <compounddef id="hw__tmux1204_8py" kind="file" language="Python">
+    <compoundname>hw_tmux1204.py</compoundname>
+    <innerclass refid="classapp_1_1hw__tmux1204_1_1_tmux1204" prot="public">app::hw_tmux1204::Tmux1204</innerclass>
+    <innernamespace refid="namespaceapp">app</innernamespace>
+    <innernamespace refid="namespaceapp_1_1hw__tmux1204">app::hw_tmux1204</innernamespace>
+    <briefdescription>
+<para>Pilote pour multiplexeur TMUX1204 de sélection de résistance de référence. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Ce module fournit un pilote pour contrôler le multiplexeur TMUX1204 via les signaux de contrôle ADC_A1 et ADC_A0. Permet la sélection de quatre valeurs de résistance de référence (2.2k, 2.7k, 10k, 100k) selon une table de vérité définie. <simplesect kind="author"><para>Léo Mendes @project 2510_RegulationsChauffage @Mandant Oblo_solution </para>
+</simplesect>
+<simplesect kind="date"><para>2025-09-18 </para>
+</simplesect>
+<simplesect kind="version"><para>1.0.0 </para>
+</simplesect>
+<simplesect kind="copyright"><para>Copyright (c) 2025 </para>
+</simplesect>
+</para>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1" refid="namespaceapp_1_1hw__tmux1204" refkind="compound"><highlight class="comment">#<sp/>-*-<sp/>coding:<sp/>utf-8<sp/>-*-</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="stringliteral">&quot;&quot;&quot;</highlight></codeline>
+<codeline lineno="3"><highlight class="stringliteral">@file<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>hw_tmux1204.py</highlight></codeline>
+<codeline lineno="4"><highlight class="stringliteral">@brief<sp/><sp/><sp/><sp/><sp/><sp/><sp/>Pilote<sp/>pour<sp/>multiplexeur<sp/>TMUX1204<sp/>de<sp/>sélection<sp/>de<sp/>résistance<sp/>de<sp/>référence.</highlight></codeline>
+<codeline lineno="5"><highlight class="stringliteral">@details<sp/><sp/><sp/><sp/><sp/>Ce<sp/>module<sp/>fournit<sp/>un<sp/>pilote<sp/>pour<sp/>contrôler<sp/>le<sp/>multiplexeur<sp/>TMUX1204</highlight></codeline>
+<codeline lineno="6"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>via<sp/>les<sp/>signaux<sp/>de<sp/>contrôle<sp/>ADC_A1<sp/>et<sp/>ADC_A0.<sp/>Permet<sp/>la<sp/>sélection</highlight></codeline>
+<codeline lineno="7"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>de<sp/>quatre<sp/>valeurs<sp/>de<sp/>résistance<sp/>de<sp/>référence<sp/>(2.2k,<sp/>2.7k,<sp/>10k,<sp/>100k)</highlight></codeline>
+<codeline lineno="8"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>selon<sp/>une<sp/>table<sp/>de<sp/>vérité<sp/>définie.</highlight></codeline>
+<codeline lineno="9"><highlight class="stringliteral">@author<sp/><sp/><sp/><sp/><sp/><sp/>Léo<sp/>Mendes</highlight></codeline>
+<codeline lineno="10"><highlight class="stringliteral">@project<sp/><sp/><sp/><sp/><sp/>2510_RegulationsChauffage</highlight></codeline>
+<codeline lineno="11"><highlight class="stringliteral">@Mandant<sp/><sp/><sp/><sp/><sp/>Oblo_solution</highlight></codeline>
+<codeline lineno="12"><highlight class="stringliteral">@date<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2025-09-18</highlight></codeline>
+<codeline lineno="13"><highlight class="stringliteral">@version<sp/><sp/><sp/><sp/><sp/>1.0.0</highlight></codeline>
+<codeline lineno="14"><highlight class="stringliteral">@copyright<sp/><sp/><sp/>Copyright<sp/>(c)<sp/>2025</highlight></codeline>
+<codeline lineno="15"><highlight class="stringliteral">&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/>__future__<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>annotations</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="comment">#<sp/>Bibliothèque<sp/>pour<sp/>la<sp/>gestion<sp/>des<sp/>GPIO</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/>periphery<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>GPIO</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="comment">#<sp/>Importation<sp/>des<sp/>constantes<sp/>matérielles</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/>pins_cm5<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>GPIO_CHIP_PATH,<sp/>ADC_A1,<sp/>ADC_A0</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="comment">#<sp/>---------------------------------------------------------------------------</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="comment">#<sp/>Classes<sp/>principales</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="comment">#<sp/>---------------------------------------------------------------------------</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classapp_1_1hw__tmux1204_1_1_tmux1204" kindref="compound">Tmux1204</ref>:</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;</highlight></codeline>
+<codeline lineno="30"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>@brief<sp/><sp/><sp/>Pilote<sp/>pour<sp/>le<sp/>multiplexeur<sp/>TMUX1204.</highlight></codeline>
+<codeline lineno="31"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>@details<sp/>Classe<sp/>pour<sp/>gérer<sp/>la<sp/>sélection<sp/>de<sp/>résistance<sp/>de<sp/>référence<sp/>via</highlight></codeline>
+<codeline lineno="32"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>le<sp/>multiplexeur<sp/>TMUX1204.<sp/>Utilise<sp/>deux<sp/>signaux<sp/>de<sp/>contrôle</highlight></codeline>
+<codeline lineno="33"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(A1,<sp/>A0)<sp/>pour<sp/>sélectionner<sp/>parmi<sp/>quatre<sp/>valeurs<sp/>de<sp/>Rref<sp/>selon</highlight></codeline>
+<codeline lineno="34"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>la<sp/>table<sp/>de<sp/>vérité<sp/>:</highlight></codeline>
+<codeline lineno="35"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>A1=0,<sp/>A0=0<sp/>:<sp/>2.2k<sp/>ohms</highlight></codeline>
+<codeline lineno="36"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>A1=0,<sp/>A0=1<sp/>:<sp/>2.7k<sp/>ohms<sp/><sp/></highlight></codeline>
+<codeline lineno="37"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>A1=1,<sp/>A0=0<sp/>:<sp/>10k<sp/>ohms</highlight></codeline>
+<codeline lineno="38"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>A1=1,<sp/>A0=1<sp/>:<sp/>100k<sp/>ohms</highlight></codeline>
+<codeline lineno="39" refid="classapp_1_1hw__tmux1204_1_1_tmux1204" refkind="compound"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="classapp_1_1hw__tmux1204_1_1_tmux1204_1ab0f13b4513248f3d296baeab7e559fe2" kindref="member">__init__</ref>(self):</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;</highlight></codeline>
+<codeline lineno="43"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>@brief<sp/><sp/><sp/>Initialise<sp/>le<sp/>pilote<sp/>TMUX1204.</highlight></codeline>
+<codeline lineno="44"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>@details<sp/>Configure<sp/>les<sp/>GPIO<sp/>pour<sp/>les<sp/>signaux<sp/>de<sp/>contrôle<sp/>A1<sp/>et<sp/>A0</highlight></codeline>
+<codeline lineno="45"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>en<sp/>mode<sp/>sortie.<sp/>Utilise<sp/>les<sp/>constantes<sp/>matérielles<sp/>définies</highlight></codeline>
+<codeline lineno="46"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>dans<sp/>le<sp/>module<sp/>pins_cm5.</highlight></codeline>
+<codeline lineno="47" refid="classapp_1_1hw__tmux1204_1_1_tmux1204_1ab0f13b4513248f3d296baeab7e559fe2" refkind="member"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Initialisation<sp/>des<sp/>GPIO<sp/>pour<sp/>les<sp/>sorties<sp/>A1<sp/>et<sp/>A0</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>GPIO<sp/>pour<sp/>A1</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50" refid="classapp_1_1hw__tmux1204_1_1_tmux1204_1ae24903744a302da76471ed0b57efcc33" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classapp_1_1hw__tmux1204_1_1_tmux1204_1ae24903744a302da76471ed0b57efcc33" kindref="member">gpio_a1</ref><sp/>=<sp/>GPIO(GPIO_CHIP_PATH,<sp/>ADC_A1,<sp/></highlight><highlight class="stringliteral">&quot;out&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>GPIO<sp/>pour<sp/>A0</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52" refid="classapp_1_1hw__tmux1204_1_1_tmux1204_1af3bcd7ec404eef12d3dc588631b76685" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classapp_1_1hw__tmux1204_1_1_tmux1204_1af3bcd7ec404eef12d3dc588631b76685" kindref="member">gpio_a0</ref><sp/>=<sp/>GPIO(GPIO_CHIP_PATH,<sp/>ADC_A0,<sp/></highlight><highlight class="stringliteral">&quot;out&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="classapp_1_1hw__tmux1204_1_1_tmux1204_1aeece5a8953354758865f35beb5d0e911" kindref="member">close</ref>(self):</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;</highlight></codeline>
+<codeline lineno="56"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>@brief<sp/><sp/><sp/>Ferme<sp/>les<sp/>interfaces<sp/>GPIO.</highlight></codeline>
+<codeline lineno="57"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>@details<sp/>Ferme<sp/>proprement<sp/>les<sp/>GPIO<sp/>A1<sp/>et<sp/>A0<sp/>pour<sp/>libérer<sp/>les</highlight></codeline>
+<codeline lineno="58"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ressources<sp/>système.<sp/>Gère<sp/>les<sp/>erreurs<sp/>de<sp/>fermeture<sp/>pour</highlight></codeline>
+<codeline lineno="59"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>éviter<sp/>les<sp/>exceptions<sp/>lors<sp/>du<sp/>nettoyage.</highlight></codeline>
+<codeline lineno="60" refid="classapp_1_1hw__tmux1204_1_1_tmux1204_1aeece5a8953354758865f35beb5d0e911" refkind="member"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Fermeture<sp/>des<sp/>GPIO</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">try</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Ferme<sp/>le<sp/>GPIO<sp/>A1</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classapp_1_1hw__tmux1204_1_1_tmux1204_1ae24903744a302da76471ed0b57efcc33" kindref="member">gpio_a1</ref>.<ref refid="classapp_1_1hw__tmux1204_1_1_tmux1204_1aeece5a8953354758865f35beb5d0e911" kindref="member">close</ref>()</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">except</highlight><highlight class="normal"><sp/>Exception:</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Ignore<sp/>les<sp/>erreurs</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">pass</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">try</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Ferme<sp/>le<sp/>GPIO<sp/>A0</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classapp_1_1hw__tmux1204_1_1_tmux1204_1af3bcd7ec404eef12d3dc588631b76685" kindref="member">gpio_a0</ref>.<ref refid="classapp_1_1hw__tmux1204_1_1_tmux1204_1aeece5a8953354758865f35beb5d0e911" kindref="member">close</ref>()</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">except</highlight><highlight class="normal"><sp/>Exception:</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Ignore<sp/>les<sp/>erreurs</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">pass</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="classapp_1_1hw__tmux1204_1_1_tmux1204_1a2ffdb1f55fc229434ee7f0c8de822a80" kindref="member">set_bits</ref>(self,<sp/>bit_a1,<sp/>bit_a0):</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;</highlight></codeline>
+<codeline lineno="77"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>@brief<sp/><sp/><sp/>Définit<sp/>les<sp/>bits<sp/>de<sp/>contrôle<sp/>A1<sp/>et<sp/>A0.</highlight></codeline>
+<codeline lineno="78"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>@details<sp/>Applique<sp/>les<sp/>niveaux<sp/>logiques<sp/>sur<sp/>les<sp/>signaux<sp/>de<sp/>contrôle</highlight></codeline>
+<codeline lineno="79"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>du<sp/>multiplexeur.<sp/>Convertit<sp/>les<sp/>valeurs<sp/>numériques<sp/>(0/1)</highlight></codeline>
+<codeline lineno="80"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>en<sp/>niveaux<sp/>logiques<sp/>GPIO<sp/>(False/True).</highlight></codeline>
+<codeline lineno="81"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="82"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>@param<sp/><sp/><sp/>bit_a1<sp/>Valeur<sp/>du<sp/>bit<sp/>A1<sp/>(0<sp/>ou<sp/>1).</highlight></codeline>
+<codeline lineno="83"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>@param<sp/><sp/><sp/>bit_a0<sp/>Valeur<sp/>du<sp/>bit<sp/>A0<sp/>(0<sp/>ou<sp/>1).</highlight></codeline>
+<codeline lineno="84" refid="classapp_1_1hw__tmux1204_1_1_tmux1204_1a2ffdb1f55fc229434ee7f0c8de822a80" refkind="member"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Définit<sp/>les<sp/>bits<sp/>A1<sp/>et<sp/>A0<sp/>(0<sp/>ou<sp/>1)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Configuration<sp/>du<sp/>signal<sp/>A1</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>bit_a1<sp/>==<sp/>0:</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Écrit<sp/>0<sp/>sur<sp/>A1</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classapp_1_1hw__tmux1204_1_1_tmux1204_1ae24903744a302da76471ed0b57efcc33" kindref="member">gpio_a1</ref>.write(</highlight><highlight class="keyword">False</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Écrit<sp/>1<sp/>sur<sp/>A1</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classapp_1_1hw__tmux1204_1_1_tmux1204_1ae24903744a302da76471ed0b57efcc33" kindref="member">gpio_a1</ref>.write(</highlight><highlight class="keyword">True</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Configuration<sp/>du<sp/>signal<sp/>A0</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>bit_a0<sp/>==<sp/>0:</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Écrit<sp/>0<sp/>sur<sp/>A0</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classapp_1_1hw__tmux1204_1_1_tmux1204_1af3bcd7ec404eef12d3dc588631b76685" kindref="member">gpio_a0</ref>.write(</highlight><highlight class="keyword">False</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Écrit<sp/>1<sp/>sur<sp/>A0</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classapp_1_1hw__tmux1204_1_1_tmux1204_1af3bcd7ec404eef12d3dc588631b76685" kindref="member">gpio_a0</ref>.write(</highlight><highlight class="keyword">True</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="classapp_1_1hw__tmux1204_1_1_tmux1204_1af3580f52e52bd0726dfb5fb09b6eaf7e" kindref="member">select_rref_ohm</ref>(self,<sp/>rref_ohm):</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;</highlight></codeline>
+<codeline lineno="103"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>@brief<sp/><sp/><sp/>Sélectionne<sp/>la<sp/>résistance<sp/>de<sp/>référence<sp/>Rref.</highlight></codeline>
+<codeline lineno="104"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>@details<sp/>Configure<sp/>les<sp/>signaux<sp/>de<sp/>contrôle<sp/>selon<sp/>la<sp/>table<sp/>de<sp/>vérité</highlight></codeline>
+<codeline lineno="105"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pour<sp/>sélectionner<sp/>la<sp/>résistance<sp/>de<sp/>référence<sp/>demandée.</highlight></codeline>
+<codeline lineno="106"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Supporte<sp/>quatre<sp/>valeurs<sp/>fixes<sp/>:<sp/>2200,<sp/>2700,<sp/>10000,<sp/>100000<sp/>ohms.</highlight></codeline>
+<codeline lineno="107"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="108"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>@param<sp/><sp/><sp/>rref_ohm<sp/>Valeur<sp/>de<sp/>résistance<sp/>de<sp/>référence<sp/>en<sp/>ohms.</highlight></codeline>
+<codeline lineno="109"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="110"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>@exception<sp/>ValueError<sp/>Si<sp/>la<sp/>valeur<sp/>de<sp/>Rref<sp/>n&apos;est<sp/>pas<sp/>supportée.</highlight></codeline>
+<codeline lineno="111"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="112"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>@note<sp/><sp/><sp/><sp/>Table<sp/>de<sp/>vérité<sp/>TMUX1204<sp/>:</highlight></codeline>
+<codeline lineno="113"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>2200<sp/>ohms<sp/><sp/>:<sp/>A1=0,<sp/>A0=0</highlight></codeline>
+<codeline lineno="114"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>2700<sp/>ohms<sp/><sp/>:<sp/>A1=0,<sp/>A0=1</highlight></codeline>
+<codeline lineno="115"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>10000<sp/>ohms<sp/>:<sp/>A1=1,<sp/>A0=0</highlight></codeline>
+<codeline lineno="116"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>100000<sp/>ohms:<sp/>A1=1,<sp/>A0=1</highlight></codeline>
+<codeline lineno="117" refid="classapp_1_1hw__tmux1204_1_1_tmux1204_1af3580f52e52bd0726dfb5fb09b6eaf7e" refkind="member"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Sélectionne<sp/>la<sp/>résistance<sp/>de<sp/>référence<sp/>Rref</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Rref<sp/>supportées:<sp/>2200,<sp/>2700,<sp/>10000,<sp/>100000</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Vérification<sp/>pour<sp/>2.2k<sp/>ohms</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>rref_ohm<sp/>==<sp/>2200:</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>A1=0,<sp/>A0=0<sp/>pour<sp/>2.2k</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classapp_1_1hw__tmux1204_1_1_tmux1204_1a2ffdb1f55fc229434ee7f0c8de822a80" kindref="member">set_bits</ref>(0,<sp/>0)</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Vérification<sp/>pour<sp/>2.7k<sp/>ohms</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>rref_ohm<sp/>==<sp/>2700:</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>A1=0,<sp/>A0=1<sp/>pour<sp/>2.7k</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classapp_1_1hw__tmux1204_1_1_tmux1204_1a2ffdb1f55fc229434ee7f0c8de822a80" kindref="member">set_bits</ref>(0,<sp/>1)</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Vérification<sp/>pour<sp/>10k<sp/>ohms</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>rref_ohm<sp/>==<sp/>10000:</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>A1=1,<sp/>A0=0<sp/>pour<sp/>10k</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classapp_1_1hw__tmux1204_1_1_tmux1204_1a2ffdb1f55fc229434ee7f0c8de822a80" kindref="member">set_bits</ref>(1,<sp/>0)</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Vérification<sp/>pour<sp/>100k<sp/>ohms</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>rref_ohm<sp/>==<sp/>100000:</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>A1=1,<sp/>A0=1<sp/>pour<sp/>100k</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classapp_1_1hw__tmux1204_1_1_tmux1204_1a2ffdb1f55fc229434ee7f0c8de822a80" kindref="member">set_bits</ref>(1,<sp/>1)</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Erreur<sp/>si<sp/>Rref<sp/>non<sp/>valide</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">raise</highlight><highlight class="normal"><sp/>ValueError(</highlight><highlight class="stringliteral">&quot;Rref<sp/>non<sp/>supportée:<sp/>&quot;</highlight><highlight class="normal"><sp/>+<sp/>str(rref_ohm))</highlight></codeline>
+    </programlisting>
+    <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/hw_tmux1204.py"/>
+  </compounddef>
+</doxygen>

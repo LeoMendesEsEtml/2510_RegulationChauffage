@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_cm5__config_8py" xml:lang="fr">
+<title>Référence du fichier C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/config_module/cm5_config.py</title>
+<indexterm><primary>C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/config_module/cm5_config.py</primary></indexterm>
+<para>
+
+<para>Configuration matérielle pour plateforme CM5. </para>
+ 
+</para>
+<simplesect>
+    <title>Espaces de nommage    </title>
+        <itemizedlist>
+            <listitem><para>namespace <link linkend="_namespaceconfig__module">config_module</link></para>
+</listitem>
+            <listitem><para>namespace <link linkend="_namespaceconfig__module_1_1cm5__config">config_module.cm5_config</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Fonctions    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_namespaceconfig__module_1_1cm5__config_1a1b2cec317a1cf375b2d43c263f5a665b">config_module.cm5_config.build_hw</link> ()</para>
+
+<para>Initialise et configure tout le matériel CM5. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Variables    </title>
+        <itemizedlist>
+            <listitem><para>list <link linkend="_namespaceconfig__module_1_1cm5__config_1a98f07cbc7aad810cb848630cde11db65">config_module.cm5_config.ADC_CHANNELS</link> = [1, 2, 3, 4]</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Description détaillée</title>
+
+<para>Configuration matérielle pour plateforme CM5. </para>
+
+<para>Ce module fournit la configuration des canaux ADC et la fonction d&apos;initialisation complète du matériel (LED, TMUX, ADC). Centralise la création des instances matérielles avec câblage fixe CM5. <formalpara><title>Auteur</title>
+
+<para>Léo Mendes @project 2510_RegulationsChauffage @Mandant Oblo_solution </para>
+</formalpara>
+<formalpara><title>Date</title>
+
+<para>2025-09-18 </para>
+</formalpara>
+<formalpara><title>Version</title>
+
+<para>1.0.0 </para>
+</formalpara>
+<formalpara><title>Copyright</title>
+
+<para>Copyright (c) 2025 </para>
+</formalpara>
+</para>
+</section>
+</section>

@@ -1,0 +1,138 @@
+.TH "webui.webui_server" 3 "2510_RegulationChauffage" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+webui.webui_server
+.SH SYNOPSIS
+.br
+.PP
+.SS "Fonctions"
+
+.in +1c
+.ti -1c
+.RI "\fBserve_index\fP ()"
+.br
+.RI "Sert la page principale de l'interface web\&. "
+.ti -1c
+.RI "\fBget_config\fP ()"
+.br
+.RI "Récupère la configuration actuelle des capteurs\&. "
+.ti -1c
+.RI "\fBput_config\fP ()"
+.br
+.RI "Sauvegarde une nouvelle configuration des capteurs\&. "
+.ti -1c
+.RI "\fBget_last\fP ()"
+.br
+.RI "Récupère le dernier état du système de mesure\&. "
+.ti -1c
+.RI "\fBforce_reload\fP ()"
+.br
+.RI "Force le rechargement de la configuration au prochain cycle\&. "
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "\fBBASE_DIR\fP = os\&.path\&.abspath(os\&.path\&.join(os\&.path\&.dirname(__file__), '\&.\&.'))"
+.br
+.ti -1c
+.RI "\fBCONFIG_PATH\fP = os\&.path\&.join(\fBBASE_DIR\fP, 'config_module', 'sensors\&.json')"
+.br
+.ti -1c
+.RI "\fBSTATE_PATH\fP = os\&.path\&.join(\fBBASE_DIR\fP, 'state', 'last_state\&.json')"
+.br
+.ti -1c
+.RI "\fBWEBUI_DIR\fP = os\&.path\&.dirname(__file__)"
+.br
+.ti -1c
+.RI "\fBapp\fP = Flask(__name__, static_folder=\fBWEBUI_DIR\fP, static_url_path='/static')"
+.br
+.ti -1c
+.RI "\fBhost\fP"
+.br
+.ti -1c
+.RI "\fBport\fP"
+.br
+.in -1c
+.SH "Documentation des fonctions"
+.PP 
+.SS "webui\&.webui_server\&.force_reload ()"
+
+.PP
+Force le rechargement de la configuration au prochain cycle\&. Crée un fichier flag force_reload\&.flag avec horodatage pour déclencher le rechargement de configuration par le processus principal lors du prochain cycle de mesure\&.
+
+.PP
+\fBRenvoie\fP
+.RS 4
+Confirmation de demande ou message d'erreur avec code HTTP\&. 
+.RE
+.PP
+
+.SS "webui\&.webui_server\&.get_config ()"
+
+.PP
+Récupère la configuration actuelle des capteurs\&. Lecture du fichier sensors\&.json et retour des données de configuration en format JSON\&. Gère les erreurs de lecture et affiche des informations de débogage\&.
+
+.PP
+\fBRenvoie\fP
+.RS 4
+Configuration JSON ou message d'erreur avec code HTTP\&. 
+.RE
+.PP
+
+.SS "webui\&.webui_server\&.get_last ()"
+
+.PP
+Récupère le dernier état du système de mesure\&. Lecture du fichier last_state\&.json contenant les dernières mesures, températures et statuts\&. Gère le cas où le fichier n'existe pas encore et retourne un état par défaut\&.
+
+.PP
+\fBRenvoie\fP
+.RS 4
+État JSON du système ou structure par défaut si fichier absent\&. 
+.RE
+.PP
+
+.SS "webui\&.webui_server\&.put_config ()"
+
+.PP
+Sauvegarde une nouvelle configuration des capteurs\&. Reçoit des données JSON, valide le contenu et sauvegarde dans sensors\&.json avec sauvegarde atomique via fichier temporaire\&. Affiche un résumé des changements principaux\&.
+
+.PP
+\fBRenvoie\fP
+.RS 4
+Statut de sauvegarde ou message d'erreur avec code HTTP\&. 
+.RE
+.PP
+
+.SS "webui\&.webui_server\&.serve_index ()"
+
+.PP
+Sert la page principale de l'interface web\&. Route racine qui retourne le fichier index\&.html depuis le répertoire webui pour affichage de l'interface utilisateur\&.
+
+.PP
+\fBRenvoie\fP
+.RS 4
+Fichier HTML de l'interface principale\&. 
+.RE
+.PP
+
+.SH "Documentation des variables"
+.PP 
+.SS "webui\&.webui_server\&.app = Flask(__name__, static_folder=\fBWEBUI_DIR\fP, static_url_path='/static')"
+
+.SS "webui\&.webui_server\&.BASE_DIR = os\&.path\&.abspath(os\&.path\&.join(os\&.path\&.dirname(__file__), '\&.\&.'))"
+
+.SS "webui\&.webui_server\&.CONFIG_PATH = os\&.path\&.join(\fBBASE_DIR\fP, 'config_module', 'sensors\&.json')"
+
+.SS "webui\&.webui_server\&.host"
+
+.SS "webui\&.webui_server\&.port"
+
+.SS "webui\&.webui_server\&.STATE_PATH = os\&.path\&.join(\fBBASE_DIR\fP, 'state', 'last_state\&.json')"
+
+.SS "webui\&.webui_server\&.WEBUI_DIR = os\&.path\&.dirname(__file__)"
+
+.SH "Auteur"
+.PP 
+Généré automatiquement par Doxygen pour 2510_RegulationChauffage à partir du code source\&.

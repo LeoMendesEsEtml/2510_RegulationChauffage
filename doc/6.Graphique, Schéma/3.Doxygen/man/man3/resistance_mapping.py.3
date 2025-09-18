@@ -1,0 +1,68 @@
+.TH "C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/resistance_mapping.py" 3 "2510_RegulationChauffage" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/resistance_mapping.py \- Mapping des résistances TMUX par type de sonde de température\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Espaces de nommage"
+
+.in +1c
+.ti -1c
+.RI "namespace \fBapp\fP"
+.br
+.ti -1c
+.RI "namespace \fBapp\&.resistance_mapping\fP"
+.br
+.in -1c
+.SS "Fonctions"
+
+.in +1c
+.ti -1c
+.RI "dict \fBapp\&.resistance_mapping\&.get_channel_mux_map\fP (str sensor_type)"
+.br
+.RI "Retourne le mapping CHANNEL_MUX pour un type de sonde donné\&. "
+.ti -1c
+.RI "tuple \fBapp\&.resistance_mapping\&.find_closest_channel\fP (float target_resistance, str sensor_type)"
+.br
+.RI "Trouve le canal MUX le plus proche pour une résistance cible\&. "
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "dict \fBapp\&.resistance_mapping\&.CHANNEL_MUX\fP"
+.br
+.in -1c
+.SH "Description détaillée"
+.PP 
+Mapping des résistances TMUX par type de sonde de température\&. 
+
+Ce module fournit les tables de correspondance entre les canaux 0-31 du multiplexeur TMUX et les valeurs de résistance réelles pour différents types de sondes de température\&. Chaque type de sonde dispose d'un mapping spécifique avec 32 valeurs calibrées\&. 
+.PP
+\fBAuteur\fP
+.RS 4
+Léo Mendes @project 2510_RegulationsChauffage @Mandant Oblo_solution 
+.RE
+.PP
+\fBDate\fP
+.RS 4
+2025-09-18 
+.RE
+.PP
+\fBVersion\fP
+.RS 4
+1\&.0\&.0 
+.RE
+.PP
+\fBCopyright\fP
+.RS 4
+Copyright (c) 2025 
+.RE
+.PP
+
+.SH "Auteur"
+.PP 
+Généré automatiquement par Doxygen pour 2510_RegulationChauffage à partir du code source\&.

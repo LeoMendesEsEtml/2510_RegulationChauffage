@@ -1,0 +1,242 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_namespaceapp_1_1temperature__simulation" xml:lang="fr">
+<title>Référence de l&apos;espace de nommage app.temperature_simulation</title>
+<indexterm><primary>app.temperature_simulation</primary></indexterm>
+<simplesect>
+    <title>Fonctions    </title>
+        <itemizedlist>
+            <listitem><para>Optional[float] <link linkend="_namespaceapp_1_1temperature__simulation_1ad0955f54e494774453fd9395ddf156f3">calculate_simulated_temperature</link> (float t_mes, float t_prev, float n, float k_m)</para>
+
+<para>Calcule la température simulée selon la formule prédictive. </para>
+</listitem>
+            <listitem><para>bool <link linkend="_namespaceapp_1_1temperature__simulation_1a34c95102387b78fc0ae24419cfdc62be">validate_simulation_parameters</link> (str probe_type, float n, float k_m, float t_mes, float t_prev)</para>
+
+<para>Valide tous les paramètres de simulation avant exécution. </para>
+</listitem>
+            <listitem><para>Optional[float] <link linkend="_namespaceapp_1_1temperature__simulation_1a9dce35a5a5235426dcb9002af6f2fe80">run_temperature_simulation</link> (dict simulation_data)</para>
+
+<para>Exécute une simulation complète de température avec dictionnaire. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Documentation des fonctions</title>
+<anchor xml:id="_namespaceapp_1_1temperature__simulation_1ad0955f54e494774453fd9395ddf156f3"/><section>
+    <title>calculate_simulated_temperature()</title>
+<indexterm><primary>calculate_simulated_temperature</primary><secondary>app.temperature_simulation</secondary></indexterm>
+<indexterm><primary>app.temperature_simulation</primary><secondary>calculate_simulated_temperature</secondary></indexterm>
+<para><computeroutput> Optional[float] app.temperature_simulation.calculate_simulated_temperature (float t_mes, float t_prev, float n, float k_m)</computeroutput></para><para>
+
+<para>Calcule la température simulée selon la formule prédictive. </para>
+</para>
+
+<para>Implémente la formule T_sim = T_mes + ((T_prev - T_mes) * n * exp(k_m)) avec validation complète des paramètres et gestion des erreurs numériques (overflow, underflow, valeurs infinies).</para>
+
+<para>
+                <formalpara>
+                    <title>
+Paramètres</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>t_mes</entry><entry>
+<para>Température mesurée [°C]. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>t_prev</entry><entry>
+<para>Température prévue [°C]. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>n</entry><entry>
+<para>Paramètre de pondération [-∞, +∞]. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>k_m</entry><entry>
+<para>Paramètre exposant pour fonction exponentielle [-∞, +∞].</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Renvoie</title>
+
+<para>Température simulée [°C] ou None en cas d&apos;erreur.</para>
+</formalpara>
+
+                <formalpara>
+                    <title>
+Exceptions</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>OverflowError</entry><entry>
+<para>si exp(k_m) dépasse les limites numériques. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <warning><title>Avertissement</title>
+
+<para>Limitation automatique des paramètres extrêmes. </para>
+</warning>
+</para>
+Voici le graphe des appelants de cette fonction :<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespaceapp_1_1temperature__simulation_ad0955f54e494774453fd9395ddf156f3_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_namespaceapp_1_1temperature__simulation_1a9dce35a5a5235426dcb9002af6f2fe80"/><section>
+    <title>run_temperature_simulation()</title>
+<indexterm><primary>run_temperature_simulation</primary><secondary>app.temperature_simulation</secondary></indexterm>
+<indexterm><primary>app.temperature_simulation</primary><secondary>run_temperature_simulation</secondary></indexterm>
+<para><computeroutput> Optional[float] app.temperature_simulation.run_temperature_simulation (dict simulation_data)</computeroutput></para><para>
+
+<para>Exécute une simulation complète de température avec dictionnaire. </para>
+</para>
+
+<para>Fonction principale d&apos;orchestration qui extrait les paramètres d&apos;un dictionnaire, valide tous les paramètres et execute la simulation complète avec gestion d&apos;erreur robuste.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Paramètres</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>simulation_data</entry><entry>
+<para>Dictionnaire contenant tous les paramètres requis:<itemizedlist>
+<listitem>
+<para>probe_type: Type de sonde (str)</para>
+</listitem><listitem>
+<para>n: Paramètre de pondération (float)</para>
+</listitem><listitem>
+<para>k_m: Paramètre exposant (float)</para>
+</listitem><listitem>
+<para>temperature: Température mesurée (float)</para>
+</listitem><listitem>
+<para>forecast_temperature: Température prévue (float)</para>
+</listitem></itemizedlist>
+</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Renvoie</title>
+
+<para>Température simulée [°C] ou None si erreur.</para>
+</formalpara>
+<warning><title>Avertissement</title>
+
+<para>Retourne None pour toute erreur de validation ou calcul. </para>
+</warning>
+</para>
+Voici le graphe d&apos;appel pour cette fonction :<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespaceapp_1_1temperature__simulation_a9dce35a5a5235426dcb9002af6f2fe80_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_namespaceapp_1_1temperature__simulation_1a34c95102387b78fc0ae24419cfdc62be"/><section>
+    <title>validate_simulation_parameters()</title>
+<indexterm><primary>validate_simulation_parameters</primary><secondary>app.temperature_simulation</secondary></indexterm>
+<indexterm><primary>app.temperature_simulation</primary><secondary>validate_simulation_parameters</secondary></indexterm>
+<para><computeroutput> bool app.temperature_simulation.validate_simulation_parameters (str probe_type, float n, float k_m, float t_mes, float t_prev)</computeroutput></para><para>
+
+<para>Valide tous les paramètres de simulation avant exécution. </para>
+</para>
+
+<para>Fonction de validation complète qui vérifie la cohérence et les plages de tous les paramètres d&apos;entrée. Inclut la vérification interactive pour les écarts importants.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Paramètres</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>probe_type</entry><entry>
+<para>Type de sonde à utiliser pour la simulation. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>n</entry><entry>
+<para>Paramètre de pondération de la simulation. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>k_m</entry><entry>
+<para>Paramètre exposant de la fonction exponentielle. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>t_mes</entry><entry>
+<para>Température mesurée à valider [°C]. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>t_prev</entry><entry>
+<para>Température prévue à valider [°C].</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Renvoie</title>
+
+<para>True si tous les paramètres sont valides.</para>
+</formalpara>
+<warning><title>Avertissement</title>
+
+<para>Demande confirmation utilisateur pour écarts importants. </para>
+</warning>
+</para>
+Voici le graphe des appelants de cette fonction :<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespaceapp_1_1temperature__simulation_a34c95102387b78fc0ae24419cfdc62be_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+</section>
+</section>

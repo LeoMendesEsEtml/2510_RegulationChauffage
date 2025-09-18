@@ -1,0 +1,125 @@
+.TH "app.temperature_simulation" 3 "2510_RegulationChauffage" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+app.temperature_simulation
+.SH SYNOPSIS
+.br
+.PP
+.SS "Fonctions"
+
+.in +1c
+.ti -1c
+.RI "Optional[float] \fBcalculate_simulated_temperature\fP (float t_mes, float t_prev, float n, float k_m)"
+.br
+.RI "Calcule la température simulée selon la formule prédictive\&. "
+.ti -1c
+.RI "bool \fBvalidate_simulation_parameters\fP (str probe_type, float n, float k_m, float t_mes, float t_prev)"
+.br
+.RI "Valide tous les paramètres de simulation avant exécution\&. "
+.ti -1c
+.RI "Optional[float] \fBrun_temperature_simulation\fP (dict simulation_data)"
+.br
+.RI "Exécute une simulation complète de température avec dictionnaire\&. "
+.in -1c
+.SH "Documentation des fonctions"
+.PP 
+.SS " Optional[float] app\&.temperature_simulation\&.calculate_simulated_temperature (float t_mes, float t_prev, float n, float k_m)"
+
+.PP
+Calcule la température simulée selon la formule prédictive\&. Implémente la formule T_sim = T_mes + ((T_prev - T_mes) * n * exp(k_m)) avec validation complète des paramètres et gestion des erreurs numériques (overflow, underflow, valeurs infinies)\&.
+
+.PP
+\fBParamètres\fP
+.RS 4
+\fIt_mes\fP Température mesurée [°C]\&. 
+.br
+\fIt_prev\fP Température prévue [°C]\&. 
+.br
+\fIn\fP Paramètre de pondération [-∞, +∞]\&. 
+.br
+\fIk_m\fP Paramètre exposant pour fonction exponentielle [-∞, +∞]\&.
+.RE
+.PP
+\fBRenvoie\fP
+.RS 4
+Température simulée [°C] ou None en cas d'erreur\&.
+.RE
+.PP
+\fBExceptions\fP
+.RS 4
+\fIOverflowError\fP si exp(k_m) dépasse les limites numériques\&. 
+.RE
+.PP
+\fBAvertissement\fP
+.RS 4
+Limitation automatique des paramètres extrêmes\&. 
+.RE
+.PP
+
+.SS " Optional[float] app\&.temperature_simulation\&.run_temperature_simulation (dict simulation_data)"
+
+.PP
+Exécute une simulation complète de température avec dictionnaire\&. Fonction principale d'orchestration qui extrait les paramètres d'un dictionnaire, valide tous les paramètres et execute la simulation complète avec gestion d'erreur robuste\&.
+
+.PP
+\fBParamètres\fP
+.RS 4
+\fIsimulation_data\fP Dictionnaire contenant tous les paramètres requis:
+.IP "\(bu" 2
+probe_type: Type de sonde (str)
+.IP "\(bu" 2
+n: Paramètre de pondération (float)
+.IP "\(bu" 2
+k_m: Paramètre exposant (float)
+.IP "\(bu" 2
+temperature: Température mesurée (float)
+.IP "\(bu" 2
+forecast_temperature: Température prévue (float)
+.PP
+.RE
+.PP
+\fBRenvoie\fP
+.RS 4
+Température simulée [°C] ou None si erreur\&.
+.RE
+.PP
+\fBAvertissement\fP
+.RS 4
+Retourne None pour toute erreur de validation ou calcul\&. 
+.RE
+.PP
+
+.SS " bool app\&.temperature_simulation\&.validate_simulation_parameters (str probe_type, float n, float k_m, float t_mes, float t_prev)"
+
+.PP
+Valide tous les paramètres de simulation avant exécution\&. Fonction de validation complète qui vérifie la cohérence et les plages de tous les paramètres d'entrée\&. Inclut la vérification interactive pour les écarts importants\&.
+
+.PP
+\fBParamètres\fP
+.RS 4
+\fIprobe_type\fP Type de sonde à utiliser pour la simulation\&. 
+.br
+\fIn\fP Paramètre de pondération de la simulation\&. 
+.br
+\fIk_m\fP Paramètre exposant de la fonction exponentielle\&. 
+.br
+\fIt_mes\fP Température mesurée à valider [°C]\&. 
+.br
+\fIt_prev\fP Température prévue à valider [°C]\&.
+.RE
+.PP
+\fBRenvoie\fP
+.RS 4
+True si tous les paramètres sont valides\&.
+.RE
+.PP
+\fBAvertissement\fP
+.RS 4
+Demande confirmation utilisateur pour écarts importants\&. 
+.RE
+.PP
+
+.SH "Auteur"
+.PP 
+Généré automatiquement par Doxygen pour 2510_RegulationChauffage à partir du code source\&.

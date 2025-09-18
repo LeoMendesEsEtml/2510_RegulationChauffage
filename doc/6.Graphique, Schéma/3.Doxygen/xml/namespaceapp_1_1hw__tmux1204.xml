@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="fr">
+  <compounddef id="namespaceapp_1_1hw__tmux1204" kind="namespace" language="Python">
+    <compoundname>app::hw_tmux1204</compoundname>
+    <innerclass refid="classapp_1_1hw__tmux1204_1_1_tmux1204" prot="public">app::hw_tmux1204::Tmux1204</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/hw_tmux1204.py" line="1" column="1"/>
+  </compounddef>
+</doxygen>

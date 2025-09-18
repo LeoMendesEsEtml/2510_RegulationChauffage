@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_pins__cm5_8py" xml:lang="fr">
+<title>Référence du fichier C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/pins_cm5.py</title>
+<indexterm><primary>C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/pins_cm5.py</primary></indexterm>
+<para>
+
+<para>Mapping GPIO et SPI fixés pour la plateforme CM5. </para>
+ 
+</para>
+<simplesect>
+    <title>Espaces de nommage    </title>
+        <itemizedlist>
+            <listitem><para>namespace <link linkend="_namespaceapp">app</link></para>
+</listitem>
+            <listitem><para>namespace <link linkend="_namespaceapp_1_1pins__cm5">app.pins_cm5</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Variables    </title>
+        <itemizedlist>
+            <listitem><para>str <link linkend="_namespaceapp_1_1pins__cm5_1af1d01246bc2bdb28706c1e6d311c32d7">app.pins_cm5.GPIO_CHIP_PATH</link> = &quot;/dev/gpiochip0&quot;</para>
+</listitem>
+            <listitem><para>int <link linkend="_namespaceapp_1_1pins__cm5_1a85d9ae6ac38c784a57f1df12d873df9e">app.pins_cm5.MUX_CS_4</link> = 2</para>
+</listitem>
+            <listitem><para>int <link linkend="_namespaceapp_1_1pins__cm5_1a7af5bb4ba1b5e7903ad67473b087be16">app.pins_cm5.MUX_CS_3</link> = 3</para>
+</listitem>
+            <listitem><para>int <link linkend="_namespaceapp_1_1pins__cm5_1a02d8b1f8ea18e8ca0406421ae100b750">app.pins_cm5.MUX_CS_2</link> = 7</para>
+</listitem>
+            <listitem><para>int <link linkend="_namespaceapp_1_1pins__cm5_1a2b4b1ad07cc66496e86d86a5528df32b">app.pins_cm5.MUX_CS_1</link> = 8</para>
+</listitem>
+            <listitem><para>int <link linkend="_namespaceapp_1_1pins__cm5_1a001569b7c2bfb9dfc01cffe61578eb27">app.pins_cm5.MUX_MOSI_DUMMY</link> = 10</para>
+</listitem>
+            <listitem><para>int <link linkend="_namespaceapp_1_1pins__cm5_1a695f8e334328d47113d763fba85ea9e3">app.pins_cm5.MUX_SCLK_DUMMY</link> = 11</para>
+</listitem>
+            <listitem><para>int <link linkend="_namespaceapp_1_1pins__cm5_1a35b6be61b6d4cb85e21aa59866f3d095">app.pins_cm5.CM_24V_OUT_1</link> = 13</para>
+</listitem>
+            <listitem><para>int <link linkend="_namespaceapp_1_1pins__cm5_1a88fd865f03c9f246ac8d65e8d0afe92e">app.pins_cm5.CM_24V_SENSE_1</link> = 14</para>
+</listitem>
+            <listitem><para>int <link linkend="_namespaceapp_1_1pins__cm5_1a30a0aa5102bb2df299b2e9dd3e454946">app.pins_cm5.CM_24V_OUT_2</link> = 15</para>
+</listitem>
+            <listitem><para>int <link linkend="_namespaceapp_1_1pins__cm5_1aad243ac39af06d31f52bfbd28872f52c">app.pins_cm5.CM_24V_SENSE_2</link> = 16</para>
+</listitem>
+            <listitem><para>int <link linkend="_namespaceapp_1_1pins__cm5_1a1f2a9f8ae72ada5c471dcabeda39ff94">app.pins_cm5.CMD_RELAY</link> = 17</para>
+</listitem>
+            <listitem><para>int <link linkend="_namespaceapp_1_1pins__cm5_1a5c82ead3a09bf677b0540cb1f1b39ccb">app.pins_cm5.CS_ADC_DUMMY</link> = 18</para>
+</listitem>
+            <listitem><para>int <link linkend="_namespaceapp_1_1pins__cm5_1a341e8e8f73df01d2f780f0ba22bef655">app.pins_cm5.SPI_MISO_ADC_DMY</link> = 19</para>
+</listitem>
+            <listitem><para>int <link linkend="_namespaceapp_1_1pins__cm5_1abdef5fa06d0df26fb2b1529ae78106b8">app.pins_cm5.SPI_MOSI_ADC_DMY</link> = 20</para>
+</listitem>
+            <listitem><para>int <link linkend="_namespaceapp_1_1pins__cm5_1a72500e21b93a5b8bf357a4d084d33f88">app.pins_cm5.SPI_SCLK_ADC_DMY</link> = 21</para>
+</listitem>
+            <listitem><para>int <link linkend="_namespaceapp_1_1pins__cm5_1ab783ddc68bb5deccff5c4afeebf0f059">app.pins_cm5.ADC_DRDY</link> = 22</para>
+</listitem>
+            <listitem><para>int <link linkend="_namespaceapp_1_1pins__cm5_1ada8a810372334f4c3d45a61f3e3dfff9">app.pins_cm5.ADC_START_SYNC</link> = 23</para>
+</listitem>
+            <listitem><para>int <link linkend="_namespaceapp_1_1pins__cm5_1a2beb922666cc8aeea223f68a702a1b19">app.pins_cm5.ADC_A0</link> = 24</para>
+</listitem>
+            <listitem><para>int <link linkend="_namespaceapp_1_1pins__cm5_1aa41ecf65d54d7560c0a05b549a722afd">app.pins_cm5.ADC_A1</link> = 25</para>
+</listitem>
+            <listitem><para>int <link linkend="_namespaceapp_1_1pins__cm5_1adc501cb01eb22c26240fd22e5e572a93">app.pins_cm5.FRONT_LED</link> = 27</para>
+</listitem>
+            <listitem><para>int <link linkend="_namespaceapp_1_1pins__cm5_1a7f7f52f96aacfc3b968d398382178036">app.pins_cm5.SPI0_BUS</link> = 0</para>
+</listitem>
+            <listitem><para>int <link linkend="_namespaceapp_1_1pins__cm5_1ac3f90aa5494bfd7cb328ab859270ba34">app.pins_cm5.SPI1_BUS</link> = 1</para>
+</listitem>
+            <listitem><para>int <link linkend="_namespaceapp_1_1pins__cm5_1a368d5549c798e09e8775e0e73b96d14c">app.pins_cm5.SPI0_DEV0</link> = 0</para>
+</listitem>
+            <listitem><para>int <link linkend="_namespaceapp_1_1pins__cm5_1a0ca4080866506142fe823a43d5cc9b04">app.pins_cm5.SPI0_DEV1</link> = 1</para>
+</listitem>
+            <listitem><para>int <link linkend="_namespaceapp_1_1pins__cm5_1a9972c7d851be0cf7f570cd6afb0afdce">app.pins_cm5.SPI1_DEV0</link> = 0</para>
+</listitem>
+            <listitem><para>int <link linkend="_namespaceapp_1_1pins__cm5_1a885ffd3784ac740228820ac13e88a615">app.pins_cm5.SPI_MUX_SPEED_HZ</link> = 100000</para>
+</listitem>
+            <listitem><para>int <link linkend="_namespaceapp_1_1pins__cm5_1af4c124729456a53c298e00a7ad18d434">app.pins_cm5.SPI_ADC_SPEED_HZ</link> = 100000</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Description détaillée</title>
+
+<para>Mapping GPIO et SPI fixés pour la plateforme CM5. </para>
+
+<para>Ce module définit tous les assignements de broches GPIO et les paramètres SPI fixes pour la carte CM5. Ces constantes ne doivent pas être modifiées via la configuration utilisateur car elles correspondent au routage matériel de la carte. <formalpara><title>Auteur</title>
+
+<para>Léo Mendes @project 2510_RegulationsChauffage @Mandant Oblo_solution </para>
+</formalpara>
+<formalpara><title>Date</title>
+
+<para>2025-09-18 </para>
+</formalpara>
+<formalpara><title>Version</title>
+
+<para>1.0.0 </para>
+</formalpara>
+<formalpara><title>Copyright</title>
+
+<para>Copyright (c) 2025 </para>
+</formalpara>
+</para>
+</section>
+</section>

@@ -1,0 +1,82 @@
+.TH "app.resistance_mapping" 3 "2510_RegulationChauffage" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+app.resistance_mapping
+.SH SYNOPSIS
+.br
+.PP
+.SS "Fonctions"
+
+.in +1c
+.ti -1c
+.RI "dict \fBget_channel_mux_map\fP (str sensor_type)"
+.br
+.RI "Retourne le mapping CHANNEL_MUX pour un type de sonde donné\&. "
+.ti -1c
+.RI "tuple \fBfind_closest_channel\fP (float target_resistance, str sensor_type)"
+.br
+.RI "Trouve le canal MUX le plus proche pour une résistance cible\&. "
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "dict \fBCHANNEL_MUX\fP"
+.br
+.in -1c
+.SH "Documentation des fonctions"
+.PP 
+.SS " tuple app\&.resistance_mapping\&.find_closest_channel (float target_resistance, str sensor_type)"
+
+.PP
+Trouve le canal MUX le plus proche pour une résistance cible\&. Algorithme de recherche du canal TMUX offrant la résistance la plus proche de la valeur cible\&. Calcule l'erreur absolue et relative pour le meilleur canal trouvé\&.
+
+.PP
+\fBParamètres\fP
+.RS 4
+\fItarget_resistance\fP Valeur de résistance cible recherchée [Ohms]\&. 
+.br
+\fIsensor_type\fP Type de sonde à utiliser pour la recherche\&.
+.RE
+.PP
+\fBRenvoie\fP
+.RS 4
+Tuple (canal, resistance_reelle, erreur_pourcent)\&. Retourne (None, None, None) si aucun canal trouvé\&.
+.RE
+.PP
+\fBExceptions\fP
+.RS 4
+\fIKeyError\fP si le type de sonde n'existe pas\&. 
+.RE
+.PP
+
+.SS " dict app\&.resistance_mapping\&.get_channel_mux_map (str sensor_type)"
+
+.PP
+Retourne le mapping CHANNEL_MUX pour un type de sonde donné\&. Fonction d'accès qui extrait le dictionnaire de correspondance canal/résistance pour un type de sonde spécifique\&. Valide l'existence du type avant de retourner les données\&.
+
+.PP
+\fBParamètres\fP
+.RS 4
+\fIsensor_type\fP Type de sonde demandé (doit exister dans CHANNEL_MUX)\&.
+.RE
+.PP
+\fBRenvoie\fP
+.RS 4
+Dictionnaire {canal: resistance} pour le type de sonde\&.
+.RE
+.PP
+\fBExceptions\fP
+.RS 4
+\fIKeyError\fP si le type de sonde n'est pas supporté\&. 
+.RE
+.PP
+
+.SH "Documentation des variables"
+.PP 
+.SS "dict app\&.resistance_mapping\&.CHANNEL_MUX"
+
+.SH "Auteur"
+.PP 
+Généré automatiquement par Doxygen pour 2510_RegulationChauffage à partir du code source\&.

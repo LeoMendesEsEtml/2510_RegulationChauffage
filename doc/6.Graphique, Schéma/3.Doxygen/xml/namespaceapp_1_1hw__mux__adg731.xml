@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="fr">
+  <compounddef id="namespaceapp_1_1hw__mux__adg731" kind="namespace" language="Python">
+    <compoundname>app::hw_mux_adg731</compoundname>
+    <innerclass refid="classapp_1_1hw__mux__adg731_1_1_adg731_mux_spi" prot="public">app::hw_mux_adg731::Adg731MuxSpi</innerclass>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="namespaceapp_1_1hw__mux__adg731_1a191556bfaa023e4d6e1f2099dca9db46" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>app.hw_mux_adg731.adg731_ctrl_byte</definition>
+        <argsstring>(address, enable=True)</argsstring>
+        <name>adg731_ctrl_byte</name>
+        <qualifiedname>app.hw_mux_adg731.adg731_ctrl_byte</qualifiedname>
+        <param>
+          <type>address</type>
+          <defname>address</defname>
+        </param>
+        <param>
+          <type>enable</type>
+          <defname>enable</defname>
+          <defval>True</defval>
+        </param>
+        <briefdescription>
+<para>Génère le byte de contrôle pour l&apos;ADG731. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Construit l&apos;octet de commande selon le protocole ADG731 avec le bit d&apos;activation (EN) en MSB et l&apos;adresse sur 5 bits. L&apos;activation se fait avec EN=0 (logique inversée).</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>address</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Adresse du canal (0-31). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>enable</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>État d&apos;activation du canal (True=activé).</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Octet de contrôle formaté selon le protocole ADG731.</para>
+</simplesect>
+<parameterlist kind="exception"><parameteritem>
+<parameternamelist>
+<parametername>ValueError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Si l&apos;adresse est hors de la plage valide. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/hw_mux_adg731.py" line="41" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/hw_mux_adg731.py" bodystart="41" bodyend="60"/>
+        <referencedby refid="classapp_1_1hw__mux__adg731_1_1_adg731_mux_spi_1a1d21810662e9c89483f4a8d5430167cd" compoundref="hw__mux__adg731_8py" startline="167" endline="183">app.hw_mux_adg731.Adg731MuxSpi.set_channel</referencedby>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/hw_mux_adg731.py" line="1" column="1"/>
+  </compounddef>
+</doxygen>

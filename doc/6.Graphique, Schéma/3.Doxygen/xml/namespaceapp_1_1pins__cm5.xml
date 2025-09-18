@@ -1,0 +1,433 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="fr">
+  <compounddef id="namespaceapp_1_1pins__cm5" kind="namespace" language="Python">
+    <compoundname>app::pins_cm5</compoundname>
+    <sectiondef kind="var">
+      <memberdef kind="variable" id="namespaceapp_1_1pins__cm5_1af1d01246bc2bdb28706c1e6d311c32d7" prot="public" static="no" mutable="no">
+        <type>str</type>
+        <definition>str app::pins_cm5.GPIO_CHIP_PATH</definition>
+        <argsstring></argsstring>
+        <name>GPIO_CHIP_PATH</name>
+        <qualifiedname>app.pins_cm5.GPIO_CHIP_PATH</qualifiedname>
+        <initializer>=  &quot;/dev/gpiochip0&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/pins_cm5.py" line="23" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/pins_cm5.py" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceapp_1_1pins__cm5_1a85d9ae6ac38c784a57f1df12d873df9e" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int app::pins_cm5.MUX_CS_4</definition>
+        <argsstring></argsstring>
+        <name>MUX_CS_4</name>
+        <qualifiedname>app.pins_cm5.MUX_CS_4</qualifiedname>
+        <initializer>=  2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/pins_cm5.py" line="31" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/pins_cm5.py" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceapp_1_1pins__cm5_1a7af5bb4ba1b5e7903ad67473b087be16" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int app::pins_cm5.MUX_CS_3</definition>
+        <argsstring></argsstring>
+        <name>MUX_CS_3</name>
+        <qualifiedname>app.pins_cm5.MUX_CS_3</qualifiedname>
+        <initializer>=  3</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/pins_cm5.py" line="33" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/pins_cm5.py" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceapp_1_1pins__cm5_1a02d8b1f8ea18e8ca0406421ae100b750" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int app::pins_cm5.MUX_CS_2</definition>
+        <argsstring></argsstring>
+        <name>MUX_CS_2</name>
+        <qualifiedname>app.pins_cm5.MUX_CS_2</qualifiedname>
+        <initializer>=  7</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/pins_cm5.py" line="35" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/pins_cm5.py" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceapp_1_1pins__cm5_1a2b4b1ad07cc66496e86d86a5528df32b" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int app::pins_cm5.MUX_CS_1</definition>
+        <argsstring></argsstring>
+        <name>MUX_CS_1</name>
+        <qualifiedname>app.pins_cm5.MUX_CS_1</qualifiedname>
+        <initializer>=  8</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/pins_cm5.py" line="37" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/pins_cm5.py" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceapp_1_1pins__cm5_1a001569b7c2bfb9dfc01cffe61578eb27" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int app::pins_cm5.MUX_MOSI_DUMMY</definition>
+        <argsstring></argsstring>
+        <name>MUX_MOSI_DUMMY</name>
+        <qualifiedname>app.pins_cm5.MUX_MOSI_DUMMY</qualifiedname>
+        <initializer>=  10</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/pins_cm5.py" line="45" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/pins_cm5.py" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceapp_1_1pins__cm5_1a695f8e334328d47113d763fba85ea9e3" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int app::pins_cm5.MUX_SCLK_DUMMY</definition>
+        <argsstring></argsstring>
+        <name>MUX_SCLK_DUMMY</name>
+        <qualifiedname>app.pins_cm5.MUX_SCLK_DUMMY</qualifiedname>
+        <initializer>=  11</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/pins_cm5.py" line="47" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/pins_cm5.py" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceapp_1_1pins__cm5_1a35b6be61b6d4cb85e21aa59866f3d095" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int app::pins_cm5.CM_24V_OUT_1</definition>
+        <argsstring></argsstring>
+        <name>CM_24V_OUT_1</name>
+        <qualifiedname>app.pins_cm5.CM_24V_OUT_1</qualifiedname>
+        <initializer>=  13</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/pins_cm5.py" line="55" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/pins_cm5.py" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceapp_1_1pins__cm5_1a88fd865f03c9f246ac8d65e8d0afe92e" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int app::pins_cm5.CM_24V_SENSE_1</definition>
+        <argsstring></argsstring>
+        <name>CM_24V_SENSE_1</name>
+        <qualifiedname>app.pins_cm5.CM_24V_SENSE_1</qualifiedname>
+        <initializer>=  14</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/pins_cm5.py" line="57" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/pins_cm5.py" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceapp_1_1pins__cm5_1a30a0aa5102bb2df299b2e9dd3e454946" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int app::pins_cm5.CM_24V_OUT_2</definition>
+        <argsstring></argsstring>
+        <name>CM_24V_OUT_2</name>
+        <qualifiedname>app.pins_cm5.CM_24V_OUT_2</qualifiedname>
+        <initializer>=  15</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/pins_cm5.py" line="59" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/pins_cm5.py" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceapp_1_1pins__cm5_1aad243ac39af06d31f52bfbd28872f52c" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int app::pins_cm5.CM_24V_SENSE_2</definition>
+        <argsstring></argsstring>
+        <name>CM_24V_SENSE_2</name>
+        <qualifiedname>app.pins_cm5.CM_24V_SENSE_2</qualifiedname>
+        <initializer>=  16</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/pins_cm5.py" line="61" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/pins_cm5.py" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceapp_1_1pins__cm5_1a1f2a9f8ae72ada5c471dcabeda39ff94" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int app::pins_cm5.CMD_RELAY</definition>
+        <argsstring></argsstring>
+        <name>CMD_RELAY</name>
+        <qualifiedname>app.pins_cm5.CMD_RELAY</qualifiedname>
+        <initializer>=  17</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/pins_cm5.py" line="69" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/pins_cm5.py" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceapp_1_1pins__cm5_1a5c82ead3a09bf677b0540cb1f1b39ccb" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int app::pins_cm5.CS_ADC_DUMMY</definition>
+        <argsstring></argsstring>
+        <name>CS_ADC_DUMMY</name>
+        <qualifiedname>app.pins_cm5.CS_ADC_DUMMY</qualifiedname>
+        <initializer>=  18</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/pins_cm5.py" line="77" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/pins_cm5.py" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceapp_1_1pins__cm5_1a341e8e8f73df01d2f780f0ba22bef655" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int app::pins_cm5.SPI_MISO_ADC_DMY</definition>
+        <argsstring></argsstring>
+        <name>SPI_MISO_ADC_DMY</name>
+        <qualifiedname>app.pins_cm5.SPI_MISO_ADC_DMY</qualifiedname>
+        <initializer>=  19</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/pins_cm5.py" line="79" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/pins_cm5.py" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceapp_1_1pins__cm5_1abdef5fa06d0df26fb2b1529ae78106b8" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int app::pins_cm5.SPI_MOSI_ADC_DMY</definition>
+        <argsstring></argsstring>
+        <name>SPI_MOSI_ADC_DMY</name>
+        <qualifiedname>app.pins_cm5.SPI_MOSI_ADC_DMY</qualifiedname>
+        <initializer>=  20</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/pins_cm5.py" line="81" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/pins_cm5.py" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceapp_1_1pins__cm5_1a72500e21b93a5b8bf357a4d084d33f88" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int app::pins_cm5.SPI_SCLK_ADC_DMY</definition>
+        <argsstring></argsstring>
+        <name>SPI_SCLK_ADC_DMY</name>
+        <qualifiedname>app.pins_cm5.SPI_SCLK_ADC_DMY</qualifiedname>
+        <initializer>=  21</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/pins_cm5.py" line="83" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/pins_cm5.py" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceapp_1_1pins__cm5_1ab783ddc68bb5deccff5c4afeebf0f059" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int app::pins_cm5.ADC_DRDY</definition>
+        <argsstring></argsstring>
+        <name>ADC_DRDY</name>
+        <qualifiedname>app.pins_cm5.ADC_DRDY</qualifiedname>
+        <initializer>=  22</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/pins_cm5.py" line="91" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/pins_cm5.py" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceapp_1_1pins__cm5_1ada8a810372334f4c3d45a61f3e3dfff9" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int app::pins_cm5.ADC_START_SYNC</definition>
+        <argsstring></argsstring>
+        <name>ADC_START_SYNC</name>
+        <qualifiedname>app.pins_cm5.ADC_START_SYNC</qualifiedname>
+        <initializer>=  23</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/pins_cm5.py" line="93" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/pins_cm5.py" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceapp_1_1pins__cm5_1a2beb922666cc8aeea223f68a702a1b19" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int app::pins_cm5.ADC_A0</definition>
+        <argsstring></argsstring>
+        <name>ADC_A0</name>
+        <qualifiedname>app.pins_cm5.ADC_A0</qualifiedname>
+        <initializer>=  24</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/pins_cm5.py" line="101" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/pins_cm5.py" bodystart="101" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceapp_1_1pins__cm5_1aa41ecf65d54d7560c0a05b549a722afd" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int app::pins_cm5.ADC_A1</definition>
+        <argsstring></argsstring>
+        <name>ADC_A1</name>
+        <qualifiedname>app.pins_cm5.ADC_A1</qualifiedname>
+        <initializer>=  25</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/pins_cm5.py" line="103" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/pins_cm5.py" bodystart="103" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceapp_1_1pins__cm5_1adc501cb01eb22c26240fd22e5e572a93" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int app::pins_cm5.FRONT_LED</definition>
+        <argsstring></argsstring>
+        <name>FRONT_LED</name>
+        <qualifiedname>app.pins_cm5.FRONT_LED</qualifiedname>
+        <initializer>=  27</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/pins_cm5.py" line="111" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/pins_cm5.py" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceapp_1_1pins__cm5_1a7f7f52f96aacfc3b968d398382178036" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int app::pins_cm5.SPI0_BUS</definition>
+        <argsstring></argsstring>
+        <name>SPI0_BUS</name>
+        <qualifiedname>app.pins_cm5.SPI0_BUS</qualifiedname>
+        <initializer>=  0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/pins_cm5.py" line="119" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/pins_cm5.py" bodystart="119" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceapp_1_1pins__cm5_1ac3f90aa5494bfd7cb328ab859270ba34" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int app::pins_cm5.SPI1_BUS</definition>
+        <argsstring></argsstring>
+        <name>SPI1_BUS</name>
+        <qualifiedname>app.pins_cm5.SPI1_BUS</qualifiedname>
+        <initializer>=  1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/pins_cm5.py" line="121" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/pins_cm5.py" bodystart="121" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceapp_1_1pins__cm5_1a368d5549c798e09e8775e0e73b96d14c" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int app::pins_cm5.SPI0_DEV0</definition>
+        <argsstring></argsstring>
+        <name>SPI0_DEV0</name>
+        <qualifiedname>app.pins_cm5.SPI0_DEV0</qualifiedname>
+        <initializer>=  0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/pins_cm5.py" line="129" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/pins_cm5.py" bodystart="129" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceapp_1_1pins__cm5_1a0ca4080866506142fe823a43d5cc9b04" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int app::pins_cm5.SPI0_DEV1</definition>
+        <argsstring></argsstring>
+        <name>SPI0_DEV1</name>
+        <qualifiedname>app.pins_cm5.SPI0_DEV1</qualifiedname>
+        <initializer>=  1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/pins_cm5.py" line="131" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/pins_cm5.py" bodystart="131" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceapp_1_1pins__cm5_1a9972c7d851be0cf7f570cd6afb0afdce" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int app::pins_cm5.SPI1_DEV0</definition>
+        <argsstring></argsstring>
+        <name>SPI1_DEV0</name>
+        <qualifiedname>app.pins_cm5.SPI1_DEV0</qualifiedname>
+        <initializer>=  0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/pins_cm5.py" line="133" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/pins_cm5.py" bodystart="133" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceapp_1_1pins__cm5_1a885ffd3784ac740228820ac13e88a615" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int app::pins_cm5.SPI_MUX_SPEED_HZ</definition>
+        <argsstring></argsstring>
+        <name>SPI_MUX_SPEED_HZ</name>
+        <qualifiedname>app.pins_cm5.SPI_MUX_SPEED_HZ</qualifiedname>
+        <initializer>=  100000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/pins_cm5.py" line="141" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/pins_cm5.py" bodystart="141" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceapp_1_1pins__cm5_1af4c124729456a53c298e00a7ad18d434" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int app::pins_cm5.SPI_ADC_SPEED_HZ</definition>
+        <argsstring></argsstring>
+        <name>SPI_ADC_SPEED_HZ</name>
+        <qualifiedname>app.pins_cm5.SPI_ADC_SPEED_HZ</qualifiedname>
+        <initializer>=  100000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/pins_cm5.py" line="143" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/pins_cm5.py" bodystart="143" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/pins_cm5.py" line="1" column="1"/>
+  </compounddef>
+</doxygen>

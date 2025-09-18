@@ -1,0 +1,18 @@
+<map id="app.adc_ads124s08.Ads124s08.measure_resistance" name="app.adc_ads124s08.Ads124s08.measure_resistance">
+<area shape="rect" id="Node000001" title="Mesure la résistance d&#39;une sonde via l&#39;ADC." alt="" coords="5,93,266,136"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="80,93,78,83,87,74,106,69,136,67,167,69,186,75,184,80,166,74,135,72,107,74,90,79,83,85,85,92"/>
+<area shape="rect" id="Node000002" href="$classapp_1_1adc__ads124s08_1_1_ads124s08.html#ac53728ccbaada975b3204c4e3a4364aa" title="Lit un code de données 24 bits depuis l&#39;ADC." alt="" coords="314,64,549,107"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="266,99,298,96,299,101,267,104"/>
+<area shape="rect" id="Node000008" href="$classapp_1_1adc__ads124s08_1_1_ads124s08.html#a30d1ac487b9ef8dcfb310cea695db0f9" title="Arrête une conversion ADC en cours." alt="" coords="314,131,549,157"/>
+<area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="267,125,299,128,298,133,266,130"/>
+<area shape="rect" id="Node000003" href="$namespaceapp_1_1adc__ads124s08.html#a2d49f7c13e0b47db65080ab59febed76" title="Étend le signe d&#39;un code ADC 24 bits vers 32 bits." alt="" coords="632,5,798,48"/>
+<area shape="poly" id="edge3_Node000002_Node000003" title=" " alt="" coords="537,61,617,44,618,49,538,66"/>
+<area shape="rect" id="Node000004" href="$classapp_1_1adc__ads124s08_1_1_ads124s08.html#a5d7414311a828e4231a22b6e414cbfba" title="Démarre une conversion ADC." alt="" coords="597,72,833,99"/>
+<area shape="poly" id="edge4_Node000002_Node000004" title=" " alt="" coords="549,83,581,83,581,88,549,88"/>
+<area shape="rect" id="Node000005" href="$classapp_1_1adc__ads124s08_1_1_ads124s08.html#a6cbdea3f16ae1dff329ec8e45ef859d1" title="Attend un front descendant sur DRDY (HIGH &#45;&gt; LOW) avec timeout." alt="" coords="598,123,832,165"/>
+<area shape="poly" id="edge5_Node000002_Node000005" title=" " alt="" coords="538,105,594,116,593,122,537,110"/>
+<area shape="rect" id="Node000006" href="$classapp_1_1adc__ads124s08_1_1_ads124s08.html#a6c3a8c9cc298fbe29123898f8e404b82" title="Écrit dans un ou plusieurs registres de l&#39;ADC via SPI." alt="" coords="881,131,1127,157"/>
+<area shape="poly" id="edge6_Node000005_Node000006" title=" " alt="" coords="833,141,865,141,865,147,833,147"/>
+<area shape="rect" id="Node000007" href="$classapp_1_1adc__ads124s08_1_1_ads124s08.html#a2f6a4281f1eaac0a7120e6b507b1c9e6" title="Lit un ou plusieurs registres de l&#39;ADC via SPI." alt="" coords="1175,131,1414,157"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="1127,141,1159,141,1159,147,1127,147"/>
+</map>

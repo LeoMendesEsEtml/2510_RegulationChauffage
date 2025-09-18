@@ -1,0 +1,12 @@
+<map id="app.main.main" name="app.main.main">
+<area shape="rect" id="Node000001" title="Point d&#39;entrée principal du programme." alt="" coords="5,47,112,73"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="26,48,20,38,24,28,37,22,59,20,82,23,94,29,91,34,80,28,58,25,38,27,28,32,25,37,30,45"/>
+<area shape="rect" id="Node000002" href="$namespaceapp_1_1main.html#a2d15309f12a3472b94e8cace0ace5a6b" title="Recharge les paramètres de temporisation depuis le fichier de configuration." alt="" coords="173,5,328,48"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="112,48,157,40,158,45,113,53"/>
+<area shape="rect" id="Node000003" href="$namespaceapp_1_1main.html#abde8d10de044e070eb5eab1e448cd558" title="Exécute une séquence complète de mesures pour tous les canaux activés selon la configuration fournie." alt="" coords="160,72,342,115"/>
+<area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="113,67,144,72,144,77,112,72"/>
+<area shape="rect" id="Node000004" href="$namespaceapp_1_1main.html#a7e7d269529399106243cc74fc3c73b6a" title="Sauvegarde l&#39;état courant et historique par canal dans un fichier JSON." alt="" coords="394,39,528,81"/>
+<area shape="poly" id="edge4_Node000003_Node000004" title=" " alt="" coords="342,76,378,70,379,76,343,81"/>
+<area shape="rect" id="Node000005" href="$namespaceapp_1_1main.html#a1b3211e7ab2da62ed461ce881f0ce556" title="Affiche un motif LED d&#39;erreur pendant un temps donné puis remet l&#39;indicateur en mode &#39;sequence_runnin..." alt="" coords="390,105,532,148"/>
+<area shape="poly" id="edge5_Node000003_Node000005" title=" " alt="" coords="343,105,375,110,374,116,342,110"/>
+</map>

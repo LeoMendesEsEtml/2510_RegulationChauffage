@@ -1,0 +1,241 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_classapp_1_1api__client_1_1_api_client" xml:lang="fr">
+<title>Référence de la classe app.api_client.ApiClient</title>
+<indexterm><primary>app.api_client.ApiClient</primary></indexterm>
+<para>
+
+<para>Client pour interroger les APIs oblosolutions.ch. </para>
+ 
+</para>
+Graphe de collaboration de app.api_client.ApiClient:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classapp_1_1api__client_1_1_api_client__coll__graph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+<simplesect>
+    <title>Fonctions membres publiques    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classapp_1_1api__client_1_1_api_client_1a171cc745f73567764ce9c9b91b641073">__init__</link> (self, str <link linkend="_classapp_1_1api__client_1_1_api_client_1affa2a7db3feeb2b89fea02782fa7651e">mac_address</link>)</para>
+
+<para>Initialise le client API. </para>
+</listitem>
+            <listitem><para>Dict[str, Any] <link linkend="_classapp_1_1api__client_1_1_api_client_1ad01feeab923001f13a9d7fec632b0535">get_parameters</link> (self)</para>
+
+<para>Récupère les paramètres depuis l&apos;API td25_param. </para>
+</listitem>
+            <listitem><para>Dict[str, Any] <link linkend="_classapp_1_1api__client_1_1_api_client_1a263a088e7aba74e112fc19313eb564a4">get_forecast</link> (self)</para>
+
+<para>Récupère la température prévue depuis l&apos;API td25_forecast. </para>
+</listitem>
+            <listitem><para>bool <link linkend="_classapp_1_1api__client_1_1_api_client_1a5466d28aa6db01b5d8980725bd66849e">post_measured_temperature</link> (self, float temperature, int channel=None)</para>
+
+<para>Envoie la température mesurée vers l&apos;API td25_param. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Attributs publics    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classapp_1_1api__client_1_1_api_client_1affa2a7db3feeb2b89fea02782fa7651e">mac_address</link> = mac_address</para>
+</listitem>
+            <listitem><para>str <link linkend="_classapp_1_1api__client_1_1_api_client_1a1e7978396a583d3e306416a96e6e3d44">base_url</link> = &quot;https://dev.oblosolutions.ch&quot;</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Attributs publics statiques    </title>
+        <itemizedlist>
+            <listitem><para>str <link linkend="_classapp_1_1api__client_1_1_api_client_1a7f77d1e9774dd8035a541b442f65ed67">API_PATH_PREFIX</link> = &quot;&quot;</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Description détaillée</title>
+
+<para>Client pour interroger les APIs oblosolutions.ch. </para>
+
+
+
+<para>Fournit des méthodes pour récupérer les paramètres de simulation, les prévisions météo et envoyer les mesures de température. Gère automatiquement les retries et les timeouts. </para>
+</section>
+<section>
+<title>Documentation des constructeurs et destructeur</title>
+<anchor xml:id="_classapp_1_1api__client_1_1_api_client_1a171cc745f73567764ce9c9b91b641073"/><section>
+    <title>__init__()</title>
+<indexterm><primary>__init__</primary><secondary>app.api_client.ApiClient</secondary></indexterm>
+<indexterm><primary>app.api_client.ApiClient</primary><secondary>__init__</secondary></indexterm>
+<para><computeroutput>app.api_client.ApiClient.__init__ ( self, str mac_address)</computeroutput></para><para>
+
+<para>Initialise le client API. </para>
+</para>
+
+<para>Configure l&apos;adresse MAC du dispositif et l&apos;URL de base pour les communications avec les services oblosolutions.ch.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Paramètres</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>mac_address</entry><entry>
+<para>Adresse MAC du dispositif (ex: &quot;0030DEABCDEF&quot;). </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+</section>
+</section>
+<section>
+<title>Documentation des fonctions membres</title>
+<anchor xml:id="_classapp_1_1api__client_1_1_api_client_1a263a088e7aba74e112fc19313eb564a4"/><section>
+    <title>get_forecast()</title>
+<indexterm><primary>get_forecast</primary><secondary>app.api_client.ApiClient</secondary></indexterm>
+<indexterm><primary>app.api_client.ApiClient</primary><secondary>get_forecast</secondary></indexterm>
+<para><computeroutput> Dict[str, Any] app.api_client.ApiClient.get_forecast ( self)</computeroutput></para><para>
+
+<para>Récupère la température prévue depuis l&apos;API td25_forecast. </para>
+</para>
+
+<para>Effectue une requête GET vers l&apos;endpoint td25_forecast avec l&apos;adresse MAC comme paramètre. Parse la réponse JSON et extrait la température de prévision météorologique. Inclut un système de retry automatique en cas d&apos;échec.</para>
+
+<para><formalpara><title>Renvoie</title>
+
+<para>Dictionnaire contenant la temperature prévue.</para>
+</formalpara>
+
+                <formalpara>
+                    <title>
+Exceptions</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry><link linkend="_classapp_1_1api__client_1_1_api_error">ApiError</link></entry><entry>
+<para>En cas d&apos;erreur de récupération des données. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+</section>
+<anchor xml:id="_classapp_1_1api__client_1_1_api_client_1ad01feeab923001f13a9d7fec632b0535"/><section>
+    <title>get_parameters()</title>
+<indexterm><primary>get_parameters</primary><secondary>app.api_client.ApiClient</secondary></indexterm>
+<indexterm><primary>app.api_client.ApiClient</primary><secondary>get_parameters</secondary></indexterm>
+<para><computeroutput> Dict[str, Any] app.api_client.ApiClient.get_parameters ( self)</computeroutput></para><para>
+
+<para>Récupère les paramètres depuis l&apos;API td25_param. </para>
+</para>
+
+<para>Effectue une requête GET vers l&apos;endpoint td25_param avec l&apos;adresse MAC comme paramètre. Parse la réponse JSON et extrait les champs probe_type, n, k_m et temperature. Inclut un système de retry automatique en cas d&apos;échec.</para>
+
+<para><formalpara><title>Renvoie</title>
+
+<para>Dictionnaire contenant probe_type, n, k_m, temperature.</para>
+</formalpara>
+
+                <formalpara>
+                    <title>
+Exceptions</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry><link linkend="_classapp_1_1api__client_1_1_api_error">ApiError</link></entry><entry>
+<para>En cas d&apos;erreur de récupération des données. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+</section>
+<anchor xml:id="_classapp_1_1api__client_1_1_api_client_1a5466d28aa6db01b5d8980725bd66849e"/><section>
+    <title>post_measured_temperature()</title>
+<indexterm><primary>post_measured_temperature</primary><secondary>app.api_client.ApiClient</secondary></indexterm>
+<indexterm><primary>app.api_client.ApiClient</primary><secondary>post_measured_temperature</secondary></indexterm>
+<para><computeroutput> bool app.api_client.ApiClient.post_measured_temperature ( self, float temperature, int  channel = <computeroutput>None</computeroutput>
+)</computeroutput></para><para>
+
+<para>Envoie la température mesurée vers l&apos;API td25_param. </para>
+</para>
+
+<para>Effectue une requête POST vers l&apos;endpoint td25_param avec la température mesurée et optionnellement le numéro de canal. Tous les paramètres sont envoyés dans l&apos;URL comme paramètres de requête. Inclut un système de retry automatique.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Paramètres</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>temperature</entry><entry>
+<para>Température mesurée en °C. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>channel</entry><entry>
+<para>Canal de mesure (optionnel).</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Renvoie</title>
+
+<para>True si succès, False sinon. </para>
+</formalpara>
+</para>
+</section>
+</section>
+<section>
+<title>Documentation des données membres</title>
+<anchor xml:id="_classapp_1_1api__client_1_1_api_client_1a7f77d1e9774dd8035a541b442f65ed67"/><section>
+    <title>API_PATH_PREFIX</title>
+<indexterm><primary>API_PATH_PREFIX</primary><secondary>app.api_client.ApiClient</secondary></indexterm>
+<indexterm><primary>app.api_client.ApiClient</primary><secondary>API_PATH_PREFIX</secondary></indexterm>
+<para><computeroutput>str app.api_client.ApiClient.API_PATH_PREFIX = &quot;&quot;<computeroutput>[static]</computeroutput></computeroutput></para></section>
+<anchor xml:id="_classapp_1_1api__client_1_1_api_client_1a1e7978396a583d3e306416a96e6e3d44"/><section>
+    <title>base_url</title>
+<indexterm><primary>base_url</primary><secondary>app.api_client.ApiClient</secondary></indexterm>
+<indexterm><primary>app.api_client.ApiClient</primary><secondary>base_url</secondary></indexterm>
+<para><computeroutput>str app.api_client.ApiClient.base_url = &quot;https://dev.oblosolutions.ch&quot;</computeroutput></para></section>
+<anchor xml:id="_classapp_1_1api__client_1_1_api_client_1affa2a7db3feeb2b89fea02782fa7651e"/><section>
+    <title>mac_address</title>
+<indexterm><primary>mac_address</primary><secondary>app.api_client.ApiClient</secondary></indexterm>
+<indexterm><primary>app.api_client.ApiClient</primary><secondary>mac_address</secondary></indexterm>
+<para><computeroutput>app.api_client.ApiClient.mac_address = mac_address</computeroutput></para></section>
+<para>
+La documentation de cette classe a été générée à partir du fichier suivant :</para>
+C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/<link linkend="_api__client_8py">api_client.py</link></section>
+</section>

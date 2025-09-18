@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_hw__tmux1204_8py" xml:lang="fr">
+<title>Référence du fichier C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/hw_tmux1204.py</title>
+<indexterm><primary>C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/hw_tmux1204.py</primary></indexterm>
+<para>
+
+<para>Pilote pour multiplexeur TMUX1204 de sélection de résistance de référence. </para>
+ 
+</para>
+<simplesect>
+    <title>Classes    </title>
+        <itemizedlist>
+            <listitem><para>class <link linkend="_classapp_1_1hw__tmux1204_1_1_tmux1204">app.hw_tmux1204.Tmux1204</link></para>
+
+<para>Pilote pour le multiplexeur TMUX1204. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Espaces de nommage    </title>
+        <itemizedlist>
+            <listitem><para>namespace <link linkend="_namespaceapp">app</link></para>
+</listitem>
+            <listitem><para>namespace <link linkend="_namespaceapp_1_1hw__tmux1204">app.hw_tmux1204</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Description détaillée</title>
+
+<para>Pilote pour multiplexeur TMUX1204 de sélection de résistance de référence. </para>
+
+<para>Ce module fournit un pilote pour contrôler le multiplexeur TMUX1204 via les signaux de contrôle ADC_A1 et ADC_A0. Permet la sélection de quatre valeurs de résistance de référence (2.2k, 2.7k, 10k, 100k) selon une table de vérité définie. <formalpara><title>Auteur</title>
+
+<para>Léo Mendes @project 2510_RegulationsChauffage @Mandant Oblo_solution </para>
+</formalpara>
+<formalpara><title>Date</title>
+
+<para>2025-09-18 </para>
+</formalpara>
+<formalpara><title>Version</title>
+
+<para>1.0.0 </para>
+</formalpara>
+<formalpara><title>Copyright</title>
+
+<para>Copyright (c) 2025 </para>
+</formalpara>
+</para>
+</section>
+</section>

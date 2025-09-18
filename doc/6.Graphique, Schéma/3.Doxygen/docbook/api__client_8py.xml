@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_api__client_8py" xml:lang="fr">
+<title>Référence du fichier C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/api_client.py</title>
+<indexterm><primary>C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/api_client.py</primary></indexterm>
+<para>
+
+<para>Client API pour les services oblosolutions.ch. </para>
+ 
+</para>
+<simplesect>
+    <title>Classes    </title>
+        <itemizedlist>
+            <listitem><para>class <link linkend="_classapp_1_1api__client_1_1_api_error">app.api_client.ApiError</link></para>
+
+<para>Exception pour les erreurs d&apos;API. </para>
+</listitem>
+            <listitem><para>class <link linkend="_classapp_1_1api__client_1_1_api_client">app.api_client.ApiClient</link></para>
+
+<para>Client pour interroger les APIs oblosolutions.ch. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Espaces de nommage    </title>
+        <itemizedlist>
+            <listitem><para>namespace <link linkend="_namespaceapp">app</link></para>
+</listitem>
+            <listitem><para>namespace <link linkend="_namespaceapp_1_1api__client">app.api_client</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Fonctions    </title>
+        <itemizedlist>
+            <listitem><para>Dict[str, Any] <link linkend="_namespaceapp_1_1api__client_1af48f8165ee988985679357bd07baafdb">app.api_client.get_simulation_data</link> (str mac_address)</para>
+
+<para>Récupère les données de simulation depuis les APIs. </para>
+</listitem>
+            <listitem><para>bool <link linkend="_namespaceapp_1_1api__client_1abf9801a9e4bcf9817f44a2c08e68d938">app.api_client.send_temperature_measurement</link> (str mac_address, float temperature, int channel=None)</para>
+
+<para>Envoie une mesure de température vers l&apos;API. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Variables    </title>
+        <itemizedlist>
+            <listitem><para>int <link linkend="_namespaceapp_1_1api__client_1ac070ba1d4d0b10ca200ef77c3bd68fd5">app.api_client.REQUEST_TIMEOUT</link> = 10</para>
+</listitem>
+            <listitem><para>int <link linkend="_namespaceapp_1_1api__client_1a3a47289c37788e389f3f62c12ee9312a">app.api_client.MAX_RETRIES</link> = 3</para>
+</listitem>
+            <listitem><para>int <link linkend="_namespaceapp_1_1api__client_1a58ef9b423e01b1428c03ba4c7b7a7e1b">app.api_client.RETRY_DELAY</link> = 1</para>
+</listitem>
+            <listitem><para>str <link linkend="_namespaceapp_1_1api__client_1a1f94a135976701bdeeb72eb5acf4bbd4">app.api_client.test_mac</link> = &quot;0030DEABCDEF&quot;</para>
+</listitem>
+            <listitem><para>Dict[str, Any] <link linkend="_namespaceapp_1_1api__client_1ac478207d8e3a7c898761fd35c77390d0">app.api_client.data</link> = <link linkend="_namespaceapp_1_1api__client_1af48f8165ee988985679357bd07baafdb">get_simulation_data</link>(<link linkend="_namespaceapp_1_1api__client_1a1f94a135976701bdeeb72eb5acf4bbd4">test_mac</link>)</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Description détaillée</title>
+
+<para>Client API pour les services oblosolutions.ch. </para>
+
+<para>Ce module fournit un client HTTP pour interroger les APIs td25_param et td25_forecast. Il gère les timeouts, les retries automatiques et les erreurs de réseau. Inclut des fonctions utilitaires pour récupérer les données de simulation et envoyer les mesures de température. <formalpara><title>Auteur</title>
+
+<para>Léo Mendes @project 2510_RegulationsChauffage @Mandant Oblo_solution </para>
+</formalpara>
+<formalpara><title>Date</title>
+
+<para>2025-09-18 </para>
+</formalpara>
+<formalpara><title>Version</title>
+
+<para>1.0.0 </para>
+</formalpara>
+<formalpara><title>Copyright</title>
+
+<para>Copyright (c) 2025 </para>
+</formalpara>
+</para>
+</section>
+</section>

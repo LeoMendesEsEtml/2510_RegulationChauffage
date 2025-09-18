@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_adc__ads124s08_8py" xml:lang="fr">
+<title>Référence du fichier C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/adc_ads124s08.py</title>
+<indexterm><primary>C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/adc_ads124s08.py</primary></indexterm>
+<para>
+
+<para>Driver pour l&apos;ADC ADS124S08 avec communication SPI. </para>
+ 
+</para>
+<simplesect>
+    <title>Classes    </title>
+        <itemizedlist>
+            <listitem><para>class <link linkend="_classapp_1_1adc__ads124s08_1_1_ads124s08">app.adc_ads124s08.Ads124s08</link></para>
+
+<para>Driver pour l&apos;ADC ADS124S08 avec interface SPI. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Espaces de nommage    </title>
+        <itemizedlist>
+            <listitem><para>namespace <link linkend="_namespaceapp">app</link></para>
+</listitem>
+            <listitem><para>namespace <link linkend="_namespaceapp_1_1adc__ads124s08">app.adc_ads124s08</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Fonctions    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_namespaceapp_1_1adc__ads124s08_1a0117399a18d516c747ca6b060599452f">app.adc_ads124s08.encode_gain</link> (pga_gain)</para>
+
+<para>Encode le gain PGA en code binaire pour le registre. </para>
+</listitem>
+            <listitem><para><link linkend="_namespaceapp_1_1adc__ads124s08_1a8f9279b8505f8d634ed73c51dcab29c9">app.adc_ads124s08.encode_idac_uA</link> (idac_uA)</para>
+
+<para>Encode la magnitude IDAC en code binaire pour le registre. </para>
+</listitem>
+            <listitem><para><link linkend="_namespaceapp_1_1adc__ads124s08_1a2d49f7c13e0b47db65080ab59febed76">app.adc_ads124s08.sign_extend_24</link> (b0, b1, b2)</para>
+
+<para>Étend le signe d&apos;un code ADC 24 bits vers 32 bits. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Variables    </title>
+        <itemizedlist>
+            <listitem><para>int <link linkend="_namespaceapp_1_1adc__ads124s08_1a95d2ed0295f793db669188acfc42e035">app.adc_ads124s08.REG_ID</link> = 0x00</para>
+</listitem>
+            <listitem><para>int <link linkend="_namespaceapp_1_1adc__ads124s08_1a08370a57876abbb36233f903990f7090">app.adc_ads124s08.REG_STATUS</link> = 0x01</para>
+</listitem>
+            <listitem><para>int <link linkend="_namespaceapp_1_1adc__ads124s08_1acc5fdb3a177b32ce008beb7d4f593e5a">app.adc_ads124s08.REG_INPMUX</link> = 0x02</para>
+</listitem>
+            <listitem><para>int <link linkend="_namespaceapp_1_1adc__ads124s08_1a6693b8b3c92c4e605cd93396bbf437e4">app.adc_ads124s08.REG_PGA</link> = 0x03</para>
+</listitem>
+            <listitem><para>int <link linkend="_namespaceapp_1_1adc__ads124s08_1a3570ad44d2f9dd31da3eb36e6bb43a74">app.adc_ads124s08.REG_DATARATE</link> = 0x04</para>
+</listitem>
+            <listitem><para>int <link linkend="_namespaceapp_1_1adc__ads124s08_1a37082f74d6a0e13791161957521dda36">app.adc_ads124s08.REG_REF</link> = 0x05</para>
+</listitem>
+            <listitem><para>int <link linkend="_namespaceapp_1_1adc__ads124s08_1ad6a2ed950510eefbb3d8e16c5d44aa9a">app.adc_ads124s08.REG_IDACMUX</link> = 0x07</para>
+</listitem>
+            <listitem><para>int <link linkend="_namespaceapp_1_1adc__ads124s08_1ab33f3d3b9eff07796c0954fb0a26a0f9">app.adc_ads124s08.REG_SYS</link> = 0x09</para>
+</listitem>
+            <listitem><para>int <link linkend="_namespaceapp_1_1adc__ads124s08_1a29344761380eb9759a168a517077c1f8">app.adc_ads124s08.REG_IDACMAG</link> = 0x06</para>
+</listitem>
+            <listitem><para>int <link linkend="_namespaceapp_1_1adc__ads124s08_1ac53df39aab8783f89db1de629453dac2">app.adc_ads124s08.CMD_RESET</link> = 0x06</para>
+</listitem>
+            <listitem><para>int <link linkend="_namespaceapp_1_1adc__ads124s08_1afdbb53f6073883d5fae13b41f4054ad2">app.adc_ads124s08.CMD_START</link> = 0x08</para>
+</listitem>
+            <listitem><para>int <link linkend="_namespaceapp_1_1adc__ads124s08_1a584dd419d6c692fe7fdbf9c318b0e9da">app.adc_ads124s08.CMD_STOP</link> = 0x0A</para>
+</listitem>
+            <listitem><para>int <link linkend="_namespaceapp_1_1adc__ads124s08_1a295dbc291719574e76ddc5a7a2467087">app.adc_ads124s08.CMD_RDATA</link> = 0x12</para>
+</listitem>
+            <listitem><para>tuple <link linkend="_namespaceapp_1_1adc__ads124s08_1a9d806c5f058f08f8ee7e226d706694f1">app.adc_ads124s08.FS</link> = (1 &lt;&lt; 23) - 1</para>
+</listitem>
+            <listitem><para>dict <link linkend="_namespaceapp_1_1adc__ads124s08_1a8919c033b020e8f54f713cea9d68fa22">app.adc_ads124s08.CHANNELS</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Description détaillée</title>
+
+<para>Driver pour l&apos;ADC ADS124S08 avec communication SPI. </para>
+
+<para>Ce module fournit une interface complète pour la communication avec l&apos;ADC ADS124S08 via SPI en mode 1.0. Supporte la mesure de résistance et température avec configuration automatique des registres. S� Reset → Configuration → Mesure bloquante avec DRDY. <formalpara><title>Auteur</title>
+
+<para>Léo Mendes @project 2510_RegulationsChauffage @Mandant Oblo_solution </para>
+</formalpara>
+<formalpara><title>Date</title>
+
+<para>2025-09-18 </para>
+</formalpara>
+<formalpara><title>Version</title>
+
+<para>1.0.0 </para>
+</formalpara>
+<formalpara><title>Copyright</title>
+
+<para>Copyright (c) 2025 </para>
+</formalpara>
+</para>
+</section>
+</section>

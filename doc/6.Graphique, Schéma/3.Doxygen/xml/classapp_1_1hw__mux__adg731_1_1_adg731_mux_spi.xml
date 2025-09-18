@@ -1,0 +1,243 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="fr">
+  <compounddef id="classapp_1_1hw__mux__adg731_1_1_adg731_mux_spi" kind="class" language="Python" prot="public">
+    <compoundname>app::hw_mux_adg731::Adg731MuxSpi</compoundname>
+    <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="classapp_1_1hw__mux__adg731_1_1_adg731_mux_spi_1a45d7743b30c6b2238fb9bf8ec1fc4814" prot="public" static="yes" mutable="no">
+        <type>list</type>
+        <definition>list app.hw_mux_adg731.Adg731MuxSpi::DEV</definition>
+        <argsstring></argsstring>
+        <name>DEV</name>
+        <qualifiedname>app.hw_mux_adg731.Adg731MuxSpi.DEV</qualifiedname>
+        <initializer>=  [&quot;/dev/spidev0.0&quot;, &quot;/dev/spidev0.1&quot;, &quot;/dev/spidev0.2&quot;, &quot;/dev/spidev0.3&quot;]</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/hw_mux_adg731.py" line="71" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/hw_mux_adg731.py" bodystart="71" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classapp_1_1hw__mux__adg731_1_1_adg731_mux_spi_1a3f9d44d59b25aaec550ee234dfa55efd" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>app.hw_mux_adg731.Adg731MuxSpi::speed</definition>
+        <argsstring></argsstring>
+        <name>speed</name>
+        <qualifiedname>app.hw_mux_adg731.Adg731MuxSpi.speed</qualifiedname>
+        <initializer>=  speed_hz</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/hw_mux_adg731.py" line="83" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/hw_mux_adg731.py" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classapp_1_1hw__mux__adg731_1_1_adg731_mux_spi_1a8660e960365a4eccad962d9cd878f0b7" prot="public" static="no" mutable="no">
+        <type>list</type>
+        <definition>list app.hw_mux_adg731.Adg731MuxSpi::handles</definition>
+        <argsstring></argsstring>
+        <name>handles</name>
+        <qualifiedname>app.hw_mux_adg731.Adg731MuxSpi.handles</qualifiedname>
+        <initializer>=  []</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/hw_mux_adg731.py" line="85" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/hw_mux_adg731.py" bodystart="85" bodyend="-1"/>
+        <referencedby refid="classapp_1_1hw__mux__adg731_1_1_adg731_mux_spi_1a98d7e0145243c76bb250d0b7601d54c9" compoundref="hw__mux__adg731_8py" startline="142" endline="153">app.hw_mux_adg731.Adg731MuxSpi.close</referencedby>
+        <referencedby refid="classapp_1_1hw__mux__adg731_1_1_adg731_mux_spi_1a1d21810662e9c89483f4a8d5430167cd" compoundref="hw__mux__adg731_8py" startline="167" endline="183">app.hw_mux_adg731.Adg731MuxSpi.set_channel</referencedby>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classapp_1_1hw__mux__adg731_1_1_adg731_mux_spi_1a38043de4d45add48839b60c3c1e4aef0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>app.hw_mux_adg731.Adg731MuxSpi.__init__</definition>
+        <argsstring>(self, speed_hz=100000)</argsstring>
+        <name>__init__</name>
+        <qualifiedname>app.hw_mux_adg731.Adg731MuxSpi.__init__</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>speed_hz</type>
+          <defname>speed_hz</defname>
+          <defval>100000</defval>
+        </param>
+        <briefdescription>
+<para>Initialise le pilote pour les multiplexeurs ADG731. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Configure l&apos;interface SPI pour chaque canal disponible, définit les paramètres de communication et initialise les handles pour jusqu&apos;à 4 cartes multiplexeurs.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>speed_hz</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Vitesse SPI en Hz (par défaut 100kHz). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/hw_mux_adg731.py" line="81" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/hw_mux_adg731.py" bodystart="81" bodyend="135"/>
+      </memberdef>
+      <memberdef kind="function" id="classapp_1_1hw__mux__adg731_1_1_adg731_mux_spi_1a98d7e0145243c76bb250d0b7601d54c9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>app.hw_mux_adg731.Adg731MuxSpi.close</definition>
+        <argsstring>(self)</argsstring>
+        <name>close</name>
+        <qualifiedname>app.hw_mux_adg731.Adg731MuxSpi.close</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+<para>Ferme toutes les interfaces SPI. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Parcourt tous les handles SPI ouverts et les ferme proprement. Gère les erreurs de fermeture pour éviter les exceptions lors du nettoyage. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/hw_mux_adg731.py" line="142" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/hw_mux_adg731.py" bodystart="142" bodyend="153"/>
+        <references refid="classapp_1_1hw__mux__adg731_1_1_adg731_mux_spi_1a8660e960365a4eccad962d9cd878f0b7" compoundref="hw__mux__adg731_8py" startline="85">app.hw_mux_adg731.Adg731MuxSpi.handles</references>
+      </memberdef>
+      <memberdef kind="function" id="classapp_1_1hw__mux__adg731_1_1_adg731_mux_spi_1a1d21810662e9c89483f4a8d5430167cd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>app.hw_mux_adg731.Adg731MuxSpi.set_channel</definition>
+        <argsstring>(self, board_index, address)</argsstring>
+        <name>set_channel</name>
+        <qualifiedname>app.hw_mux_adg731.Adg731MuxSpi.set_channel</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>board_index</type>
+          <defname>board_index</defname>
+        </param>
+        <param>
+          <type>address</type>
+          <defname>address</defname>
+        </param>
+        <briefdescription>
+<para>Active un canal spécifique sur une carte donnée. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Envoie la commande de sélection de canal vers la carte multiplexeur spécifiée. Génère l&apos;octet de contrôle et l&apos;envoie via SPI.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>board_index</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Index de la carte (0-3). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>address</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Adresse du canal à activer (0-31).</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Octet de contrôle envoyé, ou None si erreur.</para>
+</simplesect>
+<parameterlist kind="exception"><parameteritem>
+<parameternamelist>
+<parametername>ValueError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Si l&apos;index de carte est hors plage. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/hw_mux_adg731.py" line="167" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/hw_mux_adg731.py" bodystart="167" bodyend="183"/>
+        <references refid="namespaceapp_1_1hw__mux__adg731_1a191556bfaa023e4d6e1f2099dca9db46" compoundref="hw__mux__adg731_8py" startline="41" endline="60">app.hw_mux_adg731.adg731_ctrl_byte</references>
+        <references refid="classapp_1_1hw__mux__adg731_1_1_adg731_mux_spi_1a8660e960365a4eccad962d9cd878f0b7" compoundref="hw__mux__adg731_8py" startline="85">app.hw_mux_adg731.Adg731MuxSpi.handles</references>
+        <referencedby refid="classapp_1_1hw__mux__adg731_1_1_adg731_mux_spi_1a847670de338ddbc0e2257f8d821cd82a" compoundref="hw__mux__adg731_8py" startline="196" endline="205">app.hw_mux_adg731.Adg731MuxSpi.set_output_channel</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classapp_1_1hw__mux__adg731_1_1_adg731_mux_spi_1a847670de338ddbc0e2257f8d821cd82a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>app.hw_mux_adg731.Adg731MuxSpi.set_output_channel</definition>
+        <argsstring>(self, channel_index)</argsstring>
+        <name>set_output_channel</name>
+        <qualifiedname>app.hw_mux_adg731.Adg731MuxSpi.set_output_channel</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>channel_index</type>
+          <defname>channel_index</defname>
+        </param>
+        <briefdescription>
+<para>Utilitaire simple pour sélectionner un canal de sortie. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Fonction de commodité qui utilise automatiquement la carte 0 et mappe directement l&apos;index de canal sur l&apos;adresse du multiplexeur.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>channel_index</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Index du canal de sortie (0-31).</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Octet de contrôle envoyé, ou None si erreur.</para>
+</simplesect>
+<parameterlist kind="exception"><parameteritem>
+<parameternamelist>
+<parametername>ValueError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Si l&apos;index de canal est hors plage. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/hw_mux_adg731.py" line="196" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/hw_mux_adg731.py" bodystart="196" bodyend="205"/>
+        <references refid="classapp_1_1hw__mux__adg731_1_1_adg731_mux_spi_1a1d21810662e9c89483f4a8d5430167cd" compoundref="hw__mux__adg731_8py" startline="167" endline="183">app.hw_mux_adg731.Adg731MuxSpi.set_channel</references>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Pilote SPI pour multiplexeurs ADG731. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Classe pour contrôler jusqu&apos;à 4 multiplexeurs ADG731 via l&apos;interface SPI0. Chaque multiplexeur peut gérer 32 canaux. Configure automatiquement les paramètres SPI optimaux et gère la communication avec les circuits. </para>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>app.hw_mux_adg731.Adg731MuxSpi</label>
+        <link refid="classapp_1_1hw__mux__adg731_1_1_adg731_mux_spi"/>
+      </node>
+    </collaborationgraph>
+    <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/hw_mux_adg731.py" line="68" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/hw_mux_adg731.py" bodystart="68" bodyend="205"/>
+    <listofallmembers>
+      <member refid="classapp_1_1hw__mux__adg731_1_1_adg731_mux_spi_1a38043de4d45add48839b60c3c1e4aef0" prot="public" virt="non-virtual"><scope>app::hw_mux_adg731::Adg731MuxSpi</scope><name>__init__</name></member>
+      <member refid="classapp_1_1hw__mux__adg731_1_1_adg731_mux_spi_1a98d7e0145243c76bb250d0b7601d54c9" prot="public" virt="non-virtual"><scope>app::hw_mux_adg731::Adg731MuxSpi</scope><name>close</name></member>
+      <member refid="classapp_1_1hw__mux__adg731_1_1_adg731_mux_spi_1a45d7743b30c6b2238fb9bf8ec1fc4814" prot="public" virt="non-virtual"><scope>app::hw_mux_adg731::Adg731MuxSpi</scope><name>DEV</name></member>
+      <member refid="classapp_1_1hw__mux__adg731_1_1_adg731_mux_spi_1a8660e960365a4eccad962d9cd878f0b7" prot="public" virt="non-virtual"><scope>app::hw_mux_adg731::Adg731MuxSpi</scope><name>handles</name></member>
+      <member refid="classapp_1_1hw__mux__adg731_1_1_adg731_mux_spi_1a1d21810662e9c89483f4a8d5430167cd" prot="public" virt="non-virtual"><scope>app::hw_mux_adg731::Adg731MuxSpi</scope><name>set_channel</name></member>
+      <member refid="classapp_1_1hw__mux__adg731_1_1_adg731_mux_spi_1a847670de338ddbc0e2257f8d821cd82a" prot="public" virt="non-virtual"><scope>app::hw_mux_adg731::Adg731MuxSpi</scope><name>set_output_channel</name></member>
+      <member refid="classapp_1_1hw__mux__adg731_1_1_adg731_mux_spi_1a3f9d44d59b25aaec550ee234dfa55efd" prot="public" virt="non-virtual"><scope>app::hw_mux_adg731::Adg731MuxSpi</scope><name>speed</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

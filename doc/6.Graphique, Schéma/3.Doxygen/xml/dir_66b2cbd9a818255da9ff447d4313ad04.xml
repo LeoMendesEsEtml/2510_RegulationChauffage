@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="fr">
+  <compounddef id="dir_66b2cbd9a818255da9ff447d4313ad04" kind="dir">
+    <compoundname>C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/webui</compoundname>
+    <innerfile refid="webui_2____init_____8py">__init__.py</innerfile>
+    <innerfile refid="webui__server_8py">webui_server.py</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/webui/"/>
+  </compounddef>
+</doxygen>

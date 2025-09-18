@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="fr">
+  <compounddef id="namespaceapp_1_1resistance__simulation" kind="namespace" language="Python">
+    <compoundname>app::resistance_simulation</compoundname>
+    <innerclass refid="classapp_1_1resistance__simulation_1_1_resistance_simulation_error" prot="public">app::resistance_simulation::ResistanceSimulationError</innerclass>
+    <innerclass refid="classapp_1_1resistance__simulation_1_1_resistance_simulator" prot="public">app::resistance_simulation::ResistanceSimulator</innerclass>
+    <sectiondef kind="var">
+      <memberdef kind="variable" id="namespaceapp_1_1resistance__simulation_1a1e0083edc4bb5cd3cf145384e73c9fb3" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>app::resistance_simulation.sim</definition>
+        <argsstring></argsstring>
+        <name>sim</name>
+        <qualifiedname>app.resistance_simulation.sim</qualifiedname>
+        <initializer>=  <ref refid="classapp_1_1resistance__simulation_1_1_resistance_simulator" kindref="compound">ResistanceSimulator</ref>()</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/resistance_simulation.py" line="333" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/resistance_simulation.py" bodystart="333" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceapp_1_1resistance__simulation_1af7b157026a22cabc88ac2a1df2bf0a45" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool app::resistance_simulation::success</definition>
+        <argsstring></argsstring>
+        <name>success</name>
+        <qualifiedname>app.resistance_simulation.success</qualifiedname>
+        <initializer>=  sim.apply_resistance_simulation(1000.0)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/resistance_simulation.py" line="338" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/resistance_simulation.py" bodystart="338" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceapp_1_1resistance__simulation_1a0b6740f840f43350912072a8757fb6e5" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>app::resistance_simulation.valid</definition>
+        <argsstring></argsstring>
+        <name>valid</name>
+        <qualifiedname>app.resistance_simulation.valid</qualifiedname>
+        <initializer>=  sim.validate_resistance_applied(667.0, tolerance=0.15)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/resistance_simulation.py" line="354" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/resistance_simulation.py" bodystart="354" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="namespaceapp_1_1resistance__simulation_1ab4df858485a2008da66e5eaed218f67b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition> bool app.resistance_simulation.apply_resistance_simulation</definition>
+        <argsstring>(float resistance_ohm)</argsstring>
+        <name>apply_resistance_simulation</name>
+        <qualifiedname>app.resistance_simulation.apply_resistance_simulation</qualifiedname>
+        <param>
+          <type>float</type>
+          <declname>resistance_ohm</declname>
+        </param>
+        <briefdescription>
+<para>Fonction utilitaire pour appliquer une résistance simulée. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Fonction de commodité qui encapsule la création d&apos;un simulateur, l&apos;application d&apos;une résistance et le nettoyage automatique. Utilise le pattern RAII pour la gestion des ressources.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>resistance_ohm</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Résistance à appliquer [Ohms].</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>True si l&apos;application a réussi, False sinon. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/resistance_simulation.py" line="302" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/resistance_simulation.py" bodystart="302" bodyend="322"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/resistance_simulation.py" line="1" column="1"/>
+  </compounddef>
+</doxygen>

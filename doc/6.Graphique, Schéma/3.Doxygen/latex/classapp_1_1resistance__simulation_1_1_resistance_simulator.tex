@@ -1,0 +1,238 @@
+\doxysection{Référence de la classe app.\+resistance\+\_\+simulation.\+Resistance\+Simulator}
+\hypertarget{classapp_1_1resistance__simulation_1_1_resistance_simulator}{}\label{classapp_1_1resistance__simulation_1_1_resistance_simulator}\index{app.resistance\_simulation.ResistanceSimulator@{app.resistance\_simulation.ResistanceSimulator}}
+
+
+Contrôleur pour la simulation de résistance via MUX.  
+
+
+
+
+Graphe de collaboration de app.\+resistance\+\_\+simulation.\+Resistance\+Simulator\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=227pt]{classapp_1_1resistance__simulation_1_1_resistance_simulator__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Fonctions membres publiques}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classapp_1_1resistance__simulation_1_1_resistance_simulator_a5542d1fa1714527b926320a821ad808e}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, int \mbox{\hyperlink{classapp_1_1resistance__simulation_1_1_resistance_simulator_ae5b48bf05a00308d6773645c7aa10b71}{speed\+\_\+hz}}=100000)
+\begin{DoxyCompactList}\small\item\em Initialise le simulateur de résistance. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classapp_1_1resistance__simulation_1_1_resistance_simulator_a755f6de9c1e441ce53378b8c0e3809ba}{close}} (self)
+\begin{DoxyCompactList}\small\item\em Ferme les connexions du simulateur. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{classapp_1_1resistance__simulation_1_1_resistance_simulator_aa7620a3456e0d1878186280753295744}{calculate\+\_\+parallel\+\_\+resistance}} (self, List\mbox{[}float\mbox{]} resistances)
+\begin{DoxyCompactList}\small\item\em Calcule la résistance équivalente de résistances en parallèle. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classapp_1_1resistance__simulation_1_1_resistance_simulator_af37b47aad2cb3d0526e6d462b91f570d}{apply\+\_\+resistance\+\_\+simulation}} (self, float target\+\_\+resistance, int measurement\+\_\+channel, str sensor\+\_\+type="{}Ni1000 TK5000"{})
+\begin{DoxyCompactList}\small\item\em Applique une résistance simulée via le MUX sur le canal de mesure. \end{DoxyCompactList}\item 
+Dict\mbox{[}str, any\mbox{]} \mbox{\hyperlink{classapp_1_1resistance__simulation_1_1_resistance_simulator_ab653abb1151252481121be10148c757f}{get\+\_\+current\+\_\+simulation}} (self)
+\begin{DoxyCompactList}\small\item\em Retourne l\textquotesingle{}état actuel de la simulation. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classapp_1_1resistance__simulation_1_1_resistance_simulator_a8ff1f89807bce5808bf0a6abd866f5b3}{validate\+\_\+resistance\+\_\+applied}} (self, float expected\+\_\+resistance, float tolerance=0.\+10)
+\begin{DoxyCompactList}\small\item\em Valide que la résistance appliquée correspond à l\textquotesingle{}attendu. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classapp_1_1resistance__simulation_1_1_resistance_simulator_a8cc3d0868205e9d7f1d1e94e4914a5f6}{reset\+\_\+simulation}} (self)
+\begin{DoxyCompactList}\small\item\em Remet la simulation à zéro (désactive tous les canaux). \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Attributs publics}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classapp_1_1resistance__simulation_1_1_resistance_simulator_af3606629707a477326150edf2a509372}{mux}} = None
+\item 
+\mbox{\hyperlink{classapp_1_1resistance__simulation_1_1_resistance_simulator_ae5b48bf05a00308d6773645c7aa10b71}{speed\+\_\+hz}} = speed\+\_\+hz
+\item 
+\mbox{\hyperlink{classapp_1_1resistance__simulation_1_1_resistance_simulator_aa1763da19373d1872a716cde755786bc}{current\+\_\+resistance}} = None
+\item 
+list \mbox{\hyperlink{classapp_1_1resistance__simulation_1_1_resistance_simulator_aeaae96a14daee0614aa7cb5039a7f33c}{active\+\_\+channels}} = \mbox{[}$\,$\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+Contrôleur pour la simulation de résistance via MUX. 
+
+Classe principale qui encapsule toute la logique de simulation de résistance en utilisant le multiplexeur ADG731 et les mappings de résistances calibrées. 
+
+\label{doc-constructors}
+\Hypertarget{classapp_1_1resistance__simulation_1_1_resistance_simulator_doc-constructors}
+\doxysubsection{Documentation des constructeurs et destructeur}
+\Hypertarget{classapp_1_1resistance__simulation_1_1_resistance_simulator_a5542d1fa1714527b926320a821ad808e}\index{app.resistance\_simulation.ResistanceSimulator@{app.resistance\_simulation.ResistanceSimulator}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!app.resistance\_simulation.ResistanceSimulator@{app.resistance\_simulation.ResistanceSimulator}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classapp_1_1resistance__simulation_1_1_resistance_simulator_a5542d1fa1714527b926320a821ad808e} 
+app.\+resistance\+\_\+simulation.\+Resistance\+Simulator.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{int }]{speed\+\_\+hz}{ = {\ttfamily 100000}}\end{DoxyParamCaption})}
+
+
+
+Initialise le simulateur de résistance. 
+
+Constructeur qui configure le multiplexeur ADG731 avec la vitesse SPI spécifiée et initialise les variables d\textquotesingle{}état du simulateur.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em speed\+\_\+hz} & Vitesse de communication SPI en Hz (défaut\+: 100k\+Hz).\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \doxylink{classapp_1_1resistance__simulation_1_1_resistance_simulation_error}{Resistance\+Simulation\+Error}} & si l\textquotesingle{}initialisation du MUX échoue. \\
+\hline
+\end{DoxyExceptions}
+
+
+\label{doc-func-members}
+\Hypertarget{classapp_1_1resistance__simulation_1_1_resistance_simulator_doc-func-members}
+\doxysubsection{Documentation des fonctions membres}
+\Hypertarget{classapp_1_1resistance__simulation_1_1_resistance_simulator_af37b47aad2cb3d0526e6d462b91f570d}\index{app.resistance\_simulation.ResistanceSimulator@{app.resistance\_simulation.ResistanceSimulator}!apply\_resistance\_simulation@{apply\_resistance\_simulation}}
+\index{apply\_resistance\_simulation@{apply\_resistance\_simulation}!app.resistance\_simulation.ResistanceSimulator@{app.resistance\_simulation.ResistanceSimulator}}
+\doxysubsubsection{\texorpdfstring{apply\_resistance\_simulation()}{apply\_resistance\_simulation()}}
+{\footnotesize\ttfamily \label{classapp_1_1resistance__simulation_1_1_resistance_simulator_af37b47aad2cb3d0526e6d462b91f570d} 
+ bool app.\+resistance\+\_\+simulation.\+Resistance\+Simulator.\+apply\+\_\+resistance\+\_\+simulation (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{float}]{target\+\_\+resistance}{, }\item[{int}]{measurement\+\_\+channel}{, }\item[{str }]{sensor\+\_\+type}{ = {\ttfamily "{}Ni1000~TK5000"{}}}\end{DoxyParamCaption})}
+
+
+
+Applique une résistance simulée via le MUX sur le canal de mesure. 
+
+Fonction principale qui recherche le canal MUX optimal pour simuler la résistance cible, configure le multiplexeur et mémorise l\textquotesingle{}état de la simulation.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em target\+\_\+resistance} & Résistance à simuler \mbox{[}Ohms\mbox{]}. \\
+\hline
+{\em measurement\+\_\+channel} & Canal sur lequel la mesure a été faite (info). \\
+\hline
+{\em sensor\+\_\+type} & Type de sonde pour sélectionner la carte MUX.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+True si succès, False en cas d\textquotesingle{}erreur. 
+\end{DoxyReturn}
+\Hypertarget{classapp_1_1resistance__simulation_1_1_resistance_simulator_aa7620a3456e0d1878186280753295744}\index{app.resistance\_simulation.ResistanceSimulator@{app.resistance\_simulation.ResistanceSimulator}!calculate\_parallel\_resistance@{calculate\_parallel\_resistance}}
+\index{calculate\_parallel\_resistance@{calculate\_parallel\_resistance}!app.resistance\_simulation.ResistanceSimulator@{app.resistance\_simulation.ResistanceSimulator}}
+\doxysubsubsection{\texorpdfstring{calculate\_parallel\_resistance()}{calculate\_parallel\_resistance()}}
+{\footnotesize\ttfamily \label{classapp_1_1resistance__simulation_1_1_resistance_simulator_aa7620a3456e0d1878186280753295744} 
+ float app.\+resistance\+\_\+simulation.\+Resistance\+Simulator.\+calculate\+\_\+parallel\+\_\+resistance (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{List\mbox{[}float\mbox{]}}]{resistances}{}\end{DoxyParamCaption})}
+
+
+
+Calcule la résistance équivalente de résistances en parallèle. 
+
+Applique la formule 1/\+Req = 1/\+R1 + 1/\+R2 + ... + 1/\+Rn pour calculer la résistance équivalente d\textquotesingle{}un ensemble de résistances connectées en parallèle.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em resistances} & Liste des valeurs de résistance en parallèle \mbox{[}Ohms\mbox{]}.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+Résistance équivalente calculée \mbox{[}Ohms\mbox{]}. Retourne l\textquotesingle{}infini si la liste est vide. 
+\end{DoxyReturn}
+\Hypertarget{classapp_1_1resistance__simulation_1_1_resistance_simulator_a755f6de9c1e441ce53378b8c0e3809ba}\index{app.resistance\_simulation.ResistanceSimulator@{app.resistance\_simulation.ResistanceSimulator}!close@{close}}
+\index{close@{close}!app.resistance\_simulation.ResistanceSimulator@{app.resistance\_simulation.ResistanceSimulator}}
+\doxysubsubsection{\texorpdfstring{close()}{close()}}
+{\footnotesize\ttfamily \label{classapp_1_1resistance__simulation_1_1_resistance_simulator_a755f6de9c1e441ce53378b8c0e3809ba} 
+app.\+resistance\+\_\+simulation.\+Resistance\+Simulator.\+close (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+Ferme les connexions du simulateur. 
+
+Méthode de nettoyage qui ferme proprement la connexion SPI avec le multiplexeur et libère les ressources. Voici le graphe d\textquotesingle{}appel pour cette fonction \+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=213pt]{classapp_1_1resistance__simulation_1_1_resistance_simulator_a755f6de9c1e441ce53378b8c0e3809ba_cgraph}
+\end{center}
+\end{figure}
+Voici le graphe des appelants de cette fonction \+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=213pt]{classapp_1_1resistance__simulation_1_1_resistance_simulator_a755f6de9c1e441ce53378b8c0e3809ba_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classapp_1_1resistance__simulation_1_1_resistance_simulator_ab653abb1151252481121be10148c757f}\index{app.resistance\_simulation.ResistanceSimulator@{app.resistance\_simulation.ResistanceSimulator}!get\_current\_simulation@{get\_current\_simulation}}
+\index{get\_current\_simulation@{get\_current\_simulation}!app.resistance\_simulation.ResistanceSimulator@{app.resistance\_simulation.ResistanceSimulator}}
+\doxysubsubsection{\texorpdfstring{get\_current\_simulation()}{get\_current\_simulation()}}
+{\footnotesize\ttfamily \label{classapp_1_1resistance__simulation_1_1_resistance_simulator_ab653abb1151252481121be10148c757f} 
+ Dict\mbox{[}str, any\mbox{]} app.\+resistance\+\_\+simulation.\+Resistance\+Simulator.\+get\+\_\+current\+\_\+simulation (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+Retourne l\textquotesingle{}état actuel de la simulation. 
+
+Fonction d\textquotesingle{}interrogation qui fournit un dictionnaire contenant toutes les informations sur l\textquotesingle{}état actuel de la simulation de résistance.
+
+\begin{DoxyReturn}{Renvoie}
+Dictionnaire contenant les informations actuelles\+:
+\begin{DoxyItemize}
+\item resistance\+: valeur appliquée \mbox{[}Ohms\mbox{]} ou None
+\item active\+\_\+channels\+: liste des canaux MUX actifs
+\item mux\+\_\+available\+: disponibilité du multiplexeur 
+\end{DoxyItemize}
+\end{DoxyReturn}
+\Hypertarget{classapp_1_1resistance__simulation_1_1_resistance_simulator_a8cc3d0868205e9d7f1d1e94e4914a5f6}\index{app.resistance\_simulation.ResistanceSimulator@{app.resistance\_simulation.ResistanceSimulator}!reset\_simulation@{reset\_simulation}}
+\index{reset\_simulation@{reset\_simulation}!app.resistance\_simulation.ResistanceSimulator@{app.resistance\_simulation.ResistanceSimulator}}
+\doxysubsubsection{\texorpdfstring{reset\_simulation()}{reset\_simulation()}}
+{\footnotesize\ttfamily \label{classapp_1_1resistance__simulation_1_1_resistance_simulator_a8cc3d0868205e9d7f1d1e94e4914a5f6} 
+app.\+resistance\+\_\+simulation.\+Resistance\+Simulator.\+reset\+\_\+simulation (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+Remet la simulation à zéro (désactive tous les canaux). 
+
+Procédure de nettoyage qui désactive tous les canaux de tous les multiplexeurs et remet l\textquotesingle{}état de simulation à sa configuration initiale. \Hypertarget{classapp_1_1resistance__simulation_1_1_resistance_simulator_a8ff1f89807bce5808bf0a6abd866f5b3}\index{app.resistance\_simulation.ResistanceSimulator@{app.resistance\_simulation.ResistanceSimulator}!validate\_resistance\_applied@{validate\_resistance\_applied}}
+\index{validate\_resistance\_applied@{validate\_resistance\_applied}!app.resistance\_simulation.ResistanceSimulator@{app.resistance\_simulation.ResistanceSimulator}}
+\doxysubsubsection{\texorpdfstring{validate\_resistance\_applied()}{validate\_resistance\_applied()}}
+{\footnotesize\ttfamily \label{classapp_1_1resistance__simulation_1_1_resistance_simulator_a8ff1f89807bce5808bf0a6abd866f5b3} 
+ bool app.\+resistance\+\_\+simulation.\+Resistance\+Simulator.\+validate\+\_\+resistance\+\_\+applied (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{float}]{expected\+\_\+resistance}{, }\item[{float }]{tolerance}{ = {\ttfamily 0.10}}\end{DoxyParamCaption})}
+
+
+
+Valide que la résistance appliquée correspond à l\textquotesingle{}attendu. 
+
+Fonction de validation qui compare la résistance actuellement appliquée avec la valeur attendue en tenant compte d\textquotesingle{}une tolérance relative spécifiée.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em expected\+\_\+resistance} & Résistance attendue pour la validation \mbox{[}Ohms\mbox{]}. \\
+\hline
+{\em tolerance} & Tolérance relative acceptée (défaut\+: 10\%).\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+True si la résistance est dans la tolérance. 
+\end{DoxyReturn}
+
+
+\label{doc-variable-members}
+\Hypertarget{classapp_1_1resistance__simulation_1_1_resistance_simulator_doc-variable-members}
+\doxysubsection{Documentation des données membres}
+\Hypertarget{classapp_1_1resistance__simulation_1_1_resistance_simulator_aeaae96a14daee0614aa7cb5039a7f33c}\index{app.resistance\_simulation.ResistanceSimulator@{app.resistance\_simulation.ResistanceSimulator}!active\_channels@{active\_channels}}
+\index{active\_channels@{active\_channels}!app.resistance\_simulation.ResistanceSimulator@{app.resistance\_simulation.ResistanceSimulator}}
+\doxysubsubsection{\texorpdfstring{active\_channels}{active\_channels}}
+{\footnotesize\ttfamily \label{classapp_1_1resistance__simulation_1_1_resistance_simulator_aeaae96a14daee0614aa7cb5039a7f33c} 
+list app.\+resistance\+\_\+simulation.\+Resistance\+Simulator.\+active\+\_\+channels = \mbox{[}$\,$\mbox{]}}
+
+\Hypertarget{classapp_1_1resistance__simulation_1_1_resistance_simulator_aa1763da19373d1872a716cde755786bc}\index{app.resistance\_simulation.ResistanceSimulator@{app.resistance\_simulation.ResistanceSimulator}!current\_resistance@{current\_resistance}}
+\index{current\_resistance@{current\_resistance}!app.resistance\_simulation.ResistanceSimulator@{app.resistance\_simulation.ResistanceSimulator}}
+\doxysubsubsection{\texorpdfstring{current\_resistance}{current\_resistance}}
+{\footnotesize\ttfamily \label{classapp_1_1resistance__simulation_1_1_resistance_simulator_aa1763da19373d1872a716cde755786bc} 
+app.\+resistance\+\_\+simulation.\+Resistance\+Simulator.\+current\+\_\+resistance = None}
+
+\Hypertarget{classapp_1_1resistance__simulation_1_1_resistance_simulator_af3606629707a477326150edf2a509372}\index{app.resistance\_simulation.ResistanceSimulator@{app.resistance\_simulation.ResistanceSimulator}!mux@{mux}}
+\index{mux@{mux}!app.resistance\_simulation.ResistanceSimulator@{app.resistance\_simulation.ResistanceSimulator}}
+\doxysubsubsection{\texorpdfstring{mux}{mux}}
+{\footnotesize\ttfamily \label{classapp_1_1resistance__simulation_1_1_resistance_simulator_af3606629707a477326150edf2a509372} 
+app.\+resistance\+\_\+simulation.\+Resistance\+Simulator.\+mux = None}
+
+\Hypertarget{classapp_1_1resistance__simulation_1_1_resistance_simulator_ae5b48bf05a00308d6773645c7aa10b71}\index{app.resistance\_simulation.ResistanceSimulator@{app.resistance\_simulation.ResistanceSimulator}!speed\_hz@{speed\_hz}}
+\index{speed\_hz@{speed\_hz}!app.resistance\_simulation.ResistanceSimulator@{app.resistance\_simulation.ResistanceSimulator}}
+\doxysubsubsection{\texorpdfstring{speed\_hz}{speed\_hz}}
+{\footnotesize\ttfamily \label{classapp_1_1resistance__simulation_1_1_resistance_simulator_ae5b48bf05a00308d6773645c7aa10b71} 
+app.\+resistance\+\_\+simulation.\+Resistance\+Simulator.\+speed\+\_\+hz = speed\+\_\+hz}
+
+
+
+La documentation de cette classe a été générée à partir du fichier suivant \+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/thebi/\+Documents/2510\+\_\+\+Regulation\+Chauffage/doc/9.\+Soft\+Ware/\+Doxygen/src/app/\mbox{\hyperlink{resistance__simulation_8py}{resistance\+\_\+simulation.\+py}}\end{DoxyCompactItemize}

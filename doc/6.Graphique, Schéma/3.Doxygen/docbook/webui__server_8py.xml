@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_webui__server_8py" xml:lang="fr">
+<title>Référence du fichier C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/webui/webui_server.py</title>
+<indexterm><primary>C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/webui/webui_server.py</primary></indexterm>
+<para>
+
+<para>Serveur web pour interface utilisateur de configuration. </para>
+ 
+</para>
+<simplesect>
+    <title>Espaces de nommage    </title>
+        <itemizedlist>
+            <listitem><para>namespace <link linkend="_namespacewebui">webui</link></para>
+</listitem>
+            <listitem><para>namespace <link linkend="_namespacewebui_1_1webui__server">webui.webui_server</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Fonctions    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_namespacewebui_1_1webui__server_1ab49b8a0bc3425c50079480de48990dcc">webui.webui_server.serve_index</link> ()</para>
+
+<para>Sert la page principale de l&apos;interface web. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacewebui_1_1webui__server_1a4c0c0ae9a45c748c0089996cf34a199e">webui.webui_server.get_config</link> ()</para>
+
+<para>Récupère la configuration actuelle des capteurs. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacewebui_1_1webui__server_1a5e3c84f0b6e1334a0fb7d3375965e0f6">webui.webui_server.put_config</link> ()</para>
+
+<para>Sauvegarde une nouvelle configuration des capteurs. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacewebui_1_1webui__server_1a1e99eca46e51fb406153841d145748cc">webui.webui_server.get_last</link> ()</para>
+
+<para>Récupère le dernier état du système de mesure. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacewebui_1_1webui__server_1a431000dffb42d4b4cd2ce023fa0c4a1e">webui.webui_server.force_reload</link> ()</para>
+
+<para>Force le rechargement de la configuration au prochain cycle. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Variables    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_namespacewebui_1_1webui__server_1a5de8cf19497f30c68ef48229ed037e2d">webui.webui_server.BASE_DIR</link> = os.path.abspath(os.path.join(os.path.dirname(__file__), &quot;..&quot;))</para>
+</listitem>
+            <listitem><para><link linkend="_namespacewebui_1_1webui__server_1ad1e31aeef058a01b14bbfa0e216b43d6">webui.webui_server.CONFIG_PATH</link> = os.path.join(<link linkend="_namespacewebui_1_1webui__server_1a5de8cf19497f30c68ef48229ed037e2d">BASE_DIR</link>, &quot;config_module&quot;, &quot;sensors.json&quot;)</para>
+</listitem>
+            <listitem><para><link linkend="_namespacewebui_1_1webui__server_1a9f76ef91507216717dc653f7b9479cbb">webui.webui_server.STATE_PATH</link> = os.path.join(<link linkend="_namespacewebui_1_1webui__server_1a5de8cf19497f30c68ef48229ed037e2d">BASE_DIR</link>, &quot;state&quot;, &quot;last_state.json&quot;)</para>
+</listitem>
+            <listitem><para><link linkend="_namespacewebui_1_1webui__server_1ad2ed404946ddf35648333368e4392c28">webui.webui_server.WEBUI_DIR</link> = os.path.dirname(__file__)</para>
+</listitem>
+            <listitem><para><link linkend="_namespacewebui_1_1webui__server_1a7a4894526f1923df3ef5c7000ba4232c">webui.webui_server.app</link> = Flask(__name__, static_folder=<link linkend="_namespacewebui_1_1webui__server_1ad2ed404946ddf35648333368e4392c28">WEBUI_DIR</link>, static_url_path=&apos;/static&apos;)</para>
+</listitem>
+            <listitem><para><link linkend="_namespacewebui_1_1webui__server_1a3eb0a70910bd6aab440ad5d5fc00f39d">webui.webui_server.host</link></para>
+</listitem>
+            <listitem><para><link linkend="_namespacewebui_1_1webui__server_1ab660a159b0414ddafb0b1e81ae6a476b">webui.webui_server.port</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Description détaillée</title>
+
+<para>Serveur web pour interface utilisateur de configuration. </para>
+
+<para>Interface web Flask monopage pour lecture/écriture de la configuration sensors.json et affichage de l&apos;état last_state.json. Fournit API REST complète pour gestion configuration canaux et monitoring système. <formalpara><title>Auteur</title>
+
+<para>Léo Mendes @project 2510_RegulationsChauffage @Mandant Oblo_solution </para>
+</formalpara>
+<formalpara><title>Date</title>
+
+<para>2025-09-18 </para>
+</formalpara>
+<formalpara><title>Version</title>
+
+<para>1.0.0 </para>
+</formalpara>
+<formalpara><title>Copyright</title>
+
+<para>Copyright (c) 2025 </para>
+</formalpara>
+</para>
+</section>
+</section>

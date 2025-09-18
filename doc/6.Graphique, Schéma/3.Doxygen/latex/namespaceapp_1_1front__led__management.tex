@@ -1,0 +1,39 @@
+\doxysection{Référence de l\textquotesingle{}espace de nommage app.\+front\+\_\+led\+\_\+management}
+\hypertarget{namespaceapp_1_1front__led__management}{}\label{namespaceapp_1_1front__led__management}\index{app.front\_led\_management@{app.front\_led\_management}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classapp_1_1front__led__management_1_1_led_error_indicator}{Led\+Error\+Indicator}}
+\begin{DoxyCompactList}\small\item\em Gestionnaire de LED avec patterns d\textquotesingle{}erreur. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Fonctions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceapp_1_1front__led__management_ab7831833c4fa77c5bcc4a03235168b64}{create\+\_\+led\+\_\+indicator}} (gpio\+\_\+chip\+\_\+path, led\+\_\+pin)
+\begin{DoxyCompactList}\small\item\em Factory function pour créer une instance \doxylink{classapp_1_1front__led__management_1_1_led_error_indicator}{Led\+Error\+Indicator}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{namespaceapp_1_1front__led__management_doc-func-members}
+\doxysubsection{Documentation des fonctions}
+\Hypertarget{namespaceapp_1_1front__led__management_ab7831833c4fa77c5bcc4a03235168b64}\index{app.front\_led\_management@{app.front\_led\_management}!create\_led\_indicator@{create\_led\_indicator}}
+\index{create\_led\_indicator@{create\_led\_indicator}!app.front\_led\_management@{app.front\_led\_management}}
+\doxysubsubsection{\texorpdfstring{create\_led\_indicator()}{create\_led\_indicator()}}
+{\footnotesize\ttfamily \label{namespaceapp_1_1front__led__management_ab7831833c4fa77c5bcc4a03235168b64} 
+app.\+front\+\_\+led\+\_\+management.\+create\+\_\+led\+\_\+indicator (\begin{DoxyParamCaption}\item[{}]{gpio\+\_\+chip\+\_\+path}{, }\item[{}]{led\+\_\+pin}{}\end{DoxyParamCaption})}
+
+
+
+Factory function pour créer une instance \doxylink{classapp_1_1front__led__management_1_1_led_error_indicator}{Led\+Error\+Indicator}. 
+
+Fonction utilitaire qui encapsule la création et l\textquotesingle{}initialisation d\textquotesingle{}un gestionnaire LED. Gère les erreurs d\textquotesingle{}initialisation et configure automatiquement le pattern normal par défaut.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em gpio\+\_\+chip\+\_\+path} & Chemin vers le périphérique GPIO. \\
+\hline
+{\em led\+\_\+pin} & Numéro de pin de la LED.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+Instance de \doxylink{classapp_1_1front__led__management_1_1_led_error_indicator}{Led\+Error\+Indicator} si succès, None sinon. 
+\end{DoxyReturn}

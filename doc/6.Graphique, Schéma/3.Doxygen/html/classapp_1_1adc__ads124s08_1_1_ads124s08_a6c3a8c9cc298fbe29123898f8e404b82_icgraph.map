@@ -1,0 +1,12 @@
+<map id="app.adc_ads124s08.Ads124s08._wreg" name="app.adc_ads124s08.Ads124s08._wreg">
+<area shape="rect" id="Node000001" title="Écrit dans un ou plusieurs registres de l&#39;ADC via SPI." alt="" coords="908,47,1154,73"/>
+<area shape="rect" id="Node000002" href="$classapp_1_1adc__ads124s08_1_1_ads124s08.html#abe455695d580ba27f0e5c559414fefbf" title="Configure un canal ADC avec ses paramètres de mesure." alt="" coords="597,5,860,48"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="892,47,860,44,861,39,893,42"/>
+<area shape="rect" id="Node000003" href="$classapp_1_1adc__ads124s08_1_1_ads124s08.html#a6cbdea3f16ae1dff329ec8e45ef859d1" title="Attend un front descendant sur DRDY (HIGH &#45;&gt; LOW) avec timeout." alt="" coords="612,72,846,115"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="893,78,847,83,846,78,893,73"/>
+<area shape="rect" id="Node000004" href="$classapp_1_1adc__ads124s08_1_1_ads124s08.html#ac53728ccbaada975b3204c4e3a4364aa" title="Lit un code de données 24 bits depuis l&#39;ADC." alt="" coords="314,72,549,115"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="596,96,549,96,549,91,596,91"/>
+<area shape="rect" id="Node000005" href="$classapp_1_1adc__ads124s08_1_1_ads124s08.html#a6c3422094f1375f8e91bff96eb299f69" title="Mesure la résistance d&#39;une sonde via l&#39;ADC." alt="" coords="5,72,266,115"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="298,96,266,96,266,91,298,91"/>
+<area shape="poly" id="edge5_Node000005_Node000005" title=" " alt="" coords="184,59,166,53,135,51,107,53,90,57,83,63,85,71,80,72,78,62,87,53,106,47,136,45,167,48,186,54"/>
+</map>

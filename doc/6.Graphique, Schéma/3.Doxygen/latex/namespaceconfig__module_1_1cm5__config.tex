@@ -1,0 +1,51 @@
+\doxysection{Référence de l\textquotesingle{}espace de nommage config\+\_\+module.\+cm5\+\_\+config}
+\hypertarget{namespaceconfig__module_1_1cm5__config}{}\label{namespaceconfig__module_1_1cm5__config}\index{config\_module.cm5\_config@{config\_module.cm5\_config}}
+\doxysubsubsection*{Fonctions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceconfig__module_1_1cm5__config_a1b2cec317a1cf375b2d43c263f5a665b}{build\+\_\+hw}} ()
+\begin{DoxyCompactList}\small\item\em Initialise et configure tout le matériel CM5. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+list \mbox{\hyperlink{namespaceconfig__module_1_1cm5__config_a98f07cbc7aad810cb848630cde11db65}{ADC\+\_\+\+CHANNELS}} = \mbox{[}1, 2, 3, 4\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{namespaceconfig__module_1_1cm5__config_doc-func-members}
+\doxysubsection{Documentation des fonctions}
+\Hypertarget{namespaceconfig__module_1_1cm5__config_a1b2cec317a1cf375b2d43c263f5a665b}\index{config\_module.cm5\_config@{config\_module.cm5\_config}!build\_hw@{build\_hw}}
+\index{build\_hw@{build\_hw}!config\_module.cm5\_config@{config\_module.cm5\_config}}
+\doxysubsubsection{\texorpdfstring{build\_hw()}{build\_hw()}}
+{\footnotesize\ttfamily \label{namespaceconfig__module_1_1cm5__config_a1b2cec317a1cf375b2d43c263f5a665b} 
+config\+\_\+module.\+cm5\+\_\+config.\+build\+\_\+hw (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Initialise et configure tout le matériel CM5. 
+
+Crée les instances des composants matériels avec configuration fixe LED frontale, multiplexeur TMUX et ADC. Configure la LED en sortie et l\textquotesingle{}allume immédiatement pour indication système.
+
+\begin{DoxyReturn}{Renvoie}
+Dictionnaire contenant toutes les instances matérielles\+:
+\begin{DoxyItemize}
+\item "{}led"{}\+: Instance GPIO pour LED frontale
+\item "{}tmux"{}\+: Instance \doxylink{classapp_1_1hw__tmux1204_1_1_tmux1204}{Tmux1204} pour sélection canaux
+\item "{}adc"{}\+: Instance \doxylink{classapp_1_1adc__ads124s08_1_1_ads124s08}{Ads124s08} pour conversion analogique
+\end{DoxyItemize}
+\end{DoxyReturn}
+\begin{DoxyWarning}{Avertissement}
+LED allumée automatiquement pour indiquer système actif. 
+\end{DoxyWarning}
+
+
+\label{doc-var-members}
+\Hypertarget{namespaceconfig__module_1_1cm5__config_doc-var-members}
+\doxysubsection{Documentation des variables}
+\Hypertarget{namespaceconfig__module_1_1cm5__config_a98f07cbc7aad810cb848630cde11db65}\index{config\_module.cm5\_config@{config\_module.cm5\_config}!ADC\_CHANNELS@{ADC\_CHANNELS}}
+\index{ADC\_CHANNELS@{ADC\_CHANNELS}!config\_module.cm5\_config@{config\_module.cm5\_config}}
+\doxysubsubsection{\texorpdfstring{ADC\_CHANNELS}{ADC\_CHANNELS}}
+{\footnotesize\ttfamily \label{namespaceconfig__module_1_1cm5__config_a98f07cbc7aad810cb848630cde11db65} 
+list config\+\_\+module.\+cm5\+\_\+config.\+ADC\+\_\+\+CHANNELS = \mbox{[}1, 2, 3, 4\mbox{]}}
+

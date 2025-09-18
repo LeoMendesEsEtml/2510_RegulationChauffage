@@ -1,0 +1,46 @@
+\doxysection{Référence du fichier C\+:/\+Users/thebi/\+Documents/2510\+\_\+\+Regulation\+Chauffage/doc/9.Soft\+Ware/\+Doxygen/src/app/temperature\+\_\+conversion.py}
+\hypertarget{temperature__conversion_8py}{}\label{temperature__conversion_8py}\index{C:/Users/thebi/Documents/2510\_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/temperature\_conversion.py@{C:/Users/thebi/Documents/2510\_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/temperature\_conversion.py}}
+
+
+Module de conversion résistance/température via interpolation linéaire.  
+
+
+\doxysubsubsection*{Espaces de nommage}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespaceapp}{app}}
+\item 
+namespace \mbox{\hyperlink{namespaceapp_1_1temperature__conversion}{app.\+temperature\+\_\+conversion}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Fonctions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceapp_1_1temperature__conversion_a2f762505fc59cc6983734bb32a6a1688}{app.\+temperature\+\_\+conversion.\+resistance\+\_\+to\+\_\+temperature}} (resistance, table)
+\begin{DoxyCompactList}\small\item\em Convertit une résistance mesurée en température via interpolation linéaire. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespaceapp_1_1temperature__conversion_aff1ea0c25c07f16216abc29f0b51dbcb}{app.\+temperature\+\_\+conversion.\+resistance\+\_\+to\+\_\+temperature\+\_\+dynamic}} (resistance, sensor)
+\begin{DoxyCompactList}\small\item\em Convertit une résistance mesurée en température pour un capteur donné. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespaceapp_1_1temperature__conversion_ae4de96194237eecce3dd936d5c6ee5f1}{app.\+temperature\+\_\+conversion.\+temperature\+\_\+to\+\_\+resistance\+\_\+dynamic}} (temperature, sensor)
+\begin{DoxyCompactList}\small\item\em Convertit une température en résistance pour un capteur donné (conversion inverse). \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespaceapp_1_1temperature__conversion_a2955653dd2d798b6d389f79519b3b747}{app.\+temperature\+\_\+conversion.\+convert\+\_\+temperature\+\_\+to\+\_\+resistance}} (temperature, probe\+\_\+type)
+\begin{DoxyCompactList}\small\item\em Fonction de conversion principale pour la simulation de résistance. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespaceapp_1_1temperature__conversion_aa8915bfda252299d2cda2ea561b46ffe}{app.\+temperature\+\_\+conversion.\+get\+\_\+supported\+\_\+probe\+\_\+types}} ()
+\begin{DoxyCompactList}\small\item\em Retourne la liste des types de sondes supportés. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespaceapp_1_1temperature__conversion_aa8da477a88ed675741e3be17b99fac56}{app.\+temperature\+\_\+conversion.\+validate\+\_\+temperature\+\_\+range}} (temperature, probe\+\_\+type)
+\begin{DoxyCompactList}\small\item\em Valide si une température est dans la plage supportée par une sonde. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+Module de conversion résistance/température via interpolation linéaire. 
+
+Ce module fournit les fonctions de conversion bidirectionnelle entre résistance mesurée et température pour différents types de capteurs. Utilise l\textquotesingle{}interpolation linéaire sur les tables de calibration et supporte la conversion inverse pour la simulation de résistance. \begin{DoxyAuthor}{Auteur}
+Léo Mendes @project 2510\+\_\+\+Regulations\+Chauffage @\+Mandant Oblo\+\_\+solution 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2025-\/09-\/18 
+\end{DoxyDate}
+\begin{DoxyVersion}{Version}
+1.\+0.\+0 
+\end{DoxyVersion}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2025 
+\end{DoxyCopyright}

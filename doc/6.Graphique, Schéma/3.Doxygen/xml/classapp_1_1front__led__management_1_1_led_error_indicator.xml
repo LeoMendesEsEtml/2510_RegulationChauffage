@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="fr">
+  <compounddef id="classapp_1_1front__led__management_1_1_led_error_indicator" kind="class" language="Python" prot="public">
+    <compoundname>app::front_led_management::LedErrorIndicator</compoundname>
+    <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="classapp_1_1front__led__management_1_1_led_error_indicator_1a68352453f8736e536d1c4d1cf5f379d9" prot="public" static="yes" mutable="no">
+        <type>float</type>
+        <definition>float app.front_led_management.LedErrorIndicator::BASE_BLINK_TIME</definition>
+        <argsstring></argsstring>
+        <name>BASE_BLINK_TIME</name>
+        <qualifiedname>app.front_led_management.LedErrorIndicator.BASE_BLINK_TIME</qualifiedname>
+        <initializer>=  0.2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/front_led_management.py" line="41" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/front_led_management.py" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classapp_1_1front__led__management_1_1_led_error_indicator_1a0521216014828258afe5018da19da068" prot="public" static="yes" mutable="no">
+        <type>float</type>
+        <definition>float app.front_led_management.LedErrorIndicator::CYCLE_TIME</definition>
+        <argsstring></argsstring>
+        <name>CYCLE_TIME</name>
+        <qualifiedname>app.front_led_management.LedErrorIndicator.CYCLE_TIME</qualifiedname>
+        <initializer>=  10.0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/front_led_management.py" line="43" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/front_led_management.py" bodystart="43" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Gestionnaire de LED avec patterns d&apos;erreur. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Classe pour contrôler une LED frontale avec différents patterns de clignotement selon les états du système. Supporte les modes normal, standby, séquence en cours et divers patterns d&apos;erreur avec clignotements codifiés. </para>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>app.front_led_management.LedErrorIndicator</label>
+        <link refid="classapp_1_1front__led__management_1_1_led_error_indicator"/>
+      </node>
+    </collaborationgraph>
+    <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/front_led_management.py" line="37" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/front_led_management.py" bodystart="37" bodyend="283"/>
+    <listofallmembers>
+      <member refid="classapp_1_1front__led__management_1_1_led_error_indicator_1a68352453f8736e536d1c4d1cf5f379d9" prot="public" virt="non-virtual"><scope>app::front_led_management::LedErrorIndicator</scope><name>BASE_BLINK_TIME</name></member>
+      <member refid="classapp_1_1front__led__management_1_1_led_error_indicator_1a0521216014828258afe5018da19da068" prot="public" virt="non-virtual"><scope>app::front_led_management::LedErrorIndicator</scope><name>CYCLE_TIME</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

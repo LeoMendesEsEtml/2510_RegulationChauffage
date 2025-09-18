@@ -1,0 +1,130 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="__c_1_2_users_2thebi_2_documents_22510__regulation_chauffage_2doc_29_8_soft_ware_2_doxygen_2src_2app_2config_loader_8py-example" xml:lang="fr">
+<title>C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/config_loader.py</title>
+
+<para>Charge un fichier de configuration JSON.</para>
+
+<para>Charge un fichier de configuration JSON. Vérifie l&apos;existence du fichier, l&apos;ouvre en UTF-8 et parse le contenu JSON. Le format attendu inclut les timeouts, délais entre mesures et configuration des canaux de capteurs.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Paramètres</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>path</entry><entry>
+<para>Chemin vers le fichier de configuration JSON.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Renvoie</title>
+
+<para>Dictionnaire Python contenant les données de configuration.</para>
+</formalpara>
+
+                <formalpara>
+                    <title>
+Exceptions</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>FileNotFoundError</entry><entry>
+<para>Si le fichier n&apos;existe pas. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>json.JSONDecodeError</entry><entry>
+<para>Si le fichier n&apos;est pas un JSON valide.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                Format JSON attendu: <literallayout><computeroutput>1 {
+2 &#32;&#32;<emphasis role="stringliteral">&quot;timeout_s&quot;</emphasis>:&#32;180,
+3 &#32;&#32;<emphasis role="stringliteral">&quot;inter_measure_sleep_s&quot;</emphasis>:&#32;0.1,
+4 &#32;&#32;<emphasis role="stringliteral">&quot;loop_sleep_s&quot;</emphasis>:&#32;1.0,
+5 &#32;&#32;<emphasis role="stringliteral">&quot;channels&quot;</emphasis>:&#32;[
+6 &#32;&#32;&#32;&#32;{&#32;<emphasis role="stringliteral">&quot;channel&quot;</emphasis>:&#32;1,&#32;<emphasis role="stringliteral">&quot;sensor&quot;</emphasis>:&#32;<emphasis role="stringliteral">&quot;Ni1000&#32;TK5000&quot;</emphasis>&#32;}
+7 &#32;&#32;]
+8 }
+</computeroutput></literallayout></para>
+
+<para><literallayout><computeroutput>1 <emphasis role="comment">#&#32;-*-&#32;coding:&#32;utf-8&#32;-*-</emphasis>
+2 <emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+3 <emphasis role="stringliteral">@file&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;config_loader.py</emphasis>
+4 <emphasis role="stringliteral">@brief&#32;&#32;&#32;&#32;&#32;&#32;&#32;Chargeur&#32;de&#32;configuration&#32;JSON&#32;pour&#32;le&#32;système&#32;de&#32;mesure.</emphasis>
+5 <emphasis role="stringliteral">@details&#32;&#32;&#32;&#32;&#32;Ce&#32;module&#32;fournit&#32;une&#32;fonction&#32;simple&#32;pour&#32;charger&#32;et&#32;parser</emphasis>
+6 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;un&#32;fichier&#32;de&#32;configuration&#32;JSON&#32;contenant&#32;les&#32;paramètres</emphasis>
+7 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;des&#32;capteurs,&#32;timeouts&#32;et&#32;autres&#32;paramètres&#32;système.</emphasis>
+8 <emphasis role="stringliteral">@author&#32;&#32;&#32;&#32;&#32;&#32;Léo&#32;Mendes</emphasis>
+9 <emphasis role="stringliteral">@project&#32;&#32;&#32;&#32;&#32;2510_RegulationsChauffage</emphasis>
+10 <emphasis role="stringliteral">@Mandant&#32;&#32;&#32;&#32;&#32;Oblo_solution</emphasis>
+11 <emphasis role="stringliteral">@date&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;2025-09-18</emphasis>
+12 <emphasis role="stringliteral">@version&#32;&#32;&#32;&#32;&#32;1.0.0</emphasis>
+13 <emphasis role="stringliteral">@copyright&#32;&#32;&#32;Copyright&#32;(c)&#32;2025</emphasis>
+14 <emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+15 
+16 <emphasis role="keyword">from</emphasis>&#32;__future__&#32;<emphasis role="keyword">import</emphasis>&#32;annotations
+17 
+18 <emphasis role="comment">#&#32;Sérialisation/désérialisation&#32;JSON</emphasis>
+19 <emphasis role="keyword">import</emphasis>&#32;json
+20 <emphasis role="comment">#&#32;Opérations&#32;sur&#32;les&#32;chemins&#32;et&#32;fichiers</emphasis>
+21 <emphasis role="keyword">import</emphasis>&#32;os
+22 
+23 <emphasis role="comment">#&#32;---------------------------------------------------------------------------</emphasis>
+24 <emphasis role="comment">#&#32;Fonctions&#32;utilitaires</emphasis>
+25 <emphasis role="comment">#&#32;---------------------------------------------------------------------------</emphasis>
+26 
+27 <emphasis role="keyword">def&#32;</emphasis>load_config(path):
+28 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+29 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;@brief&#32;&#32;&#32;Charge&#32;un&#32;fichier&#32;de&#32;configuration&#32;JSON.</emphasis>
+30 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;@details&#32;Vérifie&#32;l&apos;existence&#32;du&#32;fichier,&#32;l&apos;ouvre&#32;en&#32;UTF-8&#32;et&#32;parse</emphasis>
+31 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;le&#32;contenu&#32;JSON.&#32;Le&#32;format&#32;attendu&#32;inclut&#32;les&#32;timeouts,</emphasis>
+32 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;délais&#32;entre&#32;mesures&#32;et&#32;configuration&#32;des&#32;canaux&#32;de&#32;capteurs.</emphasis>
+33 <emphasis role="stringliteral"></emphasis>
+34 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;@param&#32;&#32;&#32;path&#32;Chemin&#32;vers&#32;le&#32;fichier&#32;de&#32;configuration&#32;JSON.</emphasis>
+35 <emphasis role="stringliteral"></emphasis>
+36 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;@return&#32;&#32;Dictionnaire&#32;Python&#32;contenant&#32;les&#32;données&#32;de&#32;configuration.</emphasis>
+37 <emphasis role="stringliteral"></emphasis>
+38 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;@exception&#32;FileNotFoundError&#32;Si&#32;le&#32;fichier&#32;n&apos;existe&#32;pas.</emphasis>
+39 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;@exception&#32;json.JSONDecodeError&#32;Si&#32;le&#32;fichier&#32;n&apos;est&#32;pas&#32;un&#32;JSON&#32;valide.</emphasis>
+40 <emphasis role="stringliteral"></emphasis>
+41 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;@example</emphasis>
+42 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;Format&#32;JSON&#32;attendu:</emphasis>
+43 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;{</emphasis>
+44 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&quot;timeout_s&quot;:&#32;180,</emphasis>
+45 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&quot;inter_measure_sleep_s&quot;:&#32;0.1,</emphasis>
+46 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&quot;loop_sleep_s&quot;:&#32;1.0,</emphasis>
+47 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&quot;channels&quot;:&#32;[</emphasis>
+48 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{&#32;&quot;channel&quot;:&#32;1,&#32;&quot;sensor&quot;:&#32;&quot;Ni1000&#32;TK5000&quot;&#32;}</emphasis>
+49 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;]</emphasis>
+50 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;}</emphasis>
+51 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+52 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;Vérification&#32;de&#32;l&apos;existence&#32;du&#32;fichier</emphasis>
+53 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;os.path.exists(path)&#32;<emphasis role="keywordflow">is</emphasis>&#32;<emphasis role="keyword">False</emphasis>:
+54 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;Lever&#32;une&#32;exception&#32;si&#32;le&#32;fichier&#32;n&apos;existe&#32;pas</emphasis>
+55 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">raise</emphasis>&#32;FileNotFoundError(<emphasis role="stringliteral">&quot;Config&#32;introuvable:&#32;&quot;</emphasis>&#32;+&#32;str(path))
+56 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;Ouverture&#32;et&#32;lecture&#32;du&#32;fichier&#32;JSON</emphasis>
+57 &#32;&#32;&#32;&#32;<emphasis role="keyword">with</emphasis>&#32;open(path,&#32;<emphasis role="stringliteral">&quot;r&quot;</emphasis>,&#32;encoding=<emphasis role="stringliteral">&quot;utf-8&quot;</emphasis>)&#32;<emphasis role="keyword">as</emphasis>&#32;f:
+58 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;Parsing&#32;du&#32;contenu&#32;JSON</emphasis>
+59 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;data&#32;=&#32;json.load(f)
+60 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;Retour&#32;des&#32;données&#32;parsées</emphasis>
+61 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;data
+</computeroutput></literallayout> </para>
+</section>

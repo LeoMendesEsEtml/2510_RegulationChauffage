@@ -1,0 +1,173 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_namespaceapp_1_1resistance__mapping" xml:lang="fr">
+<title>Référence de l&apos;espace de nommage app.resistance_mapping</title>
+<indexterm><primary>app.resistance_mapping</primary></indexterm>
+<simplesect>
+    <title>Fonctions    </title>
+        <itemizedlist>
+            <listitem><para>dict <link linkend="_namespaceapp_1_1resistance__mapping_1abcef5f0352c26d7e5540d9bc85a3e3fa">get_channel_mux_map</link> (str sensor_type)</para>
+
+<para>Retourne le mapping CHANNEL_MUX pour un type de sonde donné. </para>
+</listitem>
+            <listitem><para>tuple <link linkend="_namespaceapp_1_1resistance__mapping_1ad97e98ca666d8a3efb4c892acd311297">find_closest_channel</link> (float target_resistance, str sensor_type)</para>
+
+<para>Trouve le canal MUX le plus proche pour une résistance cible. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Variables    </title>
+        <itemizedlist>
+            <listitem><para>dict <link linkend="_namespaceapp_1_1resistance__mapping_1a3b615cabdb8c20924f8da06a285bc117">CHANNEL_MUX</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Documentation des fonctions</title>
+<anchor xml:id="_namespaceapp_1_1resistance__mapping_1ad97e98ca666d8a3efb4c892acd311297"/><section>
+    <title>find_closest_channel()</title>
+<indexterm><primary>find_closest_channel</primary><secondary>app.resistance_mapping</secondary></indexterm>
+<indexterm><primary>app.resistance_mapping</primary><secondary>find_closest_channel</secondary></indexterm>
+<para><computeroutput> tuple app.resistance_mapping.find_closest_channel (float target_resistance, str sensor_type)</computeroutput></para><para>
+
+<para>Trouve le canal MUX le plus proche pour une résistance cible. </para>
+</para>
+
+<para>Algorithme de recherche du canal TMUX offrant la résistance la plus proche de la valeur cible. Calcule l&apos;erreur absolue et relative pour le meilleur canal trouvé.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Paramètres</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>target_resistance</entry><entry>
+<para>Valeur de résistance cible recherchée [Ohms]. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>sensor_type</entry><entry>
+<para>Type de sonde à utiliser pour la recherche.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Renvoie</title>
+
+<para>Tuple (canal, resistance_reelle, erreur_pourcent). Retourne (None, None, None) si aucun canal trouvé.</para>
+</formalpara>
+
+                <formalpara>
+                    <title>
+Exceptions</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>KeyError</entry><entry>
+<para>si le type de sonde n&apos;existe pas. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+Voici le graphe d&apos;appel pour cette fonction :<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespaceapp_1_1resistance__mapping_ad97e98ca666d8a3efb4c892acd311297_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_namespaceapp_1_1resistance__mapping_1abcef5f0352c26d7e5540d9bc85a3e3fa"/><section>
+    <title>get_channel_mux_map()</title>
+<indexterm><primary>get_channel_mux_map</primary><secondary>app.resistance_mapping</secondary></indexterm>
+<indexterm><primary>app.resistance_mapping</primary><secondary>get_channel_mux_map</secondary></indexterm>
+<para><computeroutput> dict app.resistance_mapping.get_channel_mux_map (str sensor_type)</computeroutput></para><para>
+
+<para>Retourne le mapping CHANNEL_MUX pour un type de sonde donné. </para>
+</para>
+
+<para>Fonction d&apos;accès qui extrait le dictionnaire de correspondance canal/résistance pour un type de sonde spécifique. Valide l&apos;existence du type avant de retourner les données.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Paramètres</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>sensor_type</entry><entry>
+<para>Type de sonde demandé (doit exister dans CHANNEL_MUX).</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Renvoie</title>
+
+<para>Dictionnaire {canal: resistance} pour le type de sonde.</para>
+</formalpara>
+
+                <formalpara>
+                    <title>
+Exceptions</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>KeyError</entry><entry>
+<para>si le type de sonde n&apos;est pas supporté. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+Voici le graphe des appelants de cette fonction :<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespaceapp_1_1resistance__mapping_abcef5f0352c26d7e5540d9bc85a3e3fa_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+</section>
+<section>
+<title>Documentation des variables</title>
+<anchor xml:id="_namespaceapp_1_1resistance__mapping_1a3b615cabdb8c20924f8da06a285bc117"/><section>
+    <title>CHANNEL_MUX</title>
+<indexterm><primary>CHANNEL_MUX</primary><secondary>app.resistance_mapping</secondary></indexterm>
+<indexterm><primary>app.resistance_mapping</primary><secondary>CHANNEL_MUX</secondary></indexterm>
+<para><computeroutput>dict app.resistance_mapping.CHANNEL_MUX</computeroutput></para></section>
+</section>
+</section>

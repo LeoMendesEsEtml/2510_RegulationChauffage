@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_main_8py" xml:lang="fr">
+<title>Référence du fichier C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/main.py</title>
+<indexterm><primary>C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/main.py</primary></indexterm>
+<para>
+
+<para>Système de mesure et simulation de température. </para>
+ 
+</para>
+<simplesect>
+    <title>Espaces de nommage    </title>
+        <itemizedlist>
+            <listitem><para>namespace <link linkend="_namespaceapp">app</link></para>
+</listitem>
+            <listitem><para>namespace <link linkend="_namespaceapp_1_1main">app.main</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Fonctions    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_namespaceapp_1_1main_1ad21574e7873c2ce3e62f3b74e9a10f6a">app.main.start_webui_server</link> ()</para>
+
+<para>Lance le serveur web local dans un thread séparé. </para>
+</listitem>
+            <listitem><para><link linkend="_namespaceapp_1_1main_1a7e7d269529399106243cc74fc3c73b6a">app.main.save_last_state</link> (channel=None, resistance_ohm=None, temperature_c=None, temperature_sim_c=None, error=None)</para>
+
+<para>Sauvegarde l&apos;état courant et historique par canal dans un fichier JSON. </para>
+</listitem>
+            <listitem><para><link linkend="_namespaceapp_1_1main_1abe819be4d1d22ae06c4753392322a35b">app.main.signal_handler</link> (sig, frame)</para>
+
+<para>Gestionnaire POSIX pour les signaux (Ctrl+C). </para>
+</listitem>
+            <listitem><para><link linkend="_namespaceapp_1_1main_1ab98791c04a040ea7d728c8cda86d0677">app.main.input_monitor</link> ()</para>
+
+<para>Thread d&apos;écoute des commandes utilisateur depuis stdin. </para>
+</listitem>
+            <listitem><para><link linkend="_namespaceapp_1_1main_1a1b3211e7ab2da62ed461ce881f0ce556">app.main.show_error_and_continue</link> (error_pattern, sleep_time=2)</para>
+
+<para>Affiche un motif LED d&apos;erreur pendant un temps donné puis remet l&apos;indicateur en mode &apos;sequence_running&apos;. </para>
+</listitem>
+            <listitem><para><link linkend="_namespaceapp_1_1main_1abde8d10de044e070eb5eab1e448cd558">app.main.run_measurement_sequence</link> (cfg, mac_address, adc, tmux)</para>
+
+<para>Exécute une séquence complète de mesures pour tous les canaux activés selon la configuration fournie. </para>
+</listitem>
+            <listitem><para><link linkend="_namespaceapp_1_1main_1a2d15309f12a3472b94e8cace0ace5a6b">app.main.reload_timing_config</link> ()</para>
+
+<para>Recharge les paramètres de temporisation depuis le fichier de configuration. </para>
+</listitem>
+            <listitem><para><link linkend="_namespaceapp_1_1main_1a3e4dda2887e910e984519bea9a420dc2">app.main.main</link> ()</para>
+
+<para>Point d&apos;entrée principal du programme. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Variables    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_namespaceapp_1_1main_1aff7cd4e0e9d7b9068e94858a4c527314">app.main.CURRENT_DIR</link> = os.path.dirname(os.path.abspath(__file__))</para>
+</listitem>
+            <listitem><para><link linkend="_namespaceapp_1_1main_1ad64332bd025eb979f3c8b5aa2267bfd3">app.main.SRC_DIR</link> = os.path.dirname(<link linkend="_namespaceapp_1_1main_1aff7cd4e0e9d7b9068e94858a4c527314">CURRENT_DIR</link>)</para>
+</listitem>
+            <listitem><para>bool <link linkend="_namespaceapp_1_1main_1a4a86ee89abd84627e36c0320969924ac">app.main.sequencer_running</link> = False</para>
+</listitem>
+            <listitem><para><link linkend="_namespaceapp_1_1main_1a35b15b3661aab25e707f368b9d8999ec">app.main.stop_event</link> = threading.Event()</para>
+</listitem>
+            <listitem><para><link linkend="_namespaceapp_1_1main_1adcd9b846c9a069d44dad6fb465d9840c">app.main.force_sequence</link> = threading.Event()</para>
+</listitem>
+            <listitem><para><link linkend="_namespaceapp_1_1main_1a0d1f132bf1e682ae958346b489d89772">app.main.led_indicator</link> = None</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Description détaillée</title>
+
+<para>Système de mesure et simulation de température. </para>
+
+<para>Ce module exécute des cycles de mesure ADC, convertit les valeurs en résistances puis en températures, récupère des paramètres via une API distante, calcule une température simulée, convertit cette température en résistance cible et applique la simulation via un multiplexeur matériel. Le module gère également un petit serveur web optionnel et un indicateur LED. <formalpara><title>Auteur</title>
+
+<para>Léo Mendes @project 2510_RegulationsChauffage @Mandant Oblo_solution </para>
+</formalpara>
+<formalpara><title>Date</title>
+
+<para>2025-09-18 </para>
+</formalpara>
+<formalpara><title>Version</title>
+
+<para>1.0.0 </para>
+</formalpara>
+<formalpara><title>Copyright</title>
+
+<para>Copyright (c) 2025 </para>
+</formalpara>
+</para>
+</section>
+</section>

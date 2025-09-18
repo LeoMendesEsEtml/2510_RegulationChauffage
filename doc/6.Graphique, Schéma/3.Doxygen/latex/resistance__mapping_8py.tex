@@ -1,0 +1,43 @@
+\doxysection{Référence du fichier C\+:/\+Users/thebi/\+Documents/2510\+\_\+\+Regulation\+Chauffage/doc/9.Soft\+Ware/\+Doxygen/src/app/resistance\+\_\+mapping.py}
+\hypertarget{resistance__mapping_8py}{}\label{resistance__mapping_8py}\index{C:/Users/thebi/Documents/2510\_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/resistance\_mapping.py@{C:/Users/thebi/Documents/2510\_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/resistance\_mapping.py}}
+
+
+Mapping des résistances TMUX par type de sonde de température.  
+
+
+\doxysubsubsection*{Espaces de nommage}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespaceapp}{app}}
+\item 
+namespace \mbox{\hyperlink{namespaceapp_1_1resistance__mapping}{app.\+resistance\+\_\+mapping}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Fonctions}
+\begin{DoxyCompactItemize}
+\item 
+dict \mbox{\hyperlink{namespaceapp_1_1resistance__mapping_abcef5f0352c26d7e5540d9bc85a3e3fa}{app.\+resistance\+\_\+mapping.\+get\+\_\+channel\+\_\+mux\+\_\+map}} (str sensor\+\_\+type)
+\begin{DoxyCompactList}\small\item\em Retourne le mapping CHANNEL\+\_\+\+MUX pour un type de sonde donné. \end{DoxyCompactList}\item 
+tuple \mbox{\hyperlink{namespaceapp_1_1resistance__mapping_ad97e98ca666d8a3efb4c892acd311297}{app.\+resistance\+\_\+mapping.\+find\+\_\+closest\+\_\+channel}} (float target\+\_\+resistance, str sensor\+\_\+type)
+\begin{DoxyCompactList}\small\item\em Trouve le canal MUX le plus proche pour une résistance cible. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+dict \mbox{\hyperlink{namespaceapp_1_1resistance__mapping_a3b615cabdb8c20924f8da06a285bc117}{app.\+resistance\+\_\+mapping.\+CHANNEL\+\_\+\+MUX}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+Mapping des résistances TMUX par type de sonde de température. 
+
+Ce module fournit les tables de correspondance entre les canaux 0-\/31 du multiplexeur TMUX et les valeurs de résistance réelles pour différents types de sondes de température. Chaque type de sonde dispose d\textquotesingle{}un mapping spécifique avec 32 valeurs calibrées. \begin{DoxyAuthor}{Auteur}
+Léo Mendes @project 2510\+\_\+\+Regulations\+Chauffage @\+Mandant Oblo\+\_\+solution 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2025-\/09-\/18 
+\end{DoxyDate}
+\begin{DoxyVersion}{Version}
+1.\+0.\+0 
+\end{DoxyVersion}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2025 
+\end{DoxyCopyright}

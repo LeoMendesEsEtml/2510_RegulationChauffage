@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_namespaceapp_1_1front__led__management" xml:lang="fr">
+<title>Référence de l&apos;espace de nommage app.front_led_management</title>
+<indexterm><primary>app.front_led_management</primary></indexterm>
+<simplesect>
+    <title>Classes    </title>
+        <itemizedlist>
+            <listitem><para>class <link linkend="_classapp_1_1front__led__management_1_1_led_error_indicator">LedErrorIndicator</link></para>
+
+<para>Gestionnaire de LED avec patterns d&apos;erreur. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Fonctions    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_namespaceapp_1_1front__led__management_1ab7831833c4fa77c5bcc4a03235168b64">create_led_indicator</link> (gpio_chip_path, led_pin)</para>
+
+<para>Factory function pour créer une instance <link linkend="_classapp_1_1front__led__management_1_1_led_error_indicator">LedErrorIndicator</link>. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Documentation des fonctions</title>
+<anchor xml:id="_namespaceapp_1_1front__led__management_1ab7831833c4fa77c5bcc4a03235168b64"/><section>
+    <title>create_led_indicator()</title>
+<indexterm><primary>create_led_indicator</primary><secondary>app.front_led_management</secondary></indexterm>
+<indexterm><primary>app.front_led_management</primary><secondary>create_led_indicator</secondary></indexterm>
+<para><computeroutput>app.front_led_management.create_led_indicator ( gpio_chip_path,  led_pin)</computeroutput></para><para>
+
+<para>Factory function pour créer une instance <link linkend="_classapp_1_1front__led__management_1_1_led_error_indicator">LedErrorIndicator</link>. </para>
+</para>
+
+<para>Fonction utilitaire qui encapsule la création et l&apos;initialisation d&apos;un gestionnaire LED. Gère les erreurs d&apos;initialisation et configure automatiquement le pattern normal par défaut.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Paramètres</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>gpio_chip_path</entry><entry>
+<para>Chemin vers le périphérique GPIO. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>led_pin</entry><entry>
+<para>Numéro de pin de la LED.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Renvoie</title>
+
+<para>Instance de <link linkend="_classapp_1_1front__led__management_1_1_led_error_indicator">LedErrorIndicator</link> si succès, None sinon. </para>
+</formalpara>
+</para>
+</section>
+</section>
+</section>

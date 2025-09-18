@@ -1,0 +1,27 @@
+var searchData=
+[
+  ['sensor_5fprofiles_0',['SENSOR_PROFILES',['../namespaceapp_1_1sensor__profiles.html#a8e0133ad4e40a6805aacf8f271fe96b5',1,'app::sensor_profiles']]],
+  ['sequencer_5frunning_1',['sequencer_running',['../namespaceapp_1_1main.html#a4a86ee89abd84627e36c0320969924ac',1,'app::main']]],
+  ['sim_2',['sim',['../namespaceapp_1_1resistance__simulation.html#a1e0083edc4bb5cd3cf145384e73c9fb3',1,'app::resistance_simulation']]],
+  ['speed_3',['speed',['../classapp_1_1hw__mux__adg731_1_1_adg731_mux_spi.html#a3f9d44d59b25aaec550ee234dfa55efd',1,'app::hw_mux_adg731::Adg731MuxSpi']]],
+  ['speed_5fhz_4',['speed_hz',['../classapp_1_1resistance__simulation_1_1_resistance_simulator.html#ae5b48bf05a00308d6773645c7aa10b71',1,'app::resistance_simulation::ResistanceSimulator']]],
+  ['spi_5',['spi',['../classapp_1_1adc__ads124s08_1_1_ads124s08.html#ad6ceb5f8844a34706d24f0d510abf081',1,'app.adc_ads124s08.Ads124s08.spi'],['../namespaceapp_1_1test__lm70__compatible.html#a142361b80c799ba1f4b3ae421b992bc9',1,'app.test_lm70_compatible.spi']]],
+  ['spi0_5fbus_6',['SPI0_BUS',['../namespaceapp_1_1pins__cm5.html#a7f7f52f96aacfc3b968d398382178036',1,'app::pins_cm5']]],
+  ['spi0_5fdev0_7',['SPI0_DEV0',['../namespaceapp_1_1pins__cm5.html#a368d5549c798e09e8775e0e73b96d14c',1,'app::pins_cm5']]],
+  ['spi0_5fdev1_8',['SPI0_DEV1',['../namespaceapp_1_1pins__cm5.html#a0ca4080866506142fe823a43d5cc9b04',1,'app::pins_cm5']]],
+  ['spi1_5fbus_9',['SPI1_BUS',['../namespaceapp_1_1pins__cm5.html#ac3f90aa5494bfd7cb328ab859270ba34',1,'app::pins_cm5']]],
+  ['spi1_5fdev0_10',['SPI1_DEV0',['../namespaceapp_1_1pins__cm5.html#a9972c7d851be0cf7f570cd6afb0afdce',1,'app::pins_cm5']]],
+  ['spi_5fadc_5fspeed_5fhz_11',['SPI_ADC_SPEED_HZ',['../namespaceapp_1_1pins__cm5.html#af4c124729456a53c298e00a7ad18d434',1,'app::pins_cm5']]],
+  ['spi_5fmiso_5fadc_5fdmy_12',['SPI_MISO_ADC_DMY',['../namespaceapp_1_1pins__cm5.html#a341e8e8f73df01d2f780f0ba22bef655',1,'app::pins_cm5']]],
+  ['spi_5fmiso_5fadc_5fgpio_13',['SPI_MISO_ADC_GPIO',['../namespaceapp_1_1test__lm70__compatible.html#a9e3001ec2848de215182db26ce3b4828',1,'app::test_lm70_compatible']]],
+  ['spi_5fmosi_5fadc_5fdmy_14',['SPI_MOSI_ADC_DMY',['../namespaceapp_1_1pins__cm5.html#abdef5fa06d0df26fb2b1529ae78106b8',1,'app::pins_cm5']]],
+  ['spi_5fmosi_5fadc_5fgpio_15',['SPI_MOSI_ADC_GPIO',['../namespaceapp_1_1test__lm70__compatible.html#ab158092e70bb66d47e0a9fd2cc1ea342',1,'app::test_lm70_compatible']]],
+  ['spi_5fmux_5fspeed_5fhz_16',['SPI_MUX_SPEED_HZ',['../namespaceapp_1_1pins__cm5.html#a885ffd3784ac740228820ac13e88a615',1,'app::pins_cm5']]],
+  ['spi_5fsclk_5fadc_5fdmy_17',['SPI_SCLK_ADC_DMY',['../namespaceapp_1_1pins__cm5.html#a72500e21b93a5b8bf357a4d084d33f88',1,'app::pins_cm5']]],
+  ['spi_5fsclk_5fadc_5fgpio_18',['SPI_SCLK_ADC_GPIO',['../namespaceapp_1_1test__lm70__compatible.html#a2a6df630baf4617a726e2cd0d0b2ab6b',1,'app::test_lm70_compatible']]],
+  ['src_5fdir_19',['SRC_DIR',['../namespaceapp_1_1main.html#ad64332bd025eb979f3c8b5aa2267bfd3',1,'app::main']]],
+  ['src_5fdir_20',['src_dir',['../namespaceapp_1_1test__lm70__compatible.html#ae03ea432cb4b4f1e7d77dd39a1bf3ec1',1,'app::test_lm70_compatible']]],
+  ['state_5fpath_21',['STATE_PATH',['../namespacewebui_1_1webui__server.html#a9f76ef91507216717dc653f7b9479cbb',1,'webui::webui_server']]],
+  ['stop_5fevent_22',['stop_event',['../namespaceapp_1_1main.html#a35b15b3661aab25e707f368b9d8999ec',1,'app::main']]],
+  ['success_23',['success',['../namespaceapp_1_1resistance__simulation.html#af7b157026a22cabc88ac2a1df2bf0a45',1,'app::resistance_simulation']]]
+];

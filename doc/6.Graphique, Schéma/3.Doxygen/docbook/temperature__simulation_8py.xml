@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_temperature__simulation_8py" xml:lang="fr">
+<title>Référence du fichier C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/temperature_simulation.py</title>
+<indexterm><primary>C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/temperature_simulation.py</primary></indexterm>
+<para>
+
+<para>Module de calcul de température simulée selon formule prédictive. </para>
+ 
+</para>
+<simplesect>
+    <title>Espaces de nommage    </title>
+        <itemizedlist>
+            <listitem><para>namespace <link linkend="_namespaceapp">app</link></para>
+</listitem>
+            <listitem><para>namespace <link linkend="_namespaceapp_1_1temperature__simulation">app.temperature_simulation</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Fonctions    </title>
+        <itemizedlist>
+            <listitem><para>Optional[float] <link linkend="_namespaceapp_1_1temperature__simulation_1ad0955f54e494774453fd9395ddf156f3">app.temperature_simulation.calculate_simulated_temperature</link> (float t_mes, float t_prev, float n, float k_m)</para>
+
+<para>Calcule la température simulée selon la formule prédictive. </para>
+</listitem>
+            <listitem><para>bool <link linkend="_namespaceapp_1_1temperature__simulation_1a34c95102387b78fc0ae24419cfdc62be">app.temperature_simulation.validate_simulation_parameters</link> (str probe_type, float n, float k_m, float t_mes, float t_prev)</para>
+
+<para>Valide tous les paramètres de simulation avant exécution. </para>
+</listitem>
+            <listitem><para>Optional[float] <link linkend="_namespaceapp_1_1temperature__simulation_1a9dce35a5a5235426dcb9002af6f2fe80">app.temperature_simulation.run_temperature_simulation</link> (dict simulation_data)</para>
+
+<para>Exécute une simulation complète de température avec dictionnaire. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Description détaillée</title>
+
+<para>Module de calcul de température simulée selon formule prédictive. </para>
+
+<para>Ce module implémente la formule de simulation de température: <literallayout><computeroutput>T_sim&#32;=&#32;T_mes&#32;+&#32;((T_prev&#32;-&#32;T_mes)&#32;*&#32;n&#32;*&#32;exp(k_m))
+</computeroutput></literallayout> Inclut la validation complète des paramètres, la gestion des erreurs numériques et l&apos;exécution de simulations complètes. <formalpara><title>Auteur</title>
+
+<para>Léo Mendes @project 2510_RegulationsChauffage @Mandant Oblo_solution </para>
+</formalpara>
+<formalpara><title>Date</title>
+
+<para>2025-09-18 </para>
+</formalpara>
+<formalpara><title>Version</title>
+
+<para>1.0.0 </para>
+</formalpara>
+<formalpara><title>Copyright</title>
+
+<para>Copyright (c) 2025 </para>
+</formalpara>
+</para>
+</section>
+</section>

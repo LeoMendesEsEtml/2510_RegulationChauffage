@@ -1,0 +1,180 @@
+\doxysection{Référence de la classe app.\+hw\+\_\+tmux1204.\+Tmux1204}
+\hypertarget{classapp_1_1hw__tmux1204_1_1_tmux1204}{}\label{classapp_1_1hw__tmux1204_1_1_tmux1204}\index{app.hw\_tmux1204.Tmux1204@{app.hw\_tmux1204.Tmux1204}}
+
+
+Pilote pour le multiplexeur TMUX1204.  
+
+
+
+
+Graphe de collaboration de app.\+hw\+\_\+tmux1204.\+Tmux1204\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=216pt]{classapp_1_1hw__tmux1204_1_1_tmux1204__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Fonctions membres publiques}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classapp_1_1hw__tmux1204_1_1_tmux1204_ab0f13b4513248f3d296baeab7e559fe2}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self)
+\begin{DoxyCompactList}\small\item\em Initialise le pilote TMUX1204. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classapp_1_1hw__tmux1204_1_1_tmux1204_aeece5a8953354758865f35beb5d0e911}{close}} (self)
+\begin{DoxyCompactList}\small\item\em Ferme les interfaces GPIO. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classapp_1_1hw__tmux1204_1_1_tmux1204_a2ffdb1f55fc229434ee7f0c8de822a80}{set\+\_\+bits}} (self, bit\+\_\+a1, bit\+\_\+a0)
+\begin{DoxyCompactList}\small\item\em Définit les bits de contrôle A1 et A0. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classapp_1_1hw__tmux1204_1_1_tmux1204_af3580f52e52bd0726dfb5fb09b6eaf7e}{select\+\_\+rref\+\_\+ohm}} (self, rref\+\_\+ohm)
+\begin{DoxyCompactList}\small\item\em Sélectionne la résistance de référence Rref. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Attributs publics}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classapp_1_1hw__tmux1204_1_1_tmux1204_ae24903744a302da76471ed0b57efcc33}{gpio\+\_\+a1}} = GPIO(GPIO\+\_\+\+CHIP\+\_\+\+PATH, ADC\+\_\+\+A1, "{}out"{})
+\item 
+\mbox{\hyperlink{classapp_1_1hw__tmux1204_1_1_tmux1204_af3bcd7ec404eef12d3dc588631b76685}{gpio\+\_\+a0}} = GPIO(GPIO\+\_\+\+CHIP\+\_\+\+PATH, ADC\+\_\+\+A0, "{}out"{})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+Pilote pour le multiplexeur TMUX1204. 
+
+Classe pour gérer la sélection de résistance de référence via le multiplexeur TMUX1204. Utilise deux signaux de contrôle (A1, A0) pour sélectionner parmi quatre valeurs de Rref selon la table de vérité \+:
+\begin{DoxyItemize}
+\item A1=0, A0=0 \+: 2.\+2k ohms
+\item A1=0, A0=1 \+: 2.\+7k ohms
+\item A1=1, A0=0 \+: 10k ohms
+\item A1=1, A0=1 \+: 100k ohms 
+\end{DoxyItemize}
+
+\label{doc-constructors}
+\Hypertarget{classapp_1_1hw__tmux1204_1_1_tmux1204_doc-constructors}
+\doxysubsection{Documentation des constructeurs et destructeur}
+\Hypertarget{classapp_1_1hw__tmux1204_1_1_tmux1204_ab0f13b4513248f3d296baeab7e559fe2}\index{app.hw\_tmux1204.Tmux1204@{app.hw\_tmux1204.Tmux1204}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!app.hw\_tmux1204.Tmux1204@{app.hw\_tmux1204.Tmux1204}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classapp_1_1hw__tmux1204_1_1_tmux1204_ab0f13b4513248f3d296baeab7e559fe2} 
+app.\+hw\+\_\+tmux1204.\+Tmux1204.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+Initialise le pilote TMUX1204. 
+
+Configure les GPIO pour les signaux de contrôle A1 et A0 en mode sortie. Utilise les constantes matérielles définies dans le module \doxylink{namespaceapp_1_1pins__cm5}{pins\+\_\+cm5}. 
+
+\label{doc-func-members}
+\Hypertarget{classapp_1_1hw__tmux1204_1_1_tmux1204_doc-func-members}
+\doxysubsection{Documentation des fonctions membres}
+\Hypertarget{classapp_1_1hw__tmux1204_1_1_tmux1204_aeece5a8953354758865f35beb5d0e911}\index{app.hw\_tmux1204.Tmux1204@{app.hw\_tmux1204.Tmux1204}!close@{close}}
+\index{close@{close}!app.hw\_tmux1204.Tmux1204@{app.hw\_tmux1204.Tmux1204}}
+\doxysubsubsection{\texorpdfstring{close()}{close()}}
+{\footnotesize\ttfamily \label{classapp_1_1hw__tmux1204_1_1_tmux1204_aeece5a8953354758865f35beb5d0e911} 
+app.\+hw\+\_\+tmux1204.\+Tmux1204.\+close (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+Ferme les interfaces GPIO. 
+
+Ferme proprement les GPIO A1 et A0 pour libérer les ressources système. Gère les erreurs de fermeture pour éviter les exceptions lors du nettoyage. Voici le graphe d\textquotesingle{}appel pour cette fonction \+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=251pt]{classapp_1_1hw__tmux1204_1_1_tmux1204_aeece5a8953354758865f35beb5d0e911_cgraph}
+\end{center}
+\end{figure}
+Voici le graphe des appelants de cette fonction \+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=251pt]{classapp_1_1hw__tmux1204_1_1_tmux1204_aeece5a8953354758865f35beb5d0e911_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classapp_1_1hw__tmux1204_1_1_tmux1204_af3580f52e52bd0726dfb5fb09b6eaf7e}\index{app.hw\_tmux1204.Tmux1204@{app.hw\_tmux1204.Tmux1204}!select\_rref\_ohm@{select\_rref\_ohm}}
+\index{select\_rref\_ohm@{select\_rref\_ohm}!app.hw\_tmux1204.Tmux1204@{app.hw\_tmux1204.Tmux1204}}
+\doxysubsubsection{\texorpdfstring{select\_rref\_ohm()}{select\_rref\_ohm()}}
+{\footnotesize\ttfamily \label{classapp_1_1hw__tmux1204_1_1_tmux1204_af3580f52e52bd0726dfb5fb09b6eaf7e} 
+app.\+hw\+\_\+tmux1204.\+Tmux1204.\+select\+\_\+rref\+\_\+ohm (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{rref\+\_\+ohm}{}\end{DoxyParamCaption})}
+
+
+
+Sélectionne la résistance de référence Rref. 
+
+Configure les signaux de contrôle selon la table de vérité pour sélectionner la résistance de référence demandée. Supporte quatre valeurs fixes \+: 2200, 2700, 10000, 100000 ohms.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em rref\+\_\+ohm} & Valeur de résistance de référence en ohms.\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Value\+Error} & Si la valeur de Rref n\textquotesingle{}est pas supportée.\\
+\hline
+\end{DoxyExceptions}
+\begin{DoxyNote}{Note}
+Table de vérité TMUX1204 \+:
+\begin{DoxyItemize}
+\item 2200 ohms \+: A1=0, A0=0
+\item 2700 ohms \+: A1=0, A0=1
+\item 10000 ohms \+: A1=1, A0=0
+\item 100000 ohms\+: A1=1, A0=1 
+\end{DoxyItemize}
+\end{DoxyNote}
+Voici le graphe d\textquotesingle{}appel pour cette fonction \+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classapp_1_1hw__tmux1204_1_1_tmux1204_af3580f52e52bd0726dfb5fb09b6eaf7e_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classapp_1_1hw__tmux1204_1_1_tmux1204_a2ffdb1f55fc229434ee7f0c8de822a80}\index{app.hw\_tmux1204.Tmux1204@{app.hw\_tmux1204.Tmux1204}!set\_bits@{set\_bits}}
+\index{set\_bits@{set\_bits}!app.hw\_tmux1204.Tmux1204@{app.hw\_tmux1204.Tmux1204}}
+\doxysubsubsection{\texorpdfstring{set\_bits()}{set\_bits()}}
+{\footnotesize\ttfamily \label{classapp_1_1hw__tmux1204_1_1_tmux1204_a2ffdb1f55fc229434ee7f0c8de822a80} 
+app.\+hw\+\_\+tmux1204.\+Tmux1204.\+set\+\_\+bits (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{bit\+\_\+a1}{, }\item[{}]{bit\+\_\+a0}{}\end{DoxyParamCaption})}
+
+
+
+Définit les bits de contrôle A1 et A0. 
+
+Applique les niveaux logiques sur les signaux de contrôle du multiplexeur. Convertit les valeurs numériques (0/1) en niveaux logiques GPIO (False/\+True).
+
+
+\begin{DoxyParams}{Paramètres}
+{\em bit\+\_\+a1} & Valeur du bit A1 (0 ou 1). \\
+\hline
+{\em bit\+\_\+a0} & Valeur du bit A0 (0 ou 1). \\
+\hline
+\end{DoxyParams}
+Voici le graphe des appelants de cette fonction \+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classapp_1_1hw__tmux1204_1_1_tmux1204_a2ffdb1f55fc229434ee7f0c8de822a80_icgraph}
+\end{center}
+\end{figure}
+
+
+\label{doc-variable-members}
+\Hypertarget{classapp_1_1hw__tmux1204_1_1_tmux1204_doc-variable-members}
+\doxysubsection{Documentation des données membres}
+\Hypertarget{classapp_1_1hw__tmux1204_1_1_tmux1204_af3bcd7ec404eef12d3dc588631b76685}\index{app.hw\_tmux1204.Tmux1204@{app.hw\_tmux1204.Tmux1204}!gpio\_a0@{gpio\_a0}}
+\index{gpio\_a0@{gpio\_a0}!app.hw\_tmux1204.Tmux1204@{app.hw\_tmux1204.Tmux1204}}
+\doxysubsubsection{\texorpdfstring{gpio\_a0}{gpio\_a0}}
+{\footnotesize\ttfamily \label{classapp_1_1hw__tmux1204_1_1_tmux1204_af3bcd7ec404eef12d3dc588631b76685} 
+app.\+hw\+\_\+tmux1204.\+Tmux1204.\+gpio\+\_\+a0 = GPIO(GPIO\+\_\+\+CHIP\+\_\+\+PATH, ADC\+\_\+\+A0, "{}out"{})}
+
+\Hypertarget{classapp_1_1hw__tmux1204_1_1_tmux1204_ae24903744a302da76471ed0b57efcc33}\index{app.hw\_tmux1204.Tmux1204@{app.hw\_tmux1204.Tmux1204}!gpio\_a1@{gpio\_a1}}
+\index{gpio\_a1@{gpio\_a1}!app.hw\_tmux1204.Tmux1204@{app.hw\_tmux1204.Tmux1204}}
+\doxysubsubsection{\texorpdfstring{gpio\_a1}{gpio\_a1}}
+{\footnotesize\ttfamily \label{classapp_1_1hw__tmux1204_1_1_tmux1204_ae24903744a302da76471ed0b57efcc33} 
+app.\+hw\+\_\+tmux1204.\+Tmux1204.\+gpio\+\_\+a1 = GPIO(GPIO\+\_\+\+CHIP\+\_\+\+PATH, ADC\+\_\+\+A1, "{}out"{})}
+
+
+
+La documentation de cette classe a été générée à partir du fichier suivant \+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/thebi/\+Documents/2510\+\_\+\+Regulation\+Chauffage/doc/9.\+Soft\+Ware/\+Doxygen/src/app/\mbox{\hyperlink{hw__tmux1204_8py}{hw\+\_\+tmux1204.\+py}}\end{DoxyCompactItemize}

@@ -1,0 +1,56 @@
+.TH "config_module.cm5_config" 3 "2510_RegulationChauffage" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+config_module.cm5_config
+.SH SYNOPSIS
+.br
+.PP
+.SS "Fonctions"
+
+.in +1c
+.ti -1c
+.RI "\fBbuild_hw\fP ()"
+.br
+.RI "Initialise et configure tout le matériel CM5\&. "
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "list \fBADC_CHANNELS\fP = [1, 2, 3, 4]"
+.br
+.in -1c
+.SH "Documentation des fonctions"
+.PP 
+.SS "config_module\&.cm5_config\&.build_hw ()"
+
+.PP
+Initialise et configure tout le matériel CM5\&. Crée les instances des composants matériels avec configuration fixe LED frontale, multiplexeur TMUX et ADC\&. Configure la LED en sortie et l'allume immédiatement pour indication système\&.
+
+.PP
+\fBRenvoie\fP
+.RS 4
+Dictionnaire contenant toutes les instances matérielles:
+.IP "\(bu" 2
+"led": Instance GPIO pour LED frontale
+.IP "\(bu" 2
+"tmux": Instance \fBTmux1204\fP pour sélection canaux
+.IP "\(bu" 2
+"adc": Instance \fBAds124s08\fP pour conversion analogique
+.PP
+.RE
+.PP
+\fBAvertissement\fP
+.RS 4
+LED allumée automatiquement pour indiquer système actif\&. 
+.RE
+.PP
+
+.SH "Documentation des variables"
+.PP 
+.SS "list config_module\&.cm5_config\&.ADC_CHANNELS = [1, 2, 3, 4]"
+
+.SH "Auteur"
+.PP 
+Généré automatiquement par Doxygen pour 2510_RegulationChauffage à partir du code source\&.

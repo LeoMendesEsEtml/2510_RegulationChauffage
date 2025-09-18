@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_classapp_1_1front__led__management_1_1_led_error_indicator" xml:lang="fr">
+<title>Référence de la classe app.front_led_management.LedErrorIndicator</title>
+<indexterm><primary>app.front_led_management.LedErrorIndicator</primary></indexterm>
+<para>
+
+<para>Gestionnaire de LED avec patterns d&apos;erreur. </para>
+ 
+</para>
+Graphe de collaboration de app.front_led_management.LedErrorIndicator:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classapp_1_1front__led__management_1_1_led_error_indicator__coll__graph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+<simplesect>
+    <title>Attributs publics statiques    </title>
+        <itemizedlist>
+            <listitem><para>float <link linkend="_classapp_1_1front__led__management_1_1_led_error_indicator_1a68352453f8736e536d1c4d1cf5f379d9">BASE_BLINK_TIME</link> = 0.2</para>
+</listitem>
+            <listitem><para>float <link linkend="_classapp_1_1front__led__management_1_1_led_error_indicator_1a0521216014828258afe5018da19da068">CYCLE_TIME</link> = 10.0</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Description détaillée</title>
+
+<para>Gestionnaire de LED avec patterns d&apos;erreur. </para>
+
+
+
+<para>Classe pour contrôler une LED frontale avec différents patterns de clignotement selon les états du système. Supporte les modes normal, standby, séquence en cours et divers patterns d&apos;erreur avec clignotements codifiés. </para>
+</section>
+<section>
+<title>Documentation des données membres</title>
+<anchor xml:id="_classapp_1_1front__led__management_1_1_led_error_indicator_1a68352453f8736e536d1c4d1cf5f379d9"/><section>
+    <title>BASE_BLINK_TIME</title>
+<indexterm><primary>BASE_BLINK_TIME</primary><secondary>app.front_led_management.LedErrorIndicator</secondary></indexterm>
+<indexterm><primary>app.front_led_management.LedErrorIndicator</primary><secondary>BASE_BLINK_TIME</secondary></indexterm>
+<para><computeroutput>float app.front_led_management.LedErrorIndicator.BASE_BLINK_TIME = 0.2<computeroutput>[static]</computeroutput></computeroutput></para></section>
+<anchor xml:id="_classapp_1_1front__led__management_1_1_led_error_indicator_1a0521216014828258afe5018da19da068"/><section>
+    <title>CYCLE_TIME</title>
+<indexterm><primary>CYCLE_TIME</primary><secondary>app.front_led_management.LedErrorIndicator</secondary></indexterm>
+<indexterm><primary>app.front_led_management.LedErrorIndicator</primary><secondary>CYCLE_TIME</secondary></indexterm>
+<para><computeroutput>float app.front_led_management.LedErrorIndicator.CYCLE_TIME = 10.0<computeroutput>[static]</computeroutput></computeroutput></para></section>
+<para>
+La documentation de cette classe a été générée à partir du fichier suivant :</para>
+C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/<link linkend="_front__led__management_8py">front_led_management.py</link></section>
+</section>

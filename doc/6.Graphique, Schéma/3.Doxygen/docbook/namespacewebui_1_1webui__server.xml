@@ -1,0 +1,175 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_namespacewebui_1_1webui__server" xml:lang="fr">
+<title>Référence de l&apos;espace de nommage webui.webui_server</title>
+<indexterm><primary>webui.webui_server</primary></indexterm>
+<simplesect>
+    <title>Fonctions    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_namespacewebui_1_1webui__server_1ab49b8a0bc3425c50079480de48990dcc">serve_index</link> ()</para>
+
+<para>Sert la page principale de l&apos;interface web. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacewebui_1_1webui__server_1a4c0c0ae9a45c748c0089996cf34a199e">get_config</link> ()</para>
+
+<para>Récupère la configuration actuelle des capteurs. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacewebui_1_1webui__server_1a5e3c84f0b6e1334a0fb7d3375965e0f6">put_config</link> ()</para>
+
+<para>Sauvegarde une nouvelle configuration des capteurs. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacewebui_1_1webui__server_1a1e99eca46e51fb406153841d145748cc">get_last</link> ()</para>
+
+<para>Récupère le dernier état du système de mesure. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacewebui_1_1webui__server_1a431000dffb42d4b4cd2ce023fa0c4a1e">force_reload</link> ()</para>
+
+<para>Force le rechargement de la configuration au prochain cycle. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Variables    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_namespacewebui_1_1webui__server_1a5de8cf19497f30c68ef48229ed037e2d">BASE_DIR</link> = os.path.abspath(os.path.join(os.path.dirname(__file__), &quot;..&quot;))</para>
+</listitem>
+            <listitem><para><link linkend="_namespacewebui_1_1webui__server_1ad1e31aeef058a01b14bbfa0e216b43d6">CONFIG_PATH</link> = os.path.join(<link linkend="_namespacewebui_1_1webui__server_1a5de8cf19497f30c68ef48229ed037e2d">BASE_DIR</link>, &quot;config_module&quot;, &quot;sensors.json&quot;)</para>
+</listitem>
+            <listitem><para><link linkend="_namespacewebui_1_1webui__server_1a9f76ef91507216717dc653f7b9479cbb">STATE_PATH</link> = os.path.join(<link linkend="_namespacewebui_1_1webui__server_1a5de8cf19497f30c68ef48229ed037e2d">BASE_DIR</link>, &quot;state&quot;, &quot;last_state.json&quot;)</para>
+</listitem>
+            <listitem><para><link linkend="_namespacewebui_1_1webui__server_1ad2ed404946ddf35648333368e4392c28">WEBUI_DIR</link> = os.path.dirname(__file__)</para>
+</listitem>
+            <listitem><para><link linkend="_namespacewebui_1_1webui__server_1a7a4894526f1923df3ef5c7000ba4232c">app</link> = Flask(__name__, static_folder=<link linkend="_namespacewebui_1_1webui__server_1ad2ed404946ddf35648333368e4392c28">WEBUI_DIR</link>, static_url_path=&apos;/static&apos;)</para>
+</listitem>
+            <listitem><para><link linkend="_namespacewebui_1_1webui__server_1a3eb0a70910bd6aab440ad5d5fc00f39d">host</link></para>
+</listitem>
+            <listitem><para><link linkend="_namespacewebui_1_1webui__server_1ab660a159b0414ddafb0b1e81ae6a476b">port</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Documentation des fonctions</title>
+<anchor xml:id="_namespacewebui_1_1webui__server_1a431000dffb42d4b4cd2ce023fa0c4a1e"/><section>
+    <title>force_reload()</title>
+<indexterm><primary>force_reload</primary><secondary>webui.webui_server</secondary></indexterm>
+<indexterm><primary>webui.webui_server</primary><secondary>force_reload</secondary></indexterm>
+<para><computeroutput>webui.webui_server.force_reload ( )</computeroutput></para><para>
+
+<para>Force le rechargement de la configuration au prochain cycle. </para>
+</para>
+
+<para>Crée un fichier flag force_reload.flag avec horodatage pour déclencher le rechargement de configuration par le processus principal lors du prochain cycle de mesure.</para>
+
+<para><formalpara><title>Renvoie</title>
+
+<para>Confirmation de demande ou message d&apos;erreur avec code HTTP. </para>
+</formalpara>
+</para>
+</section>
+<anchor xml:id="_namespacewebui_1_1webui__server_1a4c0c0ae9a45c748c0089996cf34a199e"/><section>
+    <title>get_config()</title>
+<indexterm><primary>get_config</primary><secondary>webui.webui_server</secondary></indexterm>
+<indexterm><primary>webui.webui_server</primary><secondary>get_config</secondary></indexterm>
+<para><computeroutput>webui.webui_server.get_config ( )</computeroutput></para><para>
+
+<para>Récupère la configuration actuelle des capteurs. </para>
+</para>
+
+<para>Lecture du fichier sensors.json et retour des données de configuration en format JSON. Gère les erreurs de lecture et affiche des informations de débogage.</para>
+
+<para><formalpara><title>Renvoie</title>
+
+<para>Configuration JSON ou message d&apos;erreur avec code HTTP. </para>
+</formalpara>
+</para>
+</section>
+<anchor xml:id="_namespacewebui_1_1webui__server_1a1e99eca46e51fb406153841d145748cc"/><section>
+    <title>get_last()</title>
+<indexterm><primary>get_last</primary><secondary>webui.webui_server</secondary></indexterm>
+<indexterm><primary>webui.webui_server</primary><secondary>get_last</secondary></indexterm>
+<para><computeroutput>webui.webui_server.get_last ( )</computeroutput></para><para>
+
+<para>Récupère le dernier état du système de mesure. </para>
+</para>
+
+<para>Lecture du fichier last_state.json contenant les dernières mesures, températures et statuts. Gère le cas où le fichier n&apos;existe pas encore et retourne un état par défaut.</para>
+
+<para><formalpara><title>Renvoie</title>
+
+<para>État JSON du système ou structure par défaut si fichier absent. </para>
+</formalpara>
+</para>
+</section>
+<anchor xml:id="_namespacewebui_1_1webui__server_1a5e3c84f0b6e1334a0fb7d3375965e0f6"/><section>
+    <title>put_config()</title>
+<indexterm><primary>put_config</primary><secondary>webui.webui_server</secondary></indexterm>
+<indexterm><primary>webui.webui_server</primary><secondary>put_config</secondary></indexterm>
+<para><computeroutput>webui.webui_server.put_config ( )</computeroutput></para><para>
+
+<para>Sauvegarde une nouvelle configuration des capteurs. </para>
+</para>
+
+<para>Reçoit des données JSON, valide le contenu et sauvegarde dans sensors.json avec sauvegarde atomique via fichier temporaire. Affiche un résumé des changements principaux.</para>
+
+<para><formalpara><title>Renvoie</title>
+
+<para>Statut de sauvegarde ou message d&apos;erreur avec code HTTP. </para>
+</formalpara>
+</para>
+</section>
+<anchor xml:id="_namespacewebui_1_1webui__server_1ab49b8a0bc3425c50079480de48990dcc"/><section>
+    <title>serve_index()</title>
+<indexterm><primary>serve_index</primary><secondary>webui.webui_server</secondary></indexterm>
+<indexterm><primary>webui.webui_server</primary><secondary>serve_index</secondary></indexterm>
+<para><computeroutput>webui.webui_server.serve_index ( )</computeroutput></para><para>
+
+<para>Sert la page principale de l&apos;interface web. </para>
+</para>
+
+<para>Route racine qui retourne le fichier index.html depuis le répertoire webui pour affichage de l&apos;interface utilisateur.</para>
+
+<para><formalpara><title>Renvoie</title>
+
+<para>Fichier HTML de l&apos;interface principale. </para>
+</formalpara>
+</para>
+</section>
+</section>
+<section>
+<title>Documentation des variables</title>
+<anchor xml:id="_namespacewebui_1_1webui__server_1a7a4894526f1923df3ef5c7000ba4232c"/><section>
+    <title>app</title>
+<indexterm><primary>app</primary><secondary>webui.webui_server</secondary></indexterm>
+<indexterm><primary>webui.webui_server</primary><secondary>app</secondary></indexterm>
+<para><computeroutput>webui.webui_server.app = Flask(__name__, static_folder=<link linkend="_namespacewebui_1_1webui__server_1ad2ed404946ddf35648333368e4392c28">WEBUI_DIR</link>, static_url_path=&apos;/static&apos;)</computeroutput></para></section>
+<anchor xml:id="_namespacewebui_1_1webui__server_1a5de8cf19497f30c68ef48229ed037e2d"/><section>
+    <title>BASE_DIR</title>
+<indexterm><primary>BASE_DIR</primary><secondary>webui.webui_server</secondary></indexterm>
+<indexterm><primary>webui.webui_server</primary><secondary>BASE_DIR</secondary></indexterm>
+<para><computeroutput>webui.webui_server.BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), &quot;..&quot;))</computeroutput></para></section>
+<anchor xml:id="_namespacewebui_1_1webui__server_1ad1e31aeef058a01b14bbfa0e216b43d6"/><section>
+    <title>CONFIG_PATH</title>
+<indexterm><primary>CONFIG_PATH</primary><secondary>webui.webui_server</secondary></indexterm>
+<indexterm><primary>webui.webui_server</primary><secondary>CONFIG_PATH</secondary></indexterm>
+<para><computeroutput>webui.webui_server.CONFIG_PATH = os.path.join(<link linkend="_namespacewebui_1_1webui__server_1a5de8cf19497f30c68ef48229ed037e2d">BASE_DIR</link>, &quot;config_module&quot;, &quot;sensors.json&quot;)</computeroutput></para></section>
+<anchor xml:id="_namespacewebui_1_1webui__server_1a3eb0a70910bd6aab440ad5d5fc00f39d"/><section>
+    <title>host</title>
+<indexterm><primary>host</primary><secondary>webui.webui_server</secondary></indexterm>
+<indexterm><primary>webui.webui_server</primary><secondary>host</secondary></indexterm>
+<para><computeroutput>webui.webui_server.host</computeroutput></para></section>
+<anchor xml:id="_namespacewebui_1_1webui__server_1ab660a159b0414ddafb0b1e81ae6a476b"/><section>
+    <title>port</title>
+<indexterm><primary>port</primary><secondary>webui.webui_server</secondary></indexterm>
+<indexterm><primary>webui.webui_server</primary><secondary>port</secondary></indexterm>
+<para><computeroutput>webui.webui_server.port</computeroutput></para></section>
+<anchor xml:id="_namespacewebui_1_1webui__server_1a9f76ef91507216717dc653f7b9479cbb"/><section>
+    <title>STATE_PATH</title>
+<indexterm><primary>STATE_PATH</primary><secondary>webui.webui_server</secondary></indexterm>
+<indexterm><primary>webui.webui_server</primary><secondary>STATE_PATH</secondary></indexterm>
+<para><computeroutput>webui.webui_server.STATE_PATH = os.path.join(<link linkend="_namespacewebui_1_1webui__server_1a5de8cf19497f30c68ef48229ed037e2d">BASE_DIR</link>, &quot;state&quot;, &quot;last_state.json&quot;)</computeroutput></para></section>
+<anchor xml:id="_namespacewebui_1_1webui__server_1ad2ed404946ddf35648333368e4392c28"/><section>
+    <title>WEBUI_DIR</title>
+<indexterm><primary>WEBUI_DIR</primary><secondary>webui.webui_server</secondary></indexterm>
+<indexterm><primary>webui.webui_server</primary><secondary>WEBUI_DIR</secondary></indexterm>
+<para><computeroutput>webui.webui_server.WEBUI_DIR = os.path.dirname(__file__)</computeroutput></para></section>
+</section>
+</section>

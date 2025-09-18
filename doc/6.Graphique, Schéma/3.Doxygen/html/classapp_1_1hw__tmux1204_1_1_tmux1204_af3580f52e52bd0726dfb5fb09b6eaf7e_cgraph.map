@@ -1,0 +1,5 @@
+<map id="app.hw_tmux1204.Tmux1204.select_rref_ohm" name="app.hw_tmux1204.Tmux1204.select_rref_ohm">
+<area shape="rect" id="Node000001" title="Sélectionne la résistance de référence Rref." alt="" coords="5,5,237,48"/>
+<area shape="rect" id="Node000002" href="$classapp_1_1hw__tmux1204_1_1_tmux1204.html#a2ffdb1f55fc229434ee7f0c8de822a80" title="Définit les bits de contrôle A1 et A0." alt="" coords="285,13,527,40"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="237,24,269,24,269,29,237,29"/>
+</map>

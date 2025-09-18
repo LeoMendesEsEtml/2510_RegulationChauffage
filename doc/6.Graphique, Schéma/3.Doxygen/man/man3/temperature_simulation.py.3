@@ -1,0 +1,72 @@
+.TH "C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/temperature_simulation.py" 3 "2510_RegulationChauffage" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/temperature_simulation.py \- Module de calcul de température simulée selon formule prédictive\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Espaces de nommage"
+
+.in +1c
+.ti -1c
+.RI "namespace \fBapp\fP"
+.br
+.ti -1c
+.RI "namespace \fBapp\&.temperature_simulation\fP"
+.br
+.in -1c
+.SS "Fonctions"
+
+.in +1c
+.ti -1c
+.RI "Optional[float] \fBapp\&.temperature_simulation\&.calculate_simulated_temperature\fP (float t_mes, float t_prev, float n, float k_m)"
+.br
+.RI "Calcule la température simulée selon la formule prédictive\&. "
+.ti -1c
+.RI "bool \fBapp\&.temperature_simulation\&.validate_simulation_parameters\fP (str probe_type, float n, float k_m, float t_mes, float t_prev)"
+.br
+.RI "Valide tous les paramètres de simulation avant exécution\&. "
+.ti -1c
+.RI "Optional[float] \fBapp\&.temperature_simulation\&.run_temperature_simulation\fP (dict simulation_data)"
+.br
+.RI "Exécute une simulation complète de température avec dictionnaire\&. "
+.in -1c
+.SH "Description détaillée"
+.PP 
+Module de calcul de température simulée selon formule prédictive\&. 
+
+Ce module implémente la formule de simulation de température: 
+.PP
+.nf
+T_sim = T_mes + ((T_prev \- T_mes) * n * exp(k_m))
+
+.fi
+.PP
+ Inclut la validation complète des paramètres, la gestion des erreurs numériques et l'exécution de simulations complètes\&. 
+.PP
+\fBAuteur\fP
+.RS 4
+Léo Mendes @project 2510_RegulationsChauffage @Mandant Oblo_solution 
+.RE
+.PP
+\fBDate\fP
+.RS 4
+2025-09-18 
+.RE
+.PP
+\fBVersion\fP
+.RS 4
+1\&.0\&.0 
+.RE
+.PP
+\fBCopyright\fP
+.RS 4
+Copyright (c) 2025 
+.RE
+.PP
+
+.SH "Auteur"
+.PP 
+Généré automatiquement par Doxygen pour 2510_RegulationChauffage à partir du code source\&.

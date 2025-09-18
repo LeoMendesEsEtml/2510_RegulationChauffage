@@ -1,0 +1,158 @@
+.TH "app.temperature_conversion" 3 "2510_RegulationChauffage" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+app.temperature_conversion
+.SH SYNOPSIS
+.br
+.PP
+.SS "Fonctions"
+
+.in +1c
+.ti -1c
+.RI "\fBresistance_to_temperature\fP (resistance, table)"
+.br
+.RI "Convertit une résistance mesurée en température via interpolation linéaire\&. "
+.ti -1c
+.RI "\fBresistance_to_temperature_dynamic\fP (resistance, sensor)"
+.br
+.RI "Convertit une résistance mesurée en température pour un capteur donné\&. "
+.ti -1c
+.RI "\fBtemperature_to_resistance_dynamic\fP (temperature, sensor)"
+.br
+.RI "Convertit une température en résistance pour un capteur donné (conversion inverse)\&. "
+.ti -1c
+.RI "\fBconvert_temperature_to_resistance\fP (temperature, probe_type)"
+.br
+.RI "Fonction de conversion principale pour la simulation de résistance\&. "
+.ti -1c
+.RI "\fBget_supported_probe_types\fP ()"
+.br
+.RI "Retourne la liste des types de sondes supportés\&. "
+.ti -1c
+.RI "\fBvalidate_temperature_range\fP (temperature, probe_type)"
+.br
+.RI "Valide si une température est dans la plage supportée par une sonde\&. "
+.in -1c
+.SH "Documentation des fonctions"
+.PP 
+.SS "app\&.temperature_conversion\&.convert_temperature_to_resistance ( temperature,  probe_type)"
+
+.PP
+Fonction de conversion principale pour la simulation de résistance\&. Fonction de haut niveau qui supporte différents types de sondes avec leurs caractéristiques spécifiques\&. Inclut la normalisation des noms de sondes et la gestion des variantes de nomenclature\&.
+
+.PP
+\fBParamètres\fP
+.RS 4
+\fItemperature\fP Température simulée [°C]\&. 
+.br
+\fIprobe_type\fP Type de sonde (formats multiples supportés)\&.
+.RE
+.PP
+\fBRenvoie\fP
+.RS 4
+Résistance simulée [Ohms] ou None si échec\&. 
+.RE
+.PP
+
+.SS "app\&.temperature_conversion\&.get_supported_probe_types ()"
+
+.PP
+Retourne la liste des types de sondes supportés\&. Fonction utilitaire qui extrait la liste complète des noms de capteurs disponibles dans les tables de conversion\&.
+
+.PP
+\fBRenvoie\fP
+.RS 4
+Liste des noms de capteurs disponibles pour conversion\&. 
+.RE
+.PP
+
+.SS "app\&.temperature_conversion\&.resistance_to_temperature ( resistance,  table)"
+
+.PP
+Convertit une résistance mesurée en température via interpolation linéaire\&. Algorithme d'interpolation linéaire qui recherche l'intervalle contenant la résistance mesurée et calcule la température correspondante\&. Gère les cas limites hors plage de mesure\&.
+
+.PP
+\fBParamètres\fP
+.RS 4
+\fIresistance\fP Résistance mesurée [Ohms]\&. 
+.br
+\fItable\fP Liste de tuples (résistance, température) pour interpolation\&.
+.RE
+.PP
+\fBRenvoie\fP
+.RS 4
+Température interpolée [°C], ou valeurs limites si hors plage\&. 
+.RE
+.PP
+
+.SS "app\&.temperature_conversion\&.resistance_to_temperature_dynamic ( resistance,  sensor)"
+
+.PP
+Convertit une résistance mesurée en température pour un capteur donné\&. Fonction dynamique qui sélectionne automatiquement la table de conversion appropriée selon le type de capteur spécifié\&. Effectue la validation du capteur avant conversion\&.
+
+.PP
+\fBParamètres\fP
+.RS 4
+\fIresistance\fP Résistance mesurée [Ohms]\&. 
+.br
+\fIsensor\fP Nom du type de capteur à utiliser\&.
+.RE
+.PP
+\fBRenvoie\fP
+.RS 4
+Température interpolée [°C] ou None si hors limites\&.
+.RE
+.PP
+\fBExceptions\fP
+.RS 4
+\fIValueError\fP si le capteur n'est pas reconnu\&. 
+.RE
+.PP
+
+.SS "app\&.temperature_conversion\&.temperature_to_resistance_dynamic ( temperature,  sensor)"
+
+.PP
+Convertit une température en résistance pour un capteur donné (conversion inverse)\&. Fonction de conversion inverse utilisée pour la simulation de résistance\&. Effectue l'interpolation linéaire sur l'axe température pour obtenir la résistance correspondante selon le type de capteur\&.
+
+.PP
+\fBParamètres\fP
+.RS 4
+\fItemperature\fP Température d'entrée [°C]\&. 
+.br
+\fIsensor\fP Nom du type de capteur à utiliser\&.
+.RE
+.PP
+\fBRenvoie\fP
+.RS 4
+Résistance interpolée [Ohms] ou None si hors limites\&.
+.RE
+.PP
+\fBExceptions\fP
+.RS 4
+\fIValueError\fP si le capteur n'est pas reconnu\&. 
+.RE
+.PP
+
+.SS "app\&.temperature_conversion\&.validate_temperature_range ( temperature,  probe_type)"
+
+.PP
+Valide si une température est dans la plage supportée par une sonde\&. Fonction de validation qui vérifie si une température donnée est compatible avec la plage de fonctionnement d'un type de capteur spécifique selon sa table de calibration\&.
+
+.PP
+\fBParamètres\fP
+.RS 4
+\fItemperature\fP Température à valider [°C]\&. 
+.br
+\fIprobe_type\fP Type de sonde à vérifier\&.
+.RE
+.PP
+\fBRenvoie\fP
+.RS 4
+True si la température est dans la plage supportée\&. 
+.RE
+.PP
+
+.SH "Auteur"
+.PP 
+Généré automatiquement par Doxygen pour 2510_RegulationChauffage à partir du code source\&.

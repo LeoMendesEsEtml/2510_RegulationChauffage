@@ -1,0 +1,322 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_namespaceapp_1_1temperature__conversion" xml:lang="fr">
+<title>Référence de l&apos;espace de nommage app.temperature_conversion</title>
+<indexterm><primary>app.temperature_conversion</primary></indexterm>
+<simplesect>
+    <title>Fonctions    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_namespaceapp_1_1temperature__conversion_1a2f762505fc59cc6983734bb32a6a1688">resistance_to_temperature</link> (resistance, table)</para>
+
+<para>Convertit une résistance mesurée en température via interpolation linéaire. </para>
+</listitem>
+            <listitem><para><link linkend="_namespaceapp_1_1temperature__conversion_1aff1ea0c25c07f16216abc29f0b51dbcb">resistance_to_temperature_dynamic</link> (resistance, sensor)</para>
+
+<para>Convertit une résistance mesurée en température pour un capteur donné. </para>
+</listitem>
+            <listitem><para><link linkend="_namespaceapp_1_1temperature__conversion_1ae4de96194237eecce3dd936d5c6ee5f1">temperature_to_resistance_dynamic</link> (temperature, sensor)</para>
+
+<para>Convertit une température en résistance pour un capteur donné (conversion inverse). </para>
+</listitem>
+            <listitem><para><link linkend="_namespaceapp_1_1temperature__conversion_1a2955653dd2d798b6d389f79519b3b747">convert_temperature_to_resistance</link> (temperature, probe_type)</para>
+
+<para>Fonction de conversion principale pour la simulation de résistance. </para>
+</listitem>
+            <listitem><para><link linkend="_namespaceapp_1_1temperature__conversion_1aa8915bfda252299d2cda2ea561b46ffe">get_supported_probe_types</link> ()</para>
+
+<para>Retourne la liste des types de sondes supportés. </para>
+</listitem>
+            <listitem><para><link linkend="_namespaceapp_1_1temperature__conversion_1aa8da477a88ed675741e3be17b99fac56">validate_temperature_range</link> (temperature, probe_type)</para>
+
+<para>Valide si une température est dans la plage supportée par une sonde. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Documentation des fonctions</title>
+<anchor xml:id="_namespaceapp_1_1temperature__conversion_1a2955653dd2d798b6d389f79519b3b747"/><section>
+    <title>convert_temperature_to_resistance()</title>
+<indexterm><primary>convert_temperature_to_resistance</primary><secondary>app.temperature_conversion</secondary></indexterm>
+<indexterm><primary>app.temperature_conversion</primary><secondary>convert_temperature_to_resistance</secondary></indexterm>
+<para><computeroutput>app.temperature_conversion.convert_temperature_to_resistance ( temperature,  probe_type)</computeroutput></para><para>
+
+<para>Fonction de conversion principale pour la simulation de résistance. </para>
+</para>
+
+<para>Fonction de haut niveau qui supporte différents types de sondes avec leurs caractéristiques spécifiques. Inclut la normalisation des noms de sondes et la gestion des variantes de nomenclature.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Paramètres</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>temperature</entry><entry>
+<para>Température simulée [°C]. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>probe_type</entry><entry>
+<para>Type de sonde (formats multiples supportés).</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Renvoie</title>
+
+<para>Résistance simulée [Ohms] ou None si échec. </para>
+</formalpara>
+</para>
+Voici le graphe d&apos;appel pour cette fonction :<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespaceapp_1_1temperature__conversion_a2955653dd2d798b6d389f79519b3b747_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_namespaceapp_1_1temperature__conversion_1aa8915bfda252299d2cda2ea561b46ffe"/><section>
+    <title>get_supported_probe_types()</title>
+<indexterm><primary>get_supported_probe_types</primary><secondary>app.temperature_conversion</secondary></indexterm>
+<indexterm><primary>app.temperature_conversion</primary><secondary>get_supported_probe_types</secondary></indexterm>
+<para><computeroutput>app.temperature_conversion.get_supported_probe_types ( )</computeroutput></para><para>
+
+<para>Retourne la liste des types de sondes supportés. </para>
+</para>
+
+<para>Fonction utilitaire qui extrait la liste complète des noms de capteurs disponibles dans les tables de conversion.</para>
+
+<para><formalpara><title>Renvoie</title>
+
+<para>Liste des noms de capteurs disponibles pour conversion. </para>
+</formalpara>
+</para>
+</section>
+<anchor xml:id="_namespaceapp_1_1temperature__conversion_1a2f762505fc59cc6983734bb32a6a1688"/><section>
+    <title>resistance_to_temperature()</title>
+<indexterm><primary>resistance_to_temperature</primary><secondary>app.temperature_conversion</secondary></indexterm>
+<indexterm><primary>app.temperature_conversion</primary><secondary>resistance_to_temperature</secondary></indexterm>
+<para><computeroutput>app.temperature_conversion.resistance_to_temperature ( resistance,  table)</computeroutput></para><para>
+
+<para>Convertit une résistance mesurée en température via interpolation linéaire. </para>
+</para>
+
+<para>Algorithme d&apos;interpolation linéaire qui recherche l&apos;intervalle contenant la résistance mesurée et calcule la température correspondante. Gère les cas limites hors plage de mesure.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Paramètres</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>resistance</entry><entry>
+<para>Résistance mesurée [Ohms]. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>table</entry><entry>
+<para>Liste de tuples (résistance, température) pour interpolation.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Renvoie</title>
+
+<para>Température interpolée [°C], ou valeurs limites si hors plage. </para>
+</formalpara>
+</para>
+</section>
+<anchor xml:id="_namespaceapp_1_1temperature__conversion_1aff1ea0c25c07f16216abc29f0b51dbcb"/><section>
+    <title>resistance_to_temperature_dynamic()</title>
+<indexterm><primary>resistance_to_temperature_dynamic</primary><secondary>app.temperature_conversion</secondary></indexterm>
+<indexterm><primary>app.temperature_conversion</primary><secondary>resistance_to_temperature_dynamic</secondary></indexterm>
+<para><computeroutput>app.temperature_conversion.resistance_to_temperature_dynamic ( resistance,  sensor)</computeroutput></para><para>
+
+<para>Convertit une résistance mesurée en température pour un capteur donné. </para>
+</para>
+
+<para>Fonction dynamique qui sélectionne automatiquement la table de conversion appropriée selon le type de capteur spécifié. Effectue la validation du capteur avant conversion.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Paramètres</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>resistance</entry><entry>
+<para>Résistance mesurée [Ohms]. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>sensor</entry><entry>
+<para>Nom du type de capteur à utiliser.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Renvoie</title>
+
+<para>Température interpolée [°C] ou None si hors limites.</para>
+</formalpara>
+
+                <formalpara>
+                    <title>
+Exceptions</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>ValueError</entry><entry>
+<para>si le capteur n&apos;est pas reconnu. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+</section>
+<anchor xml:id="_namespaceapp_1_1temperature__conversion_1ae4de96194237eecce3dd936d5c6ee5f1"/><section>
+    <title>temperature_to_resistance_dynamic()</title>
+<indexterm><primary>temperature_to_resistance_dynamic</primary><secondary>app.temperature_conversion</secondary></indexterm>
+<indexterm><primary>app.temperature_conversion</primary><secondary>temperature_to_resistance_dynamic</secondary></indexterm>
+<para><computeroutput>app.temperature_conversion.temperature_to_resistance_dynamic ( temperature,  sensor)</computeroutput></para><para>
+
+<para>Convertit une température en résistance pour un capteur donné (conversion inverse). </para>
+</para>
+
+<para>Fonction de conversion inverse utilisée pour la simulation de résistance. Effectue l&apos;interpolation linéaire sur l&apos;axe température pour obtenir la résistance correspondante selon le type de capteur.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Paramètres</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>temperature</entry><entry>
+<para>Température d&apos;entrée [°C]. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>sensor</entry><entry>
+<para>Nom du type de capteur à utiliser.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Renvoie</title>
+
+<para>Résistance interpolée [Ohms] ou None si hors limites.</para>
+</formalpara>
+
+                <formalpara>
+                    <title>
+Exceptions</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>ValueError</entry><entry>
+<para>si le capteur n&apos;est pas reconnu. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+Voici le graphe des appelants de cette fonction :<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespaceapp_1_1temperature__conversion_ae4de96194237eecce3dd936d5c6ee5f1_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_namespaceapp_1_1temperature__conversion_1aa8da477a88ed675741e3be17b99fac56"/><section>
+    <title>validate_temperature_range()</title>
+<indexterm><primary>validate_temperature_range</primary><secondary>app.temperature_conversion</secondary></indexterm>
+<indexterm><primary>app.temperature_conversion</primary><secondary>validate_temperature_range</secondary></indexterm>
+<para><computeroutput>app.temperature_conversion.validate_temperature_range ( temperature,  probe_type)</computeroutput></para><para>
+
+<para>Valide si une température est dans la plage supportée par une sonde. </para>
+</para>
+
+<para>Fonction de validation qui vérifie si une température donnée est compatible avec la plage de fonctionnement d&apos;un type de capteur spécifique selon sa table de calibration.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Paramètres</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>temperature</entry><entry>
+<para>Température à valider [°C]. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>probe_type</entry><entry>
+<para>Type de sonde à vérifier.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Renvoie</title>
+
+<para>True si la température est dans la plage supportée. </para>
+</formalpara>
+</para>
+</section>
+</section>
+</section>

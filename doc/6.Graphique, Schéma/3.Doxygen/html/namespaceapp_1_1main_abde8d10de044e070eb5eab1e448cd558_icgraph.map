@@ -1,0 +1,6 @@
+<map id="app.main.run_measurement_sequence" name="app.main.run_measurement_sequence">
+<area shape="rect" id="Node000001" title="Exécute une séquence complète de mesures pour tous les canaux activés selon la configuration fournie." alt="" coords="160,21,342,64"/>
+<area shape="rect" id="Node000002" href="$namespaceapp_1_1main.html#a3e4dda2887e910e984519bea9a420dc2" title="Point d&#39;entrée principal du programme." alt="" coords="5,29,112,56"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="144,45,112,45,112,40,144,40"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="91,16,80,10,58,8,38,10,28,15,25,20,30,27,26,30,20,21,24,11,37,5,59,3,82,5,94,12"/>
+</map>

@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_front__led__management_8py" xml:lang="fr">
+<title>Référence du fichier C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/front_led_management.py</title>
+<indexterm><primary>C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/front_led_management.py</primary></indexterm>
+<para>
+
+<para>Gestionnaire de LED frontale avec patterns d&apos;erreur. </para>
+ 
+</para>
+<simplesect>
+    <title>Classes    </title>
+        <itemizedlist>
+            <listitem><para>class <link linkend="_classapp_1_1front__led__management_1_1_led_error_indicator">app.front_led_management.LedErrorIndicator</link></para>
+
+<para>Gestionnaire de LED avec patterns d&apos;erreur. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Espaces de nommage    </title>
+        <itemizedlist>
+            <listitem><para>namespace <link linkend="_namespaceapp">app</link></para>
+</listitem>
+            <listitem><para>namespace <link linkend="_namespaceapp_1_1front__led__management">app.front_led_management</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Fonctions    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_namespaceapp_1_1front__led__management_1ab7831833c4fa77c5bcc4a03235168b64">app.front_led_management.create_led_indicator</link> (gpio_chip_path, led_pin)</para>
+
+<para>Factory function pour créer une instance <link linkend="_classapp_1_1front__led__management_1_1_led_error_indicator">LedErrorIndicator</link>. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Description détaillée</title>
+
+<para>Gestionnaire de LED frontale avec patterns d&apos;erreur. </para>
+
+<para>Ce module fournit une classe pour gérer les clignotements et états de la LED frontale avec différents patterns d&apos;erreur. Supporte les modes continus, les clignotements d&apos;erreur et la gestion thread-safe des patterns LED. <formalpara><title>Auteur</title>
+
+<para>Léo Mendes @project 2510_RegulationsChauffage @Mandant Oblo_solution </para>
+</formalpara>
+<formalpara><title>Date</title>
+
+<para>2025-09-18 </para>
+</formalpara>
+<formalpara><title>Version</title>
+
+<para>1.0.0 </para>
+</formalpara>
+<formalpara><title>Copyright</title>
+
+<para>Copyright (c) 2025 </para>
+</formalpara>
+</para>
+</section>
+</section>

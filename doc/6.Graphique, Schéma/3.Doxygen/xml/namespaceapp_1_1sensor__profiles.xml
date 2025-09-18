@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="fr">
+  <compounddef id="namespaceapp_1_1sensor__profiles" kind="namespace" language="Python">
+    <compoundname>app::sensor_profiles</compoundname>
+    <sectiondef kind="var">
+      <memberdef kind="variable" id="namespaceapp_1_1sensor__profiles_1a8e0133ad4e40a6805aacf8f271fe96b5" prot="public" static="no" mutable="no">
+        <type>dict</type>
+        <definition>dict app::sensor_profiles.SENSOR_PROFILES</definition>
+        <argsstring></argsstring>
+        <name>SENSOR_PROFILES</name>
+        <qualifiedname>app.sensor_profiles.SENSOR_PROFILES</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/sensor_profiles.py" line="29" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/sensor_profiles.py" bodystart="29" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="namespaceapp_1_1sensor__profiles_1aea6e8ef0fc12b3785bef45a23fde7b81" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>app.sensor_profiles.get_profile</definition>
+        <argsstring>(sensor_name)</argsstring>
+        <name>get_profile</name>
+        <qualifiedname>app.sensor_profiles.get_profile</qualifiedname>
+        <param>
+          <type>sensor_name</type>
+          <defname>sensor_name</defname>
+        </param>
+        <briefdescription>
+<para>Récupère le profil de configuration ADC pour un capteur donné. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Fonction d&apos;accès qui retourne le dictionnaire de configuration contenant les paramètres optimisés (Rref, IDAC, PGA) pour un type de capteur spécifique.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>sensor_name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Nom du type de capteur recherché.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Dictionnaire contenant les paramètres de configuration:<itemizedlist>
+<listitem><para>rref_ohm: résistance de référence [Ohms]</para>
+</listitem><listitem><para>idac_uA: courant d&apos;excitation [microampères]</para>
+</listitem><listitem><para>pga_gain: gain programmable [1-128]</para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+<parameterlist kind="exception"><parameteritem>
+<parameternamelist>
+<parametername>KeyError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>si le type de capteur n&apos;est pas reconnu. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/sensor_profiles.py" line="284" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/sensor_profiles.py" bodystart="284" bodyend="291"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/sensor_profiles.py" line="1" column="1"/>
+  </compounddef>
+</doxygen>

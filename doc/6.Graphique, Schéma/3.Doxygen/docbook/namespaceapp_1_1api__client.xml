@@ -1,0 +1,182 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_namespaceapp_1_1api__client" xml:lang="fr">
+<title>Référence de l&apos;espace de nommage app.api_client</title>
+<indexterm><primary>app.api_client</primary></indexterm>
+<simplesect>
+    <title>Classes    </title>
+        <itemizedlist>
+            <listitem><para>class <link linkend="_classapp_1_1api__client_1_1_api_client">ApiClient</link></para>
+
+<para>Client pour interroger les APIs oblosolutions.ch. </para>
+</listitem>
+            <listitem><para>class <link linkend="_classapp_1_1api__client_1_1_api_error">ApiError</link></para>
+
+<para>Exception pour les erreurs d&apos;API. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Fonctions    </title>
+        <itemizedlist>
+            <listitem><para>Dict[str, Any] <link linkend="_namespaceapp_1_1api__client_1af48f8165ee988985679357bd07baafdb">get_simulation_data</link> (str mac_address)</para>
+
+<para>Récupère les données de simulation depuis les APIs. </para>
+</listitem>
+            <listitem><para>bool <link linkend="_namespaceapp_1_1api__client_1abf9801a9e4bcf9817f44a2c08e68d938">send_temperature_measurement</link> (str mac_address, float temperature, int channel=None)</para>
+
+<para>Envoie une mesure de température vers l&apos;API. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Variables    </title>
+        <itemizedlist>
+            <listitem><para>int <link linkend="_namespaceapp_1_1api__client_1ac070ba1d4d0b10ca200ef77c3bd68fd5">REQUEST_TIMEOUT</link> = 10</para>
+</listitem>
+            <listitem><para>int <link linkend="_namespaceapp_1_1api__client_1a3a47289c37788e389f3f62c12ee9312a">MAX_RETRIES</link> = 3</para>
+</listitem>
+            <listitem><para>int <link linkend="_namespaceapp_1_1api__client_1a58ef9b423e01b1428c03ba4c7b7a7e1b">RETRY_DELAY</link> = 1</para>
+</listitem>
+            <listitem><para>str <link linkend="_namespaceapp_1_1api__client_1a1f94a135976701bdeeb72eb5acf4bbd4">test_mac</link> = &quot;0030DEABCDEF&quot;</para>
+</listitem>
+            <listitem><para>Dict[str, Any] <link linkend="_namespaceapp_1_1api__client_1ac478207d8e3a7c898761fd35c77390d0">data</link> = <link linkend="_namespaceapp_1_1api__client_1af48f8165ee988985679357bd07baafdb">get_simulation_data</link>(<link linkend="_namespaceapp_1_1api__client_1a1f94a135976701bdeeb72eb5acf4bbd4">test_mac</link>)</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Documentation des fonctions</title>
+<anchor xml:id="_namespaceapp_1_1api__client_1af48f8165ee988985679357bd07baafdb"/><section>
+    <title>get_simulation_data()</title>
+<indexterm><primary>get_simulation_data</primary><secondary>app.api_client</secondary></indexterm>
+<indexterm><primary>app.api_client</primary><secondary>get_simulation_data</secondary></indexterm>
+<para><computeroutput> Dict[str, Any] app.api_client.get_simulation_data (str mac_address)</computeroutput></para><para>
+
+<para>Récupère les données de simulation depuis les APIs. </para>
+</para>
+
+<para>Combine les appels vers td25_param et td25_forecast pour récupérer tous les paramètres nécessaires à la simulation de température. Utilise le client <link linkend="_classapp_1_1api__client_1_1_api_client">ApiClient</link> pour gérer les retries et les erreurs automatiquement.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Paramètres</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>mac_address</entry><entry>
+<para>Adresse MAC du dispositif.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Renvoie</title>
+
+<para>Dictionnaire avec toutes les données nécessaires pour la simulation.</para>
+</formalpara>
+
+                <formalpara>
+                    <title>
+Exceptions</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry><link linkend="_classapp_1_1api__client_1_1_api_error">ApiError</link></entry><entry>
+<para>Si aucune donnée valide n&apos;est obtenue. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+</section>
+<anchor xml:id="_namespaceapp_1_1api__client_1abf9801a9e4bcf9817f44a2c08e68d938"/><section>
+    <title>send_temperature_measurement()</title>
+<indexterm><primary>send_temperature_measurement</primary><secondary>app.api_client</secondary></indexterm>
+<indexterm><primary>app.api_client</primary><secondary>send_temperature_measurement</secondary></indexterm>
+<para><computeroutput> bool app.api_client.send_temperature_measurement (str mac_address, float temperature, int  channel = <computeroutput>None</computeroutput>
+)</computeroutput></para><para>
+
+<para>Envoie une mesure de température vers l&apos;API. </para>
+</para>
+
+<para>Fonction utilitaire qui crée un client <link linkend="_classapp_1_1api__client_1_1_api_client">ApiClient</link> et utilise la méthode post_measured_temperature pour envoyer la température mesurée. Gère les exceptions et retourne un booléen simple.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Paramètres</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>mac_address</entry><entry>
+<para>Adresse MAC du dispositif. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>temperature</entry><entry>
+<para>Température mesurée en °C. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>channel</entry><entry>
+<para>Canal de mesure (optionnel).</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Renvoie</title>
+
+<para>True si succès, False sinon. </para>
+</formalpara>
+</para>
+</section>
+</section>
+<section>
+<title>Documentation des variables</title>
+<anchor xml:id="_namespaceapp_1_1api__client_1ac478207d8e3a7c898761fd35c77390d0"/><section>
+    <title>data</title>
+<indexterm><primary>data</primary><secondary>app.api_client</secondary></indexterm>
+<indexterm><primary>app.api_client</primary><secondary>data</secondary></indexterm>
+<para><computeroutput>Dict[str, Any] app.api_client.data = <link linkend="_namespaceapp_1_1api__client_1af48f8165ee988985679357bd07baafdb">get_simulation_data</link>(<link linkend="_namespaceapp_1_1api__client_1a1f94a135976701bdeeb72eb5acf4bbd4">test_mac</link>)</computeroutput></para></section>
+<anchor xml:id="_namespaceapp_1_1api__client_1a3a47289c37788e389f3f62c12ee9312a"/><section>
+    <title>MAX_RETRIES</title>
+<indexterm><primary>MAX_RETRIES</primary><secondary>app.api_client</secondary></indexterm>
+<indexterm><primary>app.api_client</primary><secondary>MAX_RETRIES</secondary></indexterm>
+<para><computeroutput>int app.api_client.MAX_RETRIES = 3</computeroutput></para></section>
+<anchor xml:id="_namespaceapp_1_1api__client_1ac070ba1d4d0b10ca200ef77c3bd68fd5"/><section>
+    <title>REQUEST_TIMEOUT</title>
+<indexterm><primary>REQUEST_TIMEOUT</primary><secondary>app.api_client</secondary></indexterm>
+<indexterm><primary>app.api_client</primary><secondary>REQUEST_TIMEOUT</secondary></indexterm>
+<para><computeroutput>int app.api_client.REQUEST_TIMEOUT = 10</computeroutput></para></section>
+<anchor xml:id="_namespaceapp_1_1api__client_1a58ef9b423e01b1428c03ba4c7b7a7e1b"/><section>
+    <title>RETRY_DELAY</title>
+<indexterm><primary>RETRY_DELAY</primary><secondary>app.api_client</secondary></indexterm>
+<indexterm><primary>app.api_client</primary><secondary>RETRY_DELAY</secondary></indexterm>
+<para><computeroutput>int app.api_client.RETRY_DELAY = 1</computeroutput></para></section>
+<anchor xml:id="_namespaceapp_1_1api__client_1a1f94a135976701bdeeb72eb5acf4bbd4"/><section>
+    <title>test_mac</title>
+<indexterm><primary>test_mac</primary><secondary>app.api_client</secondary></indexterm>
+<indexterm><primary>app.api_client</primary><secondary>test_mac</secondary></indexterm>
+<para><computeroutput>str app.api_client.test_mac = &quot;0030DEABCDEF&quot;</computeroutput></para></section>
+</section>
+</section>

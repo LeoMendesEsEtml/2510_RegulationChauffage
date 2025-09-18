@@ -1,0 +1,186 @@
+\doxysection{Référence de la classe app.\+hw\+\_\+mux\+\_\+adg731.\+Adg731\+Mux\+Spi}
+\hypertarget{classapp_1_1hw__mux__adg731_1_1_adg731_mux_spi}{}\label{classapp_1_1hw__mux__adg731_1_1_adg731_mux_spi}\index{app.hw\_mux\_adg731.Adg731MuxSpi@{app.hw\_mux\_adg731.Adg731MuxSpi}}
+
+
+Pilote SPI pour multiplexeurs ADG731.  
+
+
+
+
+Graphe de collaboration de app.\+hw\+\_\+mux\+\_\+adg731.\+Adg731\+Mux\+Spi\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=216pt]{classapp_1_1hw__mux__adg731_1_1_adg731_mux_spi__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Fonctions membres publiques}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classapp_1_1hw__mux__adg731_1_1_adg731_mux_spi_a38043de4d45add48839b60c3c1e4aef0}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, speed\+\_\+hz=100000)
+\begin{DoxyCompactList}\small\item\em Initialise le pilote pour les multiplexeurs ADG731. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classapp_1_1hw__mux__adg731_1_1_adg731_mux_spi_a98d7e0145243c76bb250d0b7601d54c9}{close}} (self)
+\begin{DoxyCompactList}\small\item\em Ferme toutes les interfaces SPI. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classapp_1_1hw__mux__adg731_1_1_adg731_mux_spi_a1d21810662e9c89483f4a8d5430167cd}{set\+\_\+channel}} (self, board\+\_\+index, address)
+\begin{DoxyCompactList}\small\item\em Active un canal spécifique sur une carte donnée. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classapp_1_1hw__mux__adg731_1_1_adg731_mux_spi_a847670de338ddbc0e2257f8d821cd82a}{set\+\_\+output\+\_\+channel}} (self, channel\+\_\+index)
+\begin{DoxyCompactList}\small\item\em Utilitaire simple pour sélectionner un canal de sortie. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Attributs publics}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classapp_1_1hw__mux__adg731_1_1_adg731_mux_spi_a3f9d44d59b25aaec550ee234dfa55efd}{speed}} = speed\+\_\+hz
+\item 
+list \mbox{\hyperlink{classapp_1_1hw__mux__adg731_1_1_adg731_mux_spi_a8660e960365a4eccad962d9cd878f0b7}{handles}} = \mbox{[}$\,$\mbox{]}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Attributs publics statiques}
+\begin{DoxyCompactItemize}
+\item 
+list \mbox{\hyperlink{classapp_1_1hw__mux__adg731_1_1_adg731_mux_spi_a45d7743b30c6b2238fb9bf8ec1fc4814}{DEV}} = \mbox{[}"{}/dev/spidev0.\+0"{}, "{}/dev/spidev0.\+1"{}, "{}/dev/spidev0.\+2"{}, "{}/dev/spidev0.\+3"{}\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+Pilote SPI pour multiplexeurs ADG731. 
+
+Classe pour contrôler jusqu\textquotesingle{}à 4 multiplexeurs ADG731 via l\textquotesingle{}interface SPI0. Chaque multiplexeur peut gérer 32 canaux. Configure automatiquement les paramètres SPI optimaux et gère la communication avec les circuits. 
+
+\label{doc-constructors}
+\Hypertarget{classapp_1_1hw__mux__adg731_1_1_adg731_mux_spi_doc-constructors}
+\doxysubsection{Documentation des constructeurs et destructeur}
+\Hypertarget{classapp_1_1hw__mux__adg731_1_1_adg731_mux_spi_a38043de4d45add48839b60c3c1e4aef0}\index{app.hw\_mux\_adg731.Adg731MuxSpi@{app.hw\_mux\_adg731.Adg731MuxSpi}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!app.hw\_mux\_adg731.Adg731MuxSpi@{app.hw\_mux\_adg731.Adg731MuxSpi}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classapp_1_1hw__mux__adg731_1_1_adg731_mux_spi_a38043de4d45add48839b60c3c1e4aef0} 
+app.\+hw\+\_\+mux\+\_\+adg731.\+Adg731\+Mux\+Spi.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{speed\+\_\+hz}{ = {\ttfamily 100000}}\end{DoxyParamCaption})}
+
+
+
+Initialise le pilote pour les multiplexeurs ADG731. 
+
+Configure l\textquotesingle{}interface SPI pour chaque canal disponible, définit les paramètres de communication et initialise les handles pour jusqu\textquotesingle{}à 4 cartes multiplexeurs.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em speed\+\_\+hz} & Vitesse SPI en Hz (par défaut 100k\+Hz). \\
+\hline
+\end{DoxyParams}
+
+
+\label{doc-func-members}
+\Hypertarget{classapp_1_1hw__mux__adg731_1_1_adg731_mux_spi_doc-func-members}
+\doxysubsection{Documentation des fonctions membres}
+\Hypertarget{classapp_1_1hw__mux__adg731_1_1_adg731_mux_spi_a98d7e0145243c76bb250d0b7601d54c9}\index{app.hw\_mux\_adg731.Adg731MuxSpi@{app.hw\_mux\_adg731.Adg731MuxSpi}!close@{close}}
+\index{close@{close}!app.hw\_mux\_adg731.Adg731MuxSpi@{app.hw\_mux\_adg731.Adg731MuxSpi}}
+\doxysubsubsection{\texorpdfstring{close()}{close()}}
+{\footnotesize\ttfamily \label{classapp_1_1hw__mux__adg731_1_1_adg731_mux_spi_a98d7e0145243c76bb250d0b7601d54c9} 
+app.\+hw\+\_\+mux\+\_\+adg731.\+Adg731\+Mux\+Spi.\+close (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+Ferme toutes les interfaces SPI. 
+
+Parcourt tous les handles SPI ouverts et les ferme proprement. Gère les erreurs de fermeture pour éviter les exceptions lors du nettoyage. \Hypertarget{classapp_1_1hw__mux__adg731_1_1_adg731_mux_spi_a1d21810662e9c89483f4a8d5430167cd}\index{app.hw\_mux\_adg731.Adg731MuxSpi@{app.hw\_mux\_adg731.Adg731MuxSpi}!set\_channel@{set\_channel}}
+\index{set\_channel@{set\_channel}!app.hw\_mux\_adg731.Adg731MuxSpi@{app.hw\_mux\_adg731.Adg731MuxSpi}}
+\doxysubsubsection{\texorpdfstring{set\_channel()}{set\_channel()}}
+{\footnotesize\ttfamily \label{classapp_1_1hw__mux__adg731_1_1_adg731_mux_spi_a1d21810662e9c89483f4a8d5430167cd} 
+app.\+hw\+\_\+mux\+\_\+adg731.\+Adg731\+Mux\+Spi.\+set\+\_\+channel (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{board\+\_\+index}{, }\item[{}]{address}{}\end{DoxyParamCaption})}
+
+
+
+Active un canal spécifique sur une carte donnée. 
+
+Envoie la commande de sélection de canal vers la carte multiplexeur spécifiée. Génère l\textquotesingle{}octet de contrôle et l\textquotesingle{}envoie via SPI.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em board\+\_\+index} & Index de la carte (0-\/3). \\
+\hline
+{\em address} & Adresse du canal à activer (0-\/31).\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+Octet de contrôle envoyé, ou None si erreur.
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Value\+Error} & Si l\textquotesingle{}index de carte est hors plage. \\
+\hline
+\end{DoxyExceptions}
+Voici le graphe d\textquotesingle{}appel pour cette fonction \+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classapp_1_1hw__mux__adg731_1_1_adg731_mux_spi_a1d21810662e9c89483f4a8d5430167cd_cgraph}
+\end{center}
+\end{figure}
+Voici le graphe des appelants de cette fonction \+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classapp_1_1hw__mux__adg731_1_1_adg731_mux_spi_a1d21810662e9c89483f4a8d5430167cd_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classapp_1_1hw__mux__adg731_1_1_adg731_mux_spi_a847670de338ddbc0e2257f8d821cd82a}\index{app.hw\_mux\_adg731.Adg731MuxSpi@{app.hw\_mux\_adg731.Adg731MuxSpi}!set\_output\_channel@{set\_output\_channel}}
+\index{set\_output\_channel@{set\_output\_channel}!app.hw\_mux\_adg731.Adg731MuxSpi@{app.hw\_mux\_adg731.Adg731MuxSpi}}
+\doxysubsubsection{\texorpdfstring{set\_output\_channel()}{set\_output\_channel()}}
+{\footnotesize\ttfamily \label{classapp_1_1hw__mux__adg731_1_1_adg731_mux_spi_a847670de338ddbc0e2257f8d821cd82a} 
+app.\+hw\+\_\+mux\+\_\+adg731.\+Adg731\+Mux\+Spi.\+set\+\_\+output\+\_\+channel (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{channel\+\_\+index}{}\end{DoxyParamCaption})}
+
+
+
+Utilitaire simple pour sélectionner un canal de sortie. 
+
+Fonction de commodité qui utilise automatiquement la carte 0 et mappe directement l\textquotesingle{}index de canal sur l\textquotesingle{}adresse du multiplexeur.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em channel\+\_\+index} & Index du canal de sortie (0-\/31).\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+Octet de contrôle envoyé, ou None si erreur.
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Value\+Error} & Si l\textquotesingle{}index de canal est hors plage. \\
+\hline
+\end{DoxyExceptions}
+Voici le graphe d\textquotesingle{}appel pour cette fonction \+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classapp_1_1hw__mux__adg731_1_1_adg731_mux_spi_a847670de338ddbc0e2257f8d821cd82a_cgraph}
+\end{center}
+\end{figure}
+
+
+\label{doc-variable-members}
+\Hypertarget{classapp_1_1hw__mux__adg731_1_1_adg731_mux_spi_doc-variable-members}
+\doxysubsection{Documentation des données membres}
+\Hypertarget{classapp_1_1hw__mux__adg731_1_1_adg731_mux_spi_a45d7743b30c6b2238fb9bf8ec1fc4814}\index{app.hw\_mux\_adg731.Adg731MuxSpi@{app.hw\_mux\_adg731.Adg731MuxSpi}!DEV@{DEV}}
+\index{DEV@{DEV}!app.hw\_mux\_adg731.Adg731MuxSpi@{app.hw\_mux\_adg731.Adg731MuxSpi}}
+\doxysubsubsection{\texorpdfstring{DEV}{DEV}}
+{\footnotesize\ttfamily \label{classapp_1_1hw__mux__adg731_1_1_adg731_mux_spi_a45d7743b30c6b2238fb9bf8ec1fc4814} 
+list app.\+hw\+\_\+mux\+\_\+adg731.\+Adg731\+Mux\+Spi.\+DEV = \mbox{[}"{}/dev/spidev0.\+0"{}, "{}/dev/spidev0.\+1"{}, "{}/dev/spidev0.\+2"{}, "{}/dev/spidev0.\+3"{}\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{classapp_1_1hw__mux__adg731_1_1_adg731_mux_spi_a8660e960365a4eccad962d9cd878f0b7}\index{app.hw\_mux\_adg731.Adg731MuxSpi@{app.hw\_mux\_adg731.Adg731MuxSpi}!handles@{handles}}
+\index{handles@{handles}!app.hw\_mux\_adg731.Adg731MuxSpi@{app.hw\_mux\_adg731.Adg731MuxSpi}}
+\doxysubsubsection{\texorpdfstring{handles}{handles}}
+{\footnotesize\ttfamily \label{classapp_1_1hw__mux__adg731_1_1_adg731_mux_spi_a8660e960365a4eccad962d9cd878f0b7} 
+list app.\+hw\+\_\+mux\+\_\+adg731.\+Adg731\+Mux\+Spi.\+handles = \mbox{[}$\,$\mbox{]}}
+
+\Hypertarget{classapp_1_1hw__mux__adg731_1_1_adg731_mux_spi_a3f9d44d59b25aaec550ee234dfa55efd}\index{app.hw\_mux\_adg731.Adg731MuxSpi@{app.hw\_mux\_adg731.Adg731MuxSpi}!speed@{speed}}
+\index{speed@{speed}!app.hw\_mux\_adg731.Adg731MuxSpi@{app.hw\_mux\_adg731.Adg731MuxSpi}}
+\doxysubsubsection{\texorpdfstring{speed}{speed}}
+{\footnotesize\ttfamily \label{classapp_1_1hw__mux__adg731_1_1_adg731_mux_spi_a3f9d44d59b25aaec550ee234dfa55efd} 
+app.\+hw\+\_\+mux\+\_\+adg731.\+Adg731\+Mux\+Spi.\+speed = speed\+\_\+hz}
+
+
+
+La documentation de cette classe a été générée à partir du fichier suivant \+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/thebi/\+Documents/2510\+\_\+\+Regulation\+Chauffage/doc/9.\+Soft\+Ware/\+Doxygen/src/app/\mbox{\hyperlink{hw__mux__adg731_8py}{hw\+\_\+mux\+\_\+adg731.\+py}}\end{DoxyCompactItemize}

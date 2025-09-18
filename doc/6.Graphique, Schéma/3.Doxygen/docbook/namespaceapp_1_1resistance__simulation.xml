@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_namespaceapp_1_1resistance__simulation" xml:lang="fr">
+<title>Référence de l&apos;espace de nommage app.resistance_simulation</title>
+<indexterm><primary>app.resistance_simulation</primary></indexterm>
+<simplesect>
+    <title>Classes    </title>
+        <itemizedlist>
+            <listitem><para>class <link linkend="_classapp_1_1resistance__simulation_1_1_resistance_simulation_error">ResistanceSimulationError</link></para>
+
+<para>Exception pour les erreurs de simulation de résistance. </para>
+</listitem>
+            <listitem><para>class <link linkend="_classapp_1_1resistance__simulation_1_1_resistance_simulator">ResistanceSimulator</link></para>
+
+<para>Contrôleur pour la simulation de résistance via MUX. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Fonctions    </title>
+        <itemizedlist>
+            <listitem><para>bool <link linkend="_namespaceapp_1_1resistance__simulation_1ab4df858485a2008da66e5eaed218f67b">apply_resistance_simulation</link> (float resistance_ohm)</para>
+
+<para>Fonction utilitaire pour appliquer une résistance simulée. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Variables    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_namespaceapp_1_1resistance__simulation_1a1e0083edc4bb5cd3cf145384e73c9fb3">sim</link> = <link linkend="_classapp_1_1resistance__simulation_1_1_resistance_simulator">ResistanceSimulator</link>()</para>
+</listitem>
+            <listitem><para>bool <link linkend="_namespaceapp_1_1resistance__simulation_1af7b157026a22cabc88ac2a1df2bf0a45">success</link> = sim.apply_resistance_simulation(1000.0)</para>
+</listitem>
+            <listitem><para><link linkend="_namespaceapp_1_1resistance__simulation_1a0b6740f840f43350912072a8757fb6e5">valid</link> = sim.validate_resistance_applied(667.0, tolerance=0.15)</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Documentation des fonctions</title>
+<anchor xml:id="_namespaceapp_1_1resistance__simulation_1ab4df858485a2008da66e5eaed218f67b"/><section>
+    <title>apply_resistance_simulation()</title>
+<indexterm><primary>apply_resistance_simulation</primary><secondary>app.resistance_simulation</secondary></indexterm>
+<indexterm><primary>app.resistance_simulation</primary><secondary>apply_resistance_simulation</secondary></indexterm>
+<para><computeroutput> bool app.resistance_simulation.apply_resistance_simulation (float resistance_ohm)</computeroutput></para><para>
+
+<para>Fonction utilitaire pour appliquer une résistance simulée. </para>
+</para>
+
+<para>Fonction de commodité qui encapsule la création d&apos;un simulateur, l&apos;application d&apos;une résistance et le nettoyage automatique. Utilise le pattern RAII pour la gestion des ressources.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Paramètres</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>resistance_ohm</entry><entry>
+<para>Résistance à appliquer [Ohms].</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Renvoie</title>
+
+<para>True si l&apos;application a réussi, False sinon. </para>
+</formalpara>
+</para>
+</section>
+</section>
+<section>
+<title>Documentation des variables</title>
+<anchor xml:id="_namespaceapp_1_1resistance__simulation_1a1e0083edc4bb5cd3cf145384e73c9fb3"/><section>
+    <title>sim</title>
+<indexterm><primary>sim</primary><secondary>app.resistance_simulation</secondary></indexterm>
+<indexterm><primary>app.resistance_simulation</primary><secondary>sim</secondary></indexterm>
+<para><computeroutput>app.resistance_simulation.sim = <link linkend="_classapp_1_1resistance__simulation_1_1_resistance_simulator">ResistanceSimulator</link>()</computeroutput></para></section>
+<anchor xml:id="_namespaceapp_1_1resistance__simulation_1af7b157026a22cabc88ac2a1df2bf0a45"/><section>
+    <title>success</title>
+<indexterm><primary>success</primary><secondary>app.resistance_simulation</secondary></indexterm>
+<indexterm><primary>app.resistance_simulation</primary><secondary>success</secondary></indexterm>
+<para><computeroutput>bool app.resistance_simulation.success = sim.apply_resistance_simulation(1000.0)</computeroutput></para></section>
+<anchor xml:id="_namespaceapp_1_1resistance__simulation_1a0b6740f840f43350912072a8757fb6e5"/><section>
+    <title>valid</title>
+<indexterm><primary>valid</primary><secondary>app.resistance_simulation</secondary></indexterm>
+<indexterm><primary>app.resistance_simulation</primary><secondary>valid</secondary></indexterm>
+<para><computeroutput>app.resistance_simulation.valid = sim.validate_resistance_applied(667.0, tolerance=0.15)</computeroutput></para></section>
+</section>
+</section>

@@ -1,0 +1,121 @@
+.TH "app.hw_tmux1204.Tmux1204" 3 "2510_RegulationChauffage" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+app.hw_tmux1204.Tmux1204 \- Pilote pour le multiplexeur TMUX1204\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Fonctions membres publiques"
+
+.in +1c
+.ti -1c
+.RI "\fB__init__\fP (self)"
+.br
+.RI "Initialise le pilote TMUX1204\&. "
+.ti -1c
+.RI "\fBclose\fP (self)"
+.br
+.RI "Ferme les interfaces GPIO\&. "
+.ti -1c
+.RI "\fBset_bits\fP (self, bit_a1, bit_a0)"
+.br
+.RI "Définit les bits de contrôle A1 et A0\&. "
+.ti -1c
+.RI "\fBselect_rref_ohm\fP (self, rref_ohm)"
+.br
+.RI "Sélectionne la résistance de référence Rref\&. "
+.in -1c
+.SS "Attributs publics"
+
+.in +1c
+.ti -1c
+.RI "\fBgpio_a1\fP = GPIO(GPIO_CHIP_PATH, ADC_A1, 'out')"
+.br
+.ti -1c
+.RI "\fBgpio_a0\fP = GPIO(GPIO_CHIP_PATH, ADC_A0, 'out')"
+.br
+.in -1c
+.SH "Description détaillée"
+.PP 
+Pilote pour le multiplexeur TMUX1204\&. 
+
+Classe pour gérer la sélection de résistance de référence via le multiplexeur TMUX1204\&. Utilise deux signaux de contrôle (A1, A0) pour sélectionner parmi quatre valeurs de Rref selon la table de vérité :
+.IP "\(bu" 2
+A1=0, A0=0 : 2\&.2k ohms
+.IP "\(bu" 2
+A1=0, A0=1 : 2\&.7k ohms
+.IP "\(bu" 2
+A1=1, A0=0 : 10k ohms
+.IP "\(bu" 2
+A1=1, A0=1 : 100k ohms 
+.PP
+
+.SH "Documentation des constructeurs et destructeur"
+.PP 
+.SS "app\&.hw_tmux1204\&.Tmux1204\&.__init__ ( self)"
+
+.PP
+Initialise le pilote TMUX1204\&. Configure les GPIO pour les signaux de contrôle A1 et A0 en mode sortie\&. Utilise les constantes matérielles définies dans le module \fBpins_cm5\fP\&. 
+.SH "Documentation des fonctions membres"
+.PP 
+.SS "app\&.hw_tmux1204\&.Tmux1204\&.close ( self)"
+
+.PP
+Ferme les interfaces GPIO\&. Ferme proprement les GPIO A1 et A0 pour libérer les ressources système\&. Gère les erreurs de fermeture pour éviter les exceptions lors du nettoyage\&. 
+.SS "app\&.hw_tmux1204\&.Tmux1204\&.select_rref_ohm ( self,  rref_ohm)"
+
+.PP
+Sélectionne la résistance de référence Rref\&. Configure les signaux de contrôle selon la table de vérité pour sélectionner la résistance de référence demandée\&. Supporte quatre valeurs fixes : 2200, 2700, 10000, 100000 ohms\&.
+
+.PP
+\fBParamètres\fP
+.RS 4
+\fIrref_ohm\fP Valeur de résistance de référence en ohms\&.
+.RE
+.PP
+\fBExceptions\fP
+.RS 4
+\fIValueError\fP Si la valeur de Rref n'est pas supportée\&.
+.RE
+.PP
+\fBNote\fP
+.RS 4
+Table de vérité TMUX1204 :
+.IP "\(bu" 2
+2200 ohms : A1=0, A0=0
+.IP "\(bu" 2
+2700 ohms : A1=0, A0=1
+.IP "\(bu" 2
+10000 ohms : A1=1, A0=0
+.IP "\(bu" 2
+100000 ohms: A1=1, A0=1 
+.PP
+.RE
+.PP
+
+.SS "app\&.hw_tmux1204\&.Tmux1204\&.set_bits ( self,  bit_a1,  bit_a0)"
+
+.PP
+Définit les bits de contrôle A1 et A0\&. Applique les niveaux logiques sur les signaux de contrôle du multiplexeur\&. Convertit les valeurs numériques (0/1) en niveaux logiques GPIO (False/True)\&.
+
+.PP
+\fBParamètres\fP
+.RS 4
+\fIbit_a1\fP Valeur du bit A1 (0 ou 1)\&. 
+.br
+\fIbit_a0\fP Valeur du bit A0 (0 ou 1)\&. 
+.RE
+.PP
+
+.SH "Documentation des données membres"
+.PP 
+.SS "app\&.hw_tmux1204\&.Tmux1204\&.gpio_a0 = GPIO(GPIO_CHIP_PATH, ADC_A0, 'out')"
+
+.SS "app\&.hw_tmux1204\&.Tmux1204\&.gpio_a1 = GPIO(GPIO_CHIP_PATH, ADC_A1, 'out')"
+
+
+.SH "Auteur"
+.PP 
+Généré automatiquement par Doxygen pour 2510_RegulationChauffage à partir du code source\&.

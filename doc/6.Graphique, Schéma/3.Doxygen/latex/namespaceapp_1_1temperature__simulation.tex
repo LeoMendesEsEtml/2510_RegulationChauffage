@@ -1,0 +1,135 @@
+\doxysection{Référence de l\textquotesingle{}espace de nommage app.\+temperature\+\_\+simulation}
+\hypertarget{namespaceapp_1_1temperature__simulation}{}\label{namespaceapp_1_1temperature__simulation}\index{app.temperature\_simulation@{app.temperature\_simulation}}
+\doxysubsubsection*{Fonctions}
+\begin{DoxyCompactItemize}
+\item 
+Optional\mbox{[}float\mbox{]} \mbox{\hyperlink{namespaceapp_1_1temperature__simulation_ad0955f54e494774453fd9395ddf156f3}{calculate\+\_\+simulated\+\_\+temperature}} (float t\+\_\+mes, float t\+\_\+prev, float n, float k\+\_\+m)
+\begin{DoxyCompactList}\small\item\em Calcule la température simulée selon la formule prédictive. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{namespaceapp_1_1temperature__simulation_a34c95102387b78fc0ae24419cfdc62be}{validate\+\_\+simulation\+\_\+parameters}} (str probe\+\_\+type, float n, float k\+\_\+m, float t\+\_\+mes, float t\+\_\+prev)
+\begin{DoxyCompactList}\small\item\em Valide tous les paramètres de simulation avant exécution. \end{DoxyCompactList}\item 
+Optional\mbox{[}float\mbox{]} \mbox{\hyperlink{namespaceapp_1_1temperature__simulation_a9dce35a5a5235426dcb9002af6f2fe80}{run\+\_\+temperature\+\_\+simulation}} (dict simulation\+\_\+data)
+\begin{DoxyCompactList}\small\item\em Exécute une simulation complète de température avec dictionnaire. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{namespaceapp_1_1temperature__simulation_doc-func-members}
+\doxysubsection{Documentation des fonctions}
+\Hypertarget{namespaceapp_1_1temperature__simulation_ad0955f54e494774453fd9395ddf156f3}\index{app.temperature\_simulation@{app.temperature\_simulation}!calculate\_simulated\_temperature@{calculate\_simulated\_temperature}}
+\index{calculate\_simulated\_temperature@{calculate\_simulated\_temperature}!app.temperature\_simulation@{app.temperature\_simulation}}
+\doxysubsubsection{\texorpdfstring{calculate\_simulated\_temperature()}{calculate\_simulated\_temperature()}}
+{\footnotesize\ttfamily \label{namespaceapp_1_1temperature__simulation_ad0955f54e494774453fd9395ddf156f3} 
+ Optional\mbox{[}float\mbox{]} app.\+temperature\+\_\+simulation.\+calculate\+\_\+simulated\+\_\+temperature (\begin{DoxyParamCaption}\item[{float}]{t\+\_\+mes}{, }\item[{float}]{t\+\_\+prev}{, }\item[{float}]{n}{, }\item[{float}]{k\+\_\+m}{}\end{DoxyParamCaption})}
+
+
+
+Calcule la température simulée selon la formule prédictive. 
+
+Implémente la formule T\+\_\+sim = T\+\_\+mes + ((T\+\_\+prev -\/ T\+\_\+mes) \texorpdfstring{$\ast$}{*} n \texorpdfstring{$\ast$}{*} exp(k\+\_\+m)) avec validation complète des paramètres et gestion des erreurs numériques (overflow, underflow, valeurs infinies).
+
+
+\begin{DoxyParams}{Paramètres}
+{\em t\+\_\+mes} & Température mesurée \mbox{[}°C\mbox{]}. \\
+\hline
+{\em t\+\_\+prev} & Température prévue \mbox{[}°C\mbox{]}. \\
+\hline
+{\em n} & Paramètre de pondération \mbox{[}-\/∞, +∞\mbox{]}. \\
+\hline
+{\em k\+\_\+m} & Paramètre exposant pour fonction exponentielle \mbox{[}-\/∞, +∞\mbox{]}.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+Température simulée \mbox{[}°C\mbox{]} ou None en cas d\textquotesingle{}erreur.
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Overflow\+Error} & si exp(k\+\_\+m) dépasse les limites numériques. \\
+\hline
+\end{DoxyExceptions}
+\begin{DoxyWarning}{Avertissement}
+Limitation automatique des paramètres extrêmes. 
+\end{DoxyWarning}
+Voici le graphe des appelants de cette fonction \+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespaceapp_1_1temperature__simulation_ad0955f54e494774453fd9395ddf156f3_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespaceapp_1_1temperature__simulation_a9dce35a5a5235426dcb9002af6f2fe80}\index{app.temperature\_simulation@{app.temperature\_simulation}!run\_temperature\_simulation@{run\_temperature\_simulation}}
+\index{run\_temperature\_simulation@{run\_temperature\_simulation}!app.temperature\_simulation@{app.temperature\_simulation}}
+\doxysubsubsection{\texorpdfstring{run\_temperature\_simulation()}{run\_temperature\_simulation()}}
+{\footnotesize\ttfamily \label{namespaceapp_1_1temperature__simulation_a9dce35a5a5235426dcb9002af6f2fe80} 
+ Optional\mbox{[}float\mbox{]} app.\+temperature\+\_\+simulation.\+run\+\_\+temperature\+\_\+simulation (\begin{DoxyParamCaption}\item[{dict}]{simulation\+\_\+data}{}\end{DoxyParamCaption})}
+
+
+
+Exécute une simulation complète de température avec dictionnaire. 
+
+Fonction principale d\textquotesingle{}orchestration qui extrait les paramètres d\textquotesingle{}un dictionnaire, valide tous les paramètres et execute la simulation complète avec gestion d\textquotesingle{}erreur robuste.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em simulation\+\_\+data} & Dictionnaire contenant tous les paramètres requis\+:
+\begin{DoxyItemize}
+\item probe\+\_\+type\+: Type de sonde (str)
+\item n\+: Paramètre de pondération (float)
+\item k\+\_\+m\+: Paramètre exposant (float)
+\item temperature\+: Température mesurée (float)
+\item forecast\+\_\+temperature\+: Température prévue (float)
+\end{DoxyItemize}\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+Température simulée \mbox{[}°C\mbox{]} ou None si erreur.
+\end{DoxyReturn}
+\begin{DoxyWarning}{Avertissement}
+Retourne None pour toute erreur de validation ou calcul. 
+\end{DoxyWarning}
+Voici le graphe d\textquotesingle{}appel pour cette fonction \+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespaceapp_1_1temperature__simulation_a9dce35a5a5235426dcb9002af6f2fe80_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespaceapp_1_1temperature__simulation_a34c95102387b78fc0ae24419cfdc62be}\index{app.temperature\_simulation@{app.temperature\_simulation}!validate\_simulation\_parameters@{validate\_simulation\_parameters}}
+\index{validate\_simulation\_parameters@{validate\_simulation\_parameters}!app.temperature\_simulation@{app.temperature\_simulation}}
+\doxysubsubsection{\texorpdfstring{validate\_simulation\_parameters()}{validate\_simulation\_parameters()}}
+{\footnotesize\ttfamily \label{namespaceapp_1_1temperature__simulation_a34c95102387b78fc0ae24419cfdc62be} 
+ bool app.\+temperature\+\_\+simulation.\+validate\+\_\+simulation\+\_\+parameters (\begin{DoxyParamCaption}\item[{str}]{probe\+\_\+type}{, }\item[{float}]{n}{, }\item[{float}]{k\+\_\+m}{, }\item[{float}]{t\+\_\+mes}{, }\item[{float}]{t\+\_\+prev}{}\end{DoxyParamCaption})}
+
+
+
+Valide tous les paramètres de simulation avant exécution. 
+
+Fonction de validation complète qui vérifie la cohérence et les plages de tous les paramètres d\textquotesingle{}entrée. Inclut la vérification interactive pour les écarts importants.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em probe\+\_\+type} & Type de sonde à utiliser pour la simulation. \\
+\hline
+{\em n} & Paramètre de pondération de la simulation. \\
+\hline
+{\em k\+\_\+m} & Paramètre exposant de la fonction exponentielle. \\
+\hline
+{\em t\+\_\+mes} & Température mesurée à valider \mbox{[}°C\mbox{]}. \\
+\hline
+{\em t\+\_\+prev} & Température prévue à valider \mbox{[}°C\mbox{]}.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+True si tous les paramètres sont valides.
+\end{DoxyReturn}
+\begin{DoxyWarning}{Avertissement}
+Demande confirmation utilisateur pour écarts importants. 
+\end{DoxyWarning}
+Voici le graphe des appelants de cette fonction \+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespaceapp_1_1temperature__simulation_a34c95102387b78fc0ae24419cfdc62be_icgraph}
+\end{center}
+\end{figure}

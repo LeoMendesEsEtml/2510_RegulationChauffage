@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="fr">
+  <compounddef id="namespaceconfig__module_1_1cm5__config" kind="namespace" language="Python">
+    <compoundname>config_module::cm5_config</compoundname>
+    <sectiondef kind="var">
+      <memberdef kind="variable" id="namespaceconfig__module_1_1cm5__config_1a98f07cbc7aad810cb848630cde11db65" prot="public" static="no" mutable="no">
+        <type>list</type>
+        <definition>list config_module::cm5_config.ADC_CHANNELS</definition>
+        <argsstring></argsstring>
+        <name>ADC_CHANNELS</name>
+        <qualifiedname>config_module.cm5_config.ADC_CHANNELS</qualifiedname>
+        <initializer>=  [1, 2, 3, 4]</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/config_module/cm5_config.py" line="31" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/config_module/cm5_config.py" bodystart="31" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="namespaceconfig__module_1_1cm5__config_1a1b2cec317a1cf375b2d43c263f5a665b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>config_module.cm5_config.build_hw</definition>
+        <argsstring>()</argsstring>
+        <name>build_hw</name>
+        <qualifiedname>config_module.cm5_config.build_hw</qualifiedname>
+        <briefdescription>
+<para>Initialise et configure tout le matériel CM5. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Crée les instances des composants matériels avec configuration fixe LED frontale, multiplexeur TMUX et ADC. Configure la LED en sortie et l&apos;allume immédiatement pour indication système.</para>
+<para><simplesect kind="return"><para>Dictionnaire contenant toutes les instances matérielles:<itemizedlist>
+<listitem><para>&quot;led&quot;: Instance GPIO pour LED frontale</para>
+</listitem><listitem><para>&quot;tmux&quot;: Instance <ref refid="classapp_1_1hw__tmux1204_1_1_tmux1204" kindref="compound">Tmux1204</ref> pour sélection canaux</para>
+</listitem><listitem><para>&quot;adc&quot;: Instance <ref refid="classapp_1_1adc__ads124s08_1_1_ads124s08" kindref="compound">Ads124s08</ref> pour conversion analogique</para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+<simplesect kind="warning"><para>LED allumée automatiquement pour indiquer système actif. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/config_module/cm5_config.py" line="51" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/config_module/cm5_config.py" bodystart="51" bodyend="70"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/config_module/cm5_config.py" line="1" column="1"/>
+  </compounddef>
+</doxygen>

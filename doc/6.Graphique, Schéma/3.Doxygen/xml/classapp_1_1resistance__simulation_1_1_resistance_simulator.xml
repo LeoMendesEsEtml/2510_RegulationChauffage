@@ -1,0 +1,377 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="fr">
+  <compounddef id="classapp_1_1resistance__simulation_1_1_resistance_simulator" kind="class" language="Python" prot="public">
+    <compoundname>app::resistance_simulation::ResistanceSimulator</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classapp_1_1resistance__simulation_1_1_resistance_simulator_1af3606629707a477326150edf2a509372" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>app.resistance_simulation.ResistanceSimulator::mux</definition>
+        <argsstring></argsstring>
+        <name>mux</name>
+        <qualifiedname>app.resistance_simulation.ResistanceSimulator.mux</qualifiedname>
+        <initializer>=  None</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/resistance_simulation.py" line="64" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/resistance_simulation.py" bodystart="64" bodyend="-1"/>
+        <referencedby refid="classapp_1_1resistance__simulation_1_1_resistance_simulator_1af37b47aad2cb3d0526e6d462b91f570d" compoundref="resistance__simulation_8py" startline="137" endline="197">app.resistance_simulation.ResistanceSimulator.apply_resistance_simulation</referencedby>
+        <referencedby refid="classapp_1_1resistance__simulation_1_1_resistance_simulator_1a755f6de9c1e441ce53378b8c0e3809ba" compoundref="resistance__simulation_8py" startline="88" endline="99">app.resistance_simulation.ResistanceSimulator.close</referencedby>
+        <referencedby refid="classapp_1_1resistance__simulation_1_1_resistance_simulator_1a8cc3d0868205e9d7f1d1e94e4914a5f6" compoundref="resistance__simulation_8py" startline="256" endline="291">app.resistance_simulation.ResistanceSimulator.reset_simulation</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="classapp_1_1resistance__simulation_1_1_resistance_simulator_1ae5b48bf05a00308d6773645c7aa10b71" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>app.resistance_simulation.ResistanceSimulator::speed_hz</definition>
+        <argsstring></argsstring>
+        <name>speed_hz</name>
+        <qualifiedname>app.resistance_simulation.ResistanceSimulator.speed_hz</qualifiedname>
+        <initializer>=  speed_hz</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/resistance_simulation.py" line="66" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/resistance_simulation.py" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classapp_1_1resistance__simulation_1_1_resistance_simulator_1aa1763da19373d1872a716cde755786bc" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>app.resistance_simulation.ResistanceSimulator::current_resistance</definition>
+        <argsstring></argsstring>
+        <name>current_resistance</name>
+        <qualifiedname>app.resistance_simulation.ResistanceSimulator.current_resistance</qualifiedname>
+        <initializer>=  None</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/resistance_simulation.py" line="68" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/resistance_simulation.py" bodystart="68" bodyend="-1"/>
+        <referencedby refid="classapp_1_1resistance__simulation_1_1_resistance_simulator_1af37b47aad2cb3d0526e6d462b91f570d" compoundref="resistance__simulation_8py" startline="137" endline="197">app.resistance_simulation.ResistanceSimulator.apply_resistance_simulation</referencedby>
+        <referencedby refid="classapp_1_1resistance__simulation_1_1_resistance_simulator_1ab653abb1151252481121be10148c757f" compoundref="resistance__simulation_8py" startline="209" endline="218">app.resistance_simulation.ResistanceSimulator.get_current_simulation</referencedby>
+        <referencedby refid="classapp_1_1resistance__simulation_1_1_resistance_simulator_1a8cc3d0868205e9d7f1d1e94e4914a5f6" compoundref="resistance__simulation_8py" startline="256" endline="291">app.resistance_simulation.ResistanceSimulator.reset_simulation</referencedby>
+        <referencedby refid="classapp_1_1resistance__simulation_1_1_resistance_simulator_1a8ff1f89807bce5808bf0a6abd866f5b3" compoundref="resistance__simulation_8py" startline="230" endline="249">app.resistance_simulation.ResistanceSimulator.validate_resistance_applied</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="classapp_1_1resistance__simulation_1_1_resistance_simulator_1aeaae96a14daee0614aa7cb5039a7f33c" prot="public" static="no" mutable="no">
+        <type>list</type>
+        <definition>list app.resistance_simulation.ResistanceSimulator::active_channels</definition>
+        <argsstring></argsstring>
+        <name>active_channels</name>
+        <qualifiedname>app.resistance_simulation.ResistanceSimulator.active_channels</qualifiedname>
+        <initializer>=  []</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/resistance_simulation.py" line="70" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/resistance_simulation.py" bodystart="70" bodyend="-1"/>
+        <referencedby refid="classapp_1_1resistance__simulation_1_1_resistance_simulator_1af37b47aad2cb3d0526e6d462b91f570d" compoundref="resistance__simulation_8py" startline="137" endline="197">app.resistance_simulation.ResistanceSimulator.apply_resistance_simulation</referencedby>
+        <referencedby refid="classapp_1_1resistance__simulation_1_1_resistance_simulator_1ab653abb1151252481121be10148c757f" compoundref="resistance__simulation_8py" startline="209" endline="218">app.resistance_simulation.ResistanceSimulator.get_current_simulation</referencedby>
+        <referencedby refid="classapp_1_1resistance__simulation_1_1_resistance_simulator_1a8cc3d0868205e9d7f1d1e94e4914a5f6" compoundref="resistance__simulation_8py" startline="256" endline="291">app.resistance_simulation.ResistanceSimulator.reset_simulation</referencedby>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classapp_1_1resistance__simulation_1_1_resistance_simulator_1a5542d1fa1714527b926320a821ad808e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>app.resistance_simulation.ResistanceSimulator.__init__</definition>
+        <argsstring>(self, int speed_hz=100000)</argsstring>
+        <name>__init__</name>
+        <qualifiedname>app.resistance_simulation.ResistanceSimulator.__init__</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>speed_hz</declname>
+          <defval>100000</defval>
+        </param>
+        <briefdescription>
+<para>Initialise le simulateur de résistance. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Constructeur qui configure le multiplexeur ADG731 avec la vitesse SPI spécifiée et initialise les variables d&apos;état du simulateur.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>speed_hz</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Vitesse de communication SPI en Hz (défaut: 100kHz).</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="exception"><parameteritem>
+<parameternamelist>
+<parametername><ref refid="classapp_1_1resistance__simulation_1_1_resistance_simulation_error" kindref="compound">ResistanceSimulationError</ref></parametername>
+</parameternamelist>
+<parameterdescription>
+<para>si l&apos;initialisation du MUX échoue. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/resistance_simulation.py" line="62" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/resistance_simulation.py" bodystart="62" bodyend="82"/>
+      </memberdef>
+      <memberdef kind="function" id="classapp_1_1resistance__simulation_1_1_resistance_simulator_1a755f6de9c1e441ce53378b8c0e3809ba" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>app.resistance_simulation.ResistanceSimulator.close</definition>
+        <argsstring>(self)</argsstring>
+        <name>close</name>
+        <qualifiedname>app.resistance_simulation.ResistanceSimulator.close</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+<para>Ferme les connexions du simulateur. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Méthode de nettoyage qui ferme proprement la connexion SPI avec le multiplexeur et libère les ressources. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/resistance_simulation.py" line="88" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/resistance_simulation.py" bodystart="88" bodyend="99"/>
+        <references refid="classapp_1_1resistance__simulation_1_1_resistance_simulator_1a755f6de9c1e441ce53378b8c0e3809ba" compoundref="resistance__simulation_8py" startline="88" endline="99">app.resistance_simulation.ResistanceSimulator.close</references>
+        <references refid="classapp_1_1resistance__simulation_1_1_resistance_simulator_1af3606629707a477326150edf2a509372" compoundref="resistance__simulation_8py" startline="64">app.resistance_simulation.ResistanceSimulator.mux</references>
+        <referencedby refid="classapp_1_1resistance__simulation_1_1_resistance_simulator_1a755f6de9c1e441ce53378b8c0e3809ba" compoundref="resistance__simulation_8py" startline="88" endline="99">app.resistance_simulation.ResistanceSimulator.close</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classapp_1_1resistance__simulation_1_1_resistance_simulator_1aa7620a3456e0d1878186280753295744" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>float</type>
+        <definition> float app.resistance_simulation.ResistanceSimulator.calculate_parallel_resistance</definition>
+        <argsstring>(self, List[float] resistances)</argsstring>
+        <name>calculate_parallel_resistance</name>
+        <qualifiedname>app.resistance_simulation.ResistanceSimulator.calculate_parallel_resistance</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>List</type>
+          <declname>resistances</declname>
+          <array>[float]</array>
+        </param>
+        <briefdescription>
+<para>Calcule la résistance équivalente de résistances en parallèle. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Applique la formule 1/Req = 1/R1 + 1/R2 + ... + 1/Rn pour calculer la résistance équivalente d&apos;un ensemble de résistances connectées en parallèle.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>resistances</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Liste des valeurs de résistance en parallèle [Ohms].</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Résistance équivalente calculée [Ohms]. Retourne l&apos;infini si la liste est vide. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/resistance_simulation.py" line="111" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/resistance_simulation.py" bodystart="111" bodyend="124"/>
+      </memberdef>
+      <memberdef kind="function" id="classapp_1_1resistance__simulation_1_1_resistance_simulator_1af37b47aad2cb3d0526e6d462b91f570d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition> bool app.resistance_simulation.ResistanceSimulator.apply_resistance_simulation</definition>
+        <argsstring>(self, float target_resistance, int measurement_channel, str sensor_type=&quot;Ni1000 TK5000&quot;)</argsstring>
+        <name>apply_resistance_simulation</name>
+        <qualifiedname>app.resistance_simulation.ResistanceSimulator.apply_resistance_simulation</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>target_resistance</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>measurement_channel</declname>
+        </param>
+        <param>
+          <type>str</type>
+          <declname>sensor_type</declname>
+          <defval>&quot;Ni1000 TK5000&quot;</defval>
+        </param>
+        <briefdescription>
+<para>Applique une résistance simulée via le MUX sur le canal de mesure. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Fonction principale qui recherche le canal MUX optimal pour simuler la résistance cible, configure le multiplexeur et mémorise l&apos;état de la simulation.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>target_resistance</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Résistance à simuler [Ohms]. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>measurement_channel</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Canal sur lequel la mesure a été faite (info). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>sensor_type</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Type de sonde pour sélectionner la carte MUX.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>True si succès, False en cas d&apos;erreur. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/resistance_simulation.py" line="137" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/resistance_simulation.py" bodystart="137" bodyend="197"/>
+        <references refid="classapp_1_1resistance__simulation_1_1_resistance_simulator_1aeaae96a14daee0614aa7cb5039a7f33c" compoundref="resistance__simulation_8py" startline="70">app.resistance_simulation.ResistanceSimulator.active_channels</references>
+        <references refid="classapp_1_1resistance__simulation_1_1_resistance_simulator_1aa1763da19373d1872a716cde755786bc" compoundref="resistance__simulation_8py" startline="68">app.resistance_simulation.ResistanceSimulator.current_resistance</references>
+        <references refid="classapp_1_1resistance__simulation_1_1_resistance_simulator_1af3606629707a477326150edf2a509372" compoundref="resistance__simulation_8py" startline="64">app.resistance_simulation.ResistanceSimulator.mux</references>
+      </memberdef>
+      <memberdef kind="function" id="classapp_1_1resistance__simulation_1_1_resistance_simulator_1ab653abb1151252481121be10148c757f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>Dict[str, any]</type>
+        <definition> Dict[str, any] app.resistance_simulation.ResistanceSimulator.get_current_simulation</definition>
+        <argsstring>(self)</argsstring>
+        <name>get_current_simulation</name>
+        <qualifiedname>app.resistance_simulation.ResistanceSimulator.get_current_simulation</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+<para>Retourne l&apos;état actuel de la simulation. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Fonction d&apos;interrogation qui fournit un dictionnaire contenant toutes les informations sur l&apos;état actuel de la simulation de résistance.</para>
+<para><simplesect kind="return"><para>Dictionnaire contenant les informations actuelles:<itemizedlist>
+<listitem><para>resistance: valeur appliquée [Ohms] ou None</para>
+</listitem><listitem><para>active_channels: liste des canaux MUX actifs</para>
+</listitem><listitem><para>mux_available: disponibilité du multiplexeur </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/resistance_simulation.py" line="209" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/resistance_simulation.py" bodystart="209" bodyend="218"/>
+        <references refid="classapp_1_1resistance__simulation_1_1_resistance_simulator_1aeaae96a14daee0614aa7cb5039a7f33c" compoundref="resistance__simulation_8py" startline="70">app.resistance_simulation.ResistanceSimulator.active_channels</references>
+        <references refid="classapp_1_1resistance__simulation_1_1_resistance_simulator_1aa1763da19373d1872a716cde755786bc" compoundref="resistance__simulation_8py" startline="68">app.resistance_simulation.ResistanceSimulator.current_resistance</references>
+      </memberdef>
+      <memberdef kind="function" id="classapp_1_1resistance__simulation_1_1_resistance_simulator_1a8ff1f89807bce5808bf0a6abd866f5b3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition> bool app.resistance_simulation.ResistanceSimulator.validate_resistance_applied</definition>
+        <argsstring>(self, float expected_resistance, float tolerance=0.10)</argsstring>
+        <name>validate_resistance_applied</name>
+        <qualifiedname>app.resistance_simulation.ResistanceSimulator.validate_resistance_applied</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>expected_resistance</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>tolerance</declname>
+          <defval>0.10</defval>
+        </param>
+        <briefdescription>
+<para>Valide que la résistance appliquée correspond à l&apos;attendu. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Fonction de validation qui compare la résistance actuellement appliquée avec la valeur attendue en tenant compte d&apos;une tolérance relative spécifiée.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>expected_resistance</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Résistance attendue pour la validation [Ohms]. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>tolerance</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Tolérance relative acceptée (défaut: 10%).</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>True si la résistance est dans la tolérance. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/resistance_simulation.py" line="230" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/resistance_simulation.py" bodystart="230" bodyend="249"/>
+        <references refid="classapp_1_1resistance__simulation_1_1_resistance_simulator_1aa1763da19373d1872a716cde755786bc" compoundref="resistance__simulation_8py" startline="68">app.resistance_simulation.ResistanceSimulator.current_resistance</references>
+      </memberdef>
+      <memberdef kind="function" id="classapp_1_1resistance__simulation_1_1_resistance_simulator_1a8cc3d0868205e9d7f1d1e94e4914a5f6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>app.resistance_simulation.ResistanceSimulator.reset_simulation</definition>
+        <argsstring>(self)</argsstring>
+        <name>reset_simulation</name>
+        <qualifiedname>app.resistance_simulation.ResistanceSimulator.reset_simulation</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+<para>Remet la simulation à zéro (désactive tous les canaux). </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Procédure de nettoyage qui désactive tous les canaux de tous les multiplexeurs et remet l&apos;état de simulation à sa configuration initiale. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/resistance_simulation.py" line="256" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/resistance_simulation.py" bodystart="256" bodyend="291"/>
+        <references refid="classapp_1_1resistance__simulation_1_1_resistance_simulator_1aeaae96a14daee0614aa7cb5039a7f33c" compoundref="resistance__simulation_8py" startline="70">app.resistance_simulation.ResistanceSimulator.active_channels</references>
+        <references refid="classapp_1_1resistance__simulation_1_1_resistance_simulator_1aa1763da19373d1872a716cde755786bc" compoundref="resistance__simulation_8py" startline="68">app.resistance_simulation.ResistanceSimulator.current_resistance</references>
+        <references refid="classapp_1_1resistance__simulation_1_1_resistance_simulator_1af3606629707a477326150edf2a509372" compoundref="resistance__simulation_8py" startline="64">app.resistance_simulation.ResistanceSimulator.mux</references>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Contrôleur pour la simulation de résistance via MUX. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Classe principale qui encapsule toute la logique de simulation de résistance en utilisant le multiplexeur ADG731 et les mappings de résistances calibrées. </para>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>app.resistance_simulation.ResistanceSimulator</label>
+        <link refid="classapp_1_1resistance__simulation_1_1_resistance_simulator"/>
+      </node>
+    </collaborationgraph>
+    <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/resistance_simulation.py" line="50" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/resistance_simulation.py" bodystart="50" bodyend="291"/>
+    <listofallmembers>
+      <member refid="classapp_1_1resistance__simulation_1_1_resistance_simulator_1a5542d1fa1714527b926320a821ad808e" prot="public" virt="non-virtual"><scope>app::resistance_simulation::ResistanceSimulator</scope><name>__init__</name></member>
+      <member refid="classapp_1_1resistance__simulation_1_1_resistance_simulator_1aeaae96a14daee0614aa7cb5039a7f33c" prot="public" virt="non-virtual"><scope>app::resistance_simulation::ResistanceSimulator</scope><name>active_channels</name></member>
+      <member refid="classapp_1_1resistance__simulation_1_1_resistance_simulator_1af37b47aad2cb3d0526e6d462b91f570d" prot="public" virt="non-virtual"><scope>app::resistance_simulation::ResistanceSimulator</scope><name>apply_resistance_simulation</name></member>
+      <member refid="classapp_1_1resistance__simulation_1_1_resistance_simulator_1aa7620a3456e0d1878186280753295744" prot="public" virt="non-virtual"><scope>app::resistance_simulation::ResistanceSimulator</scope><name>calculate_parallel_resistance</name></member>
+      <member refid="classapp_1_1resistance__simulation_1_1_resistance_simulator_1a755f6de9c1e441ce53378b8c0e3809ba" prot="public" virt="non-virtual"><scope>app::resistance_simulation::ResistanceSimulator</scope><name>close</name></member>
+      <member refid="classapp_1_1resistance__simulation_1_1_resistance_simulator_1aa1763da19373d1872a716cde755786bc" prot="public" virt="non-virtual"><scope>app::resistance_simulation::ResistanceSimulator</scope><name>current_resistance</name></member>
+      <member refid="classapp_1_1resistance__simulation_1_1_resistance_simulator_1ab653abb1151252481121be10148c757f" prot="public" virt="non-virtual"><scope>app::resistance_simulation::ResistanceSimulator</scope><name>get_current_simulation</name></member>
+      <member refid="classapp_1_1resistance__simulation_1_1_resistance_simulator_1af3606629707a477326150edf2a509372" prot="public" virt="non-virtual"><scope>app::resistance_simulation::ResistanceSimulator</scope><name>mux</name></member>
+      <member refid="classapp_1_1resistance__simulation_1_1_resistance_simulator_1a8cc3d0868205e9d7f1d1e94e4914a5f6" prot="public" virt="non-virtual"><scope>app::resistance_simulation::ResistanceSimulator</scope><name>reset_simulation</name></member>
+      <member refid="classapp_1_1resistance__simulation_1_1_resistance_simulator_1ae5b48bf05a00308d6773645c7aa10b71" prot="public" virt="non-virtual"><scope>app::resistance_simulation::ResistanceSimulator</scope><name>speed_hz</name></member>
+      <member refid="classapp_1_1resistance__simulation_1_1_resistance_simulator_1a8ff1f89807bce5808bf0a6abd866f5b3" prot="public" virt="non-virtual"><scope>app::resistance_simulation::ResistanceSimulator</scope><name>validate_resistance_applied</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

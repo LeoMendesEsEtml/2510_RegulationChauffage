@@ -1,0 +1,61 @@
+\doxysection{Référence du fichier C\+:/\+Users/thebi/\+Documents/2510\+\_\+\+Regulation\+Chauffage/doc/9.Soft\+Ware/\+Doxygen/src/webui/webui\+\_\+server.py}
+\hypertarget{webui__server_8py}{}\label{webui__server_8py}\index{C:/Users/thebi/Documents/2510\_RegulationChauffage/doc/9.SoftWare/Doxygen/src/webui/webui\_server.py@{C:/Users/thebi/Documents/2510\_RegulationChauffage/doc/9.SoftWare/Doxygen/src/webui/webui\_server.py}}
+
+
+Serveur web pour interface utilisateur de configuration.  
+
+
+\doxysubsubsection*{Espaces de nommage}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespacewebui}{webui}}
+\item 
+namespace \mbox{\hyperlink{namespacewebui_1_1webui__server}{webui.\+webui\+\_\+server}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Fonctions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacewebui_1_1webui__server_ab49b8a0bc3425c50079480de48990dcc}{webui.\+webui\+\_\+server.\+serve\+\_\+index}} ()
+\begin{DoxyCompactList}\small\item\em Sert la page principale de l\textquotesingle{}interface web. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespacewebui_1_1webui__server_a4c0c0ae9a45c748c0089996cf34a199e}{webui.\+webui\+\_\+server.\+get\+\_\+config}} ()
+\begin{DoxyCompactList}\small\item\em Récupère la configuration actuelle des capteurs. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespacewebui_1_1webui__server_a5e3c84f0b6e1334a0fb7d3375965e0f6}{webui.\+webui\+\_\+server.\+put\+\_\+config}} ()
+\begin{DoxyCompactList}\small\item\em Sauvegarde une nouvelle configuration des capteurs. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespacewebui_1_1webui__server_a1e99eca46e51fb406153841d145748cc}{webui.\+webui\+\_\+server.\+get\+\_\+last}} ()
+\begin{DoxyCompactList}\small\item\em Récupère le dernier état du système de mesure. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespacewebui_1_1webui__server_a431000dffb42d4b4cd2ce023fa0c4a1e}{webui.\+webui\+\_\+server.\+force\+\_\+reload}} ()
+\begin{DoxyCompactList}\small\item\em Force le rechargement de la configuration au prochain cycle. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacewebui_1_1webui__server_a5de8cf19497f30c68ef48229ed037e2d}{webui.\+webui\+\_\+server.\+BASE\+\_\+\+DIR}} = os.\+path.\+abspath(os.\+path.\+join(os.\+path.\+dirname(\+\_\+\+\_\+file\+\_\+\+\_\+), "{}.."{}))
+\item 
+\mbox{\hyperlink{namespacewebui_1_1webui__server_ad1e31aeef058a01b14bbfa0e216b43d6}{webui.\+webui\+\_\+server.\+CONFIG\+\_\+\+PATH}} = os.\+path.\+join(\mbox{\hyperlink{namespacewebui_1_1webui__server_a5de8cf19497f30c68ef48229ed037e2d}{BASE\+\_\+\+DIR}}, "{}config\+\_\+module"{}, "{}sensors.\+json"{})
+\item 
+\mbox{\hyperlink{namespacewebui_1_1webui__server_a9f76ef91507216717dc653f7b9479cbb}{webui.\+webui\+\_\+server.\+STATE\+\_\+\+PATH}} = os.\+path.\+join(\mbox{\hyperlink{namespacewebui_1_1webui__server_a5de8cf19497f30c68ef48229ed037e2d}{BASE\+\_\+\+DIR}}, "{}state"{}, "{}last\+\_\+state.\+json"{})
+\item 
+\mbox{\hyperlink{namespacewebui_1_1webui__server_ad2ed404946ddf35648333368e4392c28}{webui.\+webui\+\_\+server.\+WEBUI\+\_\+\+DIR}} = os.\+path.\+dirname(\+\_\+\+\_\+file\+\_\+\+\_\+)
+\item 
+\mbox{\hyperlink{namespacewebui_1_1webui__server_a7a4894526f1923df3ef5c7000ba4232c}{webui.\+webui\+\_\+server.\+app}} = Flask(\+\_\+\+\_\+name\+\_\+\+\_\+, static\+\_\+folder=\mbox{\hyperlink{namespacewebui_1_1webui__server_ad2ed404946ddf35648333368e4392c28}{WEBUI\+\_\+\+DIR}}, static\+\_\+url\+\_\+path=\textquotesingle{}/static\textquotesingle{})
+\item 
+\mbox{\hyperlink{namespacewebui_1_1webui__server_a3eb0a70910bd6aab440ad5d5fc00f39d}{webui.\+webui\+\_\+server.\+host}}
+\item 
+\mbox{\hyperlink{namespacewebui_1_1webui__server_ab660a159b0414ddafb0b1e81ae6a476b}{webui.\+webui\+\_\+server.\+port}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+Serveur web pour interface utilisateur de configuration. 
+
+Interface web Flask monopage pour lecture/écriture de la configuration sensors.\+json et affichage de l\textquotesingle{}état last\+\_\+state.\+json. Fournit API REST complète pour gestion configuration canaux et monitoring système. \begin{DoxyAuthor}{Auteur}
+Léo Mendes @project 2510\+\_\+\+Regulations\+Chauffage @\+Mandant Oblo\+\_\+solution 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2025-\/09-\/18 
+\end{DoxyDate}
+\begin{DoxyVersion}{Version}
+1.\+0.\+0 
+\end{DoxyVersion}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2025 
+\end{DoxyCopyright}

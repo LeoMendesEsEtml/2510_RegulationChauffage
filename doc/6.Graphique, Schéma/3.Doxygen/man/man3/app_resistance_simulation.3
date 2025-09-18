@@ -1,0 +1,71 @@
+.TH "app.resistance_simulation" 3 "2510_RegulationChauffage" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+app.resistance_simulation
+.SH SYNOPSIS
+.br
+.PP
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "class \fBResistanceSimulationError\fP"
+.br
+.RI "Exception pour les erreurs de simulation de résistance\&. "
+.ti -1c
+.RI "class \fBResistanceSimulator\fP"
+.br
+.RI "Contrôleur pour la simulation de résistance via MUX\&. "
+.in -1c
+.SS "Fonctions"
+
+.in +1c
+.ti -1c
+.RI "bool \fBapply_resistance_simulation\fP (float resistance_ohm)"
+.br
+.RI "Fonction utilitaire pour appliquer une résistance simulée\&. "
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "\fBsim\fP = \fBResistanceSimulator\fP()"
+.br
+.ti -1c
+.RI "bool \fBsuccess\fP = sim\&.apply_resistance_simulation(1000\&.0)"
+.br
+.ti -1c
+.RI "\fBvalid\fP = sim\&.validate_resistance_applied(667\&.0, tolerance=0\&.15)"
+.br
+.in -1c
+.SH "Documentation des fonctions"
+.PP 
+.SS " bool app\&.resistance_simulation\&.apply_resistance_simulation (float resistance_ohm)"
+
+.PP
+Fonction utilitaire pour appliquer une résistance simulée\&. Fonction de commodité qui encapsule la création d'un simulateur, l'application d'une résistance et le nettoyage automatique\&. Utilise le pattern RAII pour la gestion des ressources\&.
+
+.PP
+\fBParamètres\fP
+.RS 4
+\fIresistance_ohm\fP Résistance à appliquer [Ohms]\&.
+.RE
+.PP
+\fBRenvoie\fP
+.RS 4
+True si l'application a réussi, False sinon\&. 
+.RE
+.PP
+
+.SH "Documentation des variables"
+.PP 
+.SS "app\&.resistance_simulation\&.sim = \fBResistanceSimulator\fP()"
+
+.SS "bool app\&.resistance_simulation\&.success = sim\&.apply_resistance_simulation(1000\&.0)"
+
+.SS "app\&.resistance_simulation\&.valid = sim\&.validate_resistance_applied(667\&.0, tolerance=0\&.15)"
+
+.SH "Auteur"
+.PP 
+Généré automatiquement par Doxygen pour 2510_RegulationChauffage à partir du code source\&.

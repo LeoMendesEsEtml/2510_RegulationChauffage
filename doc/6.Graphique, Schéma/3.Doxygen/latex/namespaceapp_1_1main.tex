@@ -1,0 +1,302 @@
+\doxysection{Référence de l\textquotesingle{}espace de nommage app.\+main}
+\hypertarget{namespaceapp_1_1main}{}\label{namespaceapp_1_1main}\index{app.main@{app.main}}
+\doxysubsubsection*{Fonctions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceapp_1_1main_ad21574e7873c2ce3e62f3b74e9a10f6a}{start\+\_\+webui\+\_\+server}} ()
+\begin{DoxyCompactList}\small\item\em Lance le serveur web local dans un thread séparé. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespaceapp_1_1main_a7e7d269529399106243cc74fc3c73b6a}{save\+\_\+last\+\_\+state}} (channel=None, resistance\+\_\+ohm=None, temperature\+\_\+c=None, temperature\+\_\+sim\+\_\+c=None, error=None)
+\begin{DoxyCompactList}\small\item\em Sauvegarde l\textquotesingle{}état courant et historique par canal dans un fichier JSON. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespaceapp_1_1main_abe819be4d1d22ae06c4753392322a35b}{signal\+\_\+handler}} (sig, frame)
+\begin{DoxyCompactList}\small\item\em Gestionnaire POSIX pour les signaux (Ctrl+C). \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespaceapp_1_1main_ab98791c04a040ea7d728c8cda86d0677}{input\+\_\+monitor}} ()
+\begin{DoxyCompactList}\small\item\em Thread d\textquotesingle{}écoute des commandes utilisateur depuis stdin. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespaceapp_1_1main_a1b3211e7ab2da62ed461ce881f0ce556}{show\+\_\+error\+\_\+and\+\_\+continue}} (error\+\_\+pattern, sleep\+\_\+time=2)
+\begin{DoxyCompactList}\small\item\em Affiche un motif LED d\textquotesingle{}erreur pendant un temps donné puis remet l\textquotesingle{}indicateur en mode \textquotesingle{}sequence\+\_\+running\textquotesingle{}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespaceapp_1_1main_abde8d10de044e070eb5eab1e448cd558}{run\+\_\+measurement\+\_\+sequence}} (cfg, mac\+\_\+address, adc, tmux)
+\begin{DoxyCompactList}\small\item\em Exécute une séquence complète de mesures pour tous les canaux activés selon la configuration fournie. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespaceapp_1_1main_a2d15309f12a3472b94e8cace0ace5a6b}{reload\+\_\+timing\+\_\+config}} ()
+\begin{DoxyCompactList}\small\item\em Recharge les paramètres de temporisation depuis le fichier de configuration. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespaceapp_1_1main_a3e4dda2887e910e984519bea9a420dc2}{main}} ()
+\begin{DoxyCompactList}\small\item\em Point d\textquotesingle{}entrée principal du programme. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceapp_1_1main_aff7cd4e0e9d7b9068e94858a4c527314}{CURRENT\+\_\+\+DIR}} = os.\+path.\+dirname(os.\+path.\+abspath(\+\_\+\+\_\+file\+\_\+\+\_\+))
+\item 
+\mbox{\hyperlink{namespaceapp_1_1main_ad64332bd025eb979f3c8b5aa2267bfd3}{SRC\+\_\+\+DIR}} = os.\+path.\+dirname(\mbox{\hyperlink{namespaceapp_1_1main_aff7cd4e0e9d7b9068e94858a4c527314}{CURRENT\+\_\+\+DIR}})
+\item 
+bool \mbox{\hyperlink{namespaceapp_1_1main_a4a86ee89abd84627e36c0320969924ac}{sequencer\+\_\+running}} = False
+\item 
+\mbox{\hyperlink{namespaceapp_1_1main_a35b15b3661aab25e707f368b9d8999ec}{stop\+\_\+event}} = threading.\+Event()
+\item 
+\mbox{\hyperlink{namespaceapp_1_1main_adcd9b846c9a069d44dad6fb465d9840c}{force\+\_\+sequence}} = threading.\+Event()
+\item 
+\mbox{\hyperlink{namespaceapp_1_1main_a0d1f132bf1e682ae958346b489d89772}{led\+\_\+indicator}} = None
+\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{namespaceapp_1_1main_doc-func-members}
+\doxysubsection{Documentation des fonctions}
+\Hypertarget{namespaceapp_1_1main_ab98791c04a040ea7d728c8cda86d0677}\index{app.main@{app.main}!input\_monitor@{input\_monitor}}
+\index{input\_monitor@{input\_monitor}!app.main@{app.main}}
+\doxysubsubsection{\texorpdfstring{input\_monitor()}{input\_monitor()}}
+{\footnotesize\ttfamily \label{namespaceapp_1_1main_ab98791c04a040ea7d728c8cda86d0677} 
+app.\+main.\+input\+\_\+monitor (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Thread d\textquotesingle{}écoute des commandes utilisateur depuis stdin. 
+
+Permet de forcer une séquence (touche Entrée ou \textquotesingle{}s\textquotesingle{}) ou de demander l\textquotesingle{}arrêt (\textquotesingle{}q\textquotesingle{}). Les exceptions d\textquotesingle{}E/S sont gérées pour permettre la terminaison propre du thread. \begin{DoxyReturn}{Renvoie}
+None 
+\end{DoxyReturn}
+Voici le graphe d\textquotesingle{}appel pour cette fonction \+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespaceapp_1_1main_ab98791c04a040ea7d728c8cda86d0677_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespaceapp_1_1main_a3e4dda2887e910e984519bea9a420dc2}\index{app.main@{app.main}!main@{main}}
+\index{main@{main}!app.main@{app.main}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily \label{namespaceapp_1_1main_a3e4dda2887e910e984519bea9a420dc2} 
+app.\+main.\+main (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Point d\textquotesingle{}entrée principal du programme. 
+
+Parse les arguments de la ligne de commande, initialise le matériel (GPIO, ADC, MUX), le gestionnaire LED, et exécute le séquenceur en mode automatique ou manuel selon la configuration. \begin{DoxyReturn}{Renvoie}
+None 
+\end{DoxyReturn}
+Voici le graphe d\textquotesingle{}appel pour cette fonction \+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespaceapp_1_1main_a3e4dda2887e910e984519bea9a420dc2_cgraph}
+\end{center}
+\end{figure}
+Voici le graphe des appelants de cette fonction \+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=160pt]{namespaceapp_1_1main_a3e4dda2887e910e984519bea9a420dc2_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespaceapp_1_1main_a2d15309f12a3472b94e8cace0ace5a6b}\index{app.main@{app.main}!reload\_timing\_config@{reload\_timing\_config}}
+\index{reload\_timing\_config@{reload\_timing\_config}!app.main@{app.main}}
+\doxysubsubsection{\texorpdfstring{reload\_timing\_config()}{reload\_timing\_config()}}
+{\footnotesize\ttfamily \label{namespaceapp_1_1main_a2d15309f12a3472b94e8cace0ace5a6b} 
+app.\+main.\+reload\+\_\+timing\+\_\+config (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Recharge les paramètres de temporisation depuis le fichier de configuration. 
+
+Lit uniquement les paramètres de temporisation pour mise à jour dynamique sans perturber le reste du système. Utilisé pour permettre la modification des intervalles de séquence et du mode automatique via l\textquotesingle{}interface web.
+
+\begin{DoxyReturn}{Renvoie}
+Tuple (auto\+\_\+sequence, sequence\+\_\+interval\+\_\+minutes, success) où success indique si le rechargement a réussi. 
+\end{DoxyReturn}
+Voici le graphe des appelants de cette fonction \+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=312pt]{namespaceapp_1_1main_a2d15309f12a3472b94e8cace0ace5a6b_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespaceapp_1_1main_abde8d10de044e070eb5eab1e448cd558}\index{app.main@{app.main}!run\_measurement\_sequence@{run\_measurement\_sequence}}
+\index{run\_measurement\_sequence@{run\_measurement\_sequence}!app.main@{app.main}}
+\doxysubsubsection{\texorpdfstring{run\_measurement\_sequence()}{run\_measurement\_sequence()}}
+{\footnotesize\ttfamily \label{namespaceapp_1_1main_abde8d10de044e070eb5eab1e448cd558} 
+app.\+main.\+run\+\_\+measurement\+\_\+sequence (\begin{DoxyParamCaption}\item[{}]{cfg}{, }\item[{}]{mac\+\_\+address}{, }\item[{}]{adc}{, }\item[{}]{tmux}{}\end{DoxyParamCaption})}
+
+
+
+Exécute une séquence complète de mesures pour tous les canaux activés selon la configuration fournie. 
+
+Pour chaque canal actif \+: sélection du rref, configuration ADC, lecture des valeurs, conversion en température, envoi API, calcul de la température simulée et application via le simulateur de résistance. Les motifs LED sont ajustés en fonction des erreurs.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em cfg} & Dictionnaire de configuration chargé depuis JSON. \\
+\hline
+{\em mac\+\_\+address} & Adresse MAC ou identifiant pour les appels API. \\
+\hline
+{\em adc} & Instance de l\textquotesingle{}ADC (\doxylink{classapp_1_1adc__ads124s08_1_1_ads124s08}{Ads124s08}). \\
+\hline
+{\em tmux} & Instance du multiplexeur (\doxylink{classapp_1_1hw__tmux1204_1_1_tmux1204}{Tmux1204}). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+bool True si la séquence est globalement considérée comme réussie, False sinon. 
+\end{DoxyReturn}
+Voici le graphe d\textquotesingle{}appel pour cette fonction \+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespaceapp_1_1main_abde8d10de044e070eb5eab1e448cd558_cgraph}
+\end{center}
+\end{figure}
+Voici le graphe des appelants de cette fonction \+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=333pt]{namespaceapp_1_1main_abde8d10de044e070eb5eab1e448cd558_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespaceapp_1_1main_a7e7d269529399106243cc74fc3c73b6a}\index{app.main@{app.main}!save\_last\_state@{save\_last\_state}}
+\index{save\_last\_state@{save\_last\_state}!app.main@{app.main}}
+\doxysubsubsection{\texorpdfstring{save\_last\_state()}{save\_last\_state()}}
+{\footnotesize\ttfamily \label{namespaceapp_1_1main_a7e7d269529399106243cc74fc3c73b6a} 
+app.\+main.\+save\+\_\+last\+\_\+state (\begin{DoxyParamCaption}\item[{}]{channel}{ = {\ttfamily None}, }\item[{}]{resistance\+\_\+ohm}{ = {\ttfamily None}, }\item[{}]{temperature\+\_\+c}{ = {\ttfamily None}, }\item[{}]{temperature\+\_\+sim\+\_\+c}{ = {\ttfamily None}, }\item[{}]{error}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+
+
+Sauvegarde l\textquotesingle{}état courant et historique par canal dans un fichier JSON. 
+
+Crée le dossier {\ttfamily state} si nécessaire, lit le fichier {\ttfamily last\+\_\+state.\+json} existant, met à jour les informations du canal fourni et écrit le document au format JSON. Les erreurs internes sont capturées et affichées sur la sortie standard.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em channel} & Numéro du canal (ou None). \\
+\hline
+{\em resistance\+\_\+ohm} & Résistance mesurée (ou None). \\
+\hline
+{\em temperature\+\_\+c} & Température mesurée \mbox{[}°C\mbox{]} (ou None). \\
+\hline
+{\em temperature\+\_\+sim\+\_\+c} & Température simulée \mbox{[}°C\mbox{]} (ou None). \\
+\hline
+{\em error} & Message d\textquotesingle{}erreur s\textquotesingle{}il y en a un (ou None). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+None 
+\end{DoxyReturn}
+Voici le graphe des appelants de cette fonction \+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespaceapp_1_1main_a7e7d269529399106243cc74fc3c73b6a_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespaceapp_1_1main_a1b3211e7ab2da62ed461ce881f0ce556}\index{app.main@{app.main}!show\_error\_and\_continue@{show\_error\_and\_continue}}
+\index{show\_error\_and\_continue@{show\_error\_and\_continue}!app.main@{app.main}}
+\doxysubsubsection{\texorpdfstring{show\_error\_and\_continue()}{show\_error\_and\_continue()}}
+{\footnotesize\ttfamily \label{namespaceapp_1_1main_a1b3211e7ab2da62ed461ce881f0ce556} 
+app.\+main.\+show\+\_\+error\+\_\+and\+\_\+continue (\begin{DoxyParamCaption}\item[{}]{error\+\_\+pattern}{, }\item[{}]{sleep\+\_\+time}{ = {\ttfamily 2}}\end{DoxyParamCaption})}
+
+
+
+Affiche un motif LED d\textquotesingle{}erreur pendant un temps donné puis remet l\textquotesingle{}indicateur en mode \textquotesingle{}sequence\+\_\+running\textquotesingle{}. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em error\+\_\+pattern} & Nom du motif LED à afficher. \\
+\hline
+{\em sleep\+\_\+time} & Durée d\textquotesingle{}affichage en secondes (par défaut 2s). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+None 
+\end{DoxyReturn}
+Voici le graphe des appelants de cette fonction \+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespaceapp_1_1main_a1b3211e7ab2da62ed461ce881f0ce556_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespaceapp_1_1main_abe819be4d1d22ae06c4753392322a35b}\index{app.main@{app.main}!signal\_handler@{signal\_handler}}
+\index{signal\_handler@{signal\_handler}!app.main@{app.main}}
+\doxysubsubsection{\texorpdfstring{signal\_handler()}{signal\_handler()}}
+{\footnotesize\ttfamily \label{namespaceapp_1_1main_abe819be4d1d22ae06c4753392322a35b} 
+app.\+main.\+signal\+\_\+handler (\begin{DoxyParamCaption}\item[{}]{sig}{, }\item[{}]{frame}{}\end{DoxyParamCaption})}
+
+
+
+Gestionnaire POSIX pour les signaux (Ctrl+C). 
+
+Met le drapeau {\ttfamily sequencer\+\_\+running} à False et déclenche l\textquotesingle{}événement {\ttfamily stop\+\_\+event} pour demander un arrêt propre. 
+\begin{DoxyParams}{Paramètres}
+{\em sig} & Signal reçu (int). \\
+\hline
+{\em frame} & Contexte d\textquotesingle{}exécution (non utilisé). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+None 
+\end{DoxyReturn}
+Voici le graphe des appelants de cette fonction \+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespaceapp_1_1main_abe819be4d1d22ae06c4753392322a35b_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespaceapp_1_1main_ad21574e7873c2ce3e62f3b74e9a10f6a}\index{app.main@{app.main}!start\_webui\_server@{start\_webui\_server}}
+\index{start\_webui\_server@{start\_webui\_server}!app.main@{app.main}}
+\doxysubsubsection{\texorpdfstring{start\_webui\_server()}{start\_webui\_server()}}
+{\footnotesize\ttfamily \label{namespaceapp_1_1main_ad21574e7873c2ce3e62f3b74e9a10f6a} 
+app.\+main.\+start\+\_\+webui\+\_\+server (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Lance le serveur web local dans un thread séparé. 
+
+Import dynamique du module {\ttfamily \doxylink{namespacewebui_1_1webui__server}{webui.\+webui\+\_\+server}} et démarrage de l\textquotesingle{}application Flask/\+WSGI. Les exceptions sont interceptées et converties en messages sur la sortie standard pour ne pas interrompre le thread principal. \begin{DoxyReturn}{Renvoie}
+None 
+\end{DoxyReturn}
+
+
+\label{doc-var-members}
+\Hypertarget{namespaceapp_1_1main_doc-var-members}
+\doxysubsection{Documentation des variables}
+\Hypertarget{namespaceapp_1_1main_aff7cd4e0e9d7b9068e94858a4c527314}\index{app.main@{app.main}!CURRENT\_DIR@{CURRENT\_DIR}}
+\index{CURRENT\_DIR@{CURRENT\_DIR}!app.main@{app.main}}
+\doxysubsubsection{\texorpdfstring{CURRENT\_DIR}{CURRENT\_DIR}}
+{\footnotesize\ttfamily \label{namespaceapp_1_1main_aff7cd4e0e9d7b9068e94858a4c527314} 
+app.\+main.\+CURRENT\+\_\+\+DIR = os.\+path.\+dirname(os.\+path.\+abspath(\+\_\+\+\_\+file\+\_\+\+\_\+))}
+
+\Hypertarget{namespaceapp_1_1main_adcd9b846c9a069d44dad6fb465d9840c}\index{app.main@{app.main}!force\_sequence@{force\_sequence}}
+\index{force\_sequence@{force\_sequence}!app.main@{app.main}}
+\doxysubsubsection{\texorpdfstring{force\_sequence}{force\_sequence}}
+{\footnotesize\ttfamily \label{namespaceapp_1_1main_adcd9b846c9a069d44dad6fb465d9840c} 
+app.\+main.\+force\+\_\+sequence = threading.\+Event()}
+
+\Hypertarget{namespaceapp_1_1main_a0d1f132bf1e682ae958346b489d89772}\index{app.main@{app.main}!led\_indicator@{led\_indicator}}
+\index{led\_indicator@{led\_indicator}!app.main@{app.main}}
+\doxysubsubsection{\texorpdfstring{led\_indicator}{led\_indicator}}
+{\footnotesize\ttfamily \label{namespaceapp_1_1main_a0d1f132bf1e682ae958346b489d89772} 
+app.\+main.\+led\+\_\+indicator = None}
+
+\Hypertarget{namespaceapp_1_1main_a4a86ee89abd84627e36c0320969924ac}\index{app.main@{app.main}!sequencer\_running@{sequencer\_running}}
+\index{sequencer\_running@{sequencer\_running}!app.main@{app.main}}
+\doxysubsubsection{\texorpdfstring{sequencer\_running}{sequencer\_running}}
+{\footnotesize\ttfamily \label{namespaceapp_1_1main_a4a86ee89abd84627e36c0320969924ac} 
+bool app.\+main.\+sequencer\+\_\+running = False}
+
+\Hypertarget{namespaceapp_1_1main_ad64332bd025eb979f3c8b5aa2267bfd3}\index{app.main@{app.main}!SRC\_DIR@{SRC\_DIR}}
+\index{SRC\_DIR@{SRC\_DIR}!app.main@{app.main}}
+\doxysubsubsection{\texorpdfstring{SRC\_DIR}{SRC\_DIR}}
+{\footnotesize\ttfamily \label{namespaceapp_1_1main_ad64332bd025eb979f3c8b5aa2267bfd3} 
+app.\+main.\+SRC\+\_\+\+DIR = os.\+path.\+dirname(\mbox{\hyperlink{namespaceapp_1_1main_aff7cd4e0e9d7b9068e94858a4c527314}{CURRENT\+\_\+\+DIR}})}
+
+\Hypertarget{namespaceapp_1_1main_a35b15b3661aab25e707f368b9d8999ec}\index{app.main@{app.main}!stop\_event@{stop\_event}}
+\index{stop\_event@{stop\_event}!app.main@{app.main}}
+\doxysubsubsection{\texorpdfstring{stop\_event}{stop\_event}}
+{\footnotesize\ttfamily \label{namespaceapp_1_1main_a35b15b3661aab25e707f368b9d8999ec} 
+app.\+main.\+stop\+\_\+event = threading.\+Event()}
+

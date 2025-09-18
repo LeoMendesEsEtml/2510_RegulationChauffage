@@ -1,0 +1,273 @@
+\doxysection{Référence de l\textquotesingle{}espace de nommage app.\+adc\+\_\+ads124s08}
+\hypertarget{namespaceapp_1_1adc__ads124s08}{}\label{namespaceapp_1_1adc__ads124s08}\index{app.adc\_ads124s08@{app.adc\_ads124s08}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classapp_1_1adc__ads124s08_1_1_ads124s08}{Ads124s08}}
+\begin{DoxyCompactList}\small\item\em Driver pour l\textquotesingle{}ADC ADS124\+S08 avec interface SPI. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Fonctions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceapp_1_1adc__ads124s08_a0117399a18d516c747ca6b060599452f}{encode\+\_\+gain}} (pga\+\_\+gain)
+\begin{DoxyCompactList}\small\item\em Encode le gain PGA en code binaire pour le registre. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespaceapp_1_1adc__ads124s08_a8f9279b8505f8d634ed73c51dcab29c9}{encode\+\_\+idac\+\_\+uA}} (idac\+\_\+uA)
+\begin{DoxyCompactList}\small\item\em Encode la magnitude IDAC en code binaire pour le registre. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespaceapp_1_1adc__ads124s08_a2d49f7c13e0b47db65080ab59febed76}{sign\+\_\+extend\+\_\+24}} (b0, b1, b2)
+\begin{DoxyCompactList}\small\item\em Étend le signe d\textquotesingle{}un code ADC 24 bits vers 32 bits. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{namespaceapp_1_1adc__ads124s08_a95d2ed0295f793db669188acfc42e035}{REG\+\_\+\+ID}} = 0x00
+\item 
+int \mbox{\hyperlink{namespaceapp_1_1adc__ads124s08_a08370a57876abbb36233f903990f7090}{REG\+\_\+\+STATUS}} = 0x01
+\item 
+int \mbox{\hyperlink{namespaceapp_1_1adc__ads124s08_acc5fdb3a177b32ce008beb7d4f593e5a}{REG\+\_\+\+INPMUX}} = 0x02
+\item 
+int \mbox{\hyperlink{namespaceapp_1_1adc__ads124s08_a6693b8b3c92c4e605cd93396bbf437e4}{REG\+\_\+\+PGA}} = 0x03
+\item 
+int \mbox{\hyperlink{namespaceapp_1_1adc__ads124s08_a3570ad44d2f9dd31da3eb36e6bb43a74}{REG\+\_\+\+DATARATE}} = 0x04
+\item 
+int \mbox{\hyperlink{namespaceapp_1_1adc__ads124s08_a37082f74d6a0e13791161957521dda36}{REG\+\_\+\+REF}} = 0x05
+\item 
+int \mbox{\hyperlink{namespaceapp_1_1adc__ads124s08_ad6a2ed950510eefbb3d8e16c5d44aa9a}{REG\+\_\+\+IDACMUX}} = 0x07
+\item 
+int \mbox{\hyperlink{namespaceapp_1_1adc__ads124s08_ab33f3d3b9eff07796c0954fb0a26a0f9}{REG\+\_\+\+SYS}} = 0x09
+\item 
+int \mbox{\hyperlink{namespaceapp_1_1adc__ads124s08_a29344761380eb9759a168a517077c1f8}{REG\+\_\+\+IDACMAG}} = 0x06
+\item 
+int \mbox{\hyperlink{namespaceapp_1_1adc__ads124s08_ac53df39aab8783f89db1de629453dac2}{CMD\+\_\+\+RESET}} = 0x06
+\item 
+int \mbox{\hyperlink{namespaceapp_1_1adc__ads124s08_afdbb53f6073883d5fae13b41f4054ad2}{CMD\+\_\+\+START}} = 0x08
+\item 
+int \mbox{\hyperlink{namespaceapp_1_1adc__ads124s08_a584dd419d6c692fe7fdbf9c318b0e9da}{CMD\+\_\+\+STOP}} = 0x0A
+\item 
+int \mbox{\hyperlink{namespaceapp_1_1adc__ads124s08_a295dbc291719574e76ddc5a7a2467087}{CMD\+\_\+\+RDATA}} = 0x12
+\item 
+tuple \mbox{\hyperlink{namespaceapp_1_1adc__ads124s08_a9d806c5f058f08f8ee7e226d706694f1}{FS}} = (1 $<$$<$ 23) -\/ 1
+\item 
+dict \mbox{\hyperlink{namespaceapp_1_1adc__ads124s08_a8919c033b020e8f54f713cea9d68fa22}{CHANNELS}}
+\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{namespaceapp_1_1adc__ads124s08_doc-func-members}
+\doxysubsection{Documentation des fonctions}
+\Hypertarget{namespaceapp_1_1adc__ads124s08_a0117399a18d516c747ca6b060599452f}\index{app.adc\_ads124s08@{app.adc\_ads124s08}!encode\_gain@{encode\_gain}}
+\index{encode\_gain@{encode\_gain}!app.adc\_ads124s08@{app.adc\_ads124s08}}
+\doxysubsubsection{\texorpdfstring{encode\_gain()}{encode\_gain()}}
+{\footnotesize\ttfamily \label{namespaceapp_1_1adc__ads124s08_a0117399a18d516c747ca6b060599452f} 
+app.\+adc\+\_\+ads124s08.\+encode\+\_\+gain (\begin{DoxyParamCaption}\item[{}]{pga\+\_\+gain}{}\end{DoxyParamCaption})}
+
+
+
+Encode le gain PGA en code binaire pour le registre. 
+
+Convertit une valeur de gain décimale en code binaire 3 bits pour la configuration du registre PGA de l\textquotesingle{}ADS124\+S08.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em pga\+\_\+gain} & Valeur du gain PGA (1, 2, 4, 8, 16, 32, 64, 128).\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+Code binaire 3 bits correspondant au gain.
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Value\+Error} & si le gain fourni n\textquotesingle{}est pas supporté. \\
+\hline
+\end{DoxyExceptions}
+\begin{DoxySeeAlso}{Voir également}
+configure\+\_\+channel 
+\end{DoxySeeAlso}
+Voici le graphe des appelants de cette fonction \+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespaceapp_1_1adc__ads124s08_a0117399a18d516c747ca6b060599452f_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespaceapp_1_1adc__ads124s08_a8f9279b8505f8d634ed73c51dcab29c9}\index{app.adc\_ads124s08@{app.adc\_ads124s08}!encode\_idac\_uA@{encode\_idac\_uA}}
+\index{encode\_idac\_uA@{encode\_idac\_uA}!app.adc\_ads124s08@{app.adc\_ads124s08}}
+\doxysubsubsection{\texorpdfstring{encode\_idac\_uA()}{encode\_idac\_uA()}}
+{\footnotesize\ttfamily \label{namespaceapp_1_1adc__ads124s08_a8f9279b8505f8d634ed73c51dcab29c9} 
+app.\+adc\+\_\+ads124s08.\+encode\+\_\+idac\+\_\+uA (\begin{DoxyParamCaption}\item[{}]{idac\+\_\+uA}{}\end{DoxyParamCaption})}
+
+
+
+Encode la magnitude IDAC en code binaire pour le registre. 
+
+Convertit une valeur de courant IDAC en microampères en code binaire 4 bits pour la configuration du registre IDACMAG.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em idac\+\_\+uA} & Courant IDAC en microampères (10, 50, 100, 250, 500, 1000, 1500, 2000).\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+Code binaire 4 bits correspondant au courant.
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Value\+Error} & si le courant fourni n\textquotesingle{}est pas supporté. \\
+\hline
+\end{DoxyExceptions}
+\begin{DoxySeeAlso}{Voir également}
+configure\+\_\+channel 
+\end{DoxySeeAlso}
+Voici le graphe des appelants de cette fonction \+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespaceapp_1_1adc__ads124s08_a8f9279b8505f8d634ed73c51dcab29c9_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespaceapp_1_1adc__ads124s08_a2d49f7c13e0b47db65080ab59febed76}\index{app.adc\_ads124s08@{app.adc\_ads124s08}!sign\_extend\_24@{sign\_extend\_24}}
+\index{sign\_extend\_24@{sign\_extend\_24}!app.adc\_ads124s08@{app.adc\_ads124s08}}
+\doxysubsubsection{\texorpdfstring{sign\_extend\_24()}{sign\_extend\_24()}}
+{\footnotesize\ttfamily \label{namespaceapp_1_1adc__ads124s08_a2d49f7c13e0b47db65080ab59febed76} 
+app.\+adc\+\_\+ads124s08.\+sign\+\_\+extend\+\_\+24 (\begin{DoxyParamCaption}\item[{}]{b0}{, }\item[{}]{b1}{, }\item[{}]{b2}{}\end{DoxyParamCaption})}
+
+
+
+Étend le signe d\textquotesingle{}un code ADC 24 bits vers 32 bits. 
+
+Convertit un code ADC 24 bits signé en entier Python 32 bits en préservant le signe selon la représentation en complément à 2.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em b0} & Octet de poids fort (MSB) du code 24 bits. \\
+\hline
+{\em b1} & Octet du milieu du code 24 bits. \\
+\hline
+{\em b2} & Octet de poids faible (LSB) du code 24 bits.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+Valeur entière signée 32 bits correspondante.
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Nécessaire car Python gère automatiquement les entiers de taille variable. 
+\end{DoxyNote}
+\begin{DoxySeeAlso}{Voir également}
+read\+\_\+code24 
+\end{DoxySeeAlso}
+Voici le graphe des appelants de cette fonction \+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespaceapp_1_1adc__ads124s08_a2d49f7c13e0b47db65080ab59febed76_icgraph}
+\end{center}
+\end{figure}
+
+
+\label{doc-var-members}
+\Hypertarget{namespaceapp_1_1adc__ads124s08_doc-var-members}
+\doxysubsection{Documentation des variables}
+\Hypertarget{namespaceapp_1_1adc__ads124s08_a8919c033b020e8f54f713cea9d68fa22}\index{app.adc\_ads124s08@{app.adc\_ads124s08}!CHANNELS@{CHANNELS}}
+\index{CHANNELS@{CHANNELS}!app.adc\_ads124s08@{app.adc\_ads124s08}}
+\doxysubsubsection{\texorpdfstring{CHANNELS}{CHANNELS}}
+{\footnotesize\ttfamily \label{namespaceapp_1_1adc__ads124s08_a8919c033b020e8f54f713cea9d68fa22} 
+dict app.\+adc\+\_\+ads124s08.\+CHANNELS}
+
+{\bfseries Valeur initiale \+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ =\ \ \{}
+\DoxyCodeLine{00002\ \ \ \ \ \textcolor{comment}{\#\ Canal\ 1:\ entrée\ positive\ AIN1,\ négative\ AIN2}}
+\DoxyCodeLine{00003\ \ \ \ \ 1:\ \{\textcolor{stringliteral}{"{}ainp\_idx"{}}:\ 1,\ \ \textcolor{stringliteral}{"{}ainn\_idx"{}}:\ 2\},}
+\DoxyCodeLine{00004\ \ \ \ \ \textcolor{comment}{\#\ Canal\ 2:\ entrée\ positive\ AIN4,\ négative\ AIN5}}
+\DoxyCodeLine{00005\ \ \ \ \ 2:\ \{\textcolor{stringliteral}{"{}ainp\_idx"{}}:\ 4,\ \ \textcolor{stringliteral}{"{}ainn\_idx"{}}:\ 5\},}
+\DoxyCodeLine{00006\ \ \ \ \ \textcolor{comment}{\#\ Canal\ 3:\ entrée\ positive\ AIN7,\ négative\ AIN8}}
+\DoxyCodeLine{00007\ \ \ \ \ 3:\ \{\textcolor{stringliteral}{"{}ainp\_idx"{}}:\ 7,\ \ \textcolor{stringliteral}{"{}ainn\_idx"{}}:\ 8\},}
+\DoxyCodeLine{00008\ \ \ \ \ \textcolor{comment}{\#\ Canal\ 4:\ entrée\ positive\ AIN10,\ négative\ AIN11}}
+\DoxyCodeLine{00009\ \ \ \ \ 4:\ \{\textcolor{stringliteral}{"{}ainp\_idx"{}}:\ 10,\ \textcolor{stringliteral}{"{}ainn\_idx"{}}:\ 11\}}
+\DoxyCodeLine{00010\ \}}
+
+\end{DoxyCode}
+\Hypertarget{namespaceapp_1_1adc__ads124s08_a295dbc291719574e76ddc5a7a2467087}\index{app.adc\_ads124s08@{app.adc\_ads124s08}!CMD\_RDATA@{CMD\_RDATA}}
+\index{CMD\_RDATA@{CMD\_RDATA}!app.adc\_ads124s08@{app.adc\_ads124s08}}
+\doxysubsubsection{\texorpdfstring{CMD\_RDATA}{CMD\_RDATA}}
+{\footnotesize\ttfamily \label{namespaceapp_1_1adc__ads124s08_a295dbc291719574e76ddc5a7a2467087} 
+int app.\+adc\+\_\+ads124s08.\+CMD\+\_\+\+RDATA = 0x12}
+
+\Hypertarget{namespaceapp_1_1adc__ads124s08_ac53df39aab8783f89db1de629453dac2}\index{app.adc\_ads124s08@{app.adc\_ads124s08}!CMD\_RESET@{CMD\_RESET}}
+\index{CMD\_RESET@{CMD\_RESET}!app.adc\_ads124s08@{app.adc\_ads124s08}}
+\doxysubsubsection{\texorpdfstring{CMD\_RESET}{CMD\_RESET}}
+{\footnotesize\ttfamily \label{namespaceapp_1_1adc__ads124s08_ac53df39aab8783f89db1de629453dac2} 
+int app.\+adc\+\_\+ads124s08.\+CMD\+\_\+\+RESET = 0x06}
+
+\Hypertarget{namespaceapp_1_1adc__ads124s08_afdbb53f6073883d5fae13b41f4054ad2}\index{app.adc\_ads124s08@{app.adc\_ads124s08}!CMD\_START@{CMD\_START}}
+\index{CMD\_START@{CMD\_START}!app.adc\_ads124s08@{app.adc\_ads124s08}}
+\doxysubsubsection{\texorpdfstring{CMD\_START}{CMD\_START}}
+{\footnotesize\ttfamily \label{namespaceapp_1_1adc__ads124s08_afdbb53f6073883d5fae13b41f4054ad2} 
+int app.\+adc\+\_\+ads124s08.\+CMD\+\_\+\+START = 0x08}
+
+\Hypertarget{namespaceapp_1_1adc__ads124s08_a584dd419d6c692fe7fdbf9c318b0e9da}\index{app.adc\_ads124s08@{app.adc\_ads124s08}!CMD\_STOP@{CMD\_STOP}}
+\index{CMD\_STOP@{CMD\_STOP}!app.adc\_ads124s08@{app.adc\_ads124s08}}
+\doxysubsubsection{\texorpdfstring{CMD\_STOP}{CMD\_STOP}}
+{\footnotesize\ttfamily \label{namespaceapp_1_1adc__ads124s08_a584dd419d6c692fe7fdbf9c318b0e9da} 
+int app.\+adc\+\_\+ads124s08.\+CMD\+\_\+\+STOP = 0x0A}
+
+\Hypertarget{namespaceapp_1_1adc__ads124s08_a9d806c5f058f08f8ee7e226d706694f1}\index{app.adc\_ads124s08@{app.adc\_ads124s08}!FS@{FS}}
+\index{FS@{FS}!app.adc\_ads124s08@{app.adc\_ads124s08}}
+\doxysubsubsection{\texorpdfstring{FS}{FS}}
+{\footnotesize\ttfamily \label{namespaceapp_1_1adc__ads124s08_a9d806c5f058f08f8ee7e226d706694f1} 
+tuple app.\+adc\+\_\+ads124s08.\+FS = (1 $<$$<$ 23) -\/ 1}
+
+\Hypertarget{namespaceapp_1_1adc__ads124s08_a3570ad44d2f9dd31da3eb36e6bb43a74}\index{app.adc\_ads124s08@{app.adc\_ads124s08}!REG\_DATARATE@{REG\_DATARATE}}
+\index{REG\_DATARATE@{REG\_DATARATE}!app.adc\_ads124s08@{app.adc\_ads124s08}}
+\doxysubsubsection{\texorpdfstring{REG\_DATARATE}{REG\_DATARATE}}
+{\footnotesize\ttfamily \label{namespaceapp_1_1adc__ads124s08_a3570ad44d2f9dd31da3eb36e6bb43a74} 
+int app.\+adc\+\_\+ads124s08.\+REG\+\_\+\+DATARATE = 0x04}
+
+\Hypertarget{namespaceapp_1_1adc__ads124s08_a95d2ed0295f793db669188acfc42e035}\index{app.adc\_ads124s08@{app.adc\_ads124s08}!REG\_ID@{REG\_ID}}
+\index{REG\_ID@{REG\_ID}!app.adc\_ads124s08@{app.adc\_ads124s08}}
+\doxysubsubsection{\texorpdfstring{REG\_ID}{REG\_ID}}
+{\footnotesize\ttfamily \label{namespaceapp_1_1adc__ads124s08_a95d2ed0295f793db669188acfc42e035} 
+int app.\+adc\+\_\+ads124s08.\+REG\+\_\+\+ID = 0x00}
+
+\Hypertarget{namespaceapp_1_1adc__ads124s08_a29344761380eb9759a168a517077c1f8}\index{app.adc\_ads124s08@{app.adc\_ads124s08}!REG\_IDACMAG@{REG\_IDACMAG}}
+\index{REG\_IDACMAG@{REG\_IDACMAG}!app.adc\_ads124s08@{app.adc\_ads124s08}}
+\doxysubsubsection{\texorpdfstring{REG\_IDACMAG}{REG\_IDACMAG}}
+{\footnotesize\ttfamily \label{namespaceapp_1_1adc__ads124s08_a29344761380eb9759a168a517077c1f8} 
+int app.\+adc\+\_\+ads124s08.\+REG\+\_\+\+IDACMAG = 0x06}
+
+\Hypertarget{namespaceapp_1_1adc__ads124s08_ad6a2ed950510eefbb3d8e16c5d44aa9a}\index{app.adc\_ads124s08@{app.adc\_ads124s08}!REG\_IDACMUX@{REG\_IDACMUX}}
+\index{REG\_IDACMUX@{REG\_IDACMUX}!app.adc\_ads124s08@{app.adc\_ads124s08}}
+\doxysubsubsection{\texorpdfstring{REG\_IDACMUX}{REG\_IDACMUX}}
+{\footnotesize\ttfamily \label{namespaceapp_1_1adc__ads124s08_ad6a2ed950510eefbb3d8e16c5d44aa9a} 
+int app.\+adc\+\_\+ads124s08.\+REG\+\_\+\+IDACMUX = 0x07}
+
+\Hypertarget{namespaceapp_1_1adc__ads124s08_acc5fdb3a177b32ce008beb7d4f593e5a}\index{app.adc\_ads124s08@{app.adc\_ads124s08}!REG\_INPMUX@{REG\_INPMUX}}
+\index{REG\_INPMUX@{REG\_INPMUX}!app.adc\_ads124s08@{app.adc\_ads124s08}}
+\doxysubsubsection{\texorpdfstring{REG\_INPMUX}{REG\_INPMUX}}
+{\footnotesize\ttfamily \label{namespaceapp_1_1adc__ads124s08_acc5fdb3a177b32ce008beb7d4f593e5a} 
+int app.\+adc\+\_\+ads124s08.\+REG\+\_\+\+INPMUX = 0x02}
+
+\Hypertarget{namespaceapp_1_1adc__ads124s08_a6693b8b3c92c4e605cd93396bbf437e4}\index{app.adc\_ads124s08@{app.adc\_ads124s08}!REG\_PGA@{REG\_PGA}}
+\index{REG\_PGA@{REG\_PGA}!app.adc\_ads124s08@{app.adc\_ads124s08}}
+\doxysubsubsection{\texorpdfstring{REG\_PGA}{REG\_PGA}}
+{\footnotesize\ttfamily \label{namespaceapp_1_1adc__ads124s08_a6693b8b3c92c4e605cd93396bbf437e4} 
+int app.\+adc\+\_\+ads124s08.\+REG\+\_\+\+PGA = 0x03}
+
+\Hypertarget{namespaceapp_1_1adc__ads124s08_a37082f74d6a0e13791161957521dda36}\index{app.adc\_ads124s08@{app.adc\_ads124s08}!REG\_REF@{REG\_REF}}
+\index{REG\_REF@{REG\_REF}!app.adc\_ads124s08@{app.adc\_ads124s08}}
+\doxysubsubsection{\texorpdfstring{REG\_REF}{REG\_REF}}
+{\footnotesize\ttfamily \label{namespaceapp_1_1adc__ads124s08_a37082f74d6a0e13791161957521dda36} 
+int app.\+adc\+\_\+ads124s08.\+REG\+\_\+\+REF = 0x05}
+
+\Hypertarget{namespaceapp_1_1adc__ads124s08_a08370a57876abbb36233f903990f7090}\index{app.adc\_ads124s08@{app.adc\_ads124s08}!REG\_STATUS@{REG\_STATUS}}
+\index{REG\_STATUS@{REG\_STATUS}!app.adc\_ads124s08@{app.adc\_ads124s08}}
+\doxysubsubsection{\texorpdfstring{REG\_STATUS}{REG\_STATUS}}
+{\footnotesize\ttfamily \label{namespaceapp_1_1adc__ads124s08_a08370a57876abbb36233f903990f7090} 
+int app.\+adc\+\_\+ads124s08.\+REG\+\_\+\+STATUS = 0x01}
+
+\Hypertarget{namespaceapp_1_1adc__ads124s08_ab33f3d3b9eff07796c0954fb0a26a0f9}\index{app.adc\_ads124s08@{app.adc\_ads124s08}!REG\_SYS@{REG\_SYS}}
+\index{REG\_SYS@{REG\_SYS}!app.adc\_ads124s08@{app.adc\_ads124s08}}
+\doxysubsubsection{\texorpdfstring{REG\_SYS}{REG\_SYS}}
+{\footnotesize\ttfamily \label{namespaceapp_1_1adc__ads124s08_ab33f3d3b9eff07796c0954fb0a26a0f9} 
+int app.\+adc\+\_\+ads124s08.\+REG\+\_\+\+SYS = 0x09}
+

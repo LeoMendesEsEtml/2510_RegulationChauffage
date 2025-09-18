@@ -1,0 +1,100 @@
+\doxysection{C\+:/\+Users/thebi/\+Documents/2510\+\_\+\+Regulation\+Chauffage/doc/9.\+Soft\+Ware/\+Doxygen/src/app/config\+\_\+loader.\+py}
+\hypertarget{_c_1_2_users_2thebi_2_documents_22510__regulation_chauffage_2doc_29_8_soft_ware_2_doxygen_2src_2app_2config_loader_8py-example}{}\label{_c_1_2_users_2thebi_2_documents_22510__regulation_chauffage_2doc_29_8_soft_ware_2_doxygen_2src_2app_2config_loader_8py-example}Charge un fichier de configuration JSON.
+
+Charge un fichier de configuration JSON. Vérifie l\textquotesingle{}existence du fichier, l\textquotesingle{}ouvre en UTF-\/8 et parse le contenu JSON. Le format attendu inclut les timeouts, délais entre mesures et configuration des canaux de capteurs.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em path} & Chemin vers le fichier de configuration JSON.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+Dictionnaire Python contenant les données de configuration.
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em File\+Not\+Found\+Error} & Si le fichier n\textquotesingle{}existe pas. \\
+\hline
+{\em json.\+JSONDecode\+Error} & Si le fichier n\textquotesingle{}est pas un JSON valide.\\
+\hline
+\end{DoxyExceptions}
+Format JSON attendu\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \{}
+\DoxyCodeLine{00002\ \ \ \textcolor{stringliteral}{"{}timeout\_s"{}}:\ 180,}
+\DoxyCodeLine{00003\ \ \ \textcolor{stringliteral}{"{}inter\_measure\_sleep\_s"{}}:\ 0.1,}
+\DoxyCodeLine{00004\ \ \ \textcolor{stringliteral}{"{}loop\_sleep\_s"{}}:\ 1.0,}
+\DoxyCodeLine{00005\ \ \ \textcolor{stringliteral}{"{}channels"{}}:\ [}
+\DoxyCodeLine{00006\ \ \ \ \ \{\ \textcolor{stringliteral}{"{}channel"{}}:\ 1,\ \textcolor{stringliteral}{"{}sensor"{}}:\ \textcolor{stringliteral}{"{}Ni1000\ TK5000"{}}\ \}}
+\DoxyCodeLine{00007\ \ \ ]}
+\DoxyCodeLine{00008\ \}}
+
+\end{DoxyCode}
+
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{\#\ -\/*-\/\ coding:\ utf-\/8\ -\/*-\/}}
+\DoxyCodeLine{00002\ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00003\ \textcolor{stringliteral}{@file\ \ \ \ \ \ \ \ config\_loader.py}}
+\DoxyCodeLine{00004\ \textcolor{stringliteral}{@brief\ \ \ \ \ \ \ Chargeur\ de\ configuration\ JSON\ pour\ le\ système\ de\ mesure.}}
+\DoxyCodeLine{00005\ \textcolor{stringliteral}{@details\ \ \ \ \ Ce\ module\ fournit\ une\ fonction\ simple\ pour\ charger\ et\ parser}}
+\DoxyCodeLine{00006\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ un\ fichier\ de\ configuration\ JSON\ contenant\ les\ paramètres}}
+\DoxyCodeLine{00007\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ des\ capteurs,\ timeouts\ et\ autres\ paramètres\ système.}}
+\DoxyCodeLine{00008\ \textcolor{stringliteral}{@author\ \ \ \ \ \ Léo\ Mendes}}
+\DoxyCodeLine{00009\ \textcolor{stringliteral}{@project\ \ \ \ \ 2510\_RegulationsChauffage}}
+\DoxyCodeLine{00010\ \textcolor{stringliteral}{@Mandant\ \ \ \ \ Oblo\_solution}}
+\DoxyCodeLine{00011\ \textcolor{stringliteral}{@date\ \ \ \ \ \ \ \ 2025-\/09-\/18}}
+\DoxyCodeLine{00012\ \textcolor{stringliteral}{@version\ \ \ \ \ 1.0.0}}
+\DoxyCodeLine{00013\ \textcolor{stringliteral}{@copyright\ \ \ Copyright\ (c)\ 2025}}
+\DoxyCodeLine{00014\ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ annotations}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{comment}{\#\ Sérialisation/désérialisation\ JSON}}
+\DoxyCodeLine{00019\ \textcolor{keyword}{import}\ json}
+\DoxyCodeLine{00020\ \textcolor{comment}{\#\ Opérations\ sur\ les\ chemins\ et\ fichiers}}
+\DoxyCodeLine{00021\ \textcolor{keyword}{import}\ os}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{comment}{\#\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\#\ Fonctions\ utilitaires}}
+\DoxyCodeLine{00025\ \textcolor{comment}{\#\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{keyword}{def\ }load\_config(path):}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00029\ \textcolor{stringliteral}{\ \ \ \ @brief\ \ \ Charge\ un\ fichier\ de\ configuration\ JSON.}}
+\DoxyCodeLine{00030\ \textcolor{stringliteral}{\ \ \ \ @details\ Vérifie\ l'existence\ du\ fichier,\ l'ouvre\ en\ UTF-\/8\ et\ parse}}
+\DoxyCodeLine{00031\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ le\ contenu\ JSON.\ Le\ format\ attendu\ inclut\ les\ timeouts,}}
+\DoxyCodeLine{00032\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ délais\ entre\ mesures\ et\ configuration\ des\ canaux\ de\ capteurs.}}
+\DoxyCodeLine{00033\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00034\ \textcolor{stringliteral}{\ \ \ \ @param\ \ \ path\ Chemin\ vers\ le\ fichier\ de\ configuration\ JSON.}}
+\DoxyCodeLine{00035\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00036\ \textcolor{stringliteral}{\ \ \ \ @return\ \ Dictionnaire\ Python\ contenant\ les\ données\ de\ configuration.}}
+\DoxyCodeLine{00037\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00038\ \textcolor{stringliteral}{\ \ \ \ @exception\ FileNotFoundError\ Si\ le\ fichier\ n'existe\ pas.}}
+\DoxyCodeLine{00039\ \textcolor{stringliteral}{\ \ \ \ @exception\ json.JSONDecodeError\ Si\ le\ fichier\ n'est\ pas\ un\ JSON\ valide.}}
+\DoxyCodeLine{00040\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00041\ \textcolor{stringliteral}{\ \ \ \ @example}}
+\DoxyCodeLine{00042\ \textcolor{stringliteral}{\ \ \ \ \ \ Format\ JSON\ attendu:}}
+\DoxyCodeLine{00043\ \textcolor{stringliteral}{\ \ \ \ \ \ \{}}
+\DoxyCodeLine{00044\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ "{}timeout\_s"{}:\ 180,}}
+\DoxyCodeLine{00045\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ "{}inter\_measure\_sleep\_s"{}:\ 0.1,}}
+\DoxyCodeLine{00046\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ "{}loop\_sleep\_s"{}:\ 1.0,}}
+\DoxyCodeLine{00047\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ "{}channels"{}:\ [}}
+\DoxyCodeLine{00048\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \{\ "{}channel"{}:\ 1,\ "{}sensor"{}:\ "{}Ni1000\ TK5000"{}\ \}}}
+\DoxyCodeLine{00049\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ ]}}
+\DoxyCodeLine{00050\ \textcolor{stringliteral}{\ \ \ \ \ \ \}}}
+\DoxyCodeLine{00051\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{comment}{\#\ Vérification\ de\ l'existence\ du\ fichier}}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keywordflow}{if}\ os.path.exists(path)\ \textcolor{keywordflow}{is}\ \textcolor{keyword}{False}:}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Lever\ une\ exception\ si\ le\ fichier\ n'existe\ pas}}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ FileNotFoundError(\textcolor{stringliteral}{"{}Config\ introuvable:\ "{}}\ +\ str(path))}
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{comment}{\#\ Ouverture\ et\ lecture\ du\ fichier\ JSON}}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keyword}{with}\ open(path,\ \textcolor{stringliteral}{"{}r"{}},\ encoding=\textcolor{stringliteral}{"{}utf-\/8"{}})\ \textcolor{keyword}{as}\ f:}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Parsing\ du\ contenu\ JSON}}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ data\ =\ json.load(f)}
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{comment}{\#\ Retour\ des\ données\ parsées}}
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keywordflow}{return}\ data}
+
+\end{DoxyCodeInclude}
+ 

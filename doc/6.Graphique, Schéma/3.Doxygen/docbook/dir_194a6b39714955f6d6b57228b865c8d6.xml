@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_dir_194a6b39714955f6d6b57228b865c8d6" xml:lang="fr">
+<title>Répertoire de référence de C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app</title>
+<indexterm><primary>Répertoire de référence de C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app</primary></indexterm>
+Graphe des dépendances de répertoires pour app:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="dir_194a6b39714955f6d6b57228b865c8d6_dep.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+<simplesect>
+    <title>Fichiers    </title>
+        <itemizedlist>
+            <listitem><para>fichier <link linkend="_app_2____init_____8py">__init__.py</link></para>
+</listitem>
+            <listitem><para>fichier <link linkend="_adc__ads124s08_8py">adc_ads124s08.py</link></para>
+
+<para>Driver pour l&apos;ADC ADS124S08 avec communication SPI. </para>
+</listitem>
+            <listitem><para>fichier <link linkend="_api__client_8py">api_client.py</link></para>
+
+<para>Client API pour les services oblosolutions.ch. </para>
+</listitem>
+            <listitem><para>fichier <link linkend="_config__loader_8py">config_loader.py</link></para>
+
+<para>Chargeur de configuration JSON pour le système de mesure. </para>
+</listitem>
+            <listitem><para>fichier <link linkend="_front__led__management_8py">front_led_management.py</link></para>
+
+<para>Gestionnaire de LED frontale avec patterns d&apos;erreur. </para>
+</listitem>
+            <listitem><para>fichier <link linkend="_hw__mux__adg731_8py">hw_mux_adg731.py</link></para>
+
+<para>Pilote pour multiplexeur ADG731 via interface SPI. </para>
+</listitem>
+            <listitem><para>fichier <link linkend="_hw__tmux1204_8py">hw_tmux1204.py</link></para>
+
+<para>Pilote pour multiplexeur TMUX1204 de sélection de résistance de référence. </para>
+</listitem>
+            <listitem><para>fichier <link linkend="_main_8py">main.py</link></para>
+
+<para>Système de mesure et simulation de température. </para>
+</listitem>
+            <listitem><para>fichier <link linkend="_mesure__24v__dry__contact_8py">mesure_24v_dry_contact.py</link></para>
+
+<para>Module de test des entrées/sorties 24V pour contacts secs. </para>
+</listitem>
+            <listitem><para>fichier <link linkend="_pins__cm5_8py">pins_cm5.py</link></para>
+
+<para>Mapping GPIO et SPI fixés pour la plateforme CM5. </para>
+</listitem>
+            <listitem><para>fichier <link linkend="_resistance__mapping_8py">resistance_mapping.py</link></para>
+
+<para>Mapping des résistances TMUX par type de sonde de température. </para>
+</listitem>
+            <listitem><para>fichier <link linkend="_resistance__simulation_8py">resistance_simulation.py</link></para>
+
+<para>Module pour commander le MUX de simulation de résistance. </para>
+</listitem>
+            <listitem><para>fichier <link linkend="_sensor__profiles_8py">sensor_profiles.py</link></para>
+
+<para>Profils capteurs extraits de &apos;Calcul ADC.xlsx&apos; (Feuil1). </para>
+</listitem>
+            <listitem><para>fichier <link linkend="_temperature__conversion_8py">temperature_conversion.py</link></para>
+
+<para>Module de conversion résistance/température via interpolation linéaire. </para>
+</listitem>
+            <listitem><para>fichier <link linkend="_temperature__simulation_8py">temperature_simulation.py</link></para>
+
+<para>Module de calcul de température simulée selon formule prédictive. </para>
+</listitem>
+            <listitem><para>fichier <link linkend="_test__lm70__compatible_8py">test_lm70_compatible.py</link></para>
+</listitem>
+            <listitem><para>fichier <link linkend="_test__spi__adc_8py">test_spi_adc.py</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+</section>
