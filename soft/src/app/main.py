@@ -268,7 +268,7 @@ def run_measurement_sequence(cfg, mac_address, adc, tmux):
     # Chemin vers le fichier de configuration
     CONFIG_FILE = os.path.join(SRC_DIR, "config_module", "sensors.json")
     try:
-        # Lecture et parsing du JSON
+        # Lecture et parsing du JSON - RECHARGEMENT COMPLET
         cfg = load_config(CONFIG_FILE)
         # Filtrage des canaux activés
         enabled_channels = [ch for ch in cfg.get("channels", []) if ch.get("enabled")]
@@ -277,6 +277,13 @@ def run_measurement_sequence(cfg, mac_address, adc, tmux):
         # Affichage du détail des canaux actifs
         for ch_info in enabled_channels:
             print(f"[CONFIG] Canal {ch_info['channel']}: {ch_info['sensor']}")
+        
+        # Affichage des paramètres de temporisation rechargés
+        print(f"[CONFIG] Timeout ADC: {cfg.get('timeout_s', 180)}s")
+        print(f"[CONFIG] Délai inter-mesure: {cfg.get('inter_measure_sleep_s', 0.1)}s")
+        print(f"[CONFIG] Intervalle séquences: {cfg.get('sequence_interval_minutes', 5)} min")
+        print(f"[CONFIG] Mode automatique: {cfg.get('auto_sequence', True)}")
+        
     except Exception as e:
         # Gestion des erreurs de rechargement
         print(f"[CONFIG] Erreur rechargement: {e}")
@@ -505,6 +512,46 @@ def run_measurement_sequence(cfg, mac_address, adc, tmux):
     print(f"[SEQUENCER] Séquence terminée - {datetime.now().strftime('%H:%M:%S')}")
     return sequence_success
 
+
+# ---------------------------------------------------------------------------
+# Fonctions utilitaires de rechargement dynamique
+# ---------------------------------------------------------------------------
+
+def reload_timing_config():
+    """
+    @brief   Recharge les paramètres de temporisation depuis le fichier de configuration.
+    @details Lit uniquement les paramètres de temporisation pour mise à jour dynamique
+             sans perturber le reste du système. Utilisé pour permettre la modification
+             des intervalles de séquence et du mode automatique via l'interface web.
+
+    @return  Tuple (auto_sequence, sequence_interval_minutes, success)
+             où success indique si le rechargement a réussi.
+    """
+    try:
+        # Chemin vers le fichier de configuration
+        CONFIG_FILE = os.path.join(SRC_DIR, "config_module", "sensors.json")
+        # Rechargement de la configuration complète
+        cfg = load_config(CONFIG_FILE)
+        
+        # Extraction des paramètres de temporisation
+        auto_sequence = cfg.get("auto_sequence", True)
+        sequence_interval_minutes = cfg.get("sequence_interval_minutes", 5)
+        
+        # Log des paramètres rechargés
+        print(f"[CONFIG] Paramètres rechargés - Auto: {auto_sequence}, Intervalle: {sequence_interval_minutes}min")
+        
+        return auto_sequence, sequence_interval_minutes, True
+    except Exception as e:
+        # Log d'erreur en cas d'échec
+        print(f"[CONFIG] Erreur rechargement paramètres: {e}")
+        # Retour avec valeurs par défaut
+        return True, 5, False
+
+
+# ---------------------------------------------------------------------------
+# Point d'entrée principal du programme
+# ---------------------------------------------------------------------------
+
 def main():
     """
     @brief   Point d'entrée principal du programme.
@@ -659,9 +706,14 @@ def main():
                 sequence_reason = "MANUELLE"
                 # Remise à zéro du flag de déclenchement manuel
                 force_sequence.clear()
+                # Rechargement des paramètres avant reprogrammation du cycle
+                auto_sequence_updated, sequence_interval_minutes_updated, reload_success = reload_timing_config()
+                if reload_success:
+                    auto_sequence = auto_sequence_updated
+                    sequence_interval_minutes = sequence_interval_minutes_updated
                 # Reprogrammation du cycle automatique si applicable
                 if auto_sequence and not args.manual:
-                    # Recalcul du temps de prochaine séquence
+                    # Recalcul du temps de prochaine séquence avec le nouvel intervalle
                     next_sequence_time = current_time + timedelta(minutes=sequence_interval_minutes)
                     print(f"[SEQUENCER] Cycle automatique redémarré - Prochaine séquence à: {next_sequence_time.strftime('%H:%M:%S')}")
             # Mode exécution unique
@@ -692,6 +744,21 @@ def main():
 
             # Exécution de la séquence si déclenchée
             if should_run:
+                # Rechargement des paramètres de temporisation avant séquence (si pas déjà fait)
+                if sequence_reason != "MANUELLE":  # Pour les manuelles, déjà fait plus haut
+                    print(f"[SEQUENCER] Rechargement paramètres temporisation...")
+                    auto_sequence_updated, sequence_interval_minutes_updated, reload_success = reload_timing_config()
+                    if reload_success:
+                        # Sauvegarde de l'ancien intervalle pour comparaison
+                        old_interval = sequence_interval_minutes
+                        # Mise à jour des paramètres pour les prochains cycles
+                        auto_sequence = auto_sequence_updated
+                        sequence_interval_minutes = sequence_interval_minutes_updated
+                        # Recalcul du prochain cycle si en mode automatique et intervalle modifié
+                        if sequence_reason == "AUTOMATIQUE" and sequence_interval_minutes_updated != old_interval:
+                            next_sequence_time = current_time + timedelta(minutes=sequence_interval_minutes)
+                            print(f"[SEQUENCER] Intervalle mis à jour: {old_interval}min → {sequence_interval_minutes}min")
+                
                 print(f"[SEQUENCER] Démarrage séquence {sequence_reason} - {current_time.strftime('%H:%M:%S')}")
                 # Appel de la fonction de séquence de mesure
                 success = run_measurement_sequence(cfg, mac_address, adc, tmux)
