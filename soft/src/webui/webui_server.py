@@ -8,7 +8,7 @@ from datetime import datetime
 from flask import Flask, request, jsonify, send_from_directory
 
 # Adaptation pour Windows - chemins relatifs au script
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 CONFIG_PATH = os.path.join(BASE_DIR, "config_module", "sensors.json")
 STATE_PATH = os.path.join(BASE_DIR, "state", "last_state.json")
 WEBUI_DIR = os.path.join(BASE_DIR, "webui")
@@ -22,29 +22,29 @@ def serve_index():
 @app.route("/api/config", methods=["GET"])
 def get_config():
   try:
-    print(f"[WEBUI] 📖 Lecture configuration depuis {CONFIG_PATH}")
+    print(f"[WEBUI] Lecture configuration depuis {CONFIG_PATH}")
     with open(CONFIG_PATH, "r", encoding="utf-8") as f:
       data = json.load(f)
-    print(f"[WEBUI] ✅ Configuration chargée: {len(data.get('channels', []))} canaux")
+    print(f"[WEBUI] Configuration chargée: {len(data.get('channels', []))} canaux")
     return jsonify(data), 200
   except Exception as e:
-    print(f"[WEBUI] ❌ Erreur lecture config: {e}")
+    print(f"[WEBUI] Erreur lecture config: {e}")
     return jsonify({"error": str(e)}), 500
 
 @app.route("/api/config", methods=["PUT"])
 def put_config():
   try:
     payload = request.get_json(force=True, silent=False)
-    print(f"[WEBUI] 💾 Sauvegarde configuration: {len(payload.get('channels', []))} canaux")
+    print(f"[WEBUI] Sauvegarde configuration: {len(payload.get('channels', []))} canaux")
     
     # Affichage des changements principaux
     if 'mac_address' in payload:
-      print(f"[WEBUI] 📡 MAC: {payload['mac_address']}")
+      print(f"[WEBUI] MAC: {payload['mac_address']}")
     if 'auto_sequence' in payload:
-      print(f"[WEBUI] ⏰ Auto séquence: {payload['auto_sequence']}")
+      print(f"[WEBUI] Auto séquence: {payload['auto_sequence']}")
     
     enabled_channels = [ch for ch in payload.get('channels', []) if ch.get('enabled')]
-    print(f"[WEBUI] 🔌 Canaux activés: {[ch['channel'] for ch in enabled_channels]}")
+    print(f"[WEBUI] Canaux activés: {[ch['channel'] for ch in enabled_channels]}")
     
     tmp_path = CONFIG_PATH + ".tmp"
     with open(tmp_path, "w", encoding="utf-8") as f:
@@ -53,10 +53,10 @@ def put_config():
       os.fsync(f.fileno())
     os.replace(tmp_path, CONFIG_PATH)
     
-    print(f"[WEBUI] ✅ Configuration sauvegardée dans {CONFIG_PATH}")
+    print(f"[WEBUI] Configuration sauvegardée dans {CONFIG_PATH}")
     return jsonify({"status": "ok"}), 200
   except Exception as e:
-    print(f"[WEBUI] ❌ Erreur sauvegarde config: {e}")
+    print(f"[WEBUI] Erreur sauvegarde config: {e}")
     return jsonify({"error": str(e)}), 400
 
 @app.route("/api/last", methods=["GET"])
@@ -66,10 +66,10 @@ def get_last():
       data = json.load(f)
     # Log seulement si il y a des données intéressantes
     if data.get('last_channel') is not None:
-      print(f"[WEBUI] 📊 Données canal {data['last_channel']}: {data.get('last_temperature_c', 'N/A')}°C")
+      print(f"[WEBUI] Données canal {data['last_channel']}: {data.get('last_temperature_c', 'N/A')}°C")
     return jsonify(data), 200
   except FileNotFoundError:
-    print(f"[WEBUI] ⚠️  Fichier état non trouvé: {STATE_PATH}")
+    print(f"[WEBUI] Fichier état non trouvé: {STATE_PATH}")
     return jsonify({
       "last_timestamp": None,
       "last_channel": None,
@@ -80,7 +80,7 @@ def get_last():
       "channels": {}
     }), 200
   except Exception as e:
-    print(f"[WEBUI] ❌ Erreur lecture état: {e}")
+    print(f"[WEBUI] Erreur lecture état: {e}")
     return jsonify({"error": str(e)}), 500
 
 @app.route("/api/force-reload", methods=["POST"])
@@ -93,10 +93,10 @@ def force_reload():
     with open(flag_path, "w") as f:
       f.write(datetime.now().isoformat())
     
-    print(f"[WEBUI] 🔄 Rechargement config demandé")
+    print(f"[WEBUI] Rechargement config demandé")
     return jsonify({"status": "reload requested"}), 200
   except Exception as e:
-    print(f"[WEBUI] ❌ Erreur demande rechargement: {e}")
+    print(f"[WEBUI] Erreur demande rechargement: {e}")
     return jsonify({"error": str(e)}), 500
 
 if __name__ == "__main__":
