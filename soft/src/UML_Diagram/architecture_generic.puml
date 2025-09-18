@@ -1,117 +1,125 @@
-
 @startuml ArchitectureGeneric
 skinparam componentStyle rectangle
 skinparam packageStyle rectangle
 skinparam linetype ortho
 skinparam defaultTextAlignment center
-skinparam padding 32
-skinparam componentPadding 32
-skinparam packagePadding 32
+skinparam padding 20
+skinparam componentPadding 16
+skinparam packagePadding 16
 
-' Couleurs (optionnel, gardées pour la lisibilité)
+' Définition des couleurs par couche
 !define APP_COLOR E3F2FD
-!define API_COLOR FFECB3
-!define HAL_COLOR E8F5E9
-!define DRIVERS_COLOR F3E5F5
-!define IO_COLOR FAFAFA
-!define METROLOGY_COLOR FFF3E0
-!define CONTROL_COLOR E0F7FA
-!define SCHEDULER_COLOR EDE7F6
-!define CONFIG_COLOR FBE9E7
-!define UTILS_COLOR F5F5F5
+!define SERVICES_COLOR FFECB3  
+!define BUSINESS_COLOR E8F5E9
+!define HAL_COLOR F3E5F5
+!define DRIVERS_COLOR FAFAFA
+!define HARDWARE_COLOR CFD8DC
 
-
-package "Application" as app #APP_COLOR {
-  component "Main Application" as main
+' === COUCHE APPLICATION ===
+package "Application Layer" as app_layer #APP_COLOR {
+  component "Main Controller" as main_ctrl
+  component "System Manager" as sys_mgr
+  component "Configuration Manager" as config_mgr
 }
 
-package "API" as api #API_COLOR {
-  component "External Interface" as external
+' === COUCHE SERVICES ===
+package "Service Layer" as service_layer #SERVICES_COLOR {
+  component "API Gateway" as api_gw
+  component "Task Scheduler" as scheduler
+  component "Data Logger" as logger
+  component "Fault Manager" as fault_mgr
+  component "Persistence Service" as persistence
 }
 
-package "Hardware Abstraction" as hal #HAL_COLOR {
-  component "SPI Interface" as spi
-  component "GPIO Interface" as gpio
-  component "Timer Interface" as timer
-}
-
-package "Drivers" as drivers #DRIVERS_COLOR {
-  component "MUX Driver" as mux
-  component "ADC Driver" as adc
-}
-
-package "Input/Output" as io #IO_COLOR {
-  component "Dry Contacts" as drycontacts
-  component "Hardware GPIO" as hwgpio
-}
-
-package "Metrology" as metrology #METROLOGY_COLOR {
-  component "Sensor Profiles" as sensorprofiles
-  component "Temperature Conversion" as tempconverter
-  component "Sensor Simulation" as sensorsim
-}
-
-package "Control" as control #CONTROL_COLOR {
+' === COUCHE METIER ===
+package "Business Logic Layer" as business_layer #BUSINESS_COLOR {
   component "Regulation Engine" as regulation
+  component "Temperature Controller" as temp_ctrl
+  component "Sensor Manager" as sensor_mgr
+  component "Profile Manager" as profile_mgr
+  component "Simulation Engine" as simulation
 }
 
-package "Scheduler" as scheduler #SCHEDULER_COLOR {
-  component "Task Scheduler" as taskscheduler
+' === COUCHE ABSTRACTION MATERIELLE ===
+package "Hardware Abstraction Layer" as hal_layer #HAL_COLOR {
+  component "Temperature Interface" as temp_if
+  component "Digital I/O Interface" as dio_if
+  component "Communication Interface" as comm_if
+  component "Timer Interface" as timer_if
 }
 
-package "Configuration" as config #CONFIG_COLOR {
-  component "System Configuration" as sysconfig
-  component "Hardware Configuration" as hwconfig
-  component "Pin Configuration" as pinconfig
-  component "Channel Configuration" as channelconfig
+' === COUCHE PILOTES ===
+package "Driver Layer" as driver_layer #DRIVERS_COLOR {
+  component "SPI Driver" as spi_drv
+  component "GPIO Driver" as gpio_drv
+  component "ADC Driver" as adc_drv
+  component "MUX Driver" as mux_drv
+  component "Timer Driver" as timer_drv
 }
 
-package "Utilities" as utils #UTILS_COLOR {
-  component "Error Handler" as errorhandler
-  component "Logging" as logging
-  component "Filter" as filter
-  component "Fault Manager" as faultmanager
-  component "Persistence" as persistence
+' === COUCHE MATERIELLE ===
+package "Hardware Layer" as hw_layer #HARDWARE_COLOR {
+  component "Microcontroller" as mcu
+  component "Temperature Sensors" as temp_sensors
+  component "Dry Contacts" as dry_contacts
+  component "Communication Bus" as comm_bus
 }
 
-' Relations principales (ajout de points de passage pour éviter le chevauchement)
-main -down-> external : Échange de données
-main -down-> taskscheduler : Planifie tâches
-main -down-> mux : Configure
-main -down-> adc : Configure
-main -down-> drycontacts : Lit états
-main -down-> regulation : Contrôle température
-main -down-> faultmanager : Gère erreurs
-main -down-> persistence : Sauvegarde config
+' === RELATIONS VERTICALES (Architecture en couches) ===
+' Application -> Services
+main_ctrl -down-> api_gw
+main_ctrl -down-> scheduler
+sys_mgr -down-> fault_mgr
+config_mgr -down-> persistence
 
-' Relations des drivers avec le HAL
-mux -down-> spi : Communication
-mux -down-> gpio : Contrôle chip select
-adc -down-> spi : Communication
-adc -down-> gpio : Contrôle chip select
+' Services -> Business Logic
+api_gw -down-> regulation
+scheduler -down-> temp_ctrl
+logger -down-> sensor_mgr
+fault_mgr -down-> profile_mgr
 
-' Relations de IO avec HAL
-drycontacts -down-> gpio : Lit entrées
-hwgpio -down-> gpio : Implémente interface
+' Business Logic -> HAL
+regulation -down-> temp_if
+temp_ctrl -down-> dio_if
+sensor_mgr -down-> comm_if
+simulation -down-> timer_if
 
-' Relations de métrology
-main -down-> sensorprofiles : Utilise profils
-main -down-> tempconverter : Convertit mesures
-main -down-> sensorsim : En mode simulation
+' HAL -> Drivers
+temp_if -down-> adc_drv
+dio_if -down-> gpio_drv
+comm_if -down-> spi_drv
+timer_if -down-> timer_drv
 
-' Relations de la configuration
-main -down-> sysconfig : Configure système
-main -down-> hwconfig : Configure matériel
-hwconfig -down-> pinconfig : Utilise définitions
-hwconfig -down-> channelconfig : Configure canaux
+' Drivers -> Hardware
+spi_drv -down-> comm_bus
+gpio_drv -down-> dry_contacts
+adc_drv -down-> temp_sensors
+mux_drv -down-> mcu
+timer_drv -down-> mcu
 
-' Relations des utilities
-main -down-> errorhandler : Gère erreurs
-main -down-> logging : Journalise événements
-main -down-> filter : Filtre données
-faultmanager -down-> persistence : Stocke erreurs
+' === RELATIONS HORIZONTALES (Collaboration) ===
+' Au niveau Application
+main_ctrl <-right-> sys_mgr
+sys_mgr <-right-> config_mgr
 
-' Relations du scheduler
-taskscheduler -down-> timer : Utilise timers
+' Au niveau Services
+scheduler <-right-> logger
+fault_mgr <-right-> persistence
+
+' Au niveau Business Logic
+regulation <-right-> temp_ctrl
+sensor_mgr <-right-> profile_mgr
+temp_ctrl <-right-> simulation
+
+' Au niveau Drivers
+spi_drv <-right-> mux_drv
+gpio_drv <-right-> adc_drv
+
+note top of app_layer : **Couche Application**\nGestion globale du système\nConfiguration et supervision
+note top of service_layer : **Couche Services**\nServices transversaux\nScheduling, logging, persistance
+note top of business_layer : **Couche Métier**\nLogique de régulation\nGestion des capteurs et profils
+note top of hal_layer : **Couche d'Abstraction**\nInterfaces génériques\nIndépendantes du matériel
+note top of driver_layer : **Couche Pilotes**\nPilotes spécifiques\nAccès direct au matériel
+note bottom of hw_layer : **Couche Matérielle**\nComposants physiques\nCapteurs, actionneurs, MCU
 
 @enduml
