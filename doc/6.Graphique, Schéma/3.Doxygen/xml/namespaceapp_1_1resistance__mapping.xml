@@ -1,0 +1,125 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="fr">
+  <compounddef id="namespaceapp_1_1resistance__mapping" kind="namespace" language="Python">
+    <compoundname>app::resistance_mapping</compoundname>
+    <sectiondef kind="var">
+      <memberdef kind="variable" id="namespaceapp_1_1resistance__mapping_1a3b615cabdb8c20924f8da06a285bc117" prot="public" static="no" mutable="no">
+        <type>dict</type>
+        <definition>dict app::resistance_mapping.CHANNEL_MUX</definition>
+        <argsstring></argsstring>
+        <name>CHANNEL_MUX</name>
+        <qualifiedname>app.resistance_mapping.CHANNEL_MUX</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/resistance_mapping.py" line="25" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/resistance_mapping.py" bodystart="25" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="namespaceapp_1_1resistance__mapping_1abcef5f0352c26d7e5540d9bc85a3e3fa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>dict</type>
+        <definition> dict app.resistance_mapping.get_channel_mux_map</definition>
+        <argsstring>(str sensor_type)</argsstring>
+        <name>get_channel_mux_map</name>
+        <qualifiedname>app.resistance_mapping.get_channel_mux_map</qualifiedname>
+        <param>
+          <type>str</type>
+          <declname>sensor_type</declname>
+        </param>
+        <briefdescription>
+<para>Retourne le mapping CHANNEL_MUX pour un type de sonde donné. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Fonction d&apos;accès qui extrait le dictionnaire de correspondance canal/résistance pour un type de sonde spécifique. Valide l&apos;existence du type avant de retourner les données.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>sensor_type</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Type de sonde demandé (doit exister dans CHANNEL_MUX).</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Dictionnaire {canal: resistance} pour le type de sonde.</para>
+</simplesect>
+<parameterlist kind="exception"><parameteritem>
+<parameternamelist>
+<parametername>KeyError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>si le type de sonde n&apos;est pas supporté. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/resistance_mapping.py" line="99" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/resistance_mapping.py" bodystart="99" bodyend="107"/>
+        <referencedby refid="namespaceapp_1_1resistance__mapping_1ad97e98ca666d8a3efb4c892acd311297" compoundref="resistance__mapping_8py" startline="122" endline="153">app.resistance_mapping.find_closest_channel</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="namespaceapp_1_1resistance__mapping_1ad97e98ca666d8a3efb4c892acd311297" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>tuple</type>
+        <definition> tuple app.resistance_mapping.find_closest_channel</definition>
+        <argsstring>(float target_resistance, str sensor_type)</argsstring>
+        <name>find_closest_channel</name>
+        <qualifiedname>app.resistance_mapping.find_closest_channel</qualifiedname>
+        <param>
+          <type>float</type>
+          <declname>target_resistance</declname>
+        </param>
+        <param>
+          <type>str</type>
+          <declname>sensor_type</declname>
+        </param>
+        <briefdescription>
+<para>Trouve le canal MUX le plus proche pour une résistance cible. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Algorithme de recherche du canal TMUX offrant la résistance la plus proche de la valeur cible. Calcule l&apos;erreur absolue et relative pour le meilleur canal trouvé.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>target_resistance</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Valeur de résistance cible recherchée [Ohms]. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>sensor_type</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Type de sonde à utiliser pour la recherche.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Tuple (canal, resistance_reelle, erreur_pourcent). Retourne (None, None, None) si aucun canal trouvé.</para>
+</simplesect>
+<parameterlist kind="exception"><parameteritem>
+<parameternamelist>
+<parametername>KeyError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>si le type de sonde n&apos;existe pas. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/resistance_mapping.py" line="122" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/resistance_mapping.py" bodystart="122" bodyend="153"/>
+        <references refid="namespaceapp_1_1resistance__mapping_1abcef5f0352c26d7e5540d9bc85a3e3fa" compoundref="resistance__mapping_8py" startline="99" endline="107">app.resistance_mapping.get_channel_mux_map</references>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/resistance_mapping.py" line="1" column="1"/>
+  </compounddef>
+</doxygen>

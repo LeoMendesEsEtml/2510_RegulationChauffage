@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_config__loader_8py" xml:lang="fr">
+<title>Référence du fichier C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/config_loader.py</title>
+<indexterm><primary>C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/config_loader.py</primary></indexterm>
+<para>
+
+<para>Chargeur de configuration JSON pour le système de mesure. </para>
+ 
+</para>
+<simplesect>
+    <title>Espaces de nommage    </title>
+        <itemizedlist>
+            <listitem><para>namespace <link linkend="_namespaceapp">app</link></para>
+</listitem>
+            <listitem><para>namespace <link linkend="_namespaceapp_1_1config__loader">app.config_loader</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Fonctions    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_namespaceapp_1_1config__loader_1ae642fb808edb3680f9bed49a9b3dfe65">app.config_loader.load_config</link> (path)</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Description détaillée</title>
+
+<para>Chargeur de configuration JSON pour le système de mesure. </para>
+
+<para>Ce module fournit une fonction simple pour charger et parser un fichier de configuration JSON contenant les paramètres des capteurs, timeouts et autres paramètres système. <formalpara><title>Auteur</title>
+
+<para>Léo Mendes @project 2510_RegulationsChauffage @Mandant Oblo_solution </para>
+</formalpara>
+<formalpara><title>Date</title>
+
+<para>2025-09-18 </para>
+</formalpara>
+<formalpara><title>Version</title>
+
+<para>1.0.0 </para>
+</formalpara>
+<formalpara><title>Copyright</title>
+
+<para>Copyright (c) 2025 </para>
+</formalpara>
+</para>
+</section>
+</section>

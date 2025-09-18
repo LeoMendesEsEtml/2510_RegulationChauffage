@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="fr">
+  <compounddef id="dir_a30191f5867566fd376dca42effbb4e4" kind="dir">
+    <compoundname>C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src</compoundname>
+    <innerdir refid="dir_194a6b39714955f6d6b57228b865c8d6">C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app</innerdir>
+    <innerdir refid="dir_eeb81aa684f40f7b9c7a7aac642db388">C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/config_module</innerdir>
+    <innerdir refid="dir_66b2cbd9a818255da9ff447d4313ad04">C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/webui</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/"/>
+  </compounddef>
+</doxygen>

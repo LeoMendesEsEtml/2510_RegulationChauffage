@@ -1,0 +1,5 @@
+<map id="app.adc_ads124s08.Ads124s08._wreg" name="app.adc_ads124s08.Ads124s08._wreg">
+<area shape="rect" id="Node000001" title="Écrit dans un ou plusieurs registres de l&#39;ADC via SPI." alt="" coords="5,5,251,32"/>
+<area shape="rect" id="Node000002" href="$classapp_1_1adc__ads124s08_1_1_ads124s08.html#a2f6a4281f1eaac0a7120e6b507b1c9e6" title="Lit un ou plusieurs registres de l&#39;ADC via SPI." alt="" coords="299,5,538,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="251,16,283,16,283,21,251,21"/>
+</map>

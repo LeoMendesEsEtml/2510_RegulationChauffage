@@ -1,0 +1,118 @@
+\doxysection{Référence de l\textquotesingle{}espace de nommage app.\+api\+\_\+client}
+\hypertarget{namespaceapp_1_1api__client}{}\label{namespaceapp_1_1api__client}\index{app.api\_client@{app.api\_client}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classapp_1_1api__client_1_1_api_client}{Api\+Client}}
+\begin{DoxyCompactList}\small\item\em Client pour interroger les APIs oblosolutions.\+ch. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classapp_1_1api__client_1_1_api_error}{Api\+Error}}
+\begin{DoxyCompactList}\small\item\em Exception pour les erreurs d\textquotesingle{}API. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Fonctions}
+\begin{DoxyCompactItemize}
+\item 
+Dict\mbox{[}str, Any\mbox{]} \mbox{\hyperlink{namespaceapp_1_1api__client_af48f8165ee988985679357bd07baafdb}{get\+\_\+simulation\+\_\+data}} (str mac\+\_\+address)
+\begin{DoxyCompactList}\small\item\em Récupère les données de simulation depuis les APIs. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{namespaceapp_1_1api__client_abf9801a9e4bcf9817f44a2c08e68d938}{send\+\_\+temperature\+\_\+measurement}} (str mac\+\_\+address, float temperature, int channel=None)
+\begin{DoxyCompactList}\small\item\em Envoie une mesure de température vers l\textquotesingle{}API. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{namespaceapp_1_1api__client_ac070ba1d4d0b10ca200ef77c3bd68fd5}{REQUEST\+\_\+\+TIMEOUT}} = 10
+\item 
+int \mbox{\hyperlink{namespaceapp_1_1api__client_a3a47289c37788e389f3f62c12ee9312a}{MAX\+\_\+\+RETRIES}} = 3
+\item 
+int \mbox{\hyperlink{namespaceapp_1_1api__client_a58ef9b423e01b1428c03ba4c7b7a7e1b}{RETRY\+\_\+\+DELAY}} = 1
+\item 
+str \mbox{\hyperlink{namespaceapp_1_1api__client_a1f94a135976701bdeeb72eb5acf4bbd4}{test\+\_\+mac}} = "{}0030\+DEABCDEF"{}
+\item 
+Dict\mbox{[}str, Any\mbox{]} \mbox{\hyperlink{namespaceapp_1_1api__client_ac478207d8e3a7c898761fd35c77390d0}{data}} = \mbox{\hyperlink{namespaceapp_1_1api__client_af48f8165ee988985679357bd07baafdb}{get\+\_\+simulation\+\_\+data}}(\mbox{\hyperlink{namespaceapp_1_1api__client_a1f94a135976701bdeeb72eb5acf4bbd4}{test\+\_\+mac}})
+\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{namespaceapp_1_1api__client_doc-func-members}
+\doxysubsection{Documentation des fonctions}
+\Hypertarget{namespaceapp_1_1api__client_af48f8165ee988985679357bd07baafdb}\index{app.api\_client@{app.api\_client}!get\_simulation\_data@{get\_simulation\_data}}
+\index{get\_simulation\_data@{get\_simulation\_data}!app.api\_client@{app.api\_client}}
+\doxysubsubsection{\texorpdfstring{get\_simulation\_data()}{get\_simulation\_data()}}
+{\footnotesize\ttfamily \label{namespaceapp_1_1api__client_af48f8165ee988985679357bd07baafdb} 
+ Dict\mbox{[}str, Any\mbox{]} app.\+api\+\_\+client.\+get\+\_\+simulation\+\_\+data (\begin{DoxyParamCaption}\item[{str}]{mac\+\_\+address}{}\end{DoxyParamCaption})}
+
+
+
+Récupère les données de simulation depuis les APIs. 
+
+Combine les appels vers td25\+\_\+param et td25\+\_\+forecast pour récupérer tous les paramètres nécessaires à la simulation de température. Utilise le client \doxylink{classapp_1_1api__client_1_1_api_client}{Api\+Client} pour gérer les retries et les erreurs automatiquement.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em mac\+\_\+address} & Adresse MAC du dispositif.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+Dictionnaire avec toutes les données nécessaires pour la simulation.
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \doxylink{classapp_1_1api__client_1_1_api_error}{Api\+Error}} & Si aucune donnée valide n\textquotesingle{}est obtenue. \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{namespaceapp_1_1api__client_abf9801a9e4bcf9817f44a2c08e68d938}\index{app.api\_client@{app.api\_client}!send\_temperature\_measurement@{send\_temperature\_measurement}}
+\index{send\_temperature\_measurement@{send\_temperature\_measurement}!app.api\_client@{app.api\_client}}
+\doxysubsubsection{\texorpdfstring{send\_temperature\_measurement()}{send\_temperature\_measurement()}}
+{\footnotesize\ttfamily \label{namespaceapp_1_1api__client_abf9801a9e4bcf9817f44a2c08e68d938} 
+ bool app.\+api\+\_\+client.\+send\+\_\+temperature\+\_\+measurement (\begin{DoxyParamCaption}\item[{str}]{mac\+\_\+address}{, }\item[{float}]{temperature}{, }\item[{int }]{channel}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+
+
+Envoie une mesure de température vers l\textquotesingle{}API. 
+
+Fonction utilitaire qui crée un client \doxylink{classapp_1_1api__client_1_1_api_client}{Api\+Client} et utilise la méthode post\+\_\+measured\+\_\+temperature pour envoyer la température mesurée. Gère les exceptions et retourne un booléen simple.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em mac\+\_\+address} & Adresse MAC du dispositif. \\
+\hline
+{\em temperature} & Température mesurée en °C. \\
+\hline
+{\em channel} & Canal de mesure (optionnel).\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+True si succès, False sinon. 
+\end{DoxyReturn}
+
+
+\label{doc-var-members}
+\Hypertarget{namespaceapp_1_1api__client_doc-var-members}
+\doxysubsection{Documentation des variables}
+\Hypertarget{namespaceapp_1_1api__client_ac478207d8e3a7c898761fd35c77390d0}\index{app.api\_client@{app.api\_client}!data@{data}}
+\index{data@{data}!app.api\_client@{app.api\_client}}
+\doxysubsubsection{\texorpdfstring{data}{data}}
+{\footnotesize\ttfamily \label{namespaceapp_1_1api__client_ac478207d8e3a7c898761fd35c77390d0} 
+Dict\mbox{[}str, Any\mbox{]} app.\+api\+\_\+client.\+data = \mbox{\hyperlink{namespaceapp_1_1api__client_af48f8165ee988985679357bd07baafdb}{get\+\_\+simulation\+\_\+data}}(\mbox{\hyperlink{namespaceapp_1_1api__client_a1f94a135976701bdeeb72eb5acf4bbd4}{test\+\_\+mac}})}
+
+\Hypertarget{namespaceapp_1_1api__client_a3a47289c37788e389f3f62c12ee9312a}\index{app.api\_client@{app.api\_client}!MAX\_RETRIES@{MAX\_RETRIES}}
+\index{MAX\_RETRIES@{MAX\_RETRIES}!app.api\_client@{app.api\_client}}
+\doxysubsubsection{\texorpdfstring{MAX\_RETRIES}{MAX\_RETRIES}}
+{\footnotesize\ttfamily \label{namespaceapp_1_1api__client_a3a47289c37788e389f3f62c12ee9312a} 
+int app.\+api\+\_\+client.\+MAX\+\_\+\+RETRIES = 3}
+
+\Hypertarget{namespaceapp_1_1api__client_ac070ba1d4d0b10ca200ef77c3bd68fd5}\index{app.api\_client@{app.api\_client}!REQUEST\_TIMEOUT@{REQUEST\_TIMEOUT}}
+\index{REQUEST\_TIMEOUT@{REQUEST\_TIMEOUT}!app.api\_client@{app.api\_client}}
+\doxysubsubsection{\texorpdfstring{REQUEST\_TIMEOUT}{REQUEST\_TIMEOUT}}
+{\footnotesize\ttfamily \label{namespaceapp_1_1api__client_ac070ba1d4d0b10ca200ef77c3bd68fd5} 
+int app.\+api\+\_\+client.\+REQUEST\+\_\+\+TIMEOUT = 10}
+
+\Hypertarget{namespaceapp_1_1api__client_a58ef9b423e01b1428c03ba4c7b7a7e1b}\index{app.api\_client@{app.api\_client}!RETRY\_DELAY@{RETRY\_DELAY}}
+\index{RETRY\_DELAY@{RETRY\_DELAY}!app.api\_client@{app.api\_client}}
+\doxysubsubsection{\texorpdfstring{RETRY\_DELAY}{RETRY\_DELAY}}
+{\footnotesize\ttfamily \label{namespaceapp_1_1api__client_a58ef9b423e01b1428c03ba4c7b7a7e1b} 
+int app.\+api\+\_\+client.\+RETRY\+\_\+\+DELAY = 1}
+
+\Hypertarget{namespaceapp_1_1api__client_a1f94a135976701bdeeb72eb5acf4bbd4}\index{app.api\_client@{app.api\_client}!test\_mac@{test\_mac}}
+\index{test\_mac@{test\_mac}!app.api\_client@{app.api\_client}}
+\doxysubsubsection{\texorpdfstring{test\_mac}{test\_mac}}
+{\footnotesize\ttfamily \label{namespaceapp_1_1api__client_a1f94a135976701bdeeb72eb5acf4bbd4} 
+str app.\+api\+\_\+client.\+test\+\_\+mac = "{}0030\+DEABCDEF"{}}
+

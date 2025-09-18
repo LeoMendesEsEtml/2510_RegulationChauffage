@@ -1,0 +1,98 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_namespaceapp_1_1hw__mux__adg731" xml:lang="fr">
+<title>Référence de l&apos;espace de nommage app.hw_mux_adg731</title>
+<indexterm><primary>app.hw_mux_adg731</primary></indexterm>
+<simplesect>
+    <title>Classes    </title>
+        <itemizedlist>
+            <listitem><para>class <link linkend="_classapp_1_1hw__mux__adg731_1_1_adg731_mux_spi">Adg731MuxSpi</link></para>
+
+<para>Pilote SPI pour multiplexeurs ADG731. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Fonctions    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_namespaceapp_1_1hw__mux__adg731_1a191556bfaa023e4d6e1f2099dca9db46">adg731_ctrl_byte</link> (address, enable=True)</para>
+
+<para>Génère le byte de contrôle pour l&apos;ADG731. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Documentation des fonctions</title>
+<anchor xml:id="_namespaceapp_1_1hw__mux__adg731_1a191556bfaa023e4d6e1f2099dca9db46"/><section>
+    <title>adg731_ctrl_byte()</title>
+<indexterm><primary>adg731_ctrl_byte</primary><secondary>app.hw_mux_adg731</secondary></indexterm>
+<indexterm><primary>app.hw_mux_adg731</primary><secondary>adg731_ctrl_byte</secondary></indexterm>
+<para><computeroutput>app.hw_mux_adg731.adg731_ctrl_byte ( address,  enable = <computeroutput>True</computeroutput>
+)</computeroutput></para><para>
+
+<para>Génère le byte de contrôle pour l&apos;ADG731. </para>
+</para>
+
+<para>Construit l&apos;octet de commande selon le protocole ADG731 avec le bit d&apos;activation (EN) en MSB et l&apos;adresse sur 5 bits. L&apos;activation se fait avec EN=0 (logique inversée).</para>
+
+<para>
+                <formalpara>
+                    <title>
+Paramètres</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>address</entry><entry>
+<para>Adresse du canal (0-31). </para>
+</entry>
+                            </row>
+                            <row>
+<entry>enable</entry><entry>
+<para>État d&apos;activation du canal (True=activé).</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Renvoie</title>
+
+<para>Octet de contrôle formaté selon le protocole ADG731.</para>
+</formalpara>
+
+                <formalpara>
+                    <title>
+Exceptions</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>ValueError</entry><entry>
+<para>Si l&apos;adresse est hors de la plage valide. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+Voici le graphe des appelants de cette fonction :<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespaceapp_1_1hw__mux__adg731_a191556bfaa023e4d6e1f2099dca9db46_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+</section>
+</section>

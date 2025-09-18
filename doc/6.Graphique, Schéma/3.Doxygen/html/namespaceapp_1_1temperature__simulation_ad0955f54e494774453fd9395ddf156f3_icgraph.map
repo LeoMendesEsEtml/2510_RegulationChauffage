@@ -1,0 +1,5 @@
+<map id="app.temperature_simulation.calculate_simulated_temperature" name="app.temperature_simulation.calculate_simulated_temperature">
+<area shape="rect" id="Node000001" title="Calcule la température simulée selon la formule prédictive." alt="" coords="257,5,494,48"/>
+<area shape="rect" id="Node000002" href="$namespaceapp_1_1temperature__simulation.html#a9dce35a5a5235426dcb9002af6f2fe80" title="Exécute une simulation complète de température avec dictionnaire." alt="" coords="5,5,209,48"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="241,29,209,29,209,24,241,24"/>
+</map>

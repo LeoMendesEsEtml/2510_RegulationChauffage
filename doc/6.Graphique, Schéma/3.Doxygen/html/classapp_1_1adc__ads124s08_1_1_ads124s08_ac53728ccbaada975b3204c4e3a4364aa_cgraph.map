@@ -1,0 +1,13 @@
+<map id="app.adc_ads124s08.Ads124s08.read_code24" name="app.adc_ads124s08.Ads124s08.read_code24">
+<area shape="rect" id="Node000001" title="Lit un code de données 24 bits depuis l&#39;ADC." alt="" coords="5,64,241,107"/>
+<area shape="rect" id="Node000002" href="$namespaceapp_1_1adc__ads124s08.html#a2d49f7c13e0b47db65080ab59febed76" title="Étend le signe d&#39;un code ADC 24 bits vers 32 bits." alt="" coords="324,5,490,48"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="229,61,308,44,310,49,230,66"/>
+<area shape="rect" id="Node000003" href="$classapp_1_1adc__ads124s08_1_1_ads124s08.html#a5d7414311a828e4231a22b6e414cbfba" title="Démarre une conversion ADC." alt="" coords="289,72,525,99"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="241,83,273,83,273,88,241,88"/>
+<area shape="rect" id="Node000004" href="$classapp_1_1adc__ads124s08_1_1_ads124s08.html#a6cbdea3f16ae1dff329ec8e45ef859d1" title="Attend un front descendant sur DRDY (HIGH &#45;&gt; LOW) avec timeout." alt="" coords="290,123,524,165"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="230,105,286,116,285,122,229,110"/>
+<area shape="rect" id="Node000005" href="$classapp_1_1adc__ads124s08_1_1_ads124s08.html#a6c3a8c9cc298fbe29123898f8e404b82" title="Écrit dans un ou plusieurs registres de l&#39;ADC via SPI." alt="" coords="573,131,818,157"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="525,141,557,141,557,147,525,147"/>
+<area shape="rect" id="Node000006" href="$classapp_1_1adc__ads124s08_1_1_ads124s08.html#a2f6a4281f1eaac0a7120e6b507b1c9e6" title="Lit un ou plusieurs registres de l&#39;ADC via SPI." alt="" coords="866,131,1106,157"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="819,141,850,141,850,147,819,147"/>
+</map>

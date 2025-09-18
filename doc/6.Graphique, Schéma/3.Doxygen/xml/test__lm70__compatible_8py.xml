@@ -1,0 +1,129 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="fr">
+  <compounddef id="test__lm70__compatible_8py" kind="file" language="Python">
+    <compoundname>test_lm70_compatible.py</compoundname>
+    <innernamespace refid="namespaceapp">app</innernamespace>
+    <innernamespace refid="namespaceapp_1_1test__lm70__compatible">app::test_lm70_compatible</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1" refid="namespaceapp_1_1test__lm70__compatible" refkind="compound"><highlight class="comment">#<sp/>-*-<sp/>coding:<sp/>utf-8<sp/>-*-</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="comment">#!/usr/bin/env<sp/>python3</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="stringliteral">&quot;&quot;&quot;</highlight></codeline>
+<codeline lineno="4"><highlight class="stringliteral">Test<sp/>LM70<sp/>avec<sp/>support<sp/>automatique<sp/>pour<sp/>simulateur<sp/>et<sp/>hardware<sp/>réel.</highlight></codeline>
+<codeline lineno="5"><highlight class="stringliteral">Ce<sp/>script<sp/>fonctionnera<sp/>aussi<sp/>bien<sp/>sur<sp/>un<sp/>PC<sp/>que<sp/>sur<sp/>un<sp/>Raspberry<sp/>Pi.</highlight></codeline>
+<codeline lineno="6"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="7"><highlight class="stringliteral">Connexions<sp/>matérielles<sp/>spécifiques<sp/>:</highlight></codeline>
+<codeline lineno="8"><highlight class="stringliteral">-<sp/>LM70<sp/>MISO<sp/>→<sp/>GPIO<sp/>19<sp/>(SPI_MISO_ADC_GPIO)</highlight></codeline>
+<codeline lineno="9"><highlight class="stringliteral">-<sp/>LM70<sp/>MOSI<sp/>→<sp/>GPIO<sp/>20<sp/>(SPI_MOSI_ADC_GPIO)</highlight></codeline>
+<codeline lineno="10"><highlight class="stringliteral">-<sp/>LM70<sp/>SCLK<sp/>→<sp/>GPIO<sp/>21<sp/>(SPI_SCLK_ADC_GPIO)</highlight></codeline>
+<codeline lineno="11"><highlight class="stringliteral">-<sp/>LM70<sp/>CS<sp/>→<sp/>GPIO<sp/>18<sp/>(GPIO<sp/>libre)</highlight></codeline>
+<codeline lineno="12"><highlight class="stringliteral">&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>logging</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>os</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>sys</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>time</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>spidev</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="comment">#<sp/>Configuration<sp/>du<sp/>logging</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal">logging.basicConfig(</highlight></codeline>
+<codeline lineno="22" refid="namespaceapp_1_1test__lm70__compatible_1a6144e5814c4b07e44b35663388492ccf" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>level=logging.INFO,</highlight></codeline>
+<codeline lineno="23" refid="namespaceapp_1_1test__lm70__compatible_1a3a80c3c5818d76fa540d2608b8eb5251" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>format=</highlight><highlight class="stringliteral">&apos;%(asctime)s<sp/>-<sp/>%(name)s<sp/>-<sp/>%(levelname)s<sp/>-<sp/>%(message)s&apos;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="24" refid="namespaceapp_1_1test__lm70__compatible_1a3634281bf1f55048d00aea77532f59dd" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>handlers=[</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>logging.StreamHandler()</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/>]</highlight></codeline>
+<codeline lineno="27"><highlight class="normal">)</highlight></codeline>
+<codeline lineno="28" refid="namespaceapp_1_1test__lm70__compatible_1a57491bf19a08b2bf673b87010c9cf817" refkind="member"><highlight class="normal">logger<sp/>=<sp/>logging.getLogger(</highlight><highlight class="stringliteral">&quot;LM70-Test&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="comment">#<sp/>Définition<sp/>des<sp/>GPIO<sp/>SPI1</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31" refid="namespaceapp_1_1test__lm70__compatible_1ae1e57a5467abd88aebe4e8a4ef2f8c47" refkind="member"><highlight class="normal">LM70_CS_GPIO<sp/>=<sp/>18<sp/><sp/></highlight><highlight class="comment">#<sp/>GPIO<sp/>18<sp/>utilisé<sp/>comme<sp/>CS</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32" refid="namespaceapp_1_1test__lm70__compatible_1ab158092e70bb66d47e0a9fd2cc1ea342" refkind="member"><highlight class="normal">SPI_MOSI_ADC_GPIO<sp/>=<sp/>20</highlight></codeline>
+<codeline lineno="33" refid="namespaceapp_1_1test__lm70__compatible_1a9e3001ec2848de215182db26ce3b4828" refkind="member"><highlight class="normal">SPI_MISO_ADC_GPIO<sp/>=<sp/>19</highlight></codeline>
+<codeline lineno="34" refid="namespaceapp_1_1test__lm70__compatible_1a2a6df630baf4617a726e2cd0d0b2ab6b" refkind="member"><highlight class="normal">SPI_SCLK_ADC_GPIO<sp/>=<sp/>21</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">#<sp/>Déterminer<sp/>le<sp/>chemin<sp/>absolu<sp/>du<sp/>script</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37" refid="namespaceapp_1_1test__lm70__compatible_1a71a3572d1e3aed0054cb2dedfa506fd6" refkind="member"><highlight class="normal">current_dir<sp/>=<sp/>os.path.dirname(os.path.abspath(__file__))</highlight></codeline>
+<codeline lineno="38" refid="namespaceapp_1_1test__lm70__compatible_1ae03ea432cb4b4f1e7d77dd39a1bf3ec1" refkind="member"><highlight class="normal">src_dir<sp/>=<sp/>os.path.dirname(current_dir)<sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;src&quot;</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">in</highlight><highlight class="normal"><sp/>current_dir<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>current_dir</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">#<sp/>Importer<sp/>le<sp/>module<sp/>de<sp/>mock<sp/>automatique</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal">sys.path.insert(0,<sp/>src_dir)</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="keywordflow">try</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/>mock_imports<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>GPIO</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/>logger.info(</highlight><highlight class="stringliteral">&quot;Module<sp/>d&apos;importation<sp/>automatique<sp/>chargé<sp/>avec<sp/>succès&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="keywordflow">except</highlight><highlight class="normal"><sp/>ImportError:</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/>logger.error(</highlight><highlight class="stringliteral">&quot;Impossible<sp/>d&apos;importer<sp/>le<sp/>module<sp/>mock_imports.py&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/>logger.error(</highlight><highlight class="stringliteral">&quot;Assurez-vous<sp/>que<sp/>le<sp/>fichier<sp/>mock_imports.py<sp/>est<sp/>présent<sp/>dans<sp/>le<sp/>répertoire<sp/>src&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/>sys.exit(1)</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="comment">#<sp/>Configuration<sp/>SPI<sp/>pour<sp/>le<sp/>LM70</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51" refid="namespaceapp_1_1test__lm70__compatible_1a142361b80c799ba1f4b3ae421b992bc9" refkind="member"><highlight class="normal">spi<sp/>=<sp/>spidev.SpiDev()</highlight></codeline>
+<codeline lineno="52"><highlight class="normal">spi.open(1,<sp/>0)<sp/><sp/></highlight><highlight class="comment">#<sp/>Bus<sp/>1,<sp/>Device<sp/>0<sp/>(SPI1)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53" refid="namespaceapp_1_1test__lm70__compatible_1a06d07a4e6af2b1db673085b33a2deda8" refkind="member"><highlight class="normal">spi.max_speed_hz<sp/>=<sp/>100000<sp/><sp/></highlight><highlight class="comment">#<sp/>100<sp/>kHz</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54" refid="namespaceapp_1_1test__lm70__compatible_1a03dc9acc375bdb9ed7305b35a1652c06" refkind="member"><highlight class="normal">spi.mode<sp/>=<sp/>0<sp/><sp/></highlight><highlight class="comment">#<sp/>Mode<sp/>0:<sp/>CPOL=0,<sp/>CPHA=0</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55" refid="namespaceapp_1_1test__lm70__compatible_1a931848fa47b9f7e6158745ac557b5d6b" refkind="member"><highlight class="normal">spi.bits_per_word<sp/>=<sp/>8</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="namespaceapp_1_1test__lm70__compatible_1af5b44993c1442a69936834f072f09bd8" kindref="member">test_lm70</ref>():</highlight></codeline>
+<codeline lineno="58" refid="namespaceapp_1_1test__lm70__compatible_1af5b44993c1442a69936834f072f09bd8" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;Test<sp/>de<sp/>communication<sp/>SPI<sp/>avec<sp/>le<sp/>capteur<sp/>LM70&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">try</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Configuration<sp/>GPIO</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GPIO.setmode(GPIO.BCM)</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GPIO.setwarnings(</highlight><highlight class="keyword">False</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Configuration<sp/>du<sp/>GPIO<sp/>CS<sp/>pour<sp/>le<sp/>LM70</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GPIO.setup(LM70_CS_GPIO,<sp/>GPIO.OUT,<sp/>initial=GPIO.HIGH)</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>logger.info(</highlight><highlight class="stringliteral">&quot;Début<sp/>du<sp/>test<sp/>LM70&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">True</highlight><highlight class="normal">:<sp/><sp/></highlight><highlight class="comment">#<sp/>Boucle<sp/>infinie<sp/>pour<sp/>tester<sp/>en<sp/>continu</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Active<sp/>CS</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GPIO.output(LM70_CS_GPIO,<sp/>GPIO.LOW)</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Envoi<sp/>de<sp/>données<sp/>arbitraires<sp/>sur<sp/>MOSI</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>resp<sp/>=<sp/>spi.xfer2([0x00,<sp/>0x00])</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Désactive<sp/>CS</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GPIO.output(LM70_CS_GPIO,<sp/>GPIO.HIGH)</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>logger.info(f</highlight><highlight class="stringliteral">&quot;Données<sp/>SPI<sp/>reçues<sp/>:<sp/>{resp}&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Vérification<sp/>des<sp/>données<sp/>reçues</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>len(resp)<sp/>==<sp/>2:</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Combine<sp/>les<sp/>2<sp/>octets<sp/>en<sp/>un<sp/>entier<sp/>16<sp/>bits</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>raw_temp<sp/>=<sp/>(resp[0]<sp/>&lt;&lt;<sp/>8)<sp/>|<sp/>resp[1]</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Ignore<sp/>les<sp/>5<sp/>bits<sp/>les<sp/>moins<sp/>significatifs</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>raw_temp<sp/>=<sp/>raw_temp<sp/>&gt;&gt;<sp/>5</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Convertir<sp/>les<sp/>11<sp/>bits<sp/>en<sp/>entier<sp/>signé</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>raw_temp<sp/>&amp;<sp/>0x0400:<sp/><sp/></highlight><highlight class="comment">#<sp/>Si<sp/>le<sp/>bit<sp/>de<sp/>signe<sp/>est<sp/>1</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>raw_temp<sp/>-=<sp/>0x0800<sp/><sp/></highlight><highlight class="comment">#<sp/>Appliquer<sp/>le<sp/>complément<sp/>à<sp/>2</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Calculer<sp/>la<sp/>température<sp/>en<sp/>°C</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>temp_celsius<sp/>=<sp/>raw_temp<sp/>*<sp/>0.25</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>logger.info(f</highlight><highlight class="stringliteral">&quot;Données<sp/>brutes<sp/>combinées<sp/>:<sp/>{raw_temp}&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>logger.info(f</highlight><highlight class="stringliteral">&quot;Température<sp/>calculée<sp/>:<sp/>{temp_celsius:.2f}°C&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>logger.warning(</highlight><highlight class="stringliteral">&quot;Données<sp/>SPI<sp/>invalides<sp/>-<sp/>vérifiez<sp/>les<sp/>connexions&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Délai<sp/>pour<sp/>éviter<sp/>de<sp/>saturer<sp/>le<sp/>bus<sp/>SPI</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>time.sleep(0.5)</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">except</highlight><highlight class="normal"><sp/>KeyboardInterrupt:</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>logger.info(</highlight><highlight class="stringliteral">&quot;Test<sp/>interrompu<sp/>par<sp/>l&apos;utilisateur&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">except</highlight><highlight class="normal"><sp/>Exception<sp/></highlight><highlight class="keyword">as</highlight><highlight class="normal"><sp/>e:</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>logger.error(f</highlight><highlight class="stringliteral">&quot;Erreur<sp/>lors<sp/>du<sp/>test<sp/>LM70<sp/>:<sp/>{e}&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">finally</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GPIO.cleanup()</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>spi.close()</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>__name__<sp/>==<sp/></highlight><highlight class="stringliteral">&quot;__main__&quot;</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespaceapp_1_1test__lm70__compatible_1af5b44993c1442a69936834f072f09bd8" kindref="member">test_lm70</ref>()</highlight></codeline>
+    </programlisting>
+    <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/test_lm70_compatible.py"/>
+  </compounddef>
+</doxygen>

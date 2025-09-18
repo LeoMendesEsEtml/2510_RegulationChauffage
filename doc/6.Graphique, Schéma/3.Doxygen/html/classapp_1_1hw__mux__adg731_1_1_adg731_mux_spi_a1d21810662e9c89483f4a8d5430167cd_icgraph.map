@@ -1,0 +1,5 @@
+<map id="app.hw_mux_adg731.Adg731MuxSpi.set_channel" name="app.hw_mux_adg731.Adg731MuxSpi.set_channel">
+<area shape="rect" id="Node000001" title="Active un canal spécifique sur une carte donnée." alt="" coords="246,5,438,48"/>
+<area shape="rect" id="Node000002" href="$classapp_1_1hw__mux__adg731_1_1_adg731_mux_spi.html#a847670de338ddbc0e2257f8d821cd82a" title="Utilitaire simple pour sélectionner un canal de sortie." alt="" coords="5,5,198,48"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="230,29,198,29,198,24,230,24"/>
+</map>

@@ -1,0 +1,710 @@
+\doxysection{Référence de la classe app.\+adc\+\_\+ads124s08.\+Ads124s08}
+\hypertarget{classapp_1_1adc__ads124s08_1_1_ads124s08}{}\label{classapp_1_1adc__ads124s08_1_1_ads124s08}\index{app.adc\_ads124s08.Ads124s08@{app.adc\_ads124s08.Ads124s08}}
+
+
+Driver pour l\textquotesingle{}ADC ADS124\+S08 avec interface SPI.  
+
+
+
+
+Graphe de collaboration de app.\+adc\+\_\+ads124s08.\+Ads124s08\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=227pt]{classapp_1_1adc__ads124s08_1_1_ads124s08__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Fonctions membres publiques}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classapp_1_1adc__ads124s08_1_1_ads124s08_ad07d394c9bbe4d22ca8fb590382c2554}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self)
+\begin{DoxyCompactList}\small\item\em Constructeur de la classe \doxylink{classapp_1_1adc__ads124s08_1_1_ads124s08}{Ads124s08}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classapp_1_1adc__ads124s08_1_1_ads124s08_a56dff2b65427bc620cc661de71d9d44d}{read\+\_\+id}} (self)
+\begin{DoxyCompactList}\small\item\em Lit le registre d\textquotesingle{}identification de l\textquotesingle{}ADC. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classapp_1_1adc__ads124s08_1_1_ads124s08_ac8b34f0152689ddfc7950f31d10cd62f}{close}} (self)
+\begin{DoxyCompactList}\small\item\em Ferme les interfaces SPI et GPIO proprement. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classapp_1_1adc__ads124s08_1_1_ads124s08_a6cbdea3f16ae1dff329ec8e45ef859d1}{wait\+\_\+drdy\+\_\+falling\+\_\+edge}} (self, timeout\+\_\+s)
+\begin{DoxyCompactList}\small\item\em Attend un front descendant sur DRDY (HIGH -\/\texorpdfstring{$>$}{>} LOW) avec timeout. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classapp_1_1adc__ads124s08_1_1_ads124s08_a7e7fb10a1acebe2f4200a52670c2fb0c}{set\+\_\+single\+\_\+shot\+\_\+lowlatency}} (self, dr\+\_\+nibble)
+\begin{DoxyCompactList}\small\item\em Configure le mode single-\/shot low-\/latency de l\textquotesingle{}ADC. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classapp_1_1adc__ads124s08_1_1_ads124s08_abe455695d580ba27f0e5c559414fefbf}{configure\+\_\+channel}} (self, channel\+\_\+index, pga\+\_\+gain, idac\+\_\+uA)
+\begin{DoxyCompactList}\small\item\em Configure un canal ADC avec ses paramètres de mesure. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classapp_1_1adc__ads124s08_1_1_ads124s08_a5d7414311a828e4231a22b6e414cbfba}{start}} (self)
+\begin{DoxyCompactList}\small\item\em Démarre une conversion ADC. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classapp_1_1adc__ads124s08_1_1_ads124s08_a30d1ac487b9ef8dcfb310cea695db0f9}{stop}} (self)
+\begin{DoxyCompactList}\small\item\em Arrête une conversion ADC en cours. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classapp_1_1adc__ads124s08_1_1_ads124s08_ac53728ccbaada975b3204c4e3a4364aa}{read\+\_\+code24}} (self)
+\begin{DoxyCompactList}\small\item\em Lit un code de données 24 bits depuis l\textquotesingle{}ADC. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classapp_1_1adc__ads124s08_1_1_ads124s08_a6c3422094f1375f8e91bff96eb299f69}{measure\+\_\+resistance}} (self, rref\+\_\+ohm, pga\+\_\+gain, timeout\+\_\+s)
+\begin{DoxyCompactList}\small\item\em Mesure la résistance d\textquotesingle{}une sonde via l\textquotesingle{}ADC. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classapp_1_1adc__ads124s08_1_1_ads124s08_a29331f015d0a23fb89fa1aedce5a33b3}{measure\+\_\+temperature}} (self, sensor\+\_\+name, rref\+\_\+ohm, pga\+\_\+gain, timeout\+\_\+s)
+\begin{DoxyCompactList}\small\item\em Mesure la température d\textquotesingle{}un capteur via l\textquotesingle{}ADC. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classapp_1_1adc__ads124s08_1_1_ads124s08_af51ca6a1c8d208a333556ce44e9cbb17}{read\+\_\+gain}} (self)
+\begin{DoxyCompactList}\small\item\em Lit le registre de gain PGA pour diagnostic. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classapp_1_1adc__ads124s08_1_1_ads124s08_a424495225e0f75a1aa7cc76067b6110e}{read\+\_\+ref}} (self)
+\begin{DoxyCompactList}\small\item\em Lit le registre de configuration de la référence. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classapp_1_1adc__ads124s08_1_1_ads124s08_ab9ddb24eaa7ad6eb852732fb1534e79d}{read\+\_\+inpmux}} (self)
+\begin{DoxyCompactList}\small\item\em Lit le registre de configuration du multiplexeur d\textquotesingle{}entrée. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Attributs publics}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classapp_1_1adc__ads124s08_1_1_ads124s08_ad6ceb5f8844a34706d24f0d510abf081}{spi}} = spidev.\+Spi\+Dev()
+\item 
+\mbox{\hyperlink{classapp_1_1adc__ads124s08_1_1_ads124s08_abae1495ff14fcfffa871c4dcdb150cdd}{gpio\+\_\+drdy}} = GPIO(GPIO\+\_\+\+CHIP\+\_\+\+PATH, ADC\+\_\+\+DRDY, "{}in"{})
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Fonctions membres protégées}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classapp_1_1adc__ads124s08_1_1_ads124s08_a2f6a4281f1eaac0a7120e6b507b1c9e6}{\+\_\+rreg}} (self, addr, nbytes)
+\begin{DoxyCompactList}\small\item\em Lit un ou plusieurs registres de l\textquotesingle{}ADC via SPI. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classapp_1_1adc__ads124s08_1_1_ads124s08_a6c3a8c9cc298fbe29123898f8e404b82}{\+\_\+wreg}} (self, addr, data\+\_\+bytes)
+\begin{DoxyCompactList}\small\item\em Écrit dans un ou plusieurs registres de l\textquotesingle{}ADC via SPI. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classapp_1_1adc__ads124s08_1_1_ads124s08_a54727c06031c4ca2229653dd01edfe03}{\+\_\+sclk\+\_\+nudge}} (self)
+\begin{DoxyCompactList}\small\item\em Envoie un coup de pouce sur SCLK pour synchroniser DRDY. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classapp_1_1adc__ads124s08_1_1_ads124s08_ad1af9e1885ee3e2576eba6720251ef36}{\+\_\+ensure\+\_\+drdy\+\_\+high}} (self, timeout\+\_\+ms)
+\begin{DoxyCompactList}\small\item\em Assure que le signal DRDY est à l\textquotesingle{}état HIGH. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+Driver pour l\textquotesingle{}ADC ADS124\+S08 avec interface SPI. 
+
+Cette classe encapsule toutes les fonctionnalités nécessaires pour communiquer avec l\textquotesingle{}ADC ADS124\+S08 via SPI en mode 1.\+0. Supporte la configuration automatique, la mesure de résistance et la conversion en température.
+
+\begin{DoxyNote}{Note}
+L\textquotesingle{}ADC doit être connecté via SPI1 et le signal DRDY sur GPIO. 
+\end{DoxyNote}
+\begin{DoxySeeAlso}{Voir également}
+\doxylink{classapp_1_1adc__ads124s08_1_1_ads124s08_abe455695d580ba27f0e5c559414fefbf}{configure\+\_\+channel}, \doxylink{classapp_1_1adc__ads124s08_1_1_ads124s08_a6c3422094f1375f8e91bff96eb299f69}{measure\+\_\+resistance}, \doxylink{classapp_1_1adc__ads124s08_1_1_ads124s08_a29331f015d0a23fb89fa1aedce5a33b3}{measure\+\_\+temperature} 
+\end{DoxySeeAlso}
+
+
+\label{doc-constructors}
+\Hypertarget{classapp_1_1adc__ads124s08_1_1_ads124s08_doc-constructors}
+\doxysubsection{Documentation des constructeurs et destructeur}
+\Hypertarget{classapp_1_1adc__ads124s08_1_1_ads124s08_ad07d394c9bbe4d22ca8fb590382c2554}\index{app.adc\_ads124s08.Ads124s08@{app.adc\_ads124s08.Ads124s08}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!app.adc\_ads124s08.Ads124s08@{app.adc\_ads124s08.Ads124s08}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classapp_1_1adc__ads124s08_1_1_ads124s08_ad07d394c9bbe4d22ca8fb590382c2554} 
+app.\+adc\+\_\+ads124s08.\+Ads124s08.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+Constructeur de la classe \doxylink{classapp_1_1adc__ads124s08_1_1_ads124s08}{Ads124s08}. 
+
+Initialise la communication SPI, configure le GPIO DRDY, effectue un reset de l\textquotesingle{}ADC et vérifie la communication en lisant le registre d\textquotesingle{}identification.
+
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Peut} & lever des exceptions SPI ou GPIO en cas d\textquotesingle{}échec. \\
+\hline
+\end{DoxyExceptions}
+\begin{DoxyPostcond}{Postcondition}
+L\textquotesingle{}ADC est prêt pour la configuration et les mesures. 
+\end{DoxyPostcond}
+
+
+\label{doc-func-members}
+\Hypertarget{classapp_1_1adc__ads124s08_1_1_ads124s08_doc-func-members}
+\doxysubsection{Documentation des fonctions membres}
+\Hypertarget{classapp_1_1adc__ads124s08_1_1_ads124s08_ad1af9e1885ee3e2576eba6720251ef36}\index{app.adc\_ads124s08.Ads124s08@{app.adc\_ads124s08.Ads124s08}!\_ensure\_drdy\_high@{\_ensure\_drdy\_high}}
+\index{\_ensure\_drdy\_high@{\_ensure\_drdy\_high}!app.adc\_ads124s08.Ads124s08@{app.adc\_ads124s08.Ads124s08}}
+\doxysubsubsection{\texorpdfstring{\_ensure\_drdy\_high()}{\_ensure\_drdy\_high()}}
+{\footnotesize\ttfamily \label{classapp_1_1adc__ads124s08_1_1_ads124s08_ad1af9e1885ee3e2576eba6720251ef36} 
+app.\+adc\+\_\+ads124s08.\+Ads124s08.\+\_\+ensure\+\_\+drdy\+\_\+high (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{timeout\+\_\+ms}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Assure que le signal DRDY est à l\textquotesingle{}état HIGH. 
+
+Attend que DRDY passe à HIGH avec possibilité de coup de pouce sur SCLK si nécessaire. Timeout configurable.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em timeout\+\_\+ms} & Timeout en millisecondes pour l\textquotesingle{}attente.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+True si DRDY est HIGH, False en cas de timeout.
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Méthode critique pour la synchronisation des conversions. 
+\end{DoxyNote}
+\begin{DoxySeeAlso}{Voir également}
+\doxylink{classapp_1_1adc__ads124s08_1_1_ads124s08_a6cbdea3f16ae1dff329ec8e45ef859d1}{wait\+\_\+drdy\+\_\+falling\+\_\+edge} 
+\end{DoxySeeAlso}
+Voici le graphe d\textquotesingle{}appel pour cette fonction \+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classapp_1_1adc__ads124s08_1_1_ads124s08_ad1af9e1885ee3e2576eba6720251ef36_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classapp_1_1adc__ads124s08_1_1_ads124s08_a2f6a4281f1eaac0a7120e6b507b1c9e6}\index{app.adc\_ads124s08.Ads124s08@{app.adc\_ads124s08.Ads124s08}!\_rreg@{\_rreg}}
+\index{\_rreg@{\_rreg}!app.adc\_ads124s08.Ads124s08@{app.adc\_ads124s08.Ads124s08}}
+\doxysubsubsection{\texorpdfstring{\_rreg()}{\_rreg()}}
+{\footnotesize\ttfamily \label{classapp_1_1adc__ads124s08_1_1_ads124s08_a2f6a4281f1eaac0a7120e6b507b1c9e6} 
+app.\+adc\+\_\+ads124s08.\+Ads124s08.\+\_\+rreg (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{addr}{, }\item[{}]{nbytes}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Lit un ou plusieurs registres de l\textquotesingle{}ADC via SPI. 
+
+Utilise la commande RREG de l\textquotesingle{}ADS124\+S08 pour lire des registres consécutifs starting à l\textquotesingle{}adresse donnée.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em addr} & Adresse du premier registre à lire (0x00-\/0x1F). \\
+\hline
+{\em nbytes} & Nombre d\textquotesingle{}octets à lire.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+Liste des valeurs lues depuis les registres.
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Méthode privée pour les opérations internes du driver. 
+\end{DoxyNote}
+\begin{DoxySeeAlso}{Voir également}
+\doxylink{classapp_1_1adc__ads124s08_1_1_ads124s08_a6c3a8c9cc298fbe29123898f8e404b82}{\+\_\+wreg} 
+\end{DoxySeeAlso}
+Voici le graphe des appelants de cette fonction \+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classapp_1_1adc__ads124s08_1_1_ads124s08_a2f6a4281f1eaac0a7120e6b507b1c9e6_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classapp_1_1adc__ads124s08_1_1_ads124s08_a54727c06031c4ca2229653dd01edfe03}\index{app.adc\_ads124s08.Ads124s08@{app.adc\_ads124s08.Ads124s08}!\_sclk\_nudge@{\_sclk\_nudge}}
+\index{\_sclk\_nudge@{\_sclk\_nudge}!app.adc\_ads124s08.Ads124s08@{app.adc\_ads124s08.Ads124s08}}
+\doxysubsubsection{\texorpdfstring{\_sclk\_nudge()}{\_sclk\_nudge()}}
+{\footnotesize\ttfamily \label{classapp_1_1adc__ads124s08_1_1_ads124s08_a54727c06031c4ca2229653dd01edfe03} 
+app.\+adc\+\_\+ads124s08.\+Ads124s08.\+\_\+sclk\+\_\+nudge (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Envoie un coup de pouce sur SCLK pour synchroniser DRDY. 
+
+Effectue une lecture factice du registre STATUS pour générer des transitions sur SCLK et forcer DRDY à l\textquotesingle{}état HIGH.
+
+\begin{DoxyReturn}{Renvoie}
+Rien.
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Utilisé quand DRDY reste bloqué à LOW de manière inattendue. 
+\end{DoxyNote}
+\begin{DoxySeeAlso}{Voir également}
+\doxylink{classapp_1_1adc__ads124s08_1_1_ads124s08_ad1af9e1885ee3e2576eba6720251ef36}{\+\_\+ensure\+\_\+drdy\+\_\+high} 
+\end{DoxySeeAlso}
+Voici le graphe des appelants de cette fonction \+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classapp_1_1adc__ads124s08_1_1_ads124s08_a54727c06031c4ca2229653dd01edfe03_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classapp_1_1adc__ads124s08_1_1_ads124s08_a6c3a8c9cc298fbe29123898f8e404b82}\index{app.adc\_ads124s08.Ads124s08@{app.adc\_ads124s08.Ads124s08}!\_wreg@{\_wreg}}
+\index{\_wreg@{\_wreg}!app.adc\_ads124s08.Ads124s08@{app.adc\_ads124s08.Ads124s08}}
+\doxysubsubsection{\texorpdfstring{\_wreg()}{\_wreg()}}
+{\footnotesize\ttfamily \label{classapp_1_1adc__ads124s08_1_1_ads124s08_a6c3a8c9cc298fbe29123898f8e404b82} 
+app.\+adc\+\_\+ads124s08.\+Ads124s08.\+\_\+wreg (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{addr}{, }\item[{}]{data\+\_\+bytes}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Écrit dans un ou plusieurs registres de l\textquotesingle{}ADC via SPI. 
+
+Utilise la commande WREG de l\textquotesingle{}ADS124\+S08 pour écrire des données dans des registres consécutifs.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em addr} & Adresse du premier registre à écrire (0x00-\/0x1F). \\
+\hline
+{\em data\+\_\+bytes} & Liste des octets à écrire dans les registres.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+Rien.
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Méthode privée pour les opérations internes du driver. 
+\end{DoxyNote}
+\begin{DoxySeeAlso}{Voir également}
+\doxylink{classapp_1_1adc__ads124s08_1_1_ads124s08_a2f6a4281f1eaac0a7120e6b507b1c9e6}{\+\_\+rreg} 
+\end{DoxySeeAlso}
+Voici le graphe d\textquotesingle{}appel pour cette fonction \+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classapp_1_1adc__ads124s08_1_1_ads124s08_a6c3a8c9cc298fbe29123898f8e404b82_cgraph}
+\end{center}
+\end{figure}
+Voici le graphe des appelants de cette fonction \+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classapp_1_1adc__ads124s08_1_1_ads124s08_a6c3a8c9cc298fbe29123898f8e404b82_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classapp_1_1adc__ads124s08_1_1_ads124s08_ac8b34f0152689ddfc7950f31d10cd62f}\index{app.adc\_ads124s08.Ads124s08@{app.adc\_ads124s08.Ads124s08}!close@{close}}
+\index{close@{close}!app.adc\_ads124s08.Ads124s08@{app.adc\_ads124s08.Ads124s08}}
+\doxysubsubsection{\texorpdfstring{close()}{close()}}
+{\footnotesize\ttfamily \label{classapp_1_1adc__ads124s08_1_1_ads124s08_ac8b34f0152689ddfc7950f31d10cd62f} 
+app.\+adc\+\_\+ads124s08.\+Ads124s08.\+close (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+Ferme les interfaces SPI et GPIO proprement. 
+
+Libère les ressources système utilisées par le driver. Méthode à appeler avant la destruction de l\textquotesingle{}objet.
+
+\begin{DoxyReturn}{Renvoie}
+Rien.
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Ignore les erreurs de fermeture pour éviter les exceptions. 
+\end{DoxyNote}
+\begin{DoxySeeAlso}{Voir également}
+{\bfseries{init}} 
+\end{DoxySeeAlso}
+Voici le graphe d\textquotesingle{}appel pour cette fonction \+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=261pt]{classapp_1_1adc__ads124s08_1_1_ads124s08_ac8b34f0152689ddfc7950f31d10cd62f_cgraph}
+\end{center}
+\end{figure}
+Voici le graphe des appelants de cette fonction \+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=261pt]{classapp_1_1adc__ads124s08_1_1_ads124s08_ac8b34f0152689ddfc7950f31d10cd62f_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classapp_1_1adc__ads124s08_1_1_ads124s08_abe455695d580ba27f0e5c559414fefbf}\index{app.adc\_ads124s08.Ads124s08@{app.adc\_ads124s08.Ads124s08}!configure\_channel@{configure\_channel}}
+\index{configure\_channel@{configure\_channel}!app.adc\_ads124s08.Ads124s08@{app.adc\_ads124s08.Ads124s08}}
+\doxysubsubsection{\texorpdfstring{configure\_channel()}{configure\_channel()}}
+{\footnotesize\ttfamily \label{classapp_1_1adc__ads124s08_1_1_ads124s08_abe455695d580ba27f0e5c559414fefbf} 
+app.\+adc\+\_\+ads124s08.\+Ads124s08.\+configure\+\_\+channel (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{channel\+\_\+index}{, }\item[{}]{pga\+\_\+gain}{, }\item[{}]{idac\+\_\+uA}{}\end{DoxyParamCaption})}
+
+
+
+Configure un canal ADC avec ses paramètres de mesure. 
+
+Configure complètement un canal ADC avec le gain PGA, le courant IDAC et le routage des entrées analogiques. Effectue une configuration séquentielle de tous les registres.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em channel\+\_\+index} & Index du canal physique (1-\/4). \\
+\hline
+{\em pga\+\_\+gain} & Gain de l\textquotesingle{}amplificateur programmable (1-\/128). \\
+\hline
+{\em idac\+\_\+uA} & Courant IDAC en microampères (10-\/2000).\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+Rien.
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Value\+Error} & si le canal ou les paramètres sont invalides. \\
+\hline
+\end{DoxyExceptions}
+\begin{DoxySeeAlso}{Voir également}
+\doxylink{namespaceapp_1_1adc__ads124s08_a0117399a18d516c747ca6b060599452f}{encode\+\_\+gain}, \doxylink{namespaceapp_1_1adc__ads124s08_a8f9279b8505f8d634ed73c51dcab29c9}{encode\+\_\+idac\+\_\+uA} 
+\end{DoxySeeAlso}
+Voici le graphe d\textquotesingle{}appel pour cette fonction \+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classapp_1_1adc__ads124s08_1_1_ads124s08_abe455695d580ba27f0e5c559414fefbf_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classapp_1_1adc__ads124s08_1_1_ads124s08_a6c3422094f1375f8e91bff96eb299f69}\index{app.adc\_ads124s08.Ads124s08@{app.adc\_ads124s08.Ads124s08}!measure\_resistance@{measure\_resistance}}
+\index{measure\_resistance@{measure\_resistance}!app.adc\_ads124s08.Ads124s08@{app.adc\_ads124s08.Ads124s08}}
+\doxysubsubsection{\texorpdfstring{measure\_resistance()}{measure\_resistance()}}
+{\footnotesize\ttfamily \label{classapp_1_1adc__ads124s08_1_1_ads124s08_a6c3422094f1375f8e91bff96eb299f69} 
+app.\+adc\+\_\+ads124s08.\+Ads124s08.\+measure\+\_\+resistance (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{rref\+\_\+ohm}{, }\item[{}]{pga\+\_\+gain}{, }\item[{}]{timeout\+\_\+s}{}\end{DoxyParamCaption})}
+
+
+
+Mesure la résistance d\textquotesingle{}une sonde via l\textquotesingle{}ADC. 
+
+Effectue une mesure complète\+: démarrage de conversion, attente DRDY, lecture du code et calcul de la résistance selon la formule ratiométrique.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em rref\+\_\+ohm} & Résistance de référence en ohms. \\
+\hline
+{\em pga\+\_\+gain} & Gain PGA utilisé pour la mesure. \\
+\hline
+{\em timeout\+\_\+s} & Timeout en secondes pour la conversion.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+Résistance mesurée en ohms ou None en cas d\textquotesingle{}erreur.
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Utilise la formule\+: R = \texorpdfstring{$\vert$}{|}code\texorpdfstring{$\vert$}{|}/\+FS \texorpdfstring{$\ast$}{*} (Rref / gain). 
+\end{DoxyNote}
+\begin{DoxySeeAlso}{Voir également}
+\doxylink{classapp_1_1adc__ads124s08_1_1_ads124s08_a29331f015d0a23fb89fa1aedce5a33b3}{measure\+\_\+temperature}, \doxylink{classapp_1_1adc__ads124s08_1_1_ads124s08_abe455695d580ba27f0e5c559414fefbf}{configure\+\_\+channel} 
+\end{DoxySeeAlso}
+Voici le graphe d\textquotesingle{}appel pour cette fonction \+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classapp_1_1adc__ads124s08_1_1_ads124s08_a6c3422094f1375f8e91bff96eb299f69_cgraph}
+\end{center}
+\end{figure}
+Voici le graphe des appelants de cette fonction \+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=275pt]{classapp_1_1adc__ads124s08_1_1_ads124s08_a6c3422094f1375f8e91bff96eb299f69_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classapp_1_1adc__ads124s08_1_1_ads124s08_a29331f015d0a23fb89fa1aedce5a33b3}\index{app.adc\_ads124s08.Ads124s08@{app.adc\_ads124s08.Ads124s08}!measure\_temperature@{measure\_temperature}}
+\index{measure\_temperature@{measure\_temperature}!app.adc\_ads124s08.Ads124s08@{app.adc\_ads124s08.Ads124s08}}
+\doxysubsubsection{\texorpdfstring{measure\_temperature()}{measure\_temperature()}}
+{\footnotesize\ttfamily \label{classapp_1_1adc__ads124s08_1_1_ads124s08_a29331f015d0a23fb89fa1aedce5a33b3} 
+app.\+adc\+\_\+ads124s08.\+Ads124s08.\+measure\+\_\+temperature (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{sensor\+\_\+name}{, }\item[{}]{rref\+\_\+ohm}{, }\item[{}]{pga\+\_\+gain}{, }\item[{}]{timeout\+\_\+s}{}\end{DoxyParamCaption})}
+
+
+
+Mesure la température d\textquotesingle{}un capteur via l\textquotesingle{}ADC. 
+
+Effectue une mesure de résistance puis utilise les tables de conversion de capteurs pour obtenir la température correspondante en degrés Celsius.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em sensor\+\_\+name} & Nom du capteur (doit exister dans SENSOR\+\_\+\+TABLES). \\
+\hline
+{\em rref\+\_\+ohm} & Résistance de référence en ohms. \\
+\hline
+{\em pga\+\_\+gain} & Gain PGA utilisé pour la mesure. \\
+\hline
+{\em timeout\+\_\+s} & Timeout en secondes pour la conversion.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+Température mesurée en °C ou None si erreur.
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Retourne} & None si capteur inconnu ou hors plage. \\
+\hline
+\end{DoxyExceptions}
+\begin{DoxySeeAlso}{Voir également}
+\doxylink{classapp_1_1adc__ads124s08_1_1_ads124s08_a6c3422094f1375f8e91bff96eb299f69}{measure\+\_\+resistance}, resistance\+\_\+to\+\_\+temperature\+\_\+dynamic 
+\end{DoxySeeAlso}
+Voici le graphe d\textquotesingle{}appel pour cette fonction \+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classapp_1_1adc__ads124s08_1_1_ads124s08_a29331f015d0a23fb89fa1aedce5a33b3_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classapp_1_1adc__ads124s08_1_1_ads124s08_ac53728ccbaada975b3204c4e3a4364aa}\index{app.adc\_ads124s08.Ads124s08@{app.adc\_ads124s08.Ads124s08}!read\_code24@{read\_code24}}
+\index{read\_code24@{read\_code24}!app.adc\_ads124s08.Ads124s08@{app.adc\_ads124s08.Ads124s08}}
+\doxysubsubsection{\texorpdfstring{read\_code24()}{read\_code24()}}
+{\footnotesize\ttfamily \label{classapp_1_1adc__ads124s08_1_1_ads124s08_ac53728ccbaada975b3204c4e3a4364aa} 
+app.\+adc\+\_\+ads124s08.\+Ads124s08.\+read\+\_\+code24 (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+Lit un code de données 24 bits depuis l\textquotesingle{}ADC. 
+
+Utilise la commande RDATA pour lire les 3 octets de données de conversion et les convertit en entier signé.
+
+\begin{DoxyReturn}{Renvoie}
+Valeur signée 24 bits ou None en cas d\textquotesingle{}erreur SPI.
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Doit être appelé après détection du front descendant DRDY. 
+\end{DoxyNote}
+\begin{DoxySeeAlso}{Voir également}
+\doxylink{namespaceapp_1_1adc__ads124s08_a2d49f7c13e0b47db65080ab59febed76}{sign\+\_\+extend\+\_\+24}, \doxylink{classapp_1_1adc__ads124s08_1_1_ads124s08_a6c3422094f1375f8e91bff96eb299f69}{measure\+\_\+resistance} 
+\end{DoxySeeAlso}
+Voici le graphe d\textquotesingle{}appel pour cette fonction \+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classapp_1_1adc__ads124s08_1_1_ads124s08_ac53728ccbaada975b3204c4e3a4364aa_cgraph}
+\end{center}
+\end{figure}
+Voici le graphe des appelants de cette fonction \+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classapp_1_1adc__ads124s08_1_1_ads124s08_ac53728ccbaada975b3204c4e3a4364aa_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classapp_1_1adc__ads124s08_1_1_ads124s08_af51ca6a1c8d208a333556ce44e9cbb17}\index{app.adc\_ads124s08.Ads124s08@{app.adc\_ads124s08.Ads124s08}!read\_gain@{read\_gain}}
+\index{read\_gain@{read\_gain}!app.adc\_ads124s08.Ads124s08@{app.adc\_ads124s08.Ads124s08}}
+\doxysubsubsection{\texorpdfstring{read\_gain()}{read\_gain()}}
+{\footnotesize\ttfamily \label{classapp_1_1adc__ads124s08_1_1_ads124s08_af51ca6a1c8d208a333556ce44e9cbb17} 
+app.\+adc\+\_\+ads124s08.\+Ads124s08.\+read\+\_\+gain (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+Lit le registre de gain PGA pour diagnostic. 
+
+Effectue une lecture du registre PGA et affiche sa valeur pour vérification de la configuration du gain.
+
+\begin{DoxyReturn}{Renvoie}
+Valeur brute du registre PGA (0x00-\/0x\+FF).
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Utilisé principalement pour le debug et la vérification. 
+\end{DoxyNote}
+\begin{DoxySeeAlso}{Voir également}
+\doxylink{classapp_1_1adc__ads124s08_1_1_ads124s08_abe455695d580ba27f0e5c559414fefbf}{configure\+\_\+channel} 
+\end{DoxySeeAlso}
+Voici le graphe d\textquotesingle{}appel pour cette fonction \+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classapp_1_1adc__ads124s08_1_1_ads124s08_af51ca6a1c8d208a333556ce44e9cbb17_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classapp_1_1adc__ads124s08_1_1_ads124s08_a56dff2b65427bc620cc661de71d9d44d}\index{app.adc\_ads124s08.Ads124s08@{app.adc\_ads124s08.Ads124s08}!read\_id@{read\_id}}
+\index{read\_id@{read\_id}!app.adc\_ads124s08.Ads124s08@{app.adc\_ads124s08.Ads124s08}}
+\doxysubsubsection{\texorpdfstring{read\_id()}{read\_id()}}
+{\footnotesize\ttfamily \label{classapp_1_1adc__ads124s08_1_1_ads124s08_a56dff2b65427bc620cc661de71d9d44d} 
+app.\+adc\+\_\+ads124s08.\+Ads124s08.\+read\+\_\+id (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+Lit le registre d\textquotesingle{}identification de l\textquotesingle{}ADC. 
+
+Effectue une lecture du registre ID (0x00) pour vérifier la communication SPI et identifier le type d\textquotesingle{}ADC connecté.
+
+\begin{DoxyReturn}{Renvoie}
+Valeur du registre ID (0x00-\/0x\+FF) ou None en cas d\textquotesingle{}erreur.
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Utilisé principalement pour la vérification de communication. 
+\end{DoxyNote}
+\begin{DoxySeeAlso}{Voir également}
+{\bfseries{init}} 
+\end{DoxySeeAlso}
+\Hypertarget{classapp_1_1adc__ads124s08_1_1_ads124s08_ab9ddb24eaa7ad6eb852732fb1534e79d}\index{app.adc\_ads124s08.Ads124s08@{app.adc\_ads124s08.Ads124s08}!read\_inpmux@{read\_inpmux}}
+\index{read\_inpmux@{read\_inpmux}!app.adc\_ads124s08.Ads124s08@{app.adc\_ads124s08.Ads124s08}}
+\doxysubsubsection{\texorpdfstring{read\_inpmux()}{read\_inpmux()}}
+{\footnotesize\ttfamily \label{classapp_1_1adc__ads124s08_1_1_ads124s08_ab9ddb24eaa7ad6eb852732fb1534e79d} 
+app.\+adc\+\_\+ads124s08.\+Ads124s08.\+read\+\_\+inpmux (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+Lit le registre de configuration du multiplexeur d\textquotesingle{}entrée. 
+
+Effectue une lecture du registre INPMUX et affiche sa valeur pour vérification du routage des entrées analogiques.
+
+\begin{DoxyReturn}{Renvoie}
+Valeur brute du registre INPMUX (0x00-\/0x\+FF).
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Utilisé principalement pour le debug et la vérification. 
+\end{DoxyNote}
+\begin{DoxySeeAlso}{Voir également}
+\doxylink{classapp_1_1adc__ads124s08_1_1_ads124s08_abe455695d580ba27f0e5c559414fefbf}{configure\+\_\+channel} 
+\end{DoxySeeAlso}
+\Hypertarget{classapp_1_1adc__ads124s08_1_1_ads124s08_a424495225e0f75a1aa7cc76067b6110e}\index{app.adc\_ads124s08.Ads124s08@{app.adc\_ads124s08.Ads124s08}!read\_ref@{read\_ref}}
+\index{read\_ref@{read\_ref}!app.adc\_ads124s08.Ads124s08@{app.adc\_ads124s08.Ads124s08}}
+\doxysubsubsection{\texorpdfstring{read\_ref()}{read\_ref()}}
+{\footnotesize\ttfamily \label{classapp_1_1adc__ads124s08_1_1_ads124s08_a424495225e0f75a1aa7cc76067b6110e} 
+app.\+adc\+\_\+ads124s08.\+Ads124s08.\+read\+\_\+ref (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+Lit le registre de configuration de la référence. 
+
+Effectue une lecture du registre REF et affiche sa valeur pour vérification de la configuration de la référence.
+
+\begin{DoxyReturn}{Renvoie}
+Valeur brute du registre REF (0x00-\/0x\+FF).
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Utilisé principalement pour le debug et la vérification. 
+\end{DoxyNote}
+\begin{DoxySeeAlso}{Voir également}
+\doxylink{classapp_1_1adc__ads124s08_1_1_ads124s08_abe455695d580ba27f0e5c559414fefbf}{configure\+\_\+channel} 
+\end{DoxySeeAlso}
+Voici le graphe d\textquotesingle{}appel pour cette fonction \+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classapp_1_1adc__ads124s08_1_1_ads124s08_a424495225e0f75a1aa7cc76067b6110e_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classapp_1_1adc__ads124s08_1_1_ads124s08_a7e7fb10a1acebe2f4200a52670c2fb0c}\index{app.adc\_ads124s08.Ads124s08@{app.adc\_ads124s08.Ads124s08}!set\_single\_shot\_lowlatency@{set\_single\_shot\_lowlatency}}
+\index{set\_single\_shot\_lowlatency@{set\_single\_shot\_lowlatency}!app.adc\_ads124s08.Ads124s08@{app.adc\_ads124s08.Ads124s08}}
+\doxysubsubsection{\texorpdfstring{set\_single\_shot\_lowlatency()}{set\_single\_shot\_lowlatency()}}
+{\footnotesize\ttfamily \label{classapp_1_1adc__ads124s08_1_1_ads124s08_a7e7fb10a1acebe2f4200a52670c2fb0c} 
+app.\+adc\+\_\+ads124s08.\+Ads124s08.\+set\+\_\+single\+\_\+shot\+\_\+lowlatency (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{dr\+\_\+nibble}{}\end{DoxyParamCaption})}
+
+
+
+Configure le mode single-\/shot low-\/latency de l\textquotesingle{}ADC. 
+
+Configure le registre DATARATE pour utiliser le mode single-\/shot avec filtre low-\/latency et data rate spécifié.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em dr\+\_\+nibble} & Code de data rate (4 bits, 0x00-\/0x0F).\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+Rien.
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Mode optimisé pour des mesures rapides et ponctuelles. 
+\end{DoxyNote}
+\begin{DoxySeeAlso}{Voir également}
+\doxylink{classapp_1_1adc__ads124s08_1_1_ads124s08_abe455695d580ba27f0e5c559414fefbf}{configure\+\_\+channel} 
+\end{DoxySeeAlso}
+Voici le graphe des appelants de cette fonction \+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classapp_1_1adc__ads124s08_1_1_ads124s08_a7e7fb10a1acebe2f4200a52670c2fb0c_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classapp_1_1adc__ads124s08_1_1_ads124s08_a5d7414311a828e4231a22b6e414cbfba}\index{app.adc\_ads124s08.Ads124s08@{app.adc\_ads124s08.Ads124s08}!start@{start}}
+\index{start@{start}!app.adc\_ads124s08.Ads124s08@{app.adc\_ads124s08.Ads124s08}}
+\doxysubsubsection{\texorpdfstring{start()}{start()}}
+{\footnotesize\ttfamily \label{classapp_1_1adc__ads124s08_1_1_ads124s08_a5d7414311a828e4231a22b6e414cbfba} 
+app.\+adc\+\_\+ads124s08.\+Ads124s08.\+start (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+Démarre une conversion ADC. 
+
+Assure que DRDY est à HIGH puis envoie la commande START pour initier une nouvelle conversion sur le canal configuré.
+
+\begin{DoxyReturn}{Renvoie}
+Rien.
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+DRDY doit être HIGH avant le START pour une conversion valide. 
+\end{DoxyNote}
+\begin{DoxySeeAlso}{Voir également}
+\doxylink{classapp_1_1adc__ads124s08_1_1_ads124s08_a30d1ac487b9ef8dcfb310cea695db0f9}{stop}, \doxylink{classapp_1_1adc__ads124s08_1_1_ads124s08_a6cbdea3f16ae1dff329ec8e45ef859d1}{wait\+\_\+drdy\+\_\+falling\+\_\+edge} 
+\end{DoxySeeAlso}
+Voici le graphe des appelants de cette fonction \+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classapp_1_1adc__ads124s08_1_1_ads124s08_a5d7414311a828e4231a22b6e414cbfba_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classapp_1_1adc__ads124s08_1_1_ads124s08_a30d1ac487b9ef8dcfb310cea695db0f9}\index{app.adc\_ads124s08.Ads124s08@{app.adc\_ads124s08.Ads124s08}!stop@{stop}}
+\index{stop@{stop}!app.adc\_ads124s08.Ads124s08@{app.adc\_ads124s08.Ads124s08}}
+\doxysubsubsection{\texorpdfstring{stop()}{stop()}}
+{\footnotesize\ttfamily \label{classapp_1_1adc__ads124s08_1_1_ads124s08_a30d1ac487b9ef8dcfb310cea695db0f9} 
+app.\+adc\+\_\+ads124s08.\+Ads124s08.\+stop (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+Arrête une conversion ADC en cours. 
+
+Envoie la commande STOP pour interrompre toute conversion en cours et remettre l\textquotesingle{}ADC en état idle.
+
+\begin{DoxyReturn}{Renvoie}
+Rien.
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Utilisé après lecture des données ou en cas d\textquotesingle{}erreur. 
+\end{DoxyNote}
+\begin{DoxySeeAlso}{Voir également}
+\doxylink{classapp_1_1adc__ads124s08_1_1_ads124s08_a5d7414311a828e4231a22b6e414cbfba}{start}, \doxylink{classapp_1_1adc__ads124s08_1_1_ads124s08_ac53728ccbaada975b3204c4e3a4364aa}{read\+\_\+code24} 
+\end{DoxySeeAlso}
+Voici le graphe des appelants de cette fonction \+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classapp_1_1adc__ads124s08_1_1_ads124s08_a30d1ac487b9ef8dcfb310cea695db0f9_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classapp_1_1adc__ads124s08_1_1_ads124s08_a6cbdea3f16ae1dff329ec8e45ef859d1}\index{app.adc\_ads124s08.Ads124s08@{app.adc\_ads124s08.Ads124s08}!wait\_drdy\_falling\_edge@{wait\_drdy\_falling\_edge}}
+\index{wait\_drdy\_falling\_edge@{wait\_drdy\_falling\_edge}!app.adc\_ads124s08.Ads124s08@{app.adc\_ads124s08.Ads124s08}}
+\doxysubsubsection{\texorpdfstring{wait\_drdy\_falling\_edge()}{wait\_drdy\_falling\_edge()}}
+{\footnotesize\ttfamily \label{classapp_1_1adc__ads124s08_1_1_ads124s08_a6cbdea3f16ae1dff329ec8e45ef859d1} 
+app.\+adc\+\_\+ads124s08.\+Ads124s08.\+wait\+\_\+drdy\+\_\+falling\+\_\+edge (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{timeout\+\_\+s}{}\end{DoxyParamCaption})}
+
+
+
+Attend un front descendant sur DRDY (HIGH -\/\texorpdfstring{$>$}{>} LOW) avec timeout. 
+
+Surveille le signal DRDY pour détecter une transition de HIGH vers LOW, indiquant qu\textquotesingle{}une nouvelle conversion est disponible.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em timeout\+\_\+s} & Timeout en secondes pour l\textquotesingle{}attente du front.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+True si front descendant détecté, False en cas de timeout.
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Méthode cruciale pour la synchronisation des mesures. 
+\end{DoxyNote}
+\begin{DoxySeeAlso}{Voir également}
+\doxylink{classapp_1_1adc__ads124s08_1_1_ads124s08_a6c3422094f1375f8e91bff96eb299f69}{measure\+\_\+resistance} 
+\end{DoxySeeAlso}
+Voici le graphe d\textquotesingle{}appel pour cette fonction \+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classapp_1_1adc__ads124s08_1_1_ads124s08_a6cbdea3f16ae1dff329ec8e45ef859d1_cgraph}
+\end{center}
+\end{figure}
+Voici le graphe des appelants de cette fonction \+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classapp_1_1adc__ads124s08_1_1_ads124s08_a6cbdea3f16ae1dff329ec8e45ef859d1_icgraph}
+\end{center}
+\end{figure}
+
+
+\label{doc-variable-members}
+\Hypertarget{classapp_1_1adc__ads124s08_1_1_ads124s08_doc-variable-members}
+\doxysubsection{Documentation des données membres}
+\Hypertarget{classapp_1_1adc__ads124s08_1_1_ads124s08_abae1495ff14fcfffa871c4dcdb150cdd}\index{app.adc\_ads124s08.Ads124s08@{app.adc\_ads124s08.Ads124s08}!gpio\_drdy@{gpio\_drdy}}
+\index{gpio\_drdy@{gpio\_drdy}!app.adc\_ads124s08.Ads124s08@{app.adc\_ads124s08.Ads124s08}}
+\doxysubsubsection{\texorpdfstring{gpio\_drdy}{gpio\_drdy}}
+{\footnotesize\ttfamily \label{classapp_1_1adc__ads124s08_1_1_ads124s08_abae1495ff14fcfffa871c4dcdb150cdd} 
+app.\+adc\+\_\+ads124s08.\+Ads124s08.\+gpio\+\_\+drdy = GPIO(GPIO\+\_\+\+CHIP\+\_\+\+PATH, ADC\+\_\+\+DRDY, "{}in"{})}
+
+\Hypertarget{classapp_1_1adc__ads124s08_1_1_ads124s08_ad6ceb5f8844a34706d24f0d510abf081}\index{app.adc\_ads124s08.Ads124s08@{app.adc\_ads124s08.Ads124s08}!spi@{spi}}
+\index{spi@{spi}!app.adc\_ads124s08.Ads124s08@{app.adc\_ads124s08.Ads124s08}}
+\doxysubsubsection{\texorpdfstring{spi}{spi}}
+{\footnotesize\ttfamily \label{classapp_1_1adc__ads124s08_1_1_ads124s08_ad6ceb5f8844a34706d24f0d510abf081} 
+app.\+adc\+\_\+ads124s08.\+Ads124s08.\+spi = spidev.\+Spi\+Dev()}
+
+
+
+La documentation de cette classe a été générée à partir du fichier suivant \+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/thebi/\+Documents/2510\+\_\+\+Regulation\+Chauffage/doc/9.\+Soft\+Ware/\+Doxygen/src/app/\mbox{\hyperlink{adc__ads124s08_8py}{adc\+\_\+ads124s08.\+py}}\end{DoxyCompactItemize}

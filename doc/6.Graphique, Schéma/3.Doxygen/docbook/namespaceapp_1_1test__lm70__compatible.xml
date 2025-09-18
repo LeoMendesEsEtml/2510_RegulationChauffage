@@ -1,0 +1,150 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_namespaceapp_1_1test__lm70__compatible" xml:lang="fr">
+<title>Référence de l&apos;espace de nommage app.test_lm70_compatible</title>
+<indexterm><primary>app.test_lm70_compatible</primary></indexterm>
+<simplesect>
+    <title>Fonctions    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_namespaceapp_1_1test__lm70__compatible_1af5b44993c1442a69936834f072f09bd8">test_lm70</link> ()</para>
+
+<para>Test de communication SPI avec le capteur LM70. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Variables    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_namespaceapp_1_1test__lm70__compatible_1a6144e5814c4b07e44b35663388492ccf">level</link></para>
+</listitem>
+            <listitem><para><link linkend="_namespaceapp_1_1test__lm70__compatible_1a3a80c3c5818d76fa540d2608b8eb5251">format</link></para>
+</listitem>
+            <listitem><para><link linkend="_namespaceapp_1_1test__lm70__compatible_1a3634281bf1f55048d00aea77532f59dd">handlers</link></para>
+</listitem>
+            <listitem><para><link linkend="_namespaceapp_1_1test__lm70__compatible_1a57491bf19a08b2bf673b87010c9cf817">logger</link> = logging.getLogger(&quot;LM70-Test&quot;)</para>
+</listitem>
+            <listitem><para>int <link linkend="_namespaceapp_1_1test__lm70__compatible_1ae1e57a5467abd88aebe4e8a4ef2f8c47">LM70_CS_GPIO</link> = 18</para>
+</listitem>
+            <listitem><para>int <link linkend="_namespaceapp_1_1test__lm70__compatible_1ab158092e70bb66d47e0a9fd2cc1ea342">SPI_MOSI_ADC_GPIO</link> = 20</para>
+</listitem>
+            <listitem><para>int <link linkend="_namespaceapp_1_1test__lm70__compatible_1a9e3001ec2848de215182db26ce3b4828">SPI_MISO_ADC_GPIO</link> = 19</para>
+</listitem>
+            <listitem><para>int <link linkend="_namespaceapp_1_1test__lm70__compatible_1a2a6df630baf4617a726e2cd0d0b2ab6b">SPI_SCLK_ADC_GPIO</link> = 21</para>
+</listitem>
+            <listitem><para><link linkend="_namespaceapp_1_1test__lm70__compatible_1a71a3572d1e3aed0054cb2dedfa506fd6">current_dir</link> = os.path.dirname(os.path.abspath(__file__))</para>
+</listitem>
+            <listitem><para>str <link linkend="_namespaceapp_1_1test__lm70__compatible_1ae03ea432cb4b4f1e7d77dd39a1bf3ec1">src_dir</link> = os.path.dirname(<link linkend="_namespaceapp_1_1test__lm70__compatible_1a71a3572d1e3aed0054cb2dedfa506fd6">current_dir</link>) if &quot;src&quot; in <link linkend="_namespaceapp_1_1test__lm70__compatible_1a71a3572d1e3aed0054cb2dedfa506fd6">current_dir</link> else <link linkend="_namespaceapp_1_1test__lm70__compatible_1a71a3572d1e3aed0054cb2dedfa506fd6">current_dir</link></para>
+</listitem>
+            <listitem><para><link linkend="_namespaceapp_1_1test__lm70__compatible_1a142361b80c799ba1f4b3ae421b992bc9">spi</link> = spidev.SpiDev()</para>
+</listitem>
+            <listitem><para><link linkend="_namespaceapp_1_1test__lm70__compatible_1a06d07a4e6af2b1db673085b33a2deda8">max_speed_hz</link></para>
+</listitem>
+            <listitem><para><link linkend="_namespaceapp_1_1test__lm70__compatible_1a03dc9acc375bdb9ed7305b35a1652c06">mode</link></para>
+</listitem>
+            <listitem><para><link linkend="_namespaceapp_1_1test__lm70__compatible_1a931848fa47b9f7e6158745ac557b5d6b">bits_per_word</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Documentation des fonctions</title>
+<anchor xml:id="_namespaceapp_1_1test__lm70__compatible_1af5b44993c1442a69936834f072f09bd8"/><section>
+    <title>test_lm70()</title>
+<indexterm><primary>test_lm70</primary><secondary>app.test_lm70_compatible</secondary></indexterm>
+<indexterm><primary>app.test_lm70_compatible</primary><secondary>test_lm70</secondary></indexterm>
+<para><computeroutput>app.test_lm70_compatible.test_lm70 ( )</computeroutput></para><para>
+
+<para>Test de communication SPI avec le capteur LM70. </para>
+</para>
+Voici le graphe d&apos;appel pour cette fonction :<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespaceapp_1_1test__lm70__compatible_af5b44993c1442a69936834f072f09bd8_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Voici le graphe des appelants de cette fonction :<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespaceapp_1_1test__lm70__compatible_af5b44993c1442a69936834f072f09bd8_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+</section>
+<section>
+<title>Documentation des variables</title>
+<anchor xml:id="_namespaceapp_1_1test__lm70__compatible_1a931848fa47b9f7e6158745ac557b5d6b"/><section>
+    <title>bits_per_word</title>
+<indexterm><primary>bits_per_word</primary><secondary>app.test_lm70_compatible</secondary></indexterm>
+<indexterm><primary>app.test_lm70_compatible</primary><secondary>bits_per_word</secondary></indexterm>
+<para><computeroutput>app.test_lm70_compatible.bits_per_word</computeroutput></para></section>
+<anchor xml:id="_namespaceapp_1_1test__lm70__compatible_1a71a3572d1e3aed0054cb2dedfa506fd6"/><section>
+    <title>current_dir</title>
+<indexterm><primary>current_dir</primary><secondary>app.test_lm70_compatible</secondary></indexterm>
+<indexterm><primary>app.test_lm70_compatible</primary><secondary>current_dir</secondary></indexterm>
+<para><computeroutput>app.test_lm70_compatible.current_dir = os.path.dirname(os.path.abspath(__file__))</computeroutput></para></section>
+<anchor xml:id="_namespaceapp_1_1test__lm70__compatible_1a3a80c3c5818d76fa540d2608b8eb5251"/><section>
+    <title>format</title>
+<indexterm><primary>format</primary><secondary>app.test_lm70_compatible</secondary></indexterm>
+<indexterm><primary>app.test_lm70_compatible</primary><secondary>format</secondary></indexterm>
+<para><computeroutput>app.test_lm70_compatible.format</computeroutput></para></section>
+<anchor xml:id="_namespaceapp_1_1test__lm70__compatible_1a3634281bf1f55048d00aea77532f59dd"/><section>
+    <title>handlers</title>
+<indexterm><primary>handlers</primary><secondary>app.test_lm70_compatible</secondary></indexterm>
+<indexterm><primary>app.test_lm70_compatible</primary><secondary>handlers</secondary></indexterm>
+<para><computeroutput>app.test_lm70_compatible.handlers</computeroutput></para></section>
+<anchor xml:id="_namespaceapp_1_1test__lm70__compatible_1a6144e5814c4b07e44b35663388492ccf"/><section>
+    <title>level</title>
+<indexterm><primary>level</primary><secondary>app.test_lm70_compatible</secondary></indexterm>
+<indexterm><primary>app.test_lm70_compatible</primary><secondary>level</secondary></indexterm>
+<para><computeroutput>app.test_lm70_compatible.level</computeroutput></para></section>
+<anchor xml:id="_namespaceapp_1_1test__lm70__compatible_1ae1e57a5467abd88aebe4e8a4ef2f8c47"/><section>
+    <title>LM70_CS_GPIO</title>
+<indexterm><primary>LM70_CS_GPIO</primary><secondary>app.test_lm70_compatible</secondary></indexterm>
+<indexterm><primary>app.test_lm70_compatible</primary><secondary>LM70_CS_GPIO</secondary></indexterm>
+<para><computeroutput>int app.test_lm70_compatible.LM70_CS_GPIO = 18</computeroutput></para></section>
+<anchor xml:id="_namespaceapp_1_1test__lm70__compatible_1a57491bf19a08b2bf673b87010c9cf817"/><section>
+    <title>logger</title>
+<indexterm><primary>logger</primary><secondary>app.test_lm70_compatible</secondary></indexterm>
+<indexterm><primary>app.test_lm70_compatible</primary><secondary>logger</secondary></indexterm>
+<para><computeroutput>app.test_lm70_compatible.logger = logging.getLogger(&quot;LM70-Test&quot;)</computeroutput></para></section>
+<anchor xml:id="_namespaceapp_1_1test__lm70__compatible_1a06d07a4e6af2b1db673085b33a2deda8"/><section>
+    <title>max_speed_hz</title>
+<indexterm><primary>max_speed_hz</primary><secondary>app.test_lm70_compatible</secondary></indexterm>
+<indexterm><primary>app.test_lm70_compatible</primary><secondary>max_speed_hz</secondary></indexterm>
+<para><computeroutput>app.test_lm70_compatible.max_speed_hz</computeroutput></para></section>
+<anchor xml:id="_namespaceapp_1_1test__lm70__compatible_1a03dc9acc375bdb9ed7305b35a1652c06"/><section>
+    <title>mode</title>
+<indexterm><primary>mode</primary><secondary>app.test_lm70_compatible</secondary></indexterm>
+<indexterm><primary>app.test_lm70_compatible</primary><secondary>mode</secondary></indexterm>
+<para><computeroutput>app.test_lm70_compatible.mode</computeroutput></para></section>
+<anchor xml:id="_namespaceapp_1_1test__lm70__compatible_1a142361b80c799ba1f4b3ae421b992bc9"/><section>
+    <title>spi</title>
+<indexterm><primary>spi</primary><secondary>app.test_lm70_compatible</secondary></indexterm>
+<indexterm><primary>app.test_lm70_compatible</primary><secondary>spi</secondary></indexterm>
+<para><computeroutput>app.test_lm70_compatible.spi = spidev.SpiDev()</computeroutput></para></section>
+<anchor xml:id="_namespaceapp_1_1test__lm70__compatible_1a9e3001ec2848de215182db26ce3b4828"/><section>
+    <title>SPI_MISO_ADC_GPIO</title>
+<indexterm><primary>SPI_MISO_ADC_GPIO</primary><secondary>app.test_lm70_compatible</secondary></indexterm>
+<indexterm><primary>app.test_lm70_compatible</primary><secondary>SPI_MISO_ADC_GPIO</secondary></indexterm>
+<para><computeroutput>int app.test_lm70_compatible.SPI_MISO_ADC_GPIO = 19</computeroutput></para></section>
+<anchor xml:id="_namespaceapp_1_1test__lm70__compatible_1ab158092e70bb66d47e0a9fd2cc1ea342"/><section>
+    <title>SPI_MOSI_ADC_GPIO</title>
+<indexterm><primary>SPI_MOSI_ADC_GPIO</primary><secondary>app.test_lm70_compatible</secondary></indexterm>
+<indexterm><primary>app.test_lm70_compatible</primary><secondary>SPI_MOSI_ADC_GPIO</secondary></indexterm>
+<para><computeroutput>int app.test_lm70_compatible.SPI_MOSI_ADC_GPIO = 20</computeroutput></para></section>
+<anchor xml:id="_namespaceapp_1_1test__lm70__compatible_1a2a6df630baf4617a726e2cd0d0b2ab6b"/><section>
+    <title>SPI_SCLK_ADC_GPIO</title>
+<indexterm><primary>SPI_SCLK_ADC_GPIO</primary><secondary>app.test_lm70_compatible</secondary></indexterm>
+<indexterm><primary>app.test_lm70_compatible</primary><secondary>SPI_SCLK_ADC_GPIO</secondary></indexterm>
+<para><computeroutput>int app.test_lm70_compatible.SPI_SCLK_ADC_GPIO = 21</computeroutput></para></section>
+<anchor xml:id="_namespaceapp_1_1test__lm70__compatible_1ae03ea432cb4b4f1e7d77dd39a1bf3ec1"/><section>
+    <title>src_dir</title>
+<indexterm><primary>src_dir</primary><secondary>app.test_lm70_compatible</secondary></indexterm>
+<indexterm><primary>app.test_lm70_compatible</primary><secondary>src_dir</secondary></indexterm>
+<para><computeroutput>str app.test_lm70_compatible.src_dir = os.path.dirname(<link linkend="_namespaceapp_1_1test__lm70__compatible_1a71a3572d1e3aed0054cb2dedfa506fd6">current_dir</link>) if &quot;src&quot; in <link linkend="_namespaceapp_1_1test__lm70__compatible_1a71a3572d1e3aed0054cb2dedfa506fd6">current_dir</link> else <link linkend="_namespaceapp_1_1test__lm70__compatible_1a71a3572d1e3aed0054cb2dedfa506fd6">current_dir</link></computeroutput></para></section>
+</section>
+</section>

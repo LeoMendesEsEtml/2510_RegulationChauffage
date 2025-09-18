@@ -1,0 +1,58 @@
+\doxysection{Référence du fichier C\+:/\+Users/thebi/\+Documents/2510\+\_\+\+Regulation\+Chauffage/doc/9.Soft\+Ware/\+Doxygen/src/app/api\+\_\+client.py}
+\hypertarget{api__client_8py}{}\label{api__client_8py}\index{C:/Users/thebi/Documents/2510\_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/api\_client.py@{C:/Users/thebi/Documents/2510\_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/api\_client.py}}
+
+
+Client API pour les services oblosolutions.\+ch.  
+
+
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classapp_1_1api__client_1_1_api_error}{app.\+api\+\_\+client.\+Api\+Error}}
+\begin{DoxyCompactList}\small\item\em Exception pour les erreurs d\textquotesingle{}API. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classapp_1_1api__client_1_1_api_client}{app.\+api\+\_\+client.\+Api\+Client}}
+\begin{DoxyCompactList}\small\item\em Client pour interroger les APIs oblosolutions.\+ch. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Espaces de nommage}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespaceapp}{app}}
+\item 
+namespace \mbox{\hyperlink{namespaceapp_1_1api__client}{app.\+api\+\_\+client}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Fonctions}
+\begin{DoxyCompactItemize}
+\item 
+Dict\mbox{[}str, Any\mbox{]} \mbox{\hyperlink{namespaceapp_1_1api__client_af48f8165ee988985679357bd07baafdb}{app.\+api\+\_\+client.\+get\+\_\+simulation\+\_\+data}} (str mac\+\_\+address)
+\begin{DoxyCompactList}\small\item\em Récupère les données de simulation depuis les APIs. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{namespaceapp_1_1api__client_abf9801a9e4bcf9817f44a2c08e68d938}{app.\+api\+\_\+client.\+send\+\_\+temperature\+\_\+measurement}} (str mac\+\_\+address, float temperature, int channel=None)
+\begin{DoxyCompactList}\small\item\em Envoie une mesure de température vers l\textquotesingle{}API. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{namespaceapp_1_1api__client_ac070ba1d4d0b10ca200ef77c3bd68fd5}{app.\+api\+\_\+client.\+REQUEST\+\_\+\+TIMEOUT}} = 10
+\item 
+int \mbox{\hyperlink{namespaceapp_1_1api__client_a3a47289c37788e389f3f62c12ee9312a}{app.\+api\+\_\+client.\+MAX\+\_\+\+RETRIES}} = 3
+\item 
+int \mbox{\hyperlink{namespaceapp_1_1api__client_a58ef9b423e01b1428c03ba4c7b7a7e1b}{app.\+api\+\_\+client.\+RETRY\+\_\+\+DELAY}} = 1
+\item 
+str \mbox{\hyperlink{namespaceapp_1_1api__client_a1f94a135976701bdeeb72eb5acf4bbd4}{app.\+api\+\_\+client.\+test\+\_\+mac}} = "{}0030\+DEABCDEF"{}
+\item 
+Dict\mbox{[}str, Any\mbox{]} \mbox{\hyperlink{namespaceapp_1_1api__client_ac478207d8e3a7c898761fd35c77390d0}{app.\+api\+\_\+client.\+data}} = \mbox{\hyperlink{namespaceapp_1_1api__client_af48f8165ee988985679357bd07baafdb}{get\+\_\+simulation\+\_\+data}}(\mbox{\hyperlink{namespaceapp_1_1api__client_a1f94a135976701bdeeb72eb5acf4bbd4}{test\+\_\+mac}})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+Client API pour les services oblosolutions.\+ch. 
+
+Ce module fournit un client HTTP pour interroger les APIs td25\+\_\+param et td25\+\_\+forecast. Il gère les timeouts, les retries automatiques et les erreurs de réseau. Inclut des fonctions utilitaires pour récupérer les données de simulation et envoyer les mesures de température. \begin{DoxyAuthor}{Auteur}
+Léo Mendes @project 2510\+\_\+\+Regulations\+Chauffage @\+Mandant Oblo\+\_\+solution 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2025-\/09-\/18 
+\end{DoxyDate}
+\begin{DoxyVersion}{Version}
+1.\+0.\+0 
+\end{DoxyVersion}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2025 
+\end{DoxyCopyright}

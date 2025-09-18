@@ -1,0 +1,5 @@
+<map id="app.adc_ads124s08.Ads124s08._ensure_drdy_high" name="app.adc_ads124s08.Ads124s08._ensure_drdy_high">
+<area shape="rect" id="Node000001" title="Assure que le signal DRDY est à l&#39;état HIGH." alt="" coords="5,5,216,48"/>
+<area shape="rect" id="Node000002" href="$classapp_1_1adc__ads124s08_1_1_ads124s08.html#a54727c06031c4ca2229653dd01edfe03" title="Envoie un coup de pouce sur SCLK pour synchroniser DRDY." alt="" coords="264,5,474,48"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="216,24,248,24,248,29,216,29"/>
+</map>

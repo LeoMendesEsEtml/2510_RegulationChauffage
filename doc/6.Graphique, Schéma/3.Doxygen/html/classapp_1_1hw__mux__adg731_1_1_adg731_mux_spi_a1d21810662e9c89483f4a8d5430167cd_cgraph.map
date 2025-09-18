@@ -1,0 +1,5 @@
+<map id="app.hw_mux_adg731.Adg731MuxSpi.set_channel" name="app.hw_mux_adg731.Adg731MuxSpi.set_channel">
+<area shape="rect" id="Node000001" title="Active un canal spécifique sur une carte donnée." alt="" coords="5,5,198,48"/>
+<area shape="rect" id="Node000002" href="$namespaceapp_1_1hw__mux__adg731.html#a191556bfaa023e4d6e1f2099dca9db46" title="Génère le byte de contrôle pour l&#39;ADG731." alt="" coords="246,5,436,48"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="198,24,230,24,230,29,198,29"/>
+</map>

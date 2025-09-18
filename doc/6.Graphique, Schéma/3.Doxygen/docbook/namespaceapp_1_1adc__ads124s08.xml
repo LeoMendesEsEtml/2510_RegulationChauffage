@@ -1,0 +1,361 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_namespaceapp_1_1adc__ads124s08" xml:lang="fr">
+<title>Référence de l&apos;espace de nommage app.adc_ads124s08</title>
+<indexterm><primary>app.adc_ads124s08</primary></indexterm>
+<simplesect>
+    <title>Classes    </title>
+        <itemizedlist>
+            <listitem><para>class <link linkend="_classapp_1_1adc__ads124s08_1_1_ads124s08">Ads124s08</link></para>
+
+<para>Driver pour l&apos;ADC ADS124S08 avec interface SPI. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Fonctions    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_namespaceapp_1_1adc__ads124s08_1a0117399a18d516c747ca6b060599452f">encode_gain</link> (pga_gain)</para>
+
+<para>Encode le gain PGA en code binaire pour le registre. </para>
+</listitem>
+            <listitem><para><link linkend="_namespaceapp_1_1adc__ads124s08_1a8f9279b8505f8d634ed73c51dcab29c9">encode_idac_uA</link> (idac_uA)</para>
+
+<para>Encode la magnitude IDAC en code binaire pour le registre. </para>
+</listitem>
+            <listitem><para><link linkend="_namespaceapp_1_1adc__ads124s08_1a2d49f7c13e0b47db65080ab59febed76">sign_extend_24</link> (b0, b1, b2)</para>
+
+<para>Étend le signe d&apos;un code ADC 24 bits vers 32 bits. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Variables    </title>
+        <itemizedlist>
+            <listitem><para>int <link linkend="_namespaceapp_1_1adc__ads124s08_1a95d2ed0295f793db669188acfc42e035">REG_ID</link> = 0x00</para>
+</listitem>
+            <listitem><para>int <link linkend="_namespaceapp_1_1adc__ads124s08_1a08370a57876abbb36233f903990f7090">REG_STATUS</link> = 0x01</para>
+</listitem>
+            <listitem><para>int <link linkend="_namespaceapp_1_1adc__ads124s08_1acc5fdb3a177b32ce008beb7d4f593e5a">REG_INPMUX</link> = 0x02</para>
+</listitem>
+            <listitem><para>int <link linkend="_namespaceapp_1_1adc__ads124s08_1a6693b8b3c92c4e605cd93396bbf437e4">REG_PGA</link> = 0x03</para>
+</listitem>
+            <listitem><para>int <link linkend="_namespaceapp_1_1adc__ads124s08_1a3570ad44d2f9dd31da3eb36e6bb43a74">REG_DATARATE</link> = 0x04</para>
+</listitem>
+            <listitem><para>int <link linkend="_namespaceapp_1_1adc__ads124s08_1a37082f74d6a0e13791161957521dda36">REG_REF</link> = 0x05</para>
+</listitem>
+            <listitem><para>int <link linkend="_namespaceapp_1_1adc__ads124s08_1ad6a2ed950510eefbb3d8e16c5d44aa9a">REG_IDACMUX</link> = 0x07</para>
+</listitem>
+            <listitem><para>int <link linkend="_namespaceapp_1_1adc__ads124s08_1ab33f3d3b9eff07796c0954fb0a26a0f9">REG_SYS</link> = 0x09</para>
+</listitem>
+            <listitem><para>int <link linkend="_namespaceapp_1_1adc__ads124s08_1a29344761380eb9759a168a517077c1f8">REG_IDACMAG</link> = 0x06</para>
+</listitem>
+            <listitem><para>int <link linkend="_namespaceapp_1_1adc__ads124s08_1ac53df39aab8783f89db1de629453dac2">CMD_RESET</link> = 0x06</para>
+</listitem>
+            <listitem><para>int <link linkend="_namespaceapp_1_1adc__ads124s08_1afdbb53f6073883d5fae13b41f4054ad2">CMD_START</link> = 0x08</para>
+</listitem>
+            <listitem><para>int <link linkend="_namespaceapp_1_1adc__ads124s08_1a584dd419d6c692fe7fdbf9c318b0e9da">CMD_STOP</link> = 0x0A</para>
+</listitem>
+            <listitem><para>int <link linkend="_namespaceapp_1_1adc__ads124s08_1a295dbc291719574e76ddc5a7a2467087">CMD_RDATA</link> = 0x12</para>
+</listitem>
+            <listitem><para>tuple <link linkend="_namespaceapp_1_1adc__ads124s08_1a9d806c5f058f08f8ee7e226d706694f1">FS</link> = (1 &lt;&lt; 23) - 1</para>
+</listitem>
+            <listitem><para>dict <link linkend="_namespaceapp_1_1adc__ads124s08_1a8919c033b020e8f54f713cea9d68fa22">CHANNELS</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Documentation des fonctions</title>
+<anchor xml:id="_namespaceapp_1_1adc__ads124s08_1a0117399a18d516c747ca6b060599452f"/><section>
+    <title>encode_gain()</title>
+<indexterm><primary>encode_gain</primary><secondary>app.adc_ads124s08</secondary></indexterm>
+<indexterm><primary>app.adc_ads124s08</primary><secondary>encode_gain</secondary></indexterm>
+<para><computeroutput>app.adc_ads124s08.encode_gain ( pga_gain)</computeroutput></para><para>
+
+<para>Encode le gain PGA en code binaire pour le registre. </para>
+</para>
+
+<para>Convertit une valeur de gain décimale en code binaire 3 bits pour la configuration du registre PGA de l&apos;ADS124S08.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Paramètres</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>pga_gain</entry><entry>
+<para>Valeur du gain PGA (1, 2, 4, 8, 16, 32, 64, 128).</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Renvoie</title>
+
+<para>Code binaire 3 bits correspondant au gain.</para>
+</formalpara>
+
+                <formalpara>
+                    <title>
+Exceptions</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>ValueError</entry><entry>
+<para>si le gain fourni n&apos;est pas supporté. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Voir également</title>
+
+<para>configure_channel </para>
+</formalpara>
+</para>
+Voici le graphe des appelants de cette fonction :<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespaceapp_1_1adc__ads124s08_a0117399a18d516c747ca6b060599452f_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_namespaceapp_1_1adc__ads124s08_1a8f9279b8505f8d634ed73c51dcab29c9"/><section>
+    <title>encode_idac_uA()</title>
+<indexterm><primary>encode_idac_uA</primary><secondary>app.adc_ads124s08</secondary></indexterm>
+<indexterm><primary>app.adc_ads124s08</primary><secondary>encode_idac_uA</secondary></indexterm>
+<para><computeroutput>app.adc_ads124s08.encode_idac_uA ( idac_uA)</computeroutput></para><para>
+
+<para>Encode la magnitude IDAC en code binaire pour le registre. </para>
+</para>
+
+<para>Convertit une valeur de courant IDAC en microampères en code binaire 4 bits pour la configuration du registre IDACMAG.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Paramètres</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>idac_uA</entry><entry>
+<para>Courant IDAC en microampères (10, 50, 100, 250, 500, 1000, 1500, 2000).</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Renvoie</title>
+
+<para>Code binaire 4 bits correspondant au courant.</para>
+</formalpara>
+
+                <formalpara>
+                    <title>
+Exceptions</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>ValueError</entry><entry>
+<para>si le courant fourni n&apos;est pas supporté. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Voir également</title>
+
+<para>configure_channel </para>
+</formalpara>
+</para>
+Voici le graphe des appelants de cette fonction :<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespaceapp_1_1adc__ads124s08_a8f9279b8505f8d634ed73c51dcab29c9_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_namespaceapp_1_1adc__ads124s08_1a2d49f7c13e0b47db65080ab59febed76"/><section>
+    <title>sign_extend_24()</title>
+<indexterm><primary>sign_extend_24</primary><secondary>app.adc_ads124s08</secondary></indexterm>
+<indexterm><primary>app.adc_ads124s08</primary><secondary>sign_extend_24</secondary></indexterm>
+<para><computeroutput>app.adc_ads124s08.sign_extend_24 ( b0,  b1,  b2)</computeroutput></para><para>
+
+<para>Étend le signe d&apos;un code ADC 24 bits vers 32 bits. </para>
+</para>
+
+<para>Convertit un code ADC 24 bits signé en entier Python 32 bits en préservant le signe selon la représentation en complément à 2.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Paramètres</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>b0</entry><entry>
+<para>Octet de poids fort (MSB) du code 24 bits. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>b1</entry><entry>
+<para>Octet du milieu du code 24 bits. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>b2</entry><entry>
+<para>Octet de poids faible (LSB) du code 24 bits.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Renvoie</title>
+
+<para>Valeur entière signée 32 bits correspondante.</para>
+</formalpara>
+<note><title>Note</title>
+
+<para>Nécessaire car Python gère automatiquement les entiers de taille variable. </para>
+</note>
+<formalpara><title>Voir également</title>
+
+<para>read_code24 </para>
+</formalpara>
+</para>
+Voici le graphe des appelants de cette fonction :<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespaceapp_1_1adc__ads124s08_a2d49f7c13e0b47db65080ab59febed76_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+</section>
+<section>
+<title>Documentation des variables</title>
+<anchor xml:id="_namespaceapp_1_1adc__ads124s08_1a8919c033b020e8f54f713cea9d68fa22"/><section>
+    <title>CHANNELS</title>
+<indexterm><primary>CHANNELS</primary><secondary>app.adc_ads124s08</secondary></indexterm>
+<indexterm><primary>app.adc_ads124s08</primary><secondary>CHANNELS</secondary></indexterm>
+<para><computeroutput>dict app.adc_ads124s08.CHANNELS</computeroutput></para><emphasis role="strong">Valeur initiale :</emphasis><programlisting linenumbering="unnumbered">1 =&#32;&#32;{
+2 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;Canal&#32;1:&#32;entrée&#32;positive&#32;AIN1,&#32;négative&#32;AIN2</emphasis>
+3 &#32;&#32;&#32;&#32;1:&#32;{<emphasis role="stringliteral">&quot;ainp_idx&quot;</emphasis>:&#32;1,&#32;&#32;<emphasis role="stringliteral">&quot;ainn_idx&quot;</emphasis>:&#32;2},
+4 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;Canal&#32;2:&#32;entrée&#32;positive&#32;AIN4,&#32;négative&#32;AIN5</emphasis>
+5 &#32;&#32;&#32;&#32;2:&#32;{<emphasis role="stringliteral">&quot;ainp_idx&quot;</emphasis>:&#32;4,&#32;&#32;<emphasis role="stringliteral">&quot;ainn_idx&quot;</emphasis>:&#32;5},
+6 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;Canal&#32;3:&#32;entrée&#32;positive&#32;AIN7,&#32;négative&#32;AIN8</emphasis>
+7 &#32;&#32;&#32;&#32;3:&#32;{<emphasis role="stringliteral">&quot;ainp_idx&quot;</emphasis>:&#32;7,&#32;&#32;<emphasis role="stringliteral">&quot;ainn_idx&quot;</emphasis>:&#32;8},
+8 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;Canal&#32;4:&#32;entrée&#32;positive&#32;AIN10,&#32;négative&#32;AIN11</emphasis>
+9 &#32;&#32;&#32;&#32;4:&#32;{<emphasis role="stringliteral">&quot;ainp_idx&quot;</emphasis>:&#32;10,&#32;<emphasis role="stringliteral">&quot;ainn_idx&quot;</emphasis>:&#32;11}
+10 }
+</programlisting></section>
+<anchor xml:id="_namespaceapp_1_1adc__ads124s08_1a295dbc291719574e76ddc5a7a2467087"/><section>
+    <title>CMD_RDATA</title>
+<indexterm><primary>CMD_RDATA</primary><secondary>app.adc_ads124s08</secondary></indexterm>
+<indexterm><primary>app.adc_ads124s08</primary><secondary>CMD_RDATA</secondary></indexterm>
+<para><computeroutput>int app.adc_ads124s08.CMD_RDATA = 0x12</computeroutput></para></section>
+<anchor xml:id="_namespaceapp_1_1adc__ads124s08_1ac53df39aab8783f89db1de629453dac2"/><section>
+    <title>CMD_RESET</title>
+<indexterm><primary>CMD_RESET</primary><secondary>app.adc_ads124s08</secondary></indexterm>
+<indexterm><primary>app.adc_ads124s08</primary><secondary>CMD_RESET</secondary></indexterm>
+<para><computeroutput>int app.adc_ads124s08.CMD_RESET = 0x06</computeroutput></para></section>
+<anchor xml:id="_namespaceapp_1_1adc__ads124s08_1afdbb53f6073883d5fae13b41f4054ad2"/><section>
+    <title>CMD_START</title>
+<indexterm><primary>CMD_START</primary><secondary>app.adc_ads124s08</secondary></indexterm>
+<indexterm><primary>app.adc_ads124s08</primary><secondary>CMD_START</secondary></indexterm>
+<para><computeroutput>int app.adc_ads124s08.CMD_START = 0x08</computeroutput></para></section>
+<anchor xml:id="_namespaceapp_1_1adc__ads124s08_1a584dd419d6c692fe7fdbf9c318b0e9da"/><section>
+    <title>CMD_STOP</title>
+<indexterm><primary>CMD_STOP</primary><secondary>app.adc_ads124s08</secondary></indexterm>
+<indexterm><primary>app.adc_ads124s08</primary><secondary>CMD_STOP</secondary></indexterm>
+<para><computeroutput>int app.adc_ads124s08.CMD_STOP = 0x0A</computeroutput></para></section>
+<anchor xml:id="_namespaceapp_1_1adc__ads124s08_1a9d806c5f058f08f8ee7e226d706694f1"/><section>
+    <title>FS</title>
+<indexterm><primary>FS</primary><secondary>app.adc_ads124s08</secondary></indexterm>
+<indexterm><primary>app.adc_ads124s08</primary><secondary>FS</secondary></indexterm>
+<para><computeroutput>tuple app.adc_ads124s08.FS = (1 &lt;&lt; 23) - 1</computeroutput></para></section>
+<anchor xml:id="_namespaceapp_1_1adc__ads124s08_1a3570ad44d2f9dd31da3eb36e6bb43a74"/><section>
+    <title>REG_DATARATE</title>
+<indexterm><primary>REG_DATARATE</primary><secondary>app.adc_ads124s08</secondary></indexterm>
+<indexterm><primary>app.adc_ads124s08</primary><secondary>REG_DATARATE</secondary></indexterm>
+<para><computeroutput>int app.adc_ads124s08.REG_DATARATE = 0x04</computeroutput></para></section>
+<anchor xml:id="_namespaceapp_1_1adc__ads124s08_1a95d2ed0295f793db669188acfc42e035"/><section>
+    <title>REG_ID</title>
+<indexterm><primary>REG_ID</primary><secondary>app.adc_ads124s08</secondary></indexterm>
+<indexterm><primary>app.adc_ads124s08</primary><secondary>REG_ID</secondary></indexterm>
+<para><computeroutput>int app.adc_ads124s08.REG_ID = 0x00</computeroutput></para></section>
+<anchor xml:id="_namespaceapp_1_1adc__ads124s08_1a29344761380eb9759a168a517077c1f8"/><section>
+    <title>REG_IDACMAG</title>
+<indexterm><primary>REG_IDACMAG</primary><secondary>app.adc_ads124s08</secondary></indexterm>
+<indexterm><primary>app.adc_ads124s08</primary><secondary>REG_IDACMAG</secondary></indexterm>
+<para><computeroutput>int app.adc_ads124s08.REG_IDACMAG = 0x06</computeroutput></para></section>
+<anchor xml:id="_namespaceapp_1_1adc__ads124s08_1ad6a2ed950510eefbb3d8e16c5d44aa9a"/><section>
+    <title>REG_IDACMUX</title>
+<indexterm><primary>REG_IDACMUX</primary><secondary>app.adc_ads124s08</secondary></indexterm>
+<indexterm><primary>app.adc_ads124s08</primary><secondary>REG_IDACMUX</secondary></indexterm>
+<para><computeroutput>int app.adc_ads124s08.REG_IDACMUX = 0x07</computeroutput></para></section>
+<anchor xml:id="_namespaceapp_1_1adc__ads124s08_1acc5fdb3a177b32ce008beb7d4f593e5a"/><section>
+    <title>REG_INPMUX</title>
+<indexterm><primary>REG_INPMUX</primary><secondary>app.adc_ads124s08</secondary></indexterm>
+<indexterm><primary>app.adc_ads124s08</primary><secondary>REG_INPMUX</secondary></indexterm>
+<para><computeroutput>int app.adc_ads124s08.REG_INPMUX = 0x02</computeroutput></para></section>
+<anchor xml:id="_namespaceapp_1_1adc__ads124s08_1a6693b8b3c92c4e605cd93396bbf437e4"/><section>
+    <title>REG_PGA</title>
+<indexterm><primary>REG_PGA</primary><secondary>app.adc_ads124s08</secondary></indexterm>
+<indexterm><primary>app.adc_ads124s08</primary><secondary>REG_PGA</secondary></indexterm>
+<para><computeroutput>int app.adc_ads124s08.REG_PGA = 0x03</computeroutput></para></section>
+<anchor xml:id="_namespaceapp_1_1adc__ads124s08_1a37082f74d6a0e13791161957521dda36"/><section>
+    <title>REG_REF</title>
+<indexterm><primary>REG_REF</primary><secondary>app.adc_ads124s08</secondary></indexterm>
+<indexterm><primary>app.adc_ads124s08</primary><secondary>REG_REF</secondary></indexterm>
+<para><computeroutput>int app.adc_ads124s08.REG_REF = 0x05</computeroutput></para></section>
+<anchor xml:id="_namespaceapp_1_1adc__ads124s08_1a08370a57876abbb36233f903990f7090"/><section>
+    <title>REG_STATUS</title>
+<indexterm><primary>REG_STATUS</primary><secondary>app.adc_ads124s08</secondary></indexterm>
+<indexterm><primary>app.adc_ads124s08</primary><secondary>REG_STATUS</secondary></indexterm>
+<para><computeroutput>int app.adc_ads124s08.REG_STATUS = 0x01</computeroutput></para></section>
+<anchor xml:id="_namespaceapp_1_1adc__ads124s08_1ab33f3d3b9eff07796c0954fb0a26a0f9"/><section>
+    <title>REG_SYS</title>
+<indexterm><primary>REG_SYS</primary><secondary>app.adc_ads124s08</secondary></indexterm>
+<indexterm><primary>app.adc_ads124s08</primary><secondary>REG_SYS</secondary></indexterm>
+<para><computeroutput>int app.adc_ads124s08.REG_SYS = 0x09</computeroutput></para></section>
+</section>
+</section>

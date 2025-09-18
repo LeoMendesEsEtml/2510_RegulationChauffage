@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_dir_66b2cbd9a818255da9ff447d4313ad04" xml:lang="fr">
+<title>Répertoire de référence de C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/webui</title>
+<indexterm><primary>Répertoire de référence de C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/webui</primary></indexterm>
+Graphe des dépendances de répertoires pour webui:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="dir_66b2cbd9a818255da9ff447d4313ad04_dep.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+<simplesect>
+    <title>Fichiers    </title>
+        <itemizedlist>
+            <listitem><para>fichier <link linkend="_webui_2____init_____8py">__init__.py</link></para>
+</listitem>
+            <listitem><para>fichier <link linkend="_webui__server_8py">webui_server.py</link></para>
+
+<para>Serveur web pour interface utilisateur de configuration. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+</section>

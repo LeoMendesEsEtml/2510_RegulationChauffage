@@ -1,0 +1,219 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="fr">
+  <compounddef id="namespaceapp_1_1temperature__simulation" kind="namespace" language="Python">
+    <compoundname>app::temperature_simulation</compoundname>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="namespaceapp_1_1temperature__simulation_1ad0955f54e494774453fd9395ddf156f3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>Optional[float]</type>
+        <definition> Optional[float] app.temperature_simulation.calculate_simulated_temperature</definition>
+        <argsstring>(float t_mes, float t_prev, float n, float k_m)</argsstring>
+        <name>calculate_simulated_temperature</name>
+        <qualifiedname>app.temperature_simulation.calculate_simulated_temperature</qualifiedname>
+        <param>
+          <type>float</type>
+          <declname>t_mes</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>t_prev</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>n</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>k_m</declname>
+        </param>
+        <briefdescription>
+<para>Calcule la température simulée selon la formule prédictive. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Implémente la formule T_sim = T_mes + ((T_prev - T_mes) * n * exp(k_m)) avec validation complète des paramètres et gestion des erreurs numériques (overflow, underflow, valeurs infinies).</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>t_mes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Température mesurée [°C]. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>t_prev</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Température prévue [°C]. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>n</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Paramètre de pondération [-∞, +∞]. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>k_m</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Paramètre exposant pour fonction exponentielle [-∞, +∞].</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Température simulée [°C] ou None en cas d&apos;erreur.</para>
+</simplesect>
+<parameterlist kind="exception"><parameteritem>
+<parameternamelist>
+<parametername>OverflowError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>si exp(k_m) dépasse les limites numériques. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="warning"><para>Limitation automatique des paramètres extrêmes. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/temperature_simulation.py" line="45" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/temperature_simulation.py" bodystart="45" bodyend="110"/>
+        <referencedby refid="namespaceapp_1_1temperature__simulation_1a9dce35a5a5235426dcb9002af6f2fe80" compoundref="temperature__simulation_8py" startline="222" endline="293">app.temperature_simulation.run_temperature_simulation</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="namespaceapp_1_1temperature__simulation_1a34c95102387b78fc0ae24419cfdc62be" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition> bool app.temperature_simulation.validate_simulation_parameters</definition>
+        <argsstring>(str probe_type, float n, float k_m, float t_mes, float t_prev)</argsstring>
+        <name>validate_simulation_parameters</name>
+        <qualifiedname>app.temperature_simulation.validate_simulation_parameters</qualifiedname>
+        <param>
+          <type>str</type>
+          <declname>probe_type</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>n</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>k_m</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>t_mes</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>t_prev</declname>
+        </param>
+        <briefdescription>
+<para>Valide tous les paramètres de simulation avant exécution. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Fonction de validation complète qui vérifie la cohérence et les plages de tous les paramètres d&apos;entrée. Inclut la vérification interactive pour les écarts importants.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>probe_type</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Type de sonde à utiliser pour la simulation. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>n</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Paramètre de pondération de la simulation. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>k_m</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Paramètre exposant de la fonction exponentielle. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>t_mes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Température mesurée à valider [°C]. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>t_prev</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Température prévue à valider [°C].</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>True si tous les paramètres sont valides.</para>
+</simplesect>
+<simplesect kind="warning"><para>Demande confirmation utilisateur pour écarts importants. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/temperature_simulation.py" line="127" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/temperature_simulation.py" bodystart="127" bodyend="204"/>
+        <referencedby refid="namespaceapp_1_1temperature__simulation_1a9dce35a5a5235426dcb9002af6f2fe80" compoundref="temperature__simulation_8py" startline="222" endline="293">app.temperature_simulation.run_temperature_simulation</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="namespaceapp_1_1temperature__simulation_1a9dce35a5a5235426dcb9002af6f2fe80" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>Optional[float]</type>
+        <definition> Optional[float] app.temperature_simulation.run_temperature_simulation</definition>
+        <argsstring>(dict simulation_data)</argsstring>
+        <name>run_temperature_simulation</name>
+        <qualifiedname>app.temperature_simulation.run_temperature_simulation</qualifiedname>
+        <param>
+          <type>dict</type>
+          <declname>simulation_data</declname>
+        </param>
+        <briefdescription>
+<para>Exécute une simulation complète de température avec dictionnaire. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Fonction principale d&apos;orchestration qui extrait les paramètres d&apos;un dictionnaire, valide tous les paramètres et execute la simulation complète avec gestion d&apos;erreur robuste.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>simulation_data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Dictionnaire contenant tous les paramètres requis:<itemizedlist>
+<listitem><para>probe_type: Type de sonde (str)</para>
+</listitem><listitem><para>n: Paramètre de pondération (float)</para>
+</listitem><listitem><para>k_m: Paramètre exposant (float)</para>
+</listitem><listitem><para>temperature: Température mesurée (float)</para>
+</listitem><listitem><para>forecast_temperature: Température prévue (float)</para>
+</listitem></itemizedlist>
+</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Température simulée [°C] ou None si erreur.</para>
+</simplesect>
+<simplesect kind="warning"><para>Retourne None pour toute erreur de validation ou calcul. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/temperature_simulation.py" line="222" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/temperature_simulation.py" bodystart="222" bodyend="293"/>
+        <references refid="namespaceapp_1_1temperature__simulation_1ad0955f54e494774453fd9395ddf156f3" compoundref="temperature__simulation_8py" startline="45" endline="110">app.temperature_simulation.calculate_simulated_temperature</references>
+        <references refid="namespaceapp_1_1temperature__simulation_1a34c95102387b78fc0ae24419cfdc62be" compoundref="temperature__simulation_8py" startline="127" endline="204">app.temperature_simulation.validate_simulation_parameters</references>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/temperature_simulation.py" line="1" column="1"/>
+  </compounddef>
+</doxygen>

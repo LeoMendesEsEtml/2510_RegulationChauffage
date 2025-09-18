@@ -1,0 +1,352 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_classapp_1_1resistance__simulation_1_1_resistance_simulator" xml:lang="fr">
+<title>Référence de la classe app.resistance_simulation.ResistanceSimulator</title>
+<indexterm><primary>app.resistance_simulation.ResistanceSimulator</primary></indexterm>
+<para>
+
+<para>Contrôleur pour la simulation de résistance via MUX. </para>
+ 
+</para>
+Graphe de collaboration de app.resistance_simulation.ResistanceSimulator:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classapp_1_1resistance__simulation_1_1_resistance_simulator__coll__graph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+<simplesect>
+    <title>Fonctions membres publiques    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classapp_1_1resistance__simulation_1_1_resistance_simulator_1a5542d1fa1714527b926320a821ad808e">__init__</link> (self, int <link linkend="_classapp_1_1resistance__simulation_1_1_resistance_simulator_1ae5b48bf05a00308d6773645c7aa10b71">speed_hz</link>=100000)</para>
+
+<para>Initialise le simulateur de résistance. </para>
+</listitem>
+            <listitem><para><link linkend="_classapp_1_1resistance__simulation_1_1_resistance_simulator_1a755f6de9c1e441ce53378b8c0e3809ba">close</link> (self)</para>
+
+<para>Ferme les connexions du simulateur. </para>
+</listitem>
+            <listitem><para>float <link linkend="_classapp_1_1resistance__simulation_1_1_resistance_simulator_1aa7620a3456e0d1878186280753295744">calculate_parallel_resistance</link> (self, List[float] resistances)</para>
+
+<para>Calcule la résistance équivalente de résistances en parallèle. </para>
+</listitem>
+            <listitem><para>bool <link linkend="_classapp_1_1resistance__simulation_1_1_resistance_simulator_1af37b47aad2cb3d0526e6d462b91f570d">apply_resistance_simulation</link> (self, float target_resistance, int measurement_channel, str sensor_type=&quot;Ni1000 TK5000&quot;)</para>
+
+<para>Applique une résistance simulée via le MUX sur le canal de mesure. </para>
+</listitem>
+            <listitem><para>Dict[str, any] <link linkend="_classapp_1_1resistance__simulation_1_1_resistance_simulator_1ab653abb1151252481121be10148c757f">get_current_simulation</link> (self)</para>
+
+<para>Retourne l&apos;état actuel de la simulation. </para>
+</listitem>
+            <listitem><para>bool <link linkend="_classapp_1_1resistance__simulation_1_1_resistance_simulator_1a8ff1f89807bce5808bf0a6abd866f5b3">validate_resistance_applied</link> (self, float expected_resistance, float tolerance=0.10)</para>
+
+<para>Valide que la résistance appliquée correspond à l&apos;attendu. </para>
+</listitem>
+            <listitem><para><link linkend="_classapp_1_1resistance__simulation_1_1_resistance_simulator_1a8cc3d0868205e9d7f1d1e94e4914a5f6">reset_simulation</link> (self)</para>
+
+<para>Remet la simulation à zéro (désactive tous les canaux). </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Attributs publics    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classapp_1_1resistance__simulation_1_1_resistance_simulator_1af3606629707a477326150edf2a509372">mux</link> = None</para>
+</listitem>
+            <listitem><para><link linkend="_classapp_1_1resistance__simulation_1_1_resistance_simulator_1ae5b48bf05a00308d6773645c7aa10b71">speed_hz</link> = speed_hz</para>
+</listitem>
+            <listitem><para><link linkend="_classapp_1_1resistance__simulation_1_1_resistance_simulator_1aa1763da19373d1872a716cde755786bc">current_resistance</link> = None</para>
+</listitem>
+            <listitem><para>list <link linkend="_classapp_1_1resistance__simulation_1_1_resistance_simulator_1aeaae96a14daee0614aa7cb5039a7f33c">active_channels</link> = []</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Description détaillée</title>
+
+<para>Contrôleur pour la simulation de résistance via MUX. </para>
+
+
+
+<para>Classe principale qui encapsule toute la logique de simulation de résistance en utilisant le multiplexeur ADG731 et les mappings de résistances calibrées. </para>
+</section>
+<section>
+<title>Documentation des constructeurs et destructeur</title>
+<anchor xml:id="_classapp_1_1resistance__simulation_1_1_resistance_simulator_1a5542d1fa1714527b926320a821ad808e"/><section>
+    <title>__init__()</title>
+<indexterm><primary>__init__</primary><secondary>app.resistance_simulation.ResistanceSimulator</secondary></indexterm>
+<indexterm><primary>app.resistance_simulation.ResistanceSimulator</primary><secondary>__init__</secondary></indexterm>
+<para><computeroutput>app.resistance_simulation.ResistanceSimulator.__init__ ( self, int  speed_hz = <computeroutput>100000</computeroutput>
+)</computeroutput></para><para>
+
+<para>Initialise le simulateur de résistance. </para>
+</para>
+
+<para>Constructeur qui configure le multiplexeur ADG731 avec la vitesse SPI spécifiée et initialise les variables d&apos;état du simulateur.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Paramètres</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>speed_hz</entry><entry>
+<para>Vitesse de communication SPI en Hz (défaut: 100kHz).</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                
+                <formalpara>
+                    <title>
+Exceptions</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry><link linkend="_classapp_1_1resistance__simulation_1_1_resistance_simulation_error">ResistanceSimulationError</link></entry><entry>
+<para>si l&apos;initialisation du MUX échoue. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+</section>
+</section>
+<section>
+<title>Documentation des fonctions membres</title>
+<anchor xml:id="_classapp_1_1resistance__simulation_1_1_resistance_simulator_1af37b47aad2cb3d0526e6d462b91f570d"/><section>
+    <title>apply_resistance_simulation()</title>
+<indexterm><primary>apply_resistance_simulation</primary><secondary>app.resistance_simulation.ResistanceSimulator</secondary></indexterm>
+<indexterm><primary>app.resistance_simulation.ResistanceSimulator</primary><secondary>apply_resistance_simulation</secondary></indexterm>
+<para><computeroutput> bool app.resistance_simulation.ResistanceSimulator.apply_resistance_simulation ( self, float target_resistance, int measurement_channel, str  sensor_type = <computeroutput>&quot;Ni1000&#160;TK5000&quot;</computeroutput>
+)</computeroutput></para><para>
+
+<para>Applique une résistance simulée via le MUX sur le canal de mesure. </para>
+</para>
+
+<para>Fonction principale qui recherche le canal MUX optimal pour simuler la résistance cible, configure le multiplexeur et mémorise l&apos;état de la simulation.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Paramètres</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>target_resistance</entry><entry>
+<para>Résistance à simuler [Ohms]. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>measurement_channel</entry><entry>
+<para>Canal sur lequel la mesure a été faite (info). </para>
+</entry>
+                            </row>
+                            <row>
+<entry>sensor_type</entry><entry>
+<para>Type de sonde pour sélectionner la carte MUX.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Renvoie</title>
+
+<para>True si succès, False en cas d&apos;erreur. </para>
+</formalpara>
+</para>
+</section>
+<anchor xml:id="_classapp_1_1resistance__simulation_1_1_resistance_simulator_1aa7620a3456e0d1878186280753295744"/><section>
+    <title>calculate_parallel_resistance()</title>
+<indexterm><primary>calculate_parallel_resistance</primary><secondary>app.resistance_simulation.ResistanceSimulator</secondary></indexterm>
+<indexterm><primary>app.resistance_simulation.ResistanceSimulator</primary><secondary>calculate_parallel_resistance</secondary></indexterm>
+<para><computeroutput> float app.resistance_simulation.ResistanceSimulator.calculate_parallel_resistance ( self, List[float] resistances)</computeroutput></para><para>
+
+<para>Calcule la résistance équivalente de résistances en parallèle. </para>
+</para>
+
+<para>Applique la formule 1/Req = 1/R1 + 1/R2 + ... + 1/Rn pour calculer la résistance équivalente d&apos;un ensemble de résistances connectées en parallèle.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Paramètres</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>resistances</entry><entry>
+<para>Liste des valeurs de résistance en parallèle [Ohms].</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Renvoie</title>
+
+<para>Résistance équivalente calculée [Ohms]. Retourne l&apos;infini si la liste est vide. </para>
+</formalpara>
+</para>
+</section>
+<anchor xml:id="_classapp_1_1resistance__simulation_1_1_resistance_simulator_1a755f6de9c1e441ce53378b8c0e3809ba"/><section>
+    <title>close()</title>
+<indexterm><primary>close</primary><secondary>app.resistance_simulation.ResistanceSimulator</secondary></indexterm>
+<indexterm><primary>app.resistance_simulation.ResistanceSimulator</primary><secondary>close</secondary></indexterm>
+<para><computeroutput>app.resistance_simulation.ResistanceSimulator.close ( self)</computeroutput></para><para>
+
+<para>Ferme les connexions du simulateur. </para>
+</para>
+
+<para>Méthode de nettoyage qui ferme proprement la connexion SPI avec le multiplexeur et libère les ressources. </para>
+Voici le graphe d&apos;appel pour cette fonction :<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classapp_1_1resistance__simulation_1_1_resistance_simulator_a755f6de9c1e441ce53378b8c0e3809ba_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Voici le graphe des appelants de cette fonction :<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classapp_1_1resistance__simulation_1_1_resistance_simulator_a755f6de9c1e441ce53378b8c0e3809ba_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classapp_1_1resistance__simulation_1_1_resistance_simulator_1ab653abb1151252481121be10148c757f"/><section>
+    <title>get_current_simulation()</title>
+<indexterm><primary>get_current_simulation</primary><secondary>app.resistance_simulation.ResistanceSimulator</secondary></indexterm>
+<indexterm><primary>app.resistance_simulation.ResistanceSimulator</primary><secondary>get_current_simulation</secondary></indexterm>
+<para><computeroutput> Dict[str, any] app.resistance_simulation.ResistanceSimulator.get_current_simulation ( self)</computeroutput></para><para>
+
+<para>Retourne l&apos;état actuel de la simulation. </para>
+</para>
+
+<para>Fonction d&apos;interrogation qui fournit un dictionnaire contenant toutes les informations sur l&apos;état actuel de la simulation de résistance.</para>
+
+<para><formalpara><title>Renvoie</title>
+
+<para>Dictionnaire contenant les informations actuelles:<itemizedlist>
+<listitem>
+<para>resistance: valeur appliquée [Ohms] ou None</para>
+</listitem><listitem>
+<para>active_channels: liste des canaux MUX actifs</para>
+</listitem><listitem>
+<para>mux_available: disponibilité du multiplexeur </para>
+</listitem></itemizedlist>
+</para>
+</formalpara>
+</para>
+</section>
+<anchor xml:id="_classapp_1_1resistance__simulation_1_1_resistance_simulator_1a8cc3d0868205e9d7f1d1e94e4914a5f6"/><section>
+    <title>reset_simulation()</title>
+<indexterm><primary>reset_simulation</primary><secondary>app.resistance_simulation.ResistanceSimulator</secondary></indexterm>
+<indexterm><primary>app.resistance_simulation.ResistanceSimulator</primary><secondary>reset_simulation</secondary></indexterm>
+<para><computeroutput>app.resistance_simulation.ResistanceSimulator.reset_simulation ( self)</computeroutput></para><para>
+
+<para>Remet la simulation à zéro (désactive tous les canaux). </para>
+</para>
+
+<para>Procédure de nettoyage qui désactive tous les canaux de tous les multiplexeurs et remet l&apos;état de simulation à sa configuration initiale. </para>
+</section>
+<anchor xml:id="_classapp_1_1resistance__simulation_1_1_resistance_simulator_1a8ff1f89807bce5808bf0a6abd866f5b3"/><section>
+    <title>validate_resistance_applied()</title>
+<indexterm><primary>validate_resistance_applied</primary><secondary>app.resistance_simulation.ResistanceSimulator</secondary></indexterm>
+<indexterm><primary>app.resistance_simulation.ResistanceSimulator</primary><secondary>validate_resistance_applied</secondary></indexterm>
+<para><computeroutput> bool app.resistance_simulation.ResistanceSimulator.validate_resistance_applied ( self, float expected_resistance, float  tolerance = <computeroutput>0.10</computeroutput>
+)</computeroutput></para><para>
+
+<para>Valide que la résistance appliquée correspond à l&apos;attendu. </para>
+</para>
+
+<para>Fonction de validation qui compare la résistance actuellement appliquée avec la valeur attendue en tenant compte d&apos;une tolérance relative spécifiée.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Paramètres</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>expected_resistance</entry><entry>
+<para>Résistance attendue pour la validation [Ohms]. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>tolerance</entry><entry>
+<para>Tolérance relative acceptée (défaut: 10%).</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Renvoie</title>
+
+<para>True si la résistance est dans la tolérance. </para>
+</formalpara>
+</para>
+</section>
+</section>
+<section>
+<title>Documentation des données membres</title>
+<anchor xml:id="_classapp_1_1resistance__simulation_1_1_resistance_simulator_1aeaae96a14daee0614aa7cb5039a7f33c"/><section>
+    <title>active_channels</title>
+<indexterm><primary>active_channels</primary><secondary>app.resistance_simulation.ResistanceSimulator</secondary></indexterm>
+<indexterm><primary>app.resistance_simulation.ResistanceSimulator</primary><secondary>active_channels</secondary></indexterm>
+<para><computeroutput>list app.resistance_simulation.ResistanceSimulator.active_channels = []</computeroutput></para></section>
+<anchor xml:id="_classapp_1_1resistance__simulation_1_1_resistance_simulator_1aa1763da19373d1872a716cde755786bc"/><section>
+    <title>current_resistance</title>
+<indexterm><primary>current_resistance</primary><secondary>app.resistance_simulation.ResistanceSimulator</secondary></indexterm>
+<indexterm><primary>app.resistance_simulation.ResistanceSimulator</primary><secondary>current_resistance</secondary></indexterm>
+<para><computeroutput>app.resistance_simulation.ResistanceSimulator.current_resistance = None</computeroutput></para></section>
+<anchor xml:id="_classapp_1_1resistance__simulation_1_1_resistance_simulator_1af3606629707a477326150edf2a509372"/><section>
+    <title>mux</title>
+<indexterm><primary>mux</primary><secondary>app.resistance_simulation.ResistanceSimulator</secondary></indexterm>
+<indexterm><primary>app.resistance_simulation.ResistanceSimulator</primary><secondary>mux</secondary></indexterm>
+<para><computeroutput>app.resistance_simulation.ResistanceSimulator.mux = None</computeroutput></para></section>
+<anchor xml:id="_classapp_1_1resistance__simulation_1_1_resistance_simulator_1ae5b48bf05a00308d6773645c7aa10b71"/><section>
+    <title>speed_hz</title>
+<indexterm><primary>speed_hz</primary><secondary>app.resistance_simulation.ResistanceSimulator</secondary></indexterm>
+<indexterm><primary>app.resistance_simulation.ResistanceSimulator</primary><secondary>speed_hz</secondary></indexterm>
+<para><computeroutput>app.resistance_simulation.ResistanceSimulator.speed_hz = speed_hz</computeroutput></para></section>
+<para>
+La documentation de cette classe a été générée à partir du fichier suivant :</para>
+C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/<link linkend="_resistance__simulation_8py">resistance_simulation.py</link></section>
+</section>

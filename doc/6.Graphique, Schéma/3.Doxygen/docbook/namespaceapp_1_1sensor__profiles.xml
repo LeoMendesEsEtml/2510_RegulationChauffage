@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_namespaceapp_1_1sensor__profiles" xml:lang="fr">
+<title>Référence de l&apos;espace de nommage app.sensor_profiles</title>
+<indexterm><primary>app.sensor_profiles</primary></indexterm>
+<simplesect>
+    <title>Fonctions    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_namespaceapp_1_1sensor__profiles_1aea6e8ef0fc12b3785bef45a23fde7b81">get_profile</link> (sensor_name)</para>
+
+<para>Récupère le profil de configuration ADC pour un capteur donné. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Variables    </title>
+        <itemizedlist>
+            <listitem><para>dict <link linkend="_namespaceapp_1_1sensor__profiles_1a8e0133ad4e40a6805aacf8f271fe96b5">SENSOR_PROFILES</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Documentation des fonctions</title>
+<anchor xml:id="_namespaceapp_1_1sensor__profiles_1aea6e8ef0fc12b3785bef45a23fde7b81"/><section>
+    <title>get_profile()</title>
+<indexterm><primary>get_profile</primary><secondary>app.sensor_profiles</secondary></indexterm>
+<indexterm><primary>app.sensor_profiles</primary><secondary>get_profile</secondary></indexterm>
+<para><computeroutput>app.sensor_profiles.get_profile ( sensor_name)</computeroutput></para><para>
+
+<para>Récupère le profil de configuration ADC pour un capteur donné. </para>
+</para>
+
+<para>Fonction d&apos;accès qui retourne le dictionnaire de configuration contenant les paramètres optimisés (Rref, IDAC, PGA) pour un type de capteur spécifique.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Paramètres</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>sensor_name</entry><entry>
+<para>Nom du type de capteur recherché.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Renvoie</title>
+
+<para>Dictionnaire contenant les paramètres de configuration:<itemizedlist>
+<listitem>
+<para>rref_ohm: résistance de référence [Ohms]</para>
+</listitem><listitem>
+<para>idac_uA: courant d&apos;excitation [microampères]</para>
+</listitem><listitem>
+<para>pga_gain: gain programmable [1-128]</para>
+</listitem></itemizedlist>
+</para>
+</formalpara>
+
+                <formalpara>
+                    <title>
+Exceptions</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>KeyError</entry><entry>
+<para>si le type de capteur n&apos;est pas reconnu. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+</section>
+</section>
+<section>
+<title>Documentation des variables</title>
+<anchor xml:id="_namespaceapp_1_1sensor__profiles_1a8e0133ad4e40a6805aacf8f271fe96b5"/><section>
+    <title>SENSOR_PROFILES</title>
+<indexterm><primary>SENSOR_PROFILES</primary><secondary>app.sensor_profiles</secondary></indexterm>
+<indexterm><primary>app.sensor_profiles</primary><secondary>SENSOR_PROFILES</secondary></indexterm>
+<para><computeroutput>dict app.sensor_profiles.SENSOR_PROFILES</computeroutput></para></section>
+</section>
+</section>

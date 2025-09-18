@@ -1,0 +1,399 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="fr">
+  <compounddef id="namespaceapp_1_1adc__ads124s08" kind="namespace" language="Python">
+    <compoundname>app::adc_ads124s08</compoundname>
+    <innerclass refid="classapp_1_1adc__ads124s08_1_1_ads124s08" prot="public">app::adc_ads124s08::Ads124s08</innerclass>
+    <sectiondef kind="var">
+      <memberdef kind="variable" id="namespaceapp_1_1adc__ads124s08_1a95d2ed0295f793db669188acfc42e035" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int app::adc_ads124s08.REG_ID</definition>
+        <argsstring></argsstring>
+        <name>REG_ID</name>
+        <qualifiedname>app.adc_ads124s08.REG_ID</qualifiedname>
+        <initializer>=  0x00</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/adc_ads124s08.py" line="37" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/adc_ads124s08.py" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceapp_1_1adc__ads124s08_1a08370a57876abbb36233f903990f7090" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int app::adc_ads124s08.REG_STATUS</definition>
+        <argsstring></argsstring>
+        <name>REG_STATUS</name>
+        <qualifiedname>app.adc_ads124s08.REG_STATUS</qualifiedname>
+        <initializer>=  0x01</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/adc_ads124s08.py" line="39" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/adc_ads124s08.py" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceapp_1_1adc__ads124s08_1acc5fdb3a177b32ce008beb7d4f593e5a" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int app::adc_ads124s08.REG_INPMUX</definition>
+        <argsstring></argsstring>
+        <name>REG_INPMUX</name>
+        <qualifiedname>app.adc_ads124s08.REG_INPMUX</qualifiedname>
+        <initializer>=  0x02</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/adc_ads124s08.py" line="41" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/adc_ads124s08.py" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceapp_1_1adc__ads124s08_1a6693b8b3c92c4e605cd93396bbf437e4" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int app::adc_ads124s08.REG_PGA</definition>
+        <argsstring></argsstring>
+        <name>REG_PGA</name>
+        <qualifiedname>app.adc_ads124s08.REG_PGA</qualifiedname>
+        <initializer>=  0x03</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/adc_ads124s08.py" line="43" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/adc_ads124s08.py" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceapp_1_1adc__ads124s08_1a3570ad44d2f9dd31da3eb36e6bb43a74" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int app::adc_ads124s08.REG_DATARATE</definition>
+        <argsstring></argsstring>
+        <name>REG_DATARATE</name>
+        <qualifiedname>app.adc_ads124s08.REG_DATARATE</qualifiedname>
+        <initializer>=  0x04</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/adc_ads124s08.py" line="45" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/adc_ads124s08.py" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceapp_1_1adc__ads124s08_1a37082f74d6a0e13791161957521dda36" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int app::adc_ads124s08.REG_REF</definition>
+        <argsstring></argsstring>
+        <name>REG_REF</name>
+        <qualifiedname>app.adc_ads124s08.REG_REF</qualifiedname>
+        <initializer>=  0x05</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/adc_ads124s08.py" line="47" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/adc_ads124s08.py" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceapp_1_1adc__ads124s08_1ad6a2ed950510eefbb3d8e16c5d44aa9a" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int app::adc_ads124s08.REG_IDACMUX</definition>
+        <argsstring></argsstring>
+        <name>REG_IDACMUX</name>
+        <qualifiedname>app.adc_ads124s08.REG_IDACMUX</qualifiedname>
+        <initializer>=  0x07</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/adc_ads124s08.py" line="49" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/adc_ads124s08.py" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceapp_1_1adc__ads124s08_1ab33f3d3b9eff07796c0954fb0a26a0f9" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int app::adc_ads124s08.REG_SYS</definition>
+        <argsstring></argsstring>
+        <name>REG_SYS</name>
+        <qualifiedname>app.adc_ads124s08.REG_SYS</qualifiedname>
+        <initializer>=  0x09</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/adc_ads124s08.py" line="51" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/adc_ads124s08.py" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceapp_1_1adc__ads124s08_1a29344761380eb9759a168a517077c1f8" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int app::adc_ads124s08.REG_IDACMAG</definition>
+        <argsstring></argsstring>
+        <name>REG_IDACMAG</name>
+        <qualifiedname>app.adc_ads124s08.REG_IDACMAG</qualifiedname>
+        <initializer>=  0x06</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/adc_ads124s08.py" line="53" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/adc_ads124s08.py" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceapp_1_1adc__ads124s08_1ac53df39aab8783f89db1de629453dac2" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int app::adc_ads124s08.CMD_RESET</definition>
+        <argsstring></argsstring>
+        <name>CMD_RESET</name>
+        <qualifiedname>app.adc_ads124s08.CMD_RESET</qualifiedname>
+        <initializer>=  0x06</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/adc_ads124s08.py" line="61" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/adc_ads124s08.py" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceapp_1_1adc__ads124s08_1afdbb53f6073883d5fae13b41f4054ad2" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int app::adc_ads124s08.CMD_START</definition>
+        <argsstring></argsstring>
+        <name>CMD_START</name>
+        <qualifiedname>app.adc_ads124s08.CMD_START</qualifiedname>
+        <initializer>=  0x08</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/adc_ads124s08.py" line="63" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/adc_ads124s08.py" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceapp_1_1adc__ads124s08_1a584dd419d6c692fe7fdbf9c318b0e9da" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int app::adc_ads124s08.CMD_STOP</definition>
+        <argsstring></argsstring>
+        <name>CMD_STOP</name>
+        <qualifiedname>app.adc_ads124s08.CMD_STOP</qualifiedname>
+        <initializer>=  0x0A</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/adc_ads124s08.py" line="65" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/adc_ads124s08.py" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceapp_1_1adc__ads124s08_1a295dbc291719574e76ddc5a7a2467087" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int app::adc_ads124s08.CMD_RDATA</definition>
+        <argsstring></argsstring>
+        <name>CMD_RDATA</name>
+        <qualifiedname>app.adc_ads124s08.CMD_RDATA</qualifiedname>
+        <initializer>=  0x12</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/adc_ads124s08.py" line="67" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/adc_ads124s08.py" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceapp_1_1adc__ads124s08_1a9d806c5f058f08f8ee7e226d706694f1" prot="public" static="no" mutable="no">
+        <type>tuple</type>
+        <definition>tuple app::adc_ads124s08.FS</definition>
+        <argsstring></argsstring>
+        <name>FS</name>
+        <qualifiedname>app.adc_ads124s08.FS</qualifiedname>
+        <initializer>=  (1 &lt;&lt; 23) - 1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/adc_ads124s08.py" line="75" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/adc_ads124s08.py" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceapp_1_1adc__ads124s08_1a8919c033b020e8f54f713cea9d68fa22" prot="public" static="no" mutable="no">
+        <type>dict</type>
+        <definition>dict app::adc_ads124s08.CHANNELS</definition>
+        <argsstring></argsstring>
+        <name>CHANNELS</name>
+        <qualifiedname>app.adc_ads124s08.CHANNELS</qualifiedname>
+        <initializer>=  {
+    # Canal 1: entrée positive AIN1, négative AIN2
+    1: {&quot;ainp_idx&quot;: 1,  &quot;ainn_idx&quot;: 2},
+    # Canal 2: entrée positive AIN4, négative AIN5
+    2: {&quot;ainp_idx&quot;: 4,  &quot;ainn_idx&quot;: 5},
+    # Canal 3: entrée positive AIN7, négative AIN8
+    3: {&quot;ainp_idx&quot;: 7,  &quot;ainn_idx&quot;: 8},
+    # Canal 4: entrée positive AIN10, négative AIN11
+    4: {&quot;ainp_idx&quot;: 10, &quot;ainn_idx&quot;: 11}
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/adc_ads124s08.py" line="78" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/adc_ads124s08.py" bodystart="78" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="namespaceapp_1_1adc__ads124s08_1a0117399a18d516c747ca6b060599452f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>app.adc_ads124s08.encode_gain</definition>
+        <argsstring>(pga_gain)</argsstring>
+        <name>encode_gain</name>
+        <qualifiedname>app.adc_ads124s08.encode_gain</qualifiedname>
+        <param>
+          <type>pga_gain</type>
+          <defname>pga_gain</defname>
+        </param>
+        <briefdescription>
+<para>Encode le gain PGA en code binaire pour le registre. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Convertit une valeur de gain décimale en code binaire 3 bits pour la configuration du registre PGA de l&apos;ADS124S08.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pga_gain</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Valeur du gain PGA (1, 2, 4, 8, 16, 32, 64, 128).</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Code binaire 3 bits correspondant au gain.</para>
+</simplesect>
+<parameterlist kind="exception"><parameteritem>
+<parameternamelist>
+<parametername>ValueError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>si le gain fourni n&apos;est pas supporté. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="see"><para>configure_channel </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/adc_ads124s08.py" line="106" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/adc_ads124s08.py" bodystart="106" bodyend="134"/>
+        <referencedby refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1abe455695d580ba27f0e5c559414fefbf" compoundref="adc__ads124s08_8py" startline="513" endline="622">app.adc_ads124s08.Ads124s08.configure_channel</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="namespaceapp_1_1adc__ads124s08_1a8f9279b8505f8d634ed73c51dcab29c9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>app.adc_ads124s08.encode_idac_uA</definition>
+        <argsstring>(idac_uA)</argsstring>
+        <name>encode_idac_uA</name>
+        <qualifiedname>app.adc_ads124s08.encode_idac_uA</qualifiedname>
+        <param>
+          <type>idac_uA</type>
+          <defname>idac_uA</defname>
+        </param>
+        <briefdescription>
+<para>Encode la magnitude IDAC en code binaire pour le registre. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Convertit une valeur de courant IDAC en microampères en code binaire 4 bits pour la configuration du registre IDACMAG.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>idac_uA</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Courant IDAC en microampères (10, 50, 100, 250, 500, 1000, 1500, 2000).</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Code binaire 4 bits correspondant au courant.</para>
+</simplesect>
+<parameterlist kind="exception"><parameteritem>
+<parameternamelist>
+<parametername>ValueError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>si le courant fourni n&apos;est pas supporté. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="see"><para>configure_channel </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/adc_ads124s08.py" line="147" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/adc_ads124s08.py" bodystart="147" bodyend="175"/>
+        <referencedby refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1abe455695d580ba27f0e5c559414fefbf" compoundref="adc__ads124s08_8py" startline="513" endline="622">app.adc_ads124s08.Ads124s08.configure_channel</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="namespaceapp_1_1adc__ads124s08_1a2d49f7c13e0b47db65080ab59febed76" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>app.adc_ads124s08.sign_extend_24</definition>
+        <argsstring>(b0, b1, b2)</argsstring>
+        <name>sign_extend_24</name>
+        <qualifiedname>app.adc_ads124s08.sign_extend_24</qualifiedname>
+        <param>
+          <type>b0</type>
+          <defname>b0</defname>
+        </param>
+        <param>
+          <type>b1</type>
+          <defname>b1</defname>
+        </param>
+        <param>
+          <type>b2</type>
+          <defname>b2</defname>
+        </param>
+        <briefdescription>
+<para>Étend le signe d&apos;un code ADC 24 bits vers 32 bits. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Convertit un code ADC 24 bits signé en entier Python 32 bits en préservant le signe selon la représentation en complément à 2.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>b0</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Octet de poids fort (MSB) du code 24 bits. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>b1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Octet du milieu du code 24 bits. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>b2</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Octet de poids faible (LSB) du code 24 bits.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Valeur entière signée 32 bits correspondante.</para>
+</simplesect>
+<simplesect kind="note"><para>Nécessaire car Python gère automatiquement les entiers de taille variable. </para>
+</simplesect>
+<simplesect kind="see"><para>read_code24 </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/adc_ads124s08.py" line="190" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/adc_ads124s08.py" bodystart="190" bodyend="207"/>
+        <referencedby refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1ac53728ccbaada975b3204c4e3a4364aa" compoundref="adc__ads124s08_8py" startline="677" endline="696">app.adc_ads124s08.Ads124s08.read_code24</referencedby>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/adc_ads124s08.py" line="1" column="1"/>
+  </compounddef>
+</doxygen>

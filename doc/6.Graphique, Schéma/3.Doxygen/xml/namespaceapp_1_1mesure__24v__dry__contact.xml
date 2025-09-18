@@ -1,0 +1,145 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="fr">
+  <compounddef id="namespaceapp_1_1mesure__24v__dry__contact" kind="namespace" language="Python">
+    <compoundname>app::mesure_24v_dry_contact</compoundname>
+    <sectiondef kind="var">
+      <memberdef kind="variable" id="namespaceapp_1_1mesure__24v__dry__contact_1a453d71784bc90759879ed4710eddaae7" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int app::mesure_24v_dry_contact.CM_24V_OUT_1</definition>
+        <argsstring></argsstring>
+        <name>CM_24V_OUT_1</name>
+        <qualifiedname>app.mesure_24v_dry_contact.CM_24V_OUT_1</qualifiedname>
+        <initializer>=  13</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/mesure_24v_dry_contact.py" line="31" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/mesure_24v_dry_contact.py" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceapp_1_1mesure__24v__dry__contact_1af472e52ff88e296aea83c8cc79d5620c" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int app::mesure_24v_dry_contact.CM_24V_SENSE_1</definition>
+        <argsstring></argsstring>
+        <name>CM_24V_SENSE_1</name>
+        <qualifiedname>app.mesure_24v_dry_contact.CM_24V_SENSE_1</qualifiedname>
+        <initializer>=  14</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/mesure_24v_dry_contact.py" line="33" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/mesure_24v_dry_contact.py" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceapp_1_1mesure__24v__dry__contact_1a8b67517287b2c5e4ef8bfa43ae6b4729" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int app::mesure_24v_dry_contact.CM_24V_OUT_2</definition>
+        <argsstring></argsstring>
+        <name>CM_24V_OUT_2</name>
+        <qualifiedname>app.mesure_24v_dry_contact.CM_24V_OUT_2</qualifiedname>
+        <initializer>=  15</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/mesure_24v_dry_contact.py" line="35" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/mesure_24v_dry_contact.py" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceapp_1_1mesure__24v__dry__contact_1a04e3ff2fcb546df09d9f9395e419df3c" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int app::mesure_24v_dry_contact.CM_24V_SENSE_2</definition>
+        <argsstring></argsstring>
+        <name>CM_24V_SENSE_2</name>
+        <qualifiedname>app.mesure_24v_dry_contact.CM_24V_SENSE_2</qualifiedname>
+        <initializer>=  16</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/mesure_24v_dry_contact.py" line="37" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/mesure_24v_dry_contact.py" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceapp_1_1mesure__24v__dry__contact_1aa7723504bd319fbc27af31e9cb1f5ba9" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int app::mesure_24v_dry_contact.io_24v_ch1_ok</definition>
+        <argsstring></argsstring>
+        <name>io_24v_ch1_ok</name>
+        <qualifiedname>app.mesure_24v_dry_contact.io_24v_ch1_ok</qualifiedname>
+        <initializer>=  0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/mesure_24v_dry_contact.py" line="44" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/mesure_24v_dry_contact.py" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceapp_1_1mesure__24v__dry__contact_1abcab5b3d8575048fb3ca52576a6a2e79" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int app::mesure_24v_dry_contact.io_24v_ch2_ok</definition>
+        <argsstring></argsstring>
+        <name>io_24v_ch2_ok</name>
+        <qualifiedname>app.mesure_24v_dry_contact.io_24v_ch2_ok</qualifiedname>
+        <initializer>=  0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/mesure_24v_dry_contact.py" line="46" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/mesure_24v_dry_contact.py" bodystart="46" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="namespaceapp_1_1mesure__24v__dry__contact_1ab7cf8a3e7b655f7414576fdb402a58b6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>app.mesure_24v_dry_contact.test_24v_dry_contact</definition>
+        <argsstring>()</argsstring>
+        <name>test_24v_dry_contact</name>
+        <qualifiedname>app.mesure_24v_dry_contact.test_24v_dry_contact</qualifiedname>
+        <briefdescription>
+<para>Test des contacts secs I/O 24V. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Effectue un test complet des deux canaux de contacts secs 24V. Active séquentiellement chaque sortie et lit l&apos;état du capteur correspondant pour déterminer si le contact est fermé ou ouvert. Met à jour les variables globales d&apos;état et affiche les résultats.</para>
+<para><simplesect kind="return"><para>Tuple contenant l&apos;état des deux canaux (ch1_state, ch2_state). Valeurs 0=ouvert, 1=fermé.</para>
+</simplesect>
+<simplesect kind="note"><para>Utilise des temporisations pour la stabilisation des signaux. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/mesure_24v_dry_contact.py" line="64" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/mesure_24v_dry_contact.py" bodystart="64" bodyend="151"/>
+      </memberdef>
+      <memberdef kind="function" id="namespaceapp_1_1mesure__24v__dry__contact_1a92312106402fd2af723b0eecd78addaf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>app.mesure_24v_dry_contact.get_dry_contact_status</definition>
+        <argsstring>()</argsstring>
+        <name>get_dry_contact_status</name>
+        <qualifiedname>app.mesure_24v_dry_contact.get_dry_contact_status</qualifiedname>
+        <briefdescription>
+<para>Retourne l&apos;état actuel des contacts secs. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Fonction utilitaire qui retourne les derniers états mesurés des contacts secs sans effectuer de nouveau test. Utilise les variables globales mises à jour par <ref refid="namespaceapp_1_1mesure__24v__dry__contact_1ab7cf8a3e7b655f7414576fdb402a58b6" kindref="member">test_24v_dry_contact()</ref>.</para>
+<para><simplesect kind="return"><para>Dictionnaire contenant l&apos;état des deux canaux. Format {&quot;ch1&quot;: 0|1, &quot;ch2&quot;: 0|1} Valeurs 0=ouvert, 1=fermé. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/mesure_24v_dry_contact.py" line="162" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/mesure_24v_dry_contact.py" bodystart="162" bodyend="168"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/mesure_24v_dry_contact.py" line="1" column="1"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,90 @@
+.TH "app.mesure_24v_dry_contact" 3 "2510_RegulationChauffage" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+app.mesure_24v_dry_contact
+.SH SYNOPSIS
+.br
+.PP
+.SS "Fonctions"
+
+.in +1c
+.ti -1c
+.RI "\fBtest_24v_dry_contact\fP ()"
+.br
+.RI "Test des contacts secs I/O 24V\&. "
+.ti -1c
+.RI "\fBget_dry_contact_status\fP ()"
+.br
+.RI "Retourne l'état actuel des contacts secs\&. "
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "int \fBCM_24V_OUT_1\fP = 13"
+.br
+.ti -1c
+.RI "int \fBCM_24V_SENSE_1\fP = 14"
+.br
+.ti -1c
+.RI "int \fBCM_24V_OUT_2\fP = 15"
+.br
+.ti -1c
+.RI "int \fBCM_24V_SENSE_2\fP = 16"
+.br
+.ti -1c
+.RI "int \fBio_24v_ch1_ok\fP = 0"
+.br
+.ti -1c
+.RI "int \fBio_24v_ch2_ok\fP = 0"
+.br
+.in -1c
+.SH "Documentation des fonctions"
+.PP 
+.SS "app\&.mesure_24v_dry_contact\&.get_dry_contact_status ()"
+
+.PP
+Retourne l'état actuel des contacts secs\&. Fonction utilitaire qui retourne les derniers états mesurés des contacts secs sans effectuer de nouveau test\&. Utilise les variables globales mises à jour par \fBtest_24v_dry_contact()\fP\&.
+
+.PP
+\fBRenvoie\fP
+.RS 4
+Dictionnaire contenant l'état des deux canaux\&. Format {"ch1": 0|1, "ch2": 0|1} Valeurs 0=ouvert, 1=fermé\&. 
+.RE
+.PP
+
+.SS "app\&.mesure_24v_dry_contact\&.test_24v_dry_contact ()"
+
+.PP
+Test des contacts secs I/O 24V\&. Effectue un test complet des deux canaux de contacts secs 24V\&. Active séquentiellement chaque sortie et lit l'état du capteur correspondant pour déterminer si le contact est fermé ou ouvert\&. Met à jour les variables globales d'état et affiche les résultats\&.
+
+.PP
+\fBRenvoie\fP
+.RS 4
+Tuple contenant l'état des deux canaux (ch1_state, ch2_state)\&. Valeurs 0=ouvert, 1=fermé\&.
+.RE
+.PP
+\fBNote\fP
+.RS 4
+Utilise des temporisations pour la stabilisation des signaux\&. 
+.RE
+.PP
+
+.SH "Documentation des variables"
+.PP 
+.SS "int app\&.mesure_24v_dry_contact\&.CM_24V_OUT_1 = 13"
+
+.SS "int app\&.mesure_24v_dry_contact\&.CM_24V_OUT_2 = 15"
+
+.SS "int app\&.mesure_24v_dry_contact\&.CM_24V_SENSE_1 = 14"
+
+.SS "int app\&.mesure_24v_dry_contact\&.CM_24V_SENSE_2 = 16"
+
+.SS "int app\&.mesure_24v_dry_contact\&.io_24v_ch1_ok = 0"
+
+.SS "int app\&.mesure_24v_dry_contact\&.io_24v_ch2_ok = 0"
+
+.SH "Auteur"
+.PP 
+Généré automatiquement par Doxygen pour 2510_RegulationChauffage à partir du code source\&.

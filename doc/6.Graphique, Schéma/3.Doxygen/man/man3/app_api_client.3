@@ -1,0 +1,111 @@
+.TH "app.api_client" 3 "2510_RegulationChauffage" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+app.api_client
+.SH SYNOPSIS
+.br
+.PP
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "class \fBApiClient\fP"
+.br
+.RI "Client pour interroger les APIs oblosolutions\&.ch\&. "
+.ti -1c
+.RI "class \fBApiError\fP"
+.br
+.RI "Exception pour les erreurs d'API\&. "
+.in -1c
+.SS "Fonctions"
+
+.in +1c
+.ti -1c
+.RI "Dict[str, Any] \fBget_simulation_data\fP (str mac_address)"
+.br
+.RI "Récupère les données de simulation depuis les APIs\&. "
+.ti -1c
+.RI "bool \fBsend_temperature_measurement\fP (str mac_address, float temperature, int channel=None)"
+.br
+.RI "Envoie une mesure de température vers l'API\&. "
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "int \fBREQUEST_TIMEOUT\fP = 10"
+.br
+.ti -1c
+.RI "int \fBMAX_RETRIES\fP = 3"
+.br
+.ti -1c
+.RI "int \fBRETRY_DELAY\fP = 1"
+.br
+.ti -1c
+.RI "str \fBtest_mac\fP = '0030DEABCDEF'"
+.br
+.ti -1c
+.RI "Dict[str, Any] \fBdata\fP = \fBget_simulation_data\fP(\fBtest_mac\fP)"
+.br
+.in -1c
+.SH "Documentation des fonctions"
+.PP 
+.SS " Dict[str, Any] app\&.api_client\&.get_simulation_data (str mac_address)"
+
+.PP
+Récupère les données de simulation depuis les APIs\&. Combine les appels vers td25_param et td25_forecast pour récupérer tous les paramètres nécessaires à la simulation de température\&. Utilise le client \fBApiClient\fP pour gérer les retries et les erreurs automatiquement\&.
+
+.PP
+\fBParamètres\fP
+.RS 4
+\fImac_address\fP Adresse MAC du dispositif\&.
+.RE
+.PP
+\fBRenvoie\fP
+.RS 4
+Dictionnaire avec toutes les données nécessaires pour la simulation\&.
+.RE
+.PP
+\fBExceptions\fP
+.RS 4
+\fI\fBApiError\fP\fP Si aucune donnée valide n'est obtenue\&. 
+.RE
+.PP
+
+.SS " bool app\&.api_client\&.send_temperature_measurement (str mac_address, float temperature, int  channel = \fRNone\fP)"
+
+.PP
+Envoie une mesure de température vers l'API\&. Fonction utilitaire qui crée un client \fBApiClient\fP et utilise la méthode post_measured_temperature pour envoyer la température mesurée\&. Gère les exceptions et retourne un booléen simple\&.
+
+.PP
+\fBParamètres\fP
+.RS 4
+\fImac_address\fP Adresse MAC du dispositif\&. 
+.br
+\fItemperature\fP Température mesurée en °C\&. 
+.br
+\fIchannel\fP Canal de mesure (optionnel)\&.
+.RE
+.PP
+\fBRenvoie\fP
+.RS 4
+True si succès, False sinon\&. 
+.RE
+.PP
+
+.SH "Documentation des variables"
+.PP 
+.SS "Dict[str, Any] app\&.api_client\&.data = \fBget_simulation_data\fP(\fBtest_mac\fP)"
+
+.SS "int app\&.api_client\&.MAX_RETRIES = 3"
+
+.SS "int app\&.api_client\&.REQUEST_TIMEOUT = 10"
+
+.SS "int app\&.api_client\&.RETRY_DELAY = 1"
+
+.SS "str app\&.api_client\&.test_mac = '0030DEABCDEF'"
+
+.SH "Auteur"
+.PP 
+Généré automatiquement par Doxygen pour 2510_RegulationChauffage à partir du code source\&.

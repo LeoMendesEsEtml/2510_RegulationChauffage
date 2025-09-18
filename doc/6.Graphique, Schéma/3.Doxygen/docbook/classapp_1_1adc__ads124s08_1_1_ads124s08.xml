@@ -1,0 +1,1029 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_classapp_1_1adc__ads124s08_1_1_ads124s08" xml:lang="fr">
+<title>Référence de la classe app.adc_ads124s08.Ads124s08</title>
+<indexterm><primary>app.adc_ads124s08.Ads124s08</primary></indexterm>
+<para>
+
+<para>Driver pour l&apos;ADC ADS124S08 avec interface SPI. </para>
+ 
+</para>
+Graphe de collaboration de app.adc_ads124s08.Ads124s08:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classapp_1_1adc__ads124s08_1_1_ads124s08__coll__graph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+<simplesect>
+    <title>Fonctions membres publiques    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classapp_1_1adc__ads124s08_1_1_ads124s08_1ad07d394c9bbe4d22ca8fb590382c2554">__init__</link> (self)</para>
+
+<para>Constructeur de la classe <link linkend="_classapp_1_1adc__ads124s08_1_1_ads124s08">Ads124s08</link>. </para>
+</listitem>
+            <listitem><para><link linkend="_classapp_1_1adc__ads124s08_1_1_ads124s08_1a56dff2b65427bc620cc661de71d9d44d">read_id</link> (self)</para>
+
+<para>Lit le registre d&apos;identification de l&apos;ADC. </para>
+</listitem>
+            <listitem><para><link linkend="_classapp_1_1adc__ads124s08_1_1_ads124s08_1ac8b34f0152689ddfc7950f31d10cd62f">close</link> (self)</para>
+
+<para>Ferme les interfaces SPI et GPIO proprement. </para>
+</listitem>
+            <listitem><para><link linkend="_classapp_1_1adc__ads124s08_1_1_ads124s08_1a6cbdea3f16ae1dff329ec8e45ef859d1">wait_drdy_falling_edge</link> (self, timeout_s)</para>
+
+<para>Attend un front descendant sur DRDY (HIGH -&gt; LOW) avec timeout. </para>
+</listitem>
+            <listitem><para><link linkend="_classapp_1_1adc__ads124s08_1_1_ads124s08_1a7e7fb10a1acebe2f4200a52670c2fb0c">set_single_shot_lowlatency</link> (self, dr_nibble)</para>
+
+<para>Configure le mode single-shot low-latency de l&apos;ADC. </para>
+</listitem>
+            <listitem><para><link linkend="_classapp_1_1adc__ads124s08_1_1_ads124s08_1abe455695d580ba27f0e5c559414fefbf">configure_channel</link> (self, channel_index, pga_gain, idac_uA)</para>
+
+<para>Configure un canal ADC avec ses paramètres de mesure. </para>
+</listitem>
+            <listitem><para><link linkend="_classapp_1_1adc__ads124s08_1_1_ads124s08_1a5d7414311a828e4231a22b6e414cbfba">start</link> (self)</para>
+
+<para>Démarre une conversion ADC. </para>
+</listitem>
+            <listitem><para><link linkend="_classapp_1_1adc__ads124s08_1_1_ads124s08_1a30d1ac487b9ef8dcfb310cea695db0f9">stop</link> (self)</para>
+
+<para>Arrête une conversion ADC en cours. </para>
+</listitem>
+            <listitem><para><link linkend="_classapp_1_1adc__ads124s08_1_1_ads124s08_1ac53728ccbaada975b3204c4e3a4364aa">read_code24</link> (self)</para>
+
+<para>Lit un code de données 24 bits depuis l&apos;ADC. </para>
+</listitem>
+            <listitem><para><link linkend="_classapp_1_1adc__ads124s08_1_1_ads124s08_1a6c3422094f1375f8e91bff96eb299f69">measure_resistance</link> (self, rref_ohm, pga_gain, timeout_s)</para>
+
+<para>Mesure la résistance d&apos;une sonde via l&apos;ADC. </para>
+</listitem>
+            <listitem><para><link linkend="_classapp_1_1adc__ads124s08_1_1_ads124s08_1a29331f015d0a23fb89fa1aedce5a33b3">measure_temperature</link> (self, sensor_name, rref_ohm, pga_gain, timeout_s)</para>
+
+<para>Mesure la température d&apos;un capteur via l&apos;ADC. </para>
+</listitem>
+            <listitem><para><link linkend="_classapp_1_1adc__ads124s08_1_1_ads124s08_1af51ca6a1c8d208a333556ce44e9cbb17">read_gain</link> (self)</para>
+
+<para>Lit le registre de gain PGA pour diagnostic. </para>
+</listitem>
+            <listitem><para><link linkend="_classapp_1_1adc__ads124s08_1_1_ads124s08_1a424495225e0f75a1aa7cc76067b6110e">read_ref</link> (self)</para>
+
+<para>Lit le registre de configuration de la référence. </para>
+</listitem>
+            <listitem><para><link linkend="_classapp_1_1adc__ads124s08_1_1_ads124s08_1ab9ddb24eaa7ad6eb852732fb1534e79d">read_inpmux</link> (self)</para>
+
+<para>Lit le registre de configuration du multiplexeur d&apos;entrée. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Attributs publics    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classapp_1_1adc__ads124s08_1_1_ads124s08_1ad6ceb5f8844a34706d24f0d510abf081">spi</link> = spidev.SpiDev()</para>
+</listitem>
+            <listitem><para><link linkend="_classapp_1_1adc__ads124s08_1_1_ads124s08_1abae1495ff14fcfffa871c4dcdb150cdd">gpio_drdy</link> = GPIO(GPIO_CHIP_PATH, ADC_DRDY, &quot;in&quot;)</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Fonctions membres protégées    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classapp_1_1adc__ads124s08_1_1_ads124s08_1a2f6a4281f1eaac0a7120e6b507b1c9e6">_rreg</link> (self, addr, nbytes)</para>
+
+<para>Lit un ou plusieurs registres de l&apos;ADC via SPI. </para>
+</listitem>
+            <listitem><para><link linkend="_classapp_1_1adc__ads124s08_1_1_ads124s08_1a6c3a8c9cc298fbe29123898f8e404b82">_wreg</link> (self, addr, data_bytes)</para>
+
+<para>Écrit dans un ou plusieurs registres de l&apos;ADC via SPI. </para>
+</listitem>
+            <listitem><para><link linkend="_classapp_1_1adc__ads124s08_1_1_ads124s08_1a54727c06031c4ca2229653dd01edfe03">_sclk_nudge</link> (self)</para>
+
+<para>Envoie un coup de pouce sur SCLK pour synchroniser DRDY. </para>
+</listitem>
+            <listitem><para><link linkend="_classapp_1_1adc__ads124s08_1_1_ads124s08_1ad1af9e1885ee3e2576eba6720251ef36">_ensure_drdy_high</link> (self, timeout_ms)</para>
+
+<para>Assure que le signal DRDY est à l&apos;état HIGH. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Description détaillée</title>
+
+<para>Driver pour l&apos;ADC ADS124S08 avec interface SPI. </para>
+
+
+
+<para>Cette classe encapsule toutes les fonctionnalités nécessaires pour communiquer avec l&apos;ADC ADS124S08 via SPI en mode 1.0. Supporte la configuration automatique, la mesure de résistance et la conversion en température.</para>
+
+<para><note><title>Note</title>
+
+<para>L&apos;ADC doit être connecté via SPI1 et le signal DRDY sur GPIO. </para>
+</note>
+<formalpara><title>Voir également</title>
+
+<para><link linkend="_classapp_1_1adc__ads124s08_1_1_ads124s08_1abe455695d580ba27f0e5c559414fefbf">configure_channel</link>, <link linkend="_classapp_1_1adc__ads124s08_1_1_ads124s08_1a6c3422094f1375f8e91bff96eb299f69">measure_resistance</link>, <link linkend="_classapp_1_1adc__ads124s08_1_1_ads124s08_1a29331f015d0a23fb89fa1aedce5a33b3">measure_temperature</link> </para>
+</formalpara>
+</para>
+</section>
+<section>
+<title>Documentation des constructeurs et destructeur</title>
+<anchor xml:id="_classapp_1_1adc__ads124s08_1_1_ads124s08_1ad07d394c9bbe4d22ca8fb590382c2554"/><section>
+    <title>__init__()</title>
+<indexterm><primary>__init__</primary><secondary>app.adc_ads124s08.Ads124s08</secondary></indexterm>
+<indexterm><primary>app.adc_ads124s08.Ads124s08</primary><secondary>__init__</secondary></indexterm>
+<para><computeroutput>app.adc_ads124s08.Ads124s08.__init__ ( self)</computeroutput></para><para>
+
+<para>Constructeur de la classe <link linkend="_classapp_1_1adc__ads124s08_1_1_ads124s08">Ads124s08</link>. </para>
+</para>
+
+<para>Initialise la communication SPI, configure le GPIO DRDY, effectue un reset de l&apos;ADC et vérifie la communication en lisant le registre d&apos;identification.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Exceptions</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>Peut</entry><entry>
+<para>lever des exceptions SPI ou GPIO en cas d&apos;échec. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Postcondition</title>
+
+<para>L&apos;ADC est prêt pour la configuration et les mesures. </para>
+</formalpara>
+</para>
+</section>
+</section>
+<section>
+<title>Documentation des fonctions membres</title>
+<anchor xml:id="_classapp_1_1adc__ads124s08_1_1_ads124s08_1ad1af9e1885ee3e2576eba6720251ef36"/><section>
+    <title>_ensure_drdy_high()</title>
+<indexterm><primary>_ensure_drdy_high</primary><secondary>app.adc_ads124s08.Ads124s08</secondary></indexterm>
+<indexterm><primary>app.adc_ads124s08.Ads124s08</primary><secondary>_ensure_drdy_high</secondary></indexterm>
+<para><computeroutput>app.adc_ads124s08.Ads124s08._ensure_drdy_high ( self,  timeout_ms)<computeroutput>[protected]</computeroutput></computeroutput></para><para>
+
+<para>Assure que le signal DRDY est à l&apos;état HIGH. </para>
+</para>
+
+<para>Attend que DRDY passe à HIGH avec possibilité de coup de pouce sur SCLK si nécessaire. Timeout configurable.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Paramètres</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>timeout_ms</entry><entry>
+<para>Timeout en millisecondes pour l&apos;attente.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Renvoie</title>
+
+<para>True si DRDY est HIGH, False en cas de timeout.</para>
+</formalpara>
+<note><title>Note</title>
+
+<para>Méthode critique pour la synchronisation des conversions. </para>
+</note>
+<formalpara><title>Voir également</title>
+
+<para><link linkend="_classapp_1_1adc__ads124s08_1_1_ads124s08_1a6cbdea3f16ae1dff329ec8e45ef859d1">wait_drdy_falling_edge</link> </para>
+</formalpara>
+</para>
+Voici le graphe d&apos;appel pour cette fonction :<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classapp_1_1adc__ads124s08_1_1_ads124s08_ad1af9e1885ee3e2576eba6720251ef36_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classapp_1_1adc__ads124s08_1_1_ads124s08_1a2f6a4281f1eaac0a7120e6b507b1c9e6"/><section>
+    <title>_rreg()</title>
+<indexterm><primary>_rreg</primary><secondary>app.adc_ads124s08.Ads124s08</secondary></indexterm>
+<indexterm><primary>app.adc_ads124s08.Ads124s08</primary><secondary>_rreg</secondary></indexterm>
+<para><computeroutput>app.adc_ads124s08.Ads124s08._rreg ( self,  addr,  nbytes)<computeroutput>[protected]</computeroutput></computeroutput></para><para>
+
+<para>Lit un ou plusieurs registres de l&apos;ADC via SPI. </para>
+</para>
+
+<para>Utilise la commande RREG de l&apos;ADS124S08 pour lire des registres consécutifs starting à l&apos;adresse donnée.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Paramètres</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>addr</entry><entry>
+<para>Adresse du premier registre à lire (0x00-0x1F). </para>
+</entry>
+                            </row>
+                            <row>
+<entry>nbytes</entry><entry>
+<para>Nombre d&apos;octets à lire.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Renvoie</title>
+
+<para>Liste des valeurs lues depuis les registres.</para>
+</formalpara>
+<note><title>Note</title>
+
+<para>Méthode privée pour les opérations internes du driver. </para>
+</note>
+<formalpara><title>Voir également</title>
+
+<para><link linkend="_classapp_1_1adc__ads124s08_1_1_ads124s08_1a6c3a8c9cc298fbe29123898f8e404b82">_wreg</link> </para>
+</formalpara>
+</para>
+Voici le graphe des appelants de cette fonction :<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classapp_1_1adc__ads124s08_1_1_ads124s08_a2f6a4281f1eaac0a7120e6b507b1c9e6_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classapp_1_1adc__ads124s08_1_1_ads124s08_1a54727c06031c4ca2229653dd01edfe03"/><section>
+    <title>_sclk_nudge()</title>
+<indexterm><primary>_sclk_nudge</primary><secondary>app.adc_ads124s08.Ads124s08</secondary></indexterm>
+<indexterm><primary>app.adc_ads124s08.Ads124s08</primary><secondary>_sclk_nudge</secondary></indexterm>
+<para><computeroutput>app.adc_ads124s08.Ads124s08._sclk_nudge ( self)<computeroutput>[protected]</computeroutput></computeroutput></para><para>
+
+<para>Envoie un coup de pouce sur SCLK pour synchroniser DRDY. </para>
+</para>
+
+<para>Effectue une lecture factice du registre STATUS pour générer des transitions sur SCLK et forcer DRDY à l&apos;état HIGH.</para>
+
+<para><formalpara><title>Renvoie</title>
+
+<para>Rien.</para>
+</formalpara>
+<note><title>Note</title>
+
+<para>Utilisé quand DRDY reste bloqué à LOW de manière inattendue. </para>
+</note>
+<formalpara><title>Voir également</title>
+
+<para><link linkend="_classapp_1_1adc__ads124s08_1_1_ads124s08_1ad1af9e1885ee3e2576eba6720251ef36">_ensure_drdy_high</link> </para>
+</formalpara>
+</para>
+Voici le graphe des appelants de cette fonction :<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classapp_1_1adc__ads124s08_1_1_ads124s08_a54727c06031c4ca2229653dd01edfe03_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classapp_1_1adc__ads124s08_1_1_ads124s08_1a6c3a8c9cc298fbe29123898f8e404b82"/><section>
+    <title>_wreg()</title>
+<indexterm><primary>_wreg</primary><secondary>app.adc_ads124s08.Ads124s08</secondary></indexterm>
+<indexterm><primary>app.adc_ads124s08.Ads124s08</primary><secondary>_wreg</secondary></indexterm>
+<para><computeroutput>app.adc_ads124s08.Ads124s08._wreg ( self,  addr,  data_bytes)<computeroutput>[protected]</computeroutput></computeroutput></para><para>
+
+<para>Écrit dans un ou plusieurs registres de l&apos;ADC via SPI. </para>
+</para>
+
+<para>Utilise la commande WREG de l&apos;ADS124S08 pour écrire des données dans des registres consécutifs.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Paramètres</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>addr</entry><entry>
+<para>Adresse du premier registre à écrire (0x00-0x1F). </para>
+</entry>
+                            </row>
+                            <row>
+<entry>data_bytes</entry><entry>
+<para>Liste des octets à écrire dans les registres.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Renvoie</title>
+
+<para>Rien.</para>
+</formalpara>
+<note><title>Note</title>
+
+<para>Méthode privée pour les opérations internes du driver. </para>
+</note>
+<formalpara><title>Voir également</title>
+
+<para><link linkend="_classapp_1_1adc__ads124s08_1_1_ads124s08_1a2f6a4281f1eaac0a7120e6b507b1c9e6">_rreg</link> </para>
+</formalpara>
+</para>
+Voici le graphe d&apos;appel pour cette fonction :<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classapp_1_1adc__ads124s08_1_1_ads124s08_a6c3a8c9cc298fbe29123898f8e404b82_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Voici le graphe des appelants de cette fonction :<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classapp_1_1adc__ads124s08_1_1_ads124s08_a6c3a8c9cc298fbe29123898f8e404b82_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classapp_1_1adc__ads124s08_1_1_ads124s08_1ac8b34f0152689ddfc7950f31d10cd62f"/><section>
+    <title>close()</title>
+<indexterm><primary>close</primary><secondary>app.adc_ads124s08.Ads124s08</secondary></indexterm>
+<indexterm><primary>app.adc_ads124s08.Ads124s08</primary><secondary>close</secondary></indexterm>
+<para><computeroutput>app.adc_ads124s08.Ads124s08.close ( self)</computeroutput></para><para>
+
+<para>Ferme les interfaces SPI et GPIO proprement. </para>
+</para>
+
+<para>Libère les ressources système utilisées par le driver. Méthode à appeler avant la destruction de l&apos;objet.</para>
+
+<para><formalpara><title>Renvoie</title>
+
+<para>Rien.</para>
+</formalpara>
+<note><title>Note</title>
+
+<para>Ignore les erreurs de fermeture pour éviter les exceptions. </para>
+</note>
+<formalpara><title>Voir également</title>
+
+<para><emphasis role="bold">init</emphasis> </para>
+</formalpara>
+</para>
+Voici le graphe d&apos;appel pour cette fonction :<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classapp_1_1adc__ads124s08_1_1_ads124s08_ac8b34f0152689ddfc7950f31d10cd62f_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Voici le graphe des appelants de cette fonction :<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classapp_1_1adc__ads124s08_1_1_ads124s08_ac8b34f0152689ddfc7950f31d10cd62f_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classapp_1_1adc__ads124s08_1_1_ads124s08_1abe455695d580ba27f0e5c559414fefbf"/><section>
+    <title>configure_channel()</title>
+<indexterm><primary>configure_channel</primary><secondary>app.adc_ads124s08.Ads124s08</secondary></indexterm>
+<indexterm><primary>app.adc_ads124s08.Ads124s08</primary><secondary>configure_channel</secondary></indexterm>
+<para><computeroutput>app.adc_ads124s08.Ads124s08.configure_channel ( self,  channel_index,  pga_gain,  idac_uA)</computeroutput></para><para>
+
+<para>Configure un canal ADC avec ses paramètres de mesure. </para>
+</para>
+
+<para>Configure complètement un canal ADC avec le gain PGA, le courant IDAC et le routage des entrées analogiques. Effectue une configuration séquentielle de tous les registres.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Paramètres</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>channel_index</entry><entry>
+<para>Index du canal physique (1-4). </para>
+</entry>
+                            </row>
+                            <row>
+<entry>pga_gain</entry><entry>
+<para>Gain de l&apos;amplificateur programmable (1-128). </para>
+</entry>
+                            </row>
+                            <row>
+<entry>idac_uA</entry><entry>
+<para>Courant IDAC en microampères (10-2000).</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Renvoie</title>
+
+<para>Rien.</para>
+</formalpara>
+
+                <formalpara>
+                    <title>
+Exceptions</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>ValueError</entry><entry>
+<para>si le canal ou les paramètres sont invalides. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Voir également</title>
+
+<para><link linkend="_namespaceapp_1_1adc__ads124s08_1a0117399a18d516c747ca6b060599452f">encode_gain</link>, <link linkend="_namespaceapp_1_1adc__ads124s08_1a8f9279b8505f8d634ed73c51dcab29c9">encode_idac_uA</link> </para>
+</formalpara>
+</para>
+Voici le graphe d&apos;appel pour cette fonction :<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classapp_1_1adc__ads124s08_1_1_ads124s08_abe455695d580ba27f0e5c559414fefbf_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classapp_1_1adc__ads124s08_1_1_ads124s08_1a6c3422094f1375f8e91bff96eb299f69"/><section>
+    <title>measure_resistance()</title>
+<indexterm><primary>measure_resistance</primary><secondary>app.adc_ads124s08.Ads124s08</secondary></indexterm>
+<indexterm><primary>app.adc_ads124s08.Ads124s08</primary><secondary>measure_resistance</secondary></indexterm>
+<para><computeroutput>app.adc_ads124s08.Ads124s08.measure_resistance ( self,  rref_ohm,  pga_gain,  timeout_s)</computeroutput></para><para>
+
+<para>Mesure la résistance d&apos;une sonde via l&apos;ADC. </para>
+</para>
+
+<para>Effectue une mesure complète: démarrage de conversion, attente DRDY, lecture du code et calcul de la résistance selon la formule ratiométrique.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Paramètres</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>rref_ohm</entry><entry>
+<para>Résistance de référence en ohms. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>pga_gain</entry><entry>
+<para>Gain PGA utilisé pour la mesure. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>timeout_s</entry><entry>
+<para>Timeout en secondes pour la conversion.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Renvoie</title>
+
+<para>Résistance mesurée en ohms ou None en cas d&apos;erreur.</para>
+</formalpara>
+<note><title>Note</title>
+
+<para>Utilise la formule: R = |code|/FS * (Rref / gain). </para>
+</note>
+<formalpara><title>Voir également</title>
+
+<para><link linkend="_classapp_1_1adc__ads124s08_1_1_ads124s08_1a29331f015d0a23fb89fa1aedce5a33b3">measure_temperature</link>, <link linkend="_classapp_1_1adc__ads124s08_1_1_ads124s08_1abe455695d580ba27f0e5c559414fefbf">configure_channel</link> </para>
+</formalpara>
+</para>
+Voici le graphe d&apos;appel pour cette fonction :<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classapp_1_1adc__ads124s08_1_1_ads124s08_a6c3422094f1375f8e91bff96eb299f69_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Voici le graphe des appelants de cette fonction :<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classapp_1_1adc__ads124s08_1_1_ads124s08_a6c3422094f1375f8e91bff96eb299f69_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classapp_1_1adc__ads124s08_1_1_ads124s08_1a29331f015d0a23fb89fa1aedce5a33b3"/><section>
+    <title>measure_temperature()</title>
+<indexterm><primary>measure_temperature</primary><secondary>app.adc_ads124s08.Ads124s08</secondary></indexterm>
+<indexterm><primary>app.adc_ads124s08.Ads124s08</primary><secondary>measure_temperature</secondary></indexterm>
+<para><computeroutput>app.adc_ads124s08.Ads124s08.measure_temperature ( self,  sensor_name,  rref_ohm,  pga_gain,  timeout_s)</computeroutput></para><para>
+
+<para>Mesure la température d&apos;un capteur via l&apos;ADC. </para>
+</para>
+
+<para>Effectue une mesure de résistance puis utilise les tables de conversion de capteurs pour obtenir la température correspondante en degrés Celsius.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Paramètres</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>sensor_name</entry><entry>
+<para>Nom du capteur (doit exister dans SENSOR_TABLES). </para>
+</entry>
+                            </row>
+                            <row>
+<entry>rref_ohm</entry><entry>
+<para>Résistance de référence en ohms. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>pga_gain</entry><entry>
+<para>Gain PGA utilisé pour la mesure. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>timeout_s</entry><entry>
+<para>Timeout en secondes pour la conversion.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Renvoie</title>
+
+<para>Température mesurée en °C ou None si erreur.</para>
+</formalpara>
+
+                <formalpara>
+                    <title>
+Exceptions</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>Retourne</entry><entry>
+<para>None si capteur inconnu ou hors plage. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Voir également</title>
+
+<para><link linkend="_classapp_1_1adc__ads124s08_1_1_ads124s08_1a6c3422094f1375f8e91bff96eb299f69">measure_resistance</link>, resistance_to_temperature_dynamic </para>
+</formalpara>
+</para>
+Voici le graphe d&apos;appel pour cette fonction :<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classapp_1_1adc__ads124s08_1_1_ads124s08_a29331f015d0a23fb89fa1aedce5a33b3_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classapp_1_1adc__ads124s08_1_1_ads124s08_1ac53728ccbaada975b3204c4e3a4364aa"/><section>
+    <title>read_code24()</title>
+<indexterm><primary>read_code24</primary><secondary>app.adc_ads124s08.Ads124s08</secondary></indexterm>
+<indexterm><primary>app.adc_ads124s08.Ads124s08</primary><secondary>read_code24</secondary></indexterm>
+<para><computeroutput>app.adc_ads124s08.Ads124s08.read_code24 ( self)</computeroutput></para><para>
+
+<para>Lit un code de données 24 bits depuis l&apos;ADC. </para>
+</para>
+
+<para>Utilise la commande RDATA pour lire les 3 octets de données de conversion et les convertit en entier signé.</para>
+
+<para><formalpara><title>Renvoie</title>
+
+<para>Valeur signée 24 bits ou None en cas d&apos;erreur SPI.</para>
+</formalpara>
+<note><title>Note</title>
+
+<para>Doit être appelé après détection du front descendant DRDY. </para>
+</note>
+<formalpara><title>Voir également</title>
+
+<para><link linkend="_namespaceapp_1_1adc__ads124s08_1a2d49f7c13e0b47db65080ab59febed76">sign_extend_24</link>, <link linkend="_classapp_1_1adc__ads124s08_1_1_ads124s08_1a6c3422094f1375f8e91bff96eb299f69">measure_resistance</link> </para>
+</formalpara>
+</para>
+Voici le graphe d&apos;appel pour cette fonction :<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classapp_1_1adc__ads124s08_1_1_ads124s08_ac53728ccbaada975b3204c4e3a4364aa_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Voici le graphe des appelants de cette fonction :<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classapp_1_1adc__ads124s08_1_1_ads124s08_ac53728ccbaada975b3204c4e3a4364aa_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classapp_1_1adc__ads124s08_1_1_ads124s08_1af51ca6a1c8d208a333556ce44e9cbb17"/><section>
+    <title>read_gain()</title>
+<indexterm><primary>read_gain</primary><secondary>app.adc_ads124s08.Ads124s08</secondary></indexterm>
+<indexterm><primary>app.adc_ads124s08.Ads124s08</primary><secondary>read_gain</secondary></indexterm>
+<para><computeroutput>app.adc_ads124s08.Ads124s08.read_gain ( self)</computeroutput></para><para>
+
+<para>Lit le registre de gain PGA pour diagnostic. </para>
+</para>
+
+<para>Effectue une lecture du registre PGA et affiche sa valeur pour vérification de la configuration du gain.</para>
+
+<para><formalpara><title>Renvoie</title>
+
+<para>Valeur brute du registre PGA (0x00-0xFF).</para>
+</formalpara>
+<note><title>Note</title>
+
+<para>Utilisé principalement pour le debug et la vérification. </para>
+</note>
+<formalpara><title>Voir également</title>
+
+<para><link linkend="_classapp_1_1adc__ads124s08_1_1_ads124s08_1abe455695d580ba27f0e5c559414fefbf">configure_channel</link> </para>
+</formalpara>
+</para>
+Voici le graphe d&apos;appel pour cette fonction :<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classapp_1_1adc__ads124s08_1_1_ads124s08_af51ca6a1c8d208a333556ce44e9cbb17_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classapp_1_1adc__ads124s08_1_1_ads124s08_1a56dff2b65427bc620cc661de71d9d44d"/><section>
+    <title>read_id()</title>
+<indexterm><primary>read_id</primary><secondary>app.adc_ads124s08.Ads124s08</secondary></indexterm>
+<indexterm><primary>app.adc_ads124s08.Ads124s08</primary><secondary>read_id</secondary></indexterm>
+<para><computeroutput>app.adc_ads124s08.Ads124s08.read_id ( self)</computeroutput></para><para>
+
+<para>Lit le registre d&apos;identification de l&apos;ADC. </para>
+</para>
+
+<para>Effectue une lecture du registre ID (0x00) pour vérifier la communication SPI et identifier le type d&apos;ADC connecté.</para>
+
+<para><formalpara><title>Renvoie</title>
+
+<para>Valeur du registre ID (0x00-0xFF) ou None en cas d&apos;erreur.</para>
+</formalpara>
+<note><title>Note</title>
+
+<para>Utilisé principalement pour la vérification de communication. </para>
+</note>
+<formalpara><title>Voir également</title>
+
+<para><emphasis role="bold">init</emphasis> </para>
+</formalpara>
+</para>
+</section>
+<anchor xml:id="_classapp_1_1adc__ads124s08_1_1_ads124s08_1ab9ddb24eaa7ad6eb852732fb1534e79d"/><section>
+    <title>read_inpmux()</title>
+<indexterm><primary>read_inpmux</primary><secondary>app.adc_ads124s08.Ads124s08</secondary></indexterm>
+<indexterm><primary>app.adc_ads124s08.Ads124s08</primary><secondary>read_inpmux</secondary></indexterm>
+<para><computeroutput>app.adc_ads124s08.Ads124s08.read_inpmux ( self)</computeroutput></para><para>
+
+<para>Lit le registre de configuration du multiplexeur d&apos;entrée. </para>
+</para>
+
+<para>Effectue une lecture du registre INPMUX et affiche sa valeur pour vérification du routage des entrées analogiques.</para>
+
+<para><formalpara><title>Renvoie</title>
+
+<para>Valeur brute du registre INPMUX (0x00-0xFF).</para>
+</formalpara>
+<note><title>Note</title>
+
+<para>Utilisé principalement pour le debug et la vérification. </para>
+</note>
+<formalpara><title>Voir également</title>
+
+<para><link linkend="_classapp_1_1adc__ads124s08_1_1_ads124s08_1abe455695d580ba27f0e5c559414fefbf">configure_channel</link> </para>
+</formalpara>
+</para>
+</section>
+<anchor xml:id="_classapp_1_1adc__ads124s08_1_1_ads124s08_1a424495225e0f75a1aa7cc76067b6110e"/><section>
+    <title>read_ref()</title>
+<indexterm><primary>read_ref</primary><secondary>app.adc_ads124s08.Ads124s08</secondary></indexterm>
+<indexterm><primary>app.adc_ads124s08.Ads124s08</primary><secondary>read_ref</secondary></indexterm>
+<para><computeroutput>app.adc_ads124s08.Ads124s08.read_ref ( self)</computeroutput></para><para>
+
+<para>Lit le registre de configuration de la référence. </para>
+</para>
+
+<para>Effectue une lecture du registre REF et affiche sa valeur pour vérification de la configuration de la référence.</para>
+
+<para><formalpara><title>Renvoie</title>
+
+<para>Valeur brute du registre REF (0x00-0xFF).</para>
+</formalpara>
+<note><title>Note</title>
+
+<para>Utilisé principalement pour le debug et la vérification. </para>
+</note>
+<formalpara><title>Voir également</title>
+
+<para><link linkend="_classapp_1_1adc__ads124s08_1_1_ads124s08_1abe455695d580ba27f0e5c559414fefbf">configure_channel</link> </para>
+</formalpara>
+</para>
+Voici le graphe d&apos;appel pour cette fonction :<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classapp_1_1adc__ads124s08_1_1_ads124s08_a424495225e0f75a1aa7cc76067b6110e_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classapp_1_1adc__ads124s08_1_1_ads124s08_1a7e7fb10a1acebe2f4200a52670c2fb0c"/><section>
+    <title>set_single_shot_lowlatency()</title>
+<indexterm><primary>set_single_shot_lowlatency</primary><secondary>app.adc_ads124s08.Ads124s08</secondary></indexterm>
+<indexterm><primary>app.adc_ads124s08.Ads124s08</primary><secondary>set_single_shot_lowlatency</secondary></indexterm>
+<para><computeroutput>app.adc_ads124s08.Ads124s08.set_single_shot_lowlatency ( self,  dr_nibble)</computeroutput></para><para>
+
+<para>Configure le mode single-shot low-latency de l&apos;ADC. </para>
+</para>
+
+<para>Configure le registre DATARATE pour utiliser le mode single-shot avec filtre low-latency et data rate spécifié.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Paramètres</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>dr_nibble</entry><entry>
+<para>Code de data rate (4 bits, 0x00-0x0F).</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Renvoie</title>
+
+<para>Rien.</para>
+</formalpara>
+<note><title>Note</title>
+
+<para>Mode optimisé pour des mesures rapides et ponctuelles. </para>
+</note>
+<formalpara><title>Voir également</title>
+
+<para><link linkend="_classapp_1_1adc__ads124s08_1_1_ads124s08_1abe455695d580ba27f0e5c559414fefbf">configure_channel</link> </para>
+</formalpara>
+</para>
+Voici le graphe des appelants de cette fonction :<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classapp_1_1adc__ads124s08_1_1_ads124s08_a7e7fb10a1acebe2f4200a52670c2fb0c_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classapp_1_1adc__ads124s08_1_1_ads124s08_1a5d7414311a828e4231a22b6e414cbfba"/><section>
+    <title>start()</title>
+<indexterm><primary>start</primary><secondary>app.adc_ads124s08.Ads124s08</secondary></indexterm>
+<indexterm><primary>app.adc_ads124s08.Ads124s08</primary><secondary>start</secondary></indexterm>
+<para><computeroutput>app.adc_ads124s08.Ads124s08.start ( self)</computeroutput></para><para>
+
+<para>Démarre une conversion ADC. </para>
+</para>
+
+<para>Assure que DRDY est à HIGH puis envoie la commande START pour initier une nouvelle conversion sur le canal configuré.</para>
+
+<para><formalpara><title>Renvoie</title>
+
+<para>Rien.</para>
+</formalpara>
+<note><title>Note</title>
+
+<para>DRDY doit être HIGH avant le START pour une conversion valide. </para>
+</note>
+<formalpara><title>Voir également</title>
+
+<para><link linkend="_classapp_1_1adc__ads124s08_1_1_ads124s08_1a30d1ac487b9ef8dcfb310cea695db0f9">stop</link>, <link linkend="_classapp_1_1adc__ads124s08_1_1_ads124s08_1a6cbdea3f16ae1dff329ec8e45ef859d1">wait_drdy_falling_edge</link> </para>
+</formalpara>
+</para>
+Voici le graphe des appelants de cette fonction :<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classapp_1_1adc__ads124s08_1_1_ads124s08_a5d7414311a828e4231a22b6e414cbfba_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classapp_1_1adc__ads124s08_1_1_ads124s08_1a30d1ac487b9ef8dcfb310cea695db0f9"/><section>
+    <title>stop()</title>
+<indexterm><primary>stop</primary><secondary>app.adc_ads124s08.Ads124s08</secondary></indexterm>
+<indexterm><primary>app.adc_ads124s08.Ads124s08</primary><secondary>stop</secondary></indexterm>
+<para><computeroutput>app.adc_ads124s08.Ads124s08.stop ( self)</computeroutput></para><para>
+
+<para>Arrête une conversion ADC en cours. </para>
+</para>
+
+<para>Envoie la commande STOP pour interrompre toute conversion en cours et remettre l&apos;ADC en état idle.</para>
+
+<para><formalpara><title>Renvoie</title>
+
+<para>Rien.</para>
+</formalpara>
+<note><title>Note</title>
+
+<para>Utilisé après lecture des données ou en cas d&apos;erreur. </para>
+</note>
+<formalpara><title>Voir également</title>
+
+<para><link linkend="_classapp_1_1adc__ads124s08_1_1_ads124s08_1a5d7414311a828e4231a22b6e414cbfba">start</link>, <link linkend="_classapp_1_1adc__ads124s08_1_1_ads124s08_1ac53728ccbaada975b3204c4e3a4364aa">read_code24</link> </para>
+</formalpara>
+</para>
+Voici le graphe des appelants de cette fonction :<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classapp_1_1adc__ads124s08_1_1_ads124s08_a30d1ac487b9ef8dcfb310cea695db0f9_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classapp_1_1adc__ads124s08_1_1_ads124s08_1a6cbdea3f16ae1dff329ec8e45ef859d1"/><section>
+    <title>wait_drdy_falling_edge()</title>
+<indexterm><primary>wait_drdy_falling_edge</primary><secondary>app.adc_ads124s08.Ads124s08</secondary></indexterm>
+<indexterm><primary>app.adc_ads124s08.Ads124s08</primary><secondary>wait_drdy_falling_edge</secondary></indexterm>
+<para><computeroutput>app.adc_ads124s08.Ads124s08.wait_drdy_falling_edge ( self,  timeout_s)</computeroutput></para><para>
+
+<para>Attend un front descendant sur DRDY (HIGH -&gt; LOW) avec timeout. </para>
+</para>
+
+<para>Surveille le signal DRDY pour détecter une transition de HIGH vers LOW, indiquant qu&apos;une nouvelle conversion est disponible.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Paramètres</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>timeout_s</entry><entry>
+<para>Timeout en secondes pour l&apos;attente du front.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Renvoie</title>
+
+<para>True si front descendant détecté, False en cas de timeout.</para>
+</formalpara>
+<note><title>Note</title>
+
+<para>Méthode cruciale pour la synchronisation des mesures. </para>
+</note>
+<formalpara><title>Voir également</title>
+
+<para><link linkend="_classapp_1_1adc__ads124s08_1_1_ads124s08_1a6c3422094f1375f8e91bff96eb299f69">measure_resistance</link> </para>
+</formalpara>
+</para>
+Voici le graphe d&apos;appel pour cette fonction :<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classapp_1_1adc__ads124s08_1_1_ads124s08_a6cbdea3f16ae1dff329ec8e45ef859d1_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Voici le graphe des appelants de cette fonction :<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classapp_1_1adc__ads124s08_1_1_ads124s08_a6cbdea3f16ae1dff329ec8e45ef859d1_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+</section>
+<section>
+<title>Documentation des données membres</title>
+<anchor xml:id="_classapp_1_1adc__ads124s08_1_1_ads124s08_1abae1495ff14fcfffa871c4dcdb150cdd"/><section>
+    <title>gpio_drdy</title>
+<indexterm><primary>gpio_drdy</primary><secondary>app.adc_ads124s08.Ads124s08</secondary></indexterm>
+<indexterm><primary>app.adc_ads124s08.Ads124s08</primary><secondary>gpio_drdy</secondary></indexterm>
+<para><computeroutput>app.adc_ads124s08.Ads124s08.gpio_drdy = GPIO(GPIO_CHIP_PATH, ADC_DRDY, &quot;in&quot;)</computeroutput></para></section>
+<anchor xml:id="_classapp_1_1adc__ads124s08_1_1_ads124s08_1ad6ceb5f8844a34706d24f0d510abf081"/><section>
+    <title>spi</title>
+<indexterm><primary>spi</primary><secondary>app.adc_ads124s08.Ads124s08</secondary></indexterm>
+<indexterm><primary>app.adc_ads124s08.Ads124s08</primary><secondary>spi</secondary></indexterm>
+<para><computeroutput>app.adc_ads124s08.Ads124s08.spi = spidev.SpiDev()</computeroutput></para></section>
+<para>
+La documentation de cette classe a été générée à partir du fichier suivant :</para>
+C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/<link linkend="_adc__ads124s08_8py">adc_ads124s08.py</link></section>
+</section>

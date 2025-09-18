@@ -1,0 +1,14 @@
+digraph "app.main.save_last_state"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  rankdir="RL";
+  Node1 [id="Node000001",label="app.main.save_last\l_state",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip="Sauvegarde l'état courant et historique par canal dans un fichier JSON."];
+  Node1 -> Node2 [id="edge1_Node000001_Node000002",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node2 [id="Node000002",label="app.main.run_measurement\l_sequence",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$namespaceapp_1_1main.html#abde8d10de044e070eb5eab1e448cd558",tooltip="Exécute une séquence complète de mesures pour tous les canaux activés selon la configuration fournie."];
+  Node2 -> Node3 [id="edge2_Node000002_Node000003",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node3 [id="Node000003",label="app.main.main",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$namespaceapp_1_1main.html#a3e4dda2887e910e984519bea9a420dc2",tooltip="Point d'entrée principal du programme."];
+  Node3 -> Node3 [id="edge3_Node000003_Node000003",dir="back",color="steelblue1",style="solid",tooltip=" "];
+}

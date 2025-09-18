@@ -1,0 +1,71 @@
+\doxysection{Référence de l\textquotesingle{}espace de nommage app.\+resistance\+\_\+simulation}
+\hypertarget{namespaceapp_1_1resistance__simulation}{}\label{namespaceapp_1_1resistance__simulation}\index{app.resistance\_simulation@{app.resistance\_simulation}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classapp_1_1resistance__simulation_1_1_resistance_simulation_error}{Resistance\+Simulation\+Error}}
+\begin{DoxyCompactList}\small\item\em Exception pour les erreurs de simulation de résistance. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classapp_1_1resistance__simulation_1_1_resistance_simulator}{Resistance\+Simulator}}
+\begin{DoxyCompactList}\small\item\em Contrôleur pour la simulation de résistance via MUX. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Fonctions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{namespaceapp_1_1resistance__simulation_ab4df858485a2008da66e5eaed218f67b}{apply\+\_\+resistance\+\_\+simulation}} (float resistance\+\_\+ohm)
+\begin{DoxyCompactList}\small\item\em Fonction utilitaire pour appliquer une résistance simulée. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceapp_1_1resistance__simulation_a1e0083edc4bb5cd3cf145384e73c9fb3}{sim}} = \mbox{\hyperlink{classapp_1_1resistance__simulation_1_1_resistance_simulator}{Resistance\+Simulator}}()
+\item 
+bool \mbox{\hyperlink{namespaceapp_1_1resistance__simulation_af7b157026a22cabc88ac2a1df2bf0a45}{success}} = sim.\+apply\+\_\+resistance\+\_\+simulation(1000.\+0)
+\item 
+\mbox{\hyperlink{namespaceapp_1_1resistance__simulation_a0b6740f840f43350912072a8757fb6e5}{valid}} = sim.\+validate\+\_\+resistance\+\_\+applied(667.\+0, tolerance=0.\+15)
+\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{namespaceapp_1_1resistance__simulation_doc-func-members}
+\doxysubsection{Documentation des fonctions}
+\Hypertarget{namespaceapp_1_1resistance__simulation_ab4df858485a2008da66e5eaed218f67b}\index{app.resistance\_simulation@{app.resistance\_simulation}!apply\_resistance\_simulation@{apply\_resistance\_simulation}}
+\index{apply\_resistance\_simulation@{apply\_resistance\_simulation}!app.resistance\_simulation@{app.resistance\_simulation}}
+\doxysubsubsection{\texorpdfstring{apply\_resistance\_simulation()}{apply\_resistance\_simulation()}}
+{\footnotesize\ttfamily \label{namespaceapp_1_1resistance__simulation_ab4df858485a2008da66e5eaed218f67b} 
+ bool app.\+resistance\+\_\+simulation.\+apply\+\_\+resistance\+\_\+simulation (\begin{DoxyParamCaption}\item[{float}]{resistance\+\_\+ohm}{}\end{DoxyParamCaption})}
+
+
+
+Fonction utilitaire pour appliquer une résistance simulée. 
+
+Fonction de commodité qui encapsule la création d\textquotesingle{}un simulateur, l\textquotesingle{}application d\textquotesingle{}une résistance et le nettoyage automatique. Utilise le pattern RAII pour la gestion des ressources.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em resistance\+\_\+ohm} & Résistance à appliquer \mbox{[}Ohms\mbox{]}.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+True si l\textquotesingle{}application a réussi, False sinon. 
+\end{DoxyReturn}
+
+
+\label{doc-var-members}
+\Hypertarget{namespaceapp_1_1resistance__simulation_doc-var-members}
+\doxysubsection{Documentation des variables}
+\Hypertarget{namespaceapp_1_1resistance__simulation_a1e0083edc4bb5cd3cf145384e73c9fb3}\index{app.resistance\_simulation@{app.resistance\_simulation}!sim@{sim}}
+\index{sim@{sim}!app.resistance\_simulation@{app.resistance\_simulation}}
+\doxysubsubsection{\texorpdfstring{sim}{sim}}
+{\footnotesize\ttfamily \label{namespaceapp_1_1resistance__simulation_a1e0083edc4bb5cd3cf145384e73c9fb3} 
+app.\+resistance\+\_\+simulation.\+sim = \mbox{\hyperlink{classapp_1_1resistance__simulation_1_1_resistance_simulator}{Resistance\+Simulator}}()}
+
+\Hypertarget{namespaceapp_1_1resistance__simulation_af7b157026a22cabc88ac2a1df2bf0a45}\index{app.resistance\_simulation@{app.resistance\_simulation}!success@{success}}
+\index{success@{success}!app.resistance\_simulation@{app.resistance\_simulation}}
+\doxysubsubsection{\texorpdfstring{success}{success}}
+{\footnotesize\ttfamily \label{namespaceapp_1_1resistance__simulation_af7b157026a22cabc88ac2a1df2bf0a45} 
+bool app.\+resistance\+\_\+simulation.\+success = sim.\+apply\+\_\+resistance\+\_\+simulation(1000.\+0)}
+
+\Hypertarget{namespaceapp_1_1resistance__simulation_a0b6740f840f43350912072a8757fb6e5}\index{app.resistance\_simulation@{app.resistance\_simulation}!valid@{valid}}
+\index{valid@{valid}!app.resistance\_simulation@{app.resistance\_simulation}}
+\doxysubsubsection{\texorpdfstring{valid}{valid}}
+{\footnotesize\ttfamily \label{namespaceapp_1_1resistance__simulation_a0b6740f840f43350912072a8757fb6e5} 
+app.\+resistance\+\_\+simulation.\+valid = sim.\+validate\+\_\+resistance\+\_\+applied(667.\+0, tolerance=0.\+15)}
+

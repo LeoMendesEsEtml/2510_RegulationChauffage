@@ -1,0 +1,45 @@
+\doxysection{Référence du fichier C\+:/\+Users/thebi/\+Documents/2510\+\_\+\+Regulation\+Chauffage/doc/9.Soft\+Ware/\+Doxygen/src/app/temperature\+\_\+simulation.py}
+\hypertarget{temperature__simulation_8py}{}\label{temperature__simulation_8py}\index{C:/Users/thebi/Documents/2510\_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/temperature\_simulation.py@{C:/Users/thebi/Documents/2510\_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/temperature\_simulation.py}}
+
+
+Module de calcul de température simulée selon formule prédictive.  
+
+
+\doxysubsubsection*{Espaces de nommage}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespaceapp}{app}}
+\item 
+namespace \mbox{\hyperlink{namespaceapp_1_1temperature__simulation}{app.\+temperature\+\_\+simulation}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Fonctions}
+\begin{DoxyCompactItemize}
+\item 
+Optional\mbox{[}float\mbox{]} \mbox{\hyperlink{namespaceapp_1_1temperature__simulation_ad0955f54e494774453fd9395ddf156f3}{app.\+temperature\+\_\+simulation.\+calculate\+\_\+simulated\+\_\+temperature}} (float t\+\_\+mes, float t\+\_\+prev, float n, float k\+\_\+m)
+\begin{DoxyCompactList}\small\item\em Calcule la température simulée selon la formule prédictive. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{namespaceapp_1_1temperature__simulation_a34c95102387b78fc0ae24419cfdc62be}{app.\+temperature\+\_\+simulation.\+validate\+\_\+simulation\+\_\+parameters}} (str probe\+\_\+type, float n, float k\+\_\+m, float t\+\_\+mes, float t\+\_\+prev)
+\begin{DoxyCompactList}\small\item\em Valide tous les paramètres de simulation avant exécution. \end{DoxyCompactList}\item 
+Optional\mbox{[}float\mbox{]} \mbox{\hyperlink{namespaceapp_1_1temperature__simulation_a9dce35a5a5235426dcb9002af6f2fe80}{app.\+temperature\+\_\+simulation.\+run\+\_\+temperature\+\_\+simulation}} (dict simulation\+\_\+data)
+\begin{DoxyCompactList}\small\item\em Exécute une simulation complète de température avec dictionnaire. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+Module de calcul de température simulée selon formule prédictive. 
+
+Ce module implémente la formule de simulation de température\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{T\_sim\ =\ T\_mes\ +\ ((T\_prev\ -\/\ T\_mes)\ *\ n\ *\ exp(k\_m))}
+
+\end{DoxyCode}
+ Inclut la validation complète des paramètres, la gestion des erreurs numériques et l\textquotesingle{}exécution de simulations complètes. \begin{DoxyAuthor}{Auteur}
+Léo Mendes @project 2510\+\_\+\+Regulations\+Chauffage @\+Mandant Oblo\+\_\+solution 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2025-\/09-\/18 
+\end{DoxyDate}
+\begin{DoxyVersion}{Version}
+1.\+0.\+0 
+\end{DoxyVersion}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2025 
+\end{DoxyCopyright}

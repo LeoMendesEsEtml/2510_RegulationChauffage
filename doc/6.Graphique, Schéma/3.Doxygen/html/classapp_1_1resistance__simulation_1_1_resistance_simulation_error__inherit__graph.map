@@ -1,0 +1,5 @@
+<map id="app.resistance_simulation.ResistanceSimulationError" name="app.resistance_simulation.ResistanceSimulationError">
+<area shape="rect" id="Node000001" title="Exception pour les erreurs de simulation de résistance." alt="" coords="5,123,171,208"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="54,5,122,75"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="91,89,91,123,86,123,86,89"/>
+</map>

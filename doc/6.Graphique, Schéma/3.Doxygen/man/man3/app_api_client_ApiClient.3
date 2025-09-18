@@ -1,0 +1,132 @@
+.TH "app.api_client.ApiClient" 3 "2510_RegulationChauffage" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+app.api_client.ApiClient \- Client pour interroger les APIs oblosolutions\&.ch\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Fonctions membres publiques"
+
+.in +1c
+.ti -1c
+.RI "\fB__init__\fP (self, str \fBmac_address\fP)"
+.br
+.RI "Initialise le client API\&. "
+.ti -1c
+.RI "Dict[str, Any] \fBget_parameters\fP (self)"
+.br
+.RI "Récupère les paramètres depuis l'API td25_param\&. "
+.ti -1c
+.RI "Dict[str, Any] \fBget_forecast\fP (self)"
+.br
+.RI "Récupère la température prévue depuis l'API td25_forecast\&. "
+.ti -1c
+.RI "bool \fBpost_measured_temperature\fP (self, float temperature, int channel=None)"
+.br
+.RI "Envoie la température mesurée vers l'API td25_param\&. "
+.in -1c
+.SS "Attributs publics"
+
+.in +1c
+.ti -1c
+.RI "\fBmac_address\fP = mac_address"
+.br
+.ti -1c
+.RI "str \fBbase_url\fP = 'https://dev\&.oblosolutions\&.ch'"
+.br
+.in -1c
+.SS "Attributs publics statiques"
+
+.in +1c
+.ti -1c
+.RI "str \fBAPI_PATH_PREFIX\fP = ''"
+.br
+.in -1c
+.SH "Description détaillée"
+.PP 
+Client pour interroger les APIs oblosolutions\&.ch\&. 
+
+Fournit des méthodes pour récupérer les paramètres de simulation, les prévisions météo et envoyer les mesures de température\&. Gère automatiquement les retries et les timeouts\&. 
+.SH "Documentation des constructeurs et destructeur"
+.PP 
+.SS "app\&.api_client\&.ApiClient\&.__init__ ( self, str mac_address)"
+
+.PP
+Initialise le client API\&. Configure l'adresse MAC du dispositif et l'URL de base pour les communications avec les services oblosolutions\&.ch\&.
+
+.PP
+\fBParamètres\fP
+.RS 4
+\fImac_address\fP Adresse MAC du dispositif (ex: "0030DEABCDEF")\&. 
+.RE
+.PP
+
+.SH "Documentation des fonctions membres"
+.PP 
+.SS " Dict[str, Any] app\&.api_client\&.ApiClient\&.get_forecast ( self)"
+
+.PP
+Récupère la température prévue depuis l'API td25_forecast\&. Effectue une requête GET vers l'endpoint td25_forecast avec l'adresse MAC comme paramètre\&. Parse la réponse JSON et extrait la température de prévision météorologique\&. Inclut un système de retry automatique en cas d'échec\&.
+
+.PP
+\fBRenvoie\fP
+.RS 4
+Dictionnaire contenant la temperature prévue\&.
+.RE
+.PP
+\fBExceptions\fP
+.RS 4
+\fI\fBApiError\fP\fP En cas d'erreur de récupération des données\&. 
+.RE
+.PP
+
+.SS " Dict[str, Any] app\&.api_client\&.ApiClient\&.get_parameters ( self)"
+
+.PP
+Récupère les paramètres depuis l'API td25_param\&. Effectue une requête GET vers l'endpoint td25_param avec l'adresse MAC comme paramètre\&. Parse la réponse JSON et extrait les champs probe_type, n, k_m et temperature\&. Inclut un système de retry automatique en cas d'échec\&.
+
+.PP
+\fBRenvoie\fP
+.RS 4
+Dictionnaire contenant probe_type, n, k_m, temperature\&.
+.RE
+.PP
+\fBExceptions\fP
+.RS 4
+\fI\fBApiError\fP\fP En cas d'erreur de récupération des données\&. 
+.RE
+.PP
+
+.SS " bool app\&.api_client\&.ApiClient\&.post_measured_temperature ( self, float temperature, int  channel = \fRNone\fP)"
+
+.PP
+Envoie la température mesurée vers l'API td25_param\&. Effectue une requête POST vers l'endpoint td25_param avec la température mesurée et optionnellement le numéro de canal\&. Tous les paramètres sont envoyés dans l'URL comme paramètres de requête\&. Inclut un système de retry automatique\&.
+
+.PP
+\fBParamètres\fP
+.RS 4
+\fItemperature\fP Température mesurée en °C\&. 
+.br
+\fIchannel\fP Canal de mesure (optionnel)\&.
+.RE
+.PP
+\fBRenvoie\fP
+.RS 4
+True si succès, False sinon\&. 
+.RE
+.PP
+
+.SH "Documentation des données membres"
+.PP 
+.SS "str app\&.api_client\&.ApiClient\&.API_PATH_PREFIX = ''\fR [static]\fP"
+
+.SS "str app\&.api_client\&.ApiClient\&.base_url = 'https://dev\&.oblosolutions\&.ch'"
+
+.SS "app\&.api_client\&.ApiClient\&.mac_address = mac_address"
+
+
+.SH "Auteur"
+.PP 
+Généré automatiquement par Doxygen pour 2510_RegulationChauffage à partir du code source\&.

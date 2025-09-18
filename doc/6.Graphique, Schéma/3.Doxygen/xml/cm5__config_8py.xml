@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="fr">
+  <compounddef id="cm5__config_8py" kind="file" language="Python">
+    <compoundname>cm5_config.py</compoundname>
+    <innernamespace refid="namespaceconfig__module">config_module</innernamespace>
+    <innernamespace refid="namespaceconfig__module_1_1cm5__config">config_module::cm5_config</innernamespace>
+    <briefdescription>
+<para>Configuration matérielle pour plateforme CM5. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Ce module fournit la configuration des canaux ADC et la fonction d&apos;initialisation complète du matériel (LED, TMUX, ADC). Centralise la création des instances matérielles avec câblage fixe CM5. <simplesect kind="author"><para>Léo Mendes @project 2510_RegulationsChauffage @Mandant Oblo_solution </para>
+</simplesect>
+<simplesect kind="date"><para>2025-09-18 </para>
+</simplesect>
+<simplesect kind="version"><para>1.0.0 </para>
+</simplesect>
+<simplesect kind="copyright"><para>Copyright (c) 2025 </para>
+</simplesect>
+</para>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1" refid="namespaceconfig__module_1_1cm5__config" refkind="compound"><highlight class="comment">#<sp/>-*-<sp/>coding:<sp/>utf-8<sp/>-*-</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="stringliteral">&quot;&quot;&quot;</highlight></codeline>
+<codeline lineno="3"><highlight class="stringliteral">@file<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cm5_config.py</highlight></codeline>
+<codeline lineno="4"><highlight class="stringliteral">@brief<sp/><sp/><sp/><sp/><sp/><sp/><sp/>Configuration<sp/>matérielle<sp/>pour<sp/>plateforme<sp/>CM5.</highlight></codeline>
+<codeline lineno="5"><highlight class="stringliteral">@details<sp/><sp/><sp/><sp/><sp/>Ce<sp/>module<sp/>fournit<sp/>la<sp/>configuration<sp/>des<sp/>canaux<sp/>ADC<sp/>et<sp/>la<sp/>fonction</highlight></codeline>
+<codeline lineno="6"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>d&apos;initialisation<sp/>complète<sp/>du<sp/>matériel<sp/>(LED,<sp/>TMUX,<sp/>ADC).<sp/>Centralise</highlight></codeline>
+<codeline lineno="7"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>la<sp/>création<sp/>des<sp/>instances<sp/>matérielles<sp/>avec<sp/>câblage<sp/>fixe<sp/>CM5.</highlight></codeline>
+<codeline lineno="8"><highlight class="stringliteral">@author<sp/><sp/><sp/><sp/><sp/><sp/>Léo<sp/>Mendes</highlight></codeline>
+<codeline lineno="9"><highlight class="stringliteral">@project<sp/><sp/><sp/><sp/><sp/>2510_RegulationsChauffage</highlight></codeline>
+<codeline lineno="10"><highlight class="stringliteral">@Mandant<sp/><sp/><sp/><sp/><sp/>Oblo_solution</highlight></codeline>
+<codeline lineno="11"><highlight class="stringliteral">@date<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2025-09-18</highlight></codeline>
+<codeline lineno="12"><highlight class="stringliteral">@version<sp/><sp/><sp/><sp/><sp/>1.0.0</highlight></codeline>
+<codeline lineno="13"><highlight class="stringliteral">@copyright<sp/><sp/><sp/>Copyright<sp/>(c)<sp/>2025</highlight></codeline>
+<codeline lineno="14"><highlight class="stringliteral">&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="comment">#<sp/>Import<sp/>de<sp/>la<sp/>bibliothèque<sp/>GPIO<sp/>pour<sp/>contrôle<sp/>matériel</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/>periphery<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>GPIO</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="comment">#<sp/>Import<sp/>des<sp/>définitions<sp/>de<sp/>pins<sp/>spécifiques<sp/>CM5</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/><ref refid="namespaceapp_1_1pins__cm5" kindref="compound">app.pins_cm5</ref><sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>GPIO_CHIP_PATH,<sp/>FRONT_LED</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="comment">#<sp/>Import<sp/>du<sp/>driver<sp/>multiplexeur<sp/>TMUX1204</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/><ref refid="namespaceapp_1_1hw__tmux1204" kindref="compound">app.hw_tmux1204</ref><sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>Tmux1204</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="comment">#<sp/>Import<sp/>du<sp/>driver<sp/>ADC<sp/>ADS124S08</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/><ref refid="namespaceapp_1_1adc__ads124s08" kindref="compound">app.adc_ads124s08</ref><sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>Ads124s08</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="comment">#<sp/>---------------------------------------------------------------------------</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="comment">#<sp/>Constantes<sp/>de<sp/>configuration<sp/>matérielle</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="comment">#<sp/>---------------------------------------------------------------------------</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="comment">#<sp/>Liste<sp/>des<sp/>canaux<sp/>ADC<sp/>disponibles<sp/>sur<sp/>la<sp/>plateforme<sp/>CM5</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31" refid="namespaceconfig__module_1_1cm5__config_1a98f07cbc7aad810cb848630cde11db65" refkind="member"><highlight class="normal">ADC_CHANNELS<sp/>=<sp/>[1,<sp/>2,<sp/>3,<sp/>4]</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="comment">#<sp/>---------------------------------------------------------------------------</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">#<sp/>Fonctions<sp/>d&apos;initialisation<sp/>matérielle</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">#<sp/>---------------------------------------------------------------------------</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="namespaceconfig__module_1_1cm5__config_1a1b2cec317a1cf375b2d43c263f5a665b" kindref="member">build_hw</ref>():</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;</highlight></codeline>
+<codeline lineno="40"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>@brief<sp/><sp/><sp/>Initialise<sp/>et<sp/>configure<sp/>tout<sp/>le<sp/>matériel<sp/>CM5.</highlight></codeline>
+<codeline lineno="41"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>@details<sp/>Crée<sp/>les<sp/>instances<sp/>des<sp/>composants<sp/>matériels<sp/>avec<sp/>configuration</highlight></codeline>
+<codeline lineno="42"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fixe:<sp/>LED<sp/>frontale,<sp/>multiplexeur<sp/>TMUX<sp/>et<sp/>ADC.<sp/>Configure<sp/>la<sp/>LED</highlight></codeline>
+<codeline lineno="43"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>en<sp/>sortie<sp/>et<sp/>l&apos;allume<sp/>immédiatement<sp/>pour<sp/>indication<sp/>système.</highlight></codeline>
+<codeline lineno="44"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="45"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>@return<sp/><sp/>Dictionnaire<sp/>contenant<sp/>toutes<sp/>les<sp/>instances<sp/>matérielles:</highlight></codeline>
+<codeline lineno="46"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>&quot;led&quot;:<sp/>Instance<sp/>GPIO<sp/>pour<sp/>LED<sp/>frontale</highlight></codeline>
+<codeline lineno="47"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>&quot;tmux&quot;:<sp/>Instance<sp/>Tmux1204<sp/>pour<sp/>sélection<sp/>canaux</highlight></codeline>
+<codeline lineno="48"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>&quot;adc&quot;:<sp/>Instance<sp/>Ads124s08<sp/>pour<sp/>conversion<sp/>analogique</highlight></codeline>
+<codeline lineno="49"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="50"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>@warning<sp/>LED<sp/>allumée<sp/>automatiquement<sp/>pour<sp/>indiquer<sp/>système<sp/>actif.</highlight></codeline>
+<codeline lineno="51" refid="namespaceconfig__module_1_1cm5__config_1a1b2cec317a1cf375b2d43c263f5a665b" refkind="member"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Création<sp/>de<sp/>l&apos;instance<sp/>GPIO<sp/>pour<sp/>LED<sp/>frontale<sp/>en<sp/>mode<sp/>sortie</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/>led<sp/>=<sp/>GPIO(GPIO_CHIP_PATH,<sp/>FRONT_LED,<sp/></highlight><highlight class="stringliteral">&quot;out&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Allumage<sp/>immédiat<sp/>de<sp/>la<sp/>LED<sp/>pour<sp/>indication<sp/>système<sp/>démarré</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/>led.write(</highlight><highlight class="keyword">True</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Création<sp/>de<sp/>l&apos;instance<sp/>multiplexeur<sp/>pour<sp/>sélection<sp/>des<sp/>canaux</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/>tmux<sp/>=<sp/><ref refid="classapp_1_1hw__tmux1204_1_1_tmux1204" kindref="compound">Tmux1204</ref>()</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Création<sp/>de<sp/>l&apos;instance<sp/>ADC<sp/>pour<sp/>conversions<sp/>analogique-numérique</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/>adc<sp/>=<sp/><ref refid="classapp_1_1adc__ads124s08_1_1_ads124s08" kindref="compound">Ads124s08</ref>()</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Création<sp/>du<sp/>dictionnaire<sp/>de<sp/>retour<sp/>avec<sp/>toutes<sp/>les<sp/>instances</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/>hw<sp/>=<sp/>{}</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Ajout<sp/>de<sp/>l&apos;instance<sp/>LED<sp/>au<sp/>dictionnaire<sp/>matériel</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/>hw[</highlight><highlight class="stringliteral">&quot;led&quot;</highlight><highlight class="normal">]<sp/>=<sp/>led</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Ajout<sp/>de<sp/>l&apos;instance<sp/>TMUX<sp/>au<sp/>dictionnaire<sp/>matériel</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/>hw[</highlight><highlight class="stringliteral">&quot;tmux&quot;</highlight><highlight class="normal">]<sp/>=<sp/>tmux</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Ajout<sp/>de<sp/>l&apos;instance<sp/>ADC<sp/>au<sp/>dictionnaire<sp/>matériel</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/>hw[</highlight><highlight class="stringliteral">&quot;adc&quot;</highlight><highlight class="normal">]<sp/>=<sp/>adc</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Retour<sp/>du<sp/>dictionnaire<sp/>complet<sp/>des<sp/>composants<sp/>initialisés</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>hw</highlight></codeline>
+    </programlisting>
+    <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/config_module/cm5_config.py"/>
+  </compounddef>
+</doxygen>

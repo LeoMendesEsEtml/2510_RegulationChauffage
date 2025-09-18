@@ -1,0 +1,213 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="fr">
+  <compounddef id="namespacewebui_1_1webui__server" kind="namespace" language="Python">
+    <compoundname>webui::webui_server</compoundname>
+    <sectiondef kind="var">
+      <memberdef kind="variable" id="namespacewebui_1_1webui__server_1a5de8cf19497f30c68ef48229ed037e2d" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>webui::webui_server.BASE_DIR</definition>
+        <argsstring></argsstring>
+        <name>BASE_DIR</name>
+        <qualifiedname>webui.webui_server.BASE_DIR</qualifiedname>
+        <initializer>=  os.path.abspath(os.path.join(os.path.dirname(__file__), &quot;..&quot;))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/webui/webui_server.py" line="32" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/webui/webui_server.py" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacewebui_1_1webui__server_1ad1e31aeef058a01b14bbfa0e216b43d6" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>webui::webui_server.CONFIG_PATH</definition>
+        <argsstring></argsstring>
+        <name>CONFIG_PATH</name>
+        <qualifiedname>webui.webui_server.CONFIG_PATH</qualifiedname>
+        <initializer>=  os.path.join(<ref refid="namespacewebui_1_1webui__server_1a5de8cf19497f30c68ef48229ed037e2d" kindref="member">BASE_DIR</ref>, &quot;config_module&quot;, &quot;sensors.json&quot;)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/webui/webui_server.py" line="34" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/webui/webui_server.py" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacewebui_1_1webui__server_1a9f76ef91507216717dc653f7b9479cbb" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>webui::webui_server.STATE_PATH</definition>
+        <argsstring></argsstring>
+        <name>STATE_PATH</name>
+        <qualifiedname>webui.webui_server.STATE_PATH</qualifiedname>
+        <initializer>=  os.path.join(<ref refid="namespacewebui_1_1webui__server_1a5de8cf19497f30c68ef48229ed037e2d" kindref="member">BASE_DIR</ref>, &quot;state&quot;, &quot;last_state.json&quot;)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/webui/webui_server.py" line="36" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/webui/webui_server.py" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacewebui_1_1webui__server_1ad2ed404946ddf35648333368e4392c28" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>webui::webui_server.WEBUI_DIR</definition>
+        <argsstring></argsstring>
+        <name>WEBUI_DIR</name>
+        <qualifiedname>webui.webui_server.WEBUI_DIR</qualifiedname>
+        <initializer>=  os.path.dirname(__file__)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/webui/webui_server.py" line="38" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/webui/webui_server.py" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacewebui_1_1webui__server_1a7a4894526f1923df3ef5c7000ba4232c" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>webui::webui_server.app</definition>
+        <argsstring></argsstring>
+        <name>app</name>
+        <qualifiedname>webui.webui_server.app</qualifiedname>
+        <initializer>=  Flask(__name__, static_folder=<ref refid="namespacewebui_1_1webui__server_1ad2ed404946ddf35648333368e4392c28" kindref="member">WEBUI_DIR</ref>, static_url_path=&apos;/static&apos;)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/webui/webui_server.py" line="41" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/webui/webui_server.py" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacewebui_1_1webui__server_1a3eb0a70910bd6aab440ad5d5fc00f39d" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>webui::webui_server.host</definition>
+        <argsstring></argsstring>
+        <name>host</name>
+        <qualifiedname>webui.webui_server.host</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/webui/webui_server.py" line="240" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/webui/webui_server.py" bodystart="240" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacewebui_1_1webui__server_1ab660a159b0414ddafb0b1e81ae6a476b" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>webui::webui_server.port</definition>
+        <argsstring></argsstring>
+        <name>port</name>
+        <qualifiedname>webui.webui_server.port</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/webui/webui_server.py" line="240" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/webui/webui_server.py" bodystart="240" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="namespacewebui_1_1webui__server_1ab49b8a0bc3425c50079480de48990dcc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>webui.webui_server.serve_index</definition>
+        <argsstring>()</argsstring>
+        <name>serve_index</name>
+        <qualifiedname>webui.webui_server.serve_index</qualifiedname>
+        <briefdescription>
+<para>Sert la page principale de l&apos;interface web. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Route racine qui retourne le fichier index.html depuis le répertoire webui pour affichage de l&apos;interface utilisateur.</para>
+<para><simplesect kind="return"><para>Fichier HTML de l&apos;interface principale. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/webui/webui_server.py" line="56" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/webui/webui_server.py" bodystart="56" bodyend="65"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacewebui_1_1webui__server_1a4c0c0ae9a45c748c0089996cf34a199e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>webui.webui_server.get_config</definition>
+        <argsstring>()</argsstring>
+        <name>get_config</name>
+        <qualifiedname>webui.webui_server.get_config</qualifiedname>
+        <briefdescription>
+<para>Récupère la configuration actuelle des capteurs. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Lecture du fichier sensors.json et retour des données de configuration en format JSON. Gère les erreurs de lecture et affiche des informations de débogage.</para>
+<para><simplesect kind="return"><para>Configuration JSON ou message d&apos;erreur avec code HTTP. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/webui/webui_server.py" line="74" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/webui/webui_server.py" bodystart="74" bodyend="93"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacewebui_1_1webui__server_1a5e3c84f0b6e1334a0fb7d3375965e0f6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>webui.webui_server.put_config</definition>
+        <argsstring>()</argsstring>
+        <name>put_config</name>
+        <qualifiedname>webui.webui_server.put_config</qualifiedname>
+        <briefdescription>
+<para>Sauvegarde une nouvelle configuration des capteurs. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Reçoit des données JSON, valide le contenu et sauvegarde dans sensors.json avec sauvegarde atomique via fichier temporaire. Affiche un résumé des changements principaux.</para>
+<para><simplesect kind="return"><para>Statut de sauvegarde ou message d&apos;erreur avec code HTTP. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/webui/webui_server.py" line="102" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/webui/webui_server.py" bodystart="102" bodyend="151"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacewebui_1_1webui__server_1a1e99eca46e51fb406153841d145748cc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>webui.webui_server.get_last</definition>
+        <argsstring>()</argsstring>
+        <name>get_last</name>
+        <qualifiedname>webui.webui_server.get_last</qualifiedname>
+        <briefdescription>
+<para>Récupère le dernier état du système de mesure. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Lecture du fichier last_state.json contenant les dernières mesures, températures et statuts. Gère le cas où le fichier n&apos;existe pas encore et retourne un état par défaut.</para>
+<para><simplesect kind="return"><para>État JSON du système ou structure par défaut si fichier absent. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/webui/webui_server.py" line="160" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/webui/webui_server.py" bodystart="160" bodyend="197"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacewebui_1_1webui__server_1a431000dffb42d4b4cd2ce023fa0c4a1e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>webui.webui_server.force_reload</definition>
+        <argsstring>()</argsstring>
+        <name>force_reload</name>
+        <qualifiedname>webui.webui_server.force_reload</qualifiedname>
+        <briefdescription>
+<para>Force le rechargement de la configuration au prochain cycle. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Crée un fichier flag force_reload.flag avec horodatage pour déclencher le rechargement de configuration par le processus principal lors du prochain cycle de mesure.</para>
+<para><simplesect kind="return"><para>Confirmation de demande ou message d&apos;erreur avec code HTTP. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/webui/webui_server.py" line="206" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/webui/webui_server.py" bodystart="206" bodyend="232"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/webui/webui_server.py" line="1" column="1"/>
+  </compounddef>
+</doxygen>

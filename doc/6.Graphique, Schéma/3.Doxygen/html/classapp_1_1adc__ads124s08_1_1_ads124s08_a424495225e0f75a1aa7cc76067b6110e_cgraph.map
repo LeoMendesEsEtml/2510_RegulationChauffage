@@ -1,0 +1,5 @@
+<map id="app.adc_ads124s08.Ads124s08.read_ref" name="app.adc_ads124s08.Ads124s08.read_ref">
+<area shape="rect" id="Node000001" title="Lit le registre de configuration de la référence." alt="" coords="5,5,263,32"/>
+<area shape="rect" id="Node000002" href="$classapp_1_1adc__ads124s08_1_1_ads124s08.html#a2f6a4281f1eaac0a7120e6b507b1c9e6" title="Lit un ou plusieurs registres de l&#39;ADC via SPI." alt="" coords="311,5,550,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="263,16,295,16,295,21,263,21"/>
+</map>

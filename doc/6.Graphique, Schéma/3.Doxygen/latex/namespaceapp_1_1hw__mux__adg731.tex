@@ -1,0 +1,52 @@
+\doxysection{Référence de l\textquotesingle{}espace de nommage app.\+hw\+\_\+mux\+\_\+adg731}
+\hypertarget{namespaceapp_1_1hw__mux__adg731}{}\label{namespaceapp_1_1hw__mux__adg731}\index{app.hw\_mux\_adg731@{app.hw\_mux\_adg731}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classapp_1_1hw__mux__adg731_1_1_adg731_mux_spi}{Adg731\+Mux\+Spi}}
+\begin{DoxyCompactList}\small\item\em Pilote SPI pour multiplexeurs ADG731. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Fonctions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceapp_1_1hw__mux__adg731_a191556bfaa023e4d6e1f2099dca9db46}{adg731\+\_\+ctrl\+\_\+byte}} (address, enable=True)
+\begin{DoxyCompactList}\small\item\em Génère le byte de contrôle pour l\textquotesingle{}ADG731. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{namespaceapp_1_1hw__mux__adg731_doc-func-members}
+\doxysubsection{Documentation des fonctions}
+\Hypertarget{namespaceapp_1_1hw__mux__adg731_a191556bfaa023e4d6e1f2099dca9db46}\index{app.hw\_mux\_adg731@{app.hw\_mux\_adg731}!adg731\_ctrl\_byte@{adg731\_ctrl\_byte}}
+\index{adg731\_ctrl\_byte@{adg731\_ctrl\_byte}!app.hw\_mux\_adg731@{app.hw\_mux\_adg731}}
+\doxysubsubsection{\texorpdfstring{adg731\_ctrl\_byte()}{adg731\_ctrl\_byte()}}
+{\footnotesize\ttfamily \label{namespaceapp_1_1hw__mux__adg731_a191556bfaa023e4d6e1f2099dca9db46} 
+app.\+hw\+\_\+mux\+\_\+adg731.\+adg731\+\_\+ctrl\+\_\+byte (\begin{DoxyParamCaption}\item[{}]{address}{, }\item[{}]{enable}{ = {\ttfamily True}}\end{DoxyParamCaption})}
+
+
+
+Génère le byte de contrôle pour l\textquotesingle{}ADG731. 
+
+Construit l\textquotesingle{}octet de commande selon le protocole ADG731 avec le bit d\textquotesingle{}activation (EN) en MSB et l\textquotesingle{}adresse sur 5 bits. L\textquotesingle{}activation se fait avec EN=0 (logique inversée).
+
+
+\begin{DoxyParams}{Paramètres}
+{\em address} & Adresse du canal (0-\/31). \\
+\hline
+{\em enable} & État d\textquotesingle{}activation du canal (True=activé).\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+Octet de contrôle formaté selon le protocole ADG731.
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Value\+Error} & Si l\textquotesingle{}adresse est hors de la plage valide. \\
+\hline
+\end{DoxyExceptions}
+Voici le graphe des appelants de cette fonction \+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespaceapp_1_1hw__mux__adg731_a191556bfaa023e4d6e1f2099dca9db46_icgraph}
+\end{center}
+\end{figure}

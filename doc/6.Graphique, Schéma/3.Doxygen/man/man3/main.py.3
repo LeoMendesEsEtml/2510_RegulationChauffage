@@ -1,0 +1,107 @@
+.TH "C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/main.py" 3 "2510_RegulationChauffage" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/main.py \- Système de mesure et simulation de température\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Espaces de nommage"
+
+.in +1c
+.ti -1c
+.RI "namespace \fBapp\fP"
+.br
+.ti -1c
+.RI "namespace \fBapp\&.main\fP"
+.br
+.in -1c
+.SS "Fonctions"
+
+.in +1c
+.ti -1c
+.RI "\fBapp\&.main\&.start_webui_server\fP ()"
+.br
+.RI "Lance le serveur web local dans un thread séparé\&. "
+.ti -1c
+.RI "\fBapp\&.main\&.save_last_state\fP (channel=None, resistance_ohm=None, temperature_c=None, temperature_sim_c=None, error=None)"
+.br
+.RI "Sauvegarde l'état courant et historique par canal dans un fichier JSON\&. "
+.ti -1c
+.RI "\fBapp\&.main\&.signal_handler\fP (sig, frame)"
+.br
+.RI "Gestionnaire POSIX pour les signaux (Ctrl+C)\&. "
+.ti -1c
+.RI "\fBapp\&.main\&.input_monitor\fP ()"
+.br
+.RI "Thread d'écoute des commandes utilisateur depuis stdin\&. "
+.ti -1c
+.RI "\fBapp\&.main\&.show_error_and_continue\fP (error_pattern, sleep_time=2)"
+.br
+.RI "Affiche un motif LED d'erreur pendant un temps donné puis remet l'indicateur en mode 'sequence_running'\&. "
+.ti -1c
+.RI "\fBapp\&.main\&.run_measurement_sequence\fP (cfg, mac_address, adc, tmux)"
+.br
+.RI "Exécute une séquence complète de mesures pour tous les canaux activés selon la configuration fournie\&. "
+.ti -1c
+.RI "\fBapp\&.main\&.reload_timing_config\fP ()"
+.br
+.RI "Recharge les paramètres de temporisation depuis le fichier de configuration\&. "
+.ti -1c
+.RI "\fBapp\&.main\&.main\fP ()"
+.br
+.RI "Point d'entrée principal du programme\&. "
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "\fBapp\&.main\&.CURRENT_DIR\fP = os\&.path\&.dirname(os\&.path\&.abspath(__file__))"
+.br
+.ti -1c
+.RI "\fBapp\&.main\&.SRC_DIR\fP = os\&.path\&.dirname(\fBCURRENT_DIR\fP)"
+.br
+.ti -1c
+.RI "bool \fBapp\&.main\&.sequencer_running\fP = False"
+.br
+.ti -1c
+.RI "\fBapp\&.main\&.stop_event\fP = threading\&.Event()"
+.br
+.ti -1c
+.RI "\fBapp\&.main\&.force_sequence\fP = threading\&.Event()"
+.br
+.ti -1c
+.RI "\fBapp\&.main\&.led_indicator\fP = None"
+.br
+.in -1c
+.SH "Description détaillée"
+.PP 
+Système de mesure et simulation de température\&. 
+
+Ce module exécute des cycles de mesure ADC, convertit les valeurs en résistances puis en températures, récupère des paramètres via une API distante, calcule une température simulée, convertit cette température en résistance cible et applique la simulation via un multiplexeur matériel\&. Le module gère également un petit serveur web optionnel et un indicateur LED\&. 
+.PP
+\fBAuteur\fP
+.RS 4
+Léo Mendes @project 2510_RegulationsChauffage @Mandant Oblo_solution 
+.RE
+.PP
+\fBDate\fP
+.RS 4
+2025-09-18 
+.RE
+.PP
+\fBVersion\fP
+.RS 4
+1\&.0\&.0 
+.RE
+.PP
+\fBCopyright\fP
+.RS 4
+Copyright (c) 2025 
+.RE
+.PP
+
+.SH "Auteur"
+.PP 
+Généré automatiquement par Doxygen pour 2510_RegulationChauffage à partir du code source\&.

@@ -1,0 +1,98 @@
+\doxysection{Référence de l\textquotesingle{}espace de nommage app.\+resistance\+\_\+mapping}
+\hypertarget{namespaceapp_1_1resistance__mapping}{}\label{namespaceapp_1_1resistance__mapping}\index{app.resistance\_mapping@{app.resistance\_mapping}}
+\doxysubsubsection*{Fonctions}
+\begin{DoxyCompactItemize}
+\item 
+dict \mbox{\hyperlink{namespaceapp_1_1resistance__mapping_abcef5f0352c26d7e5540d9bc85a3e3fa}{get\+\_\+channel\+\_\+mux\+\_\+map}} (str sensor\+\_\+type)
+\begin{DoxyCompactList}\small\item\em Retourne le mapping CHANNEL\+\_\+\+MUX pour un type de sonde donné. \end{DoxyCompactList}\item 
+tuple \mbox{\hyperlink{namespaceapp_1_1resistance__mapping_ad97e98ca666d8a3efb4c892acd311297}{find\+\_\+closest\+\_\+channel}} (float target\+\_\+resistance, str sensor\+\_\+type)
+\begin{DoxyCompactList}\small\item\em Trouve le canal MUX le plus proche pour une résistance cible. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+dict \mbox{\hyperlink{namespaceapp_1_1resistance__mapping_a3b615cabdb8c20924f8da06a285bc117}{CHANNEL\+\_\+\+MUX}}
+\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{namespaceapp_1_1resistance__mapping_doc-func-members}
+\doxysubsection{Documentation des fonctions}
+\Hypertarget{namespaceapp_1_1resistance__mapping_ad97e98ca666d8a3efb4c892acd311297}\index{app.resistance\_mapping@{app.resistance\_mapping}!find\_closest\_channel@{find\_closest\_channel}}
+\index{find\_closest\_channel@{find\_closest\_channel}!app.resistance\_mapping@{app.resistance\_mapping}}
+\doxysubsubsection{\texorpdfstring{find\_closest\_channel()}{find\_closest\_channel()}}
+{\footnotesize\ttfamily \label{namespaceapp_1_1resistance__mapping_ad97e98ca666d8a3efb4c892acd311297} 
+ tuple app.\+resistance\+\_\+mapping.\+find\+\_\+closest\+\_\+channel (\begin{DoxyParamCaption}\item[{float}]{target\+\_\+resistance}{, }\item[{str}]{sensor\+\_\+type}{}\end{DoxyParamCaption})}
+
+
+
+Trouve le canal MUX le plus proche pour une résistance cible. 
+
+Algorithme de recherche du canal TMUX offrant la résistance la plus proche de la valeur cible. Calcule l\textquotesingle{}erreur absolue et relative pour le meilleur canal trouvé.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em target\+\_\+resistance} & Valeur de résistance cible recherchée \mbox{[}Ohms\mbox{]}. \\
+\hline
+{\em sensor\+\_\+type} & Type de sonde à utiliser pour la recherche.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+Tuple (canal, resistance\+\_\+reelle, erreur\+\_\+pourcent). Retourne (None, None, None) si aucun canal trouvé.
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Key\+Error} & si le type de sonde n\textquotesingle{}existe pas. \\
+\hline
+\end{DoxyExceptions}
+Voici le graphe d\textquotesingle{}appel pour cette fonction \+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespaceapp_1_1resistance__mapping_ad97e98ca666d8a3efb4c892acd311297_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespaceapp_1_1resistance__mapping_abcef5f0352c26d7e5540d9bc85a3e3fa}\index{app.resistance\_mapping@{app.resistance\_mapping}!get\_channel\_mux\_map@{get\_channel\_mux\_map}}
+\index{get\_channel\_mux\_map@{get\_channel\_mux\_map}!app.resistance\_mapping@{app.resistance\_mapping}}
+\doxysubsubsection{\texorpdfstring{get\_channel\_mux\_map()}{get\_channel\_mux\_map()}}
+{\footnotesize\ttfamily \label{namespaceapp_1_1resistance__mapping_abcef5f0352c26d7e5540d9bc85a3e3fa} 
+ dict app.\+resistance\+\_\+mapping.\+get\+\_\+channel\+\_\+mux\+\_\+map (\begin{DoxyParamCaption}\item[{str}]{sensor\+\_\+type}{}\end{DoxyParamCaption})}
+
+
+
+Retourne le mapping CHANNEL\+\_\+\+MUX pour un type de sonde donné. 
+
+Fonction d\textquotesingle{}accès qui extrait le dictionnaire de correspondance canal/résistance pour un type de sonde spécifique. Valide l\textquotesingle{}existence du type avant de retourner les données.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em sensor\+\_\+type} & Type de sonde demandé (doit exister dans CHANNEL\+\_\+\+MUX).\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+Dictionnaire \{canal\+: resistance\} pour le type de sonde.
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Key\+Error} & si le type de sonde n\textquotesingle{}est pas supporté. \\
+\hline
+\end{DoxyExceptions}
+Voici le graphe des appelants de cette fonction \+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespaceapp_1_1resistance__mapping_abcef5f0352c26d7e5540d9bc85a3e3fa_icgraph}
+\end{center}
+\end{figure}
+
+
+\label{doc-var-members}
+\Hypertarget{namespaceapp_1_1resistance__mapping_doc-var-members}
+\doxysubsection{Documentation des variables}
+\Hypertarget{namespaceapp_1_1resistance__mapping_a3b615cabdb8c20924f8da06a285bc117}\index{app.resistance\_mapping@{app.resistance\_mapping}!CHANNEL\_MUX@{CHANNEL\_MUX}}
+\index{CHANNEL\_MUX@{CHANNEL\_MUX}!app.resistance\_mapping@{app.resistance\_mapping}}
+\doxysubsubsection{\texorpdfstring{CHANNEL\_MUX}{CHANNEL\_MUX}}
+{\footnotesize\ttfamily \label{namespaceapp_1_1resistance__mapping_a3b615cabdb8c20924f8da06a285bc117} 
+dict app.\+resistance\+\_\+mapping.\+CHANNEL\+\_\+\+MUX}
+

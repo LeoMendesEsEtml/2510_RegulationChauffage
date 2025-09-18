@@ -1,0 +1,7 @@
+<map id="app.main.run_measurement_sequence" name="app.main.run_measurement_sequence">
+<area shape="rect" id="Node000001" title="Exécute une séquence complète de mesures pour tous les canaux activés selon la configuration fournie." alt="" coords="5,39,188,81"/>
+<area shape="rect" id="Node000002" href="$namespaceapp_1_1main.html#a7e7d269529399106243cc74fc3c73b6a" title="Sauvegarde l&#39;état courant et historique par canal dans un fichier JSON." alt="" coords="240,5,374,48"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="188,43,224,37,224,42,189,48"/>
+<area shape="rect" id="Node000003" href="$namespaceapp_1_1main.html#a1b3211e7ab2da62ed461ce881f0ce556" title="Affiche un motif LED d&#39;erreur pendant un temps donné puis remet l&#39;indicateur en mode &#39;sequence_runnin..." alt="" coords="236,72,378,115"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="189,72,221,77,220,82,188,77"/>
+</map>

@@ -1,0 +1,92 @@
+.TH "C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/api_client.py" 3 "2510_RegulationChauffage" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/api_client.py \- Client API pour les services oblosolutions\&.ch\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "class \fBapp\&.api_client\&.ApiError\fP"
+.br
+.RI "Exception pour les erreurs d'API\&. "
+.ti -1c
+.RI "class \fBapp\&.api_client\&.ApiClient\fP"
+.br
+.RI "Client pour interroger les APIs oblosolutions\&.ch\&. "
+.in -1c
+.SS "Espaces de nommage"
+
+.in +1c
+.ti -1c
+.RI "namespace \fBapp\fP"
+.br
+.ti -1c
+.RI "namespace \fBapp\&.api_client\fP"
+.br
+.in -1c
+.SS "Fonctions"
+
+.in +1c
+.ti -1c
+.RI "Dict[str, Any] \fBapp\&.api_client\&.get_simulation_data\fP (str mac_address)"
+.br
+.RI "Récupère les données de simulation depuis les APIs\&. "
+.ti -1c
+.RI "bool \fBapp\&.api_client\&.send_temperature_measurement\fP (str mac_address, float temperature, int channel=None)"
+.br
+.RI "Envoie une mesure de température vers l'API\&. "
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "int \fBapp\&.api_client\&.REQUEST_TIMEOUT\fP = 10"
+.br
+.ti -1c
+.RI "int \fBapp\&.api_client\&.MAX_RETRIES\fP = 3"
+.br
+.ti -1c
+.RI "int \fBapp\&.api_client\&.RETRY_DELAY\fP = 1"
+.br
+.ti -1c
+.RI "str \fBapp\&.api_client\&.test_mac\fP = '0030DEABCDEF'"
+.br
+.ti -1c
+.RI "Dict[str, Any] \fBapp\&.api_client\&.data\fP = \fBget_simulation_data\fP(\fBtest_mac\fP)"
+.br
+.in -1c
+.SH "Description détaillée"
+.PP 
+Client API pour les services oblosolutions\&.ch\&. 
+
+Ce module fournit un client HTTP pour interroger les APIs td25_param et td25_forecast\&. Il gère les timeouts, les retries automatiques et les erreurs de réseau\&. Inclut des fonctions utilitaires pour récupérer les données de simulation et envoyer les mesures de température\&. 
+.PP
+\fBAuteur\fP
+.RS 4
+Léo Mendes @project 2510_RegulationsChauffage @Mandant Oblo_solution 
+.RE
+.PP
+\fBDate\fP
+.RS 4
+2025-09-18 
+.RE
+.PP
+\fBVersion\fP
+.RS 4
+1\&.0\&.0 
+.RE
+.PP
+\fBCopyright\fP
+.RS 4
+Copyright (c) 2025 
+.RE
+.PP
+
+.SH "Auteur"
+.PP 
+Généré automatiquement par Doxygen pour 2510_RegulationChauffage à partir du code source\&.

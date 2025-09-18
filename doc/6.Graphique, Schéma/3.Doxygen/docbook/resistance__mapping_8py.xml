@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_resistance__mapping_8py" xml:lang="fr">
+<title>Référence du fichier C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/resistance_mapping.py</title>
+<indexterm><primary>C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/resistance_mapping.py</primary></indexterm>
+<para>
+
+<para>Mapping des résistances TMUX par type de sonde de température. </para>
+ 
+</para>
+<simplesect>
+    <title>Espaces de nommage    </title>
+        <itemizedlist>
+            <listitem><para>namespace <link linkend="_namespaceapp">app</link></para>
+</listitem>
+            <listitem><para>namespace <link linkend="_namespaceapp_1_1resistance__mapping">app.resistance_mapping</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Fonctions    </title>
+        <itemizedlist>
+            <listitem><para>dict <link linkend="_namespaceapp_1_1resistance__mapping_1abcef5f0352c26d7e5540d9bc85a3e3fa">app.resistance_mapping.get_channel_mux_map</link> (str sensor_type)</para>
+
+<para>Retourne le mapping CHANNEL_MUX pour un type de sonde donné. </para>
+</listitem>
+            <listitem><para>tuple <link linkend="_namespaceapp_1_1resistance__mapping_1ad97e98ca666d8a3efb4c892acd311297">app.resistance_mapping.find_closest_channel</link> (float target_resistance, str sensor_type)</para>
+
+<para>Trouve le canal MUX le plus proche pour une résistance cible. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Variables    </title>
+        <itemizedlist>
+            <listitem><para>dict <link linkend="_namespaceapp_1_1resistance__mapping_1a3b615cabdb8c20924f8da06a285bc117">app.resistance_mapping.CHANNEL_MUX</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Description détaillée</title>
+
+<para>Mapping des résistances TMUX par type de sonde de température. </para>
+
+<para>Ce module fournit les tables de correspondance entre les canaux 0-31 du multiplexeur TMUX et les valeurs de résistance réelles pour différents types de sondes de température. Chaque type de sonde dispose d&apos;un mapping spécifique avec 32 valeurs calibrées. <formalpara><title>Auteur</title>
+
+<para>Léo Mendes @project 2510_RegulationsChauffage @Mandant Oblo_solution </para>
+</formalpara>
+<formalpara><title>Date</title>
+
+<para>2025-09-18 </para>
+</formalpara>
+<formalpara><title>Version</title>
+
+<para>1.0.0 </para>
+</formalpara>
+<formalpara><title>Copyright</title>
+
+<para>Copyright (c) 2025 </para>
+</formalpara>
+</para>
+</section>
+</section>

@@ -1,0 +1,214 @@
+.TH "app.main" 3 "2510_RegulationChauffage" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+app.main
+.SH SYNOPSIS
+.br
+.PP
+.SS "Fonctions"
+
+.in +1c
+.ti -1c
+.RI "\fBstart_webui_server\fP ()"
+.br
+.RI "Lance le serveur web local dans un thread séparé\&. "
+.ti -1c
+.RI "\fBsave_last_state\fP (channel=None, resistance_ohm=None, temperature_c=None, temperature_sim_c=None, error=None)"
+.br
+.RI "Sauvegarde l'état courant et historique par canal dans un fichier JSON\&. "
+.ti -1c
+.RI "\fBsignal_handler\fP (sig, frame)"
+.br
+.RI "Gestionnaire POSIX pour les signaux (Ctrl+C)\&. "
+.ti -1c
+.RI "\fBinput_monitor\fP ()"
+.br
+.RI "Thread d'écoute des commandes utilisateur depuis stdin\&. "
+.ti -1c
+.RI "\fBshow_error_and_continue\fP (error_pattern, sleep_time=2)"
+.br
+.RI "Affiche un motif LED d'erreur pendant un temps donné puis remet l'indicateur en mode 'sequence_running'\&. "
+.ti -1c
+.RI "\fBrun_measurement_sequence\fP (cfg, mac_address, adc, tmux)"
+.br
+.RI "Exécute une séquence complète de mesures pour tous les canaux activés selon la configuration fournie\&. "
+.ti -1c
+.RI "\fBreload_timing_config\fP ()"
+.br
+.RI "Recharge les paramètres de temporisation depuis le fichier de configuration\&. "
+.ti -1c
+.RI "\fBmain\fP ()"
+.br
+.RI "Point d'entrée principal du programme\&. "
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "\fBCURRENT_DIR\fP = os\&.path\&.dirname(os\&.path\&.abspath(__file__))"
+.br
+.ti -1c
+.RI "\fBSRC_DIR\fP = os\&.path\&.dirname(\fBCURRENT_DIR\fP)"
+.br
+.ti -1c
+.RI "bool \fBsequencer_running\fP = False"
+.br
+.ti -1c
+.RI "\fBstop_event\fP = threading\&.Event()"
+.br
+.ti -1c
+.RI "\fBforce_sequence\fP = threading\&.Event()"
+.br
+.ti -1c
+.RI "\fBled_indicator\fP = None"
+.br
+.in -1c
+.SH "Documentation des fonctions"
+.PP 
+.SS "app\&.main\&.input_monitor ()"
+
+.PP
+Thread d'écoute des commandes utilisateur depuis stdin\&. Permet de forcer une séquence (touche Entrée ou 's') ou de demander l'arrêt ('q')\&. Les exceptions d'E/S sont gérées pour permettre la terminaison propre du thread\&. 
+.PP
+\fBRenvoie\fP
+.RS 4
+None 
+.RE
+.PP
+
+.SS "app\&.main\&.main ()"
+
+.PP
+Point d'entrée principal du programme\&. Parse les arguments de la ligne de commande, initialise le matériel (GPIO, ADC, MUX), le gestionnaire LED, et exécute le séquenceur en mode automatique ou manuel selon la configuration\&. 
+.PP
+\fBRenvoie\fP
+.RS 4
+None 
+.RE
+.PP
+
+.SS "app\&.main\&.reload_timing_config ()"
+
+.PP
+Recharge les paramètres de temporisation depuis le fichier de configuration\&. Lit uniquement les paramètres de temporisation pour mise à jour dynamique sans perturber le reste du système\&. Utilisé pour permettre la modification des intervalles de séquence et du mode automatique via l'interface web\&.
+
+.PP
+\fBRenvoie\fP
+.RS 4
+Tuple (auto_sequence, sequence_interval_minutes, success) où success indique si le rechargement a réussi\&. 
+.RE
+.PP
+
+.SS "app\&.main\&.run_measurement_sequence ( cfg,  mac_address,  adc,  tmux)"
+
+.PP
+Exécute une séquence complète de mesures pour tous les canaux activés selon la configuration fournie\&. Pour chaque canal actif : sélection du rref, configuration ADC, lecture des valeurs, conversion en température, envoi API, calcul de la température simulée et application via le simulateur de résistance\&. Les motifs LED sont ajustés en fonction des erreurs\&.
+
+.PP
+\fBParamètres\fP
+.RS 4
+\fIcfg\fP Dictionnaire de configuration chargé depuis JSON\&. 
+.br
+\fImac_address\fP Adresse MAC ou identifiant pour les appels API\&. 
+.br
+\fIadc\fP Instance de l'ADC (\fBAds124s08\fP)\&. 
+.br
+\fItmux\fP Instance du multiplexeur (\fBTmux1204\fP)\&. 
+.RE
+.PP
+\fBRenvoie\fP
+.RS 4
+bool True si la séquence est globalement considérée comme réussie, False sinon\&. 
+.RE
+.PP
+
+.SS "app\&.main\&.save_last_state ( channel = \fRNone\fP,  resistance_ohm = \fRNone\fP,  temperature_c = \fRNone\fP,  temperature_sim_c = \fRNone\fP,  error = \fRNone\fP)"
+
+.PP
+Sauvegarde l'état courant et historique par canal dans un fichier JSON\&. Crée le dossier \fRstate\fP si nécessaire, lit le fichier \fRlast_state\&.json\fP existant, met à jour les informations du canal fourni et écrit le document au format JSON\&. Les erreurs internes sont capturées et affichées sur la sortie standard\&.
+
+.PP
+\fBParamètres\fP
+.RS 4
+\fIchannel\fP Numéro du canal (ou None)\&. 
+.br
+\fIresistance_ohm\fP Résistance mesurée (ou None)\&. 
+.br
+\fItemperature_c\fP Température mesurée [°C] (ou None)\&. 
+.br
+\fItemperature_sim_c\fP Température simulée [°C] (ou None)\&. 
+.br
+\fIerror\fP Message d'erreur s'il y en a un (ou None)\&. 
+.RE
+.PP
+\fBRenvoie\fP
+.RS 4
+None 
+.RE
+.PP
+
+.SS "app\&.main\&.show_error_and_continue ( error_pattern,  sleep_time = \fR2\fP)"
+
+.PP
+Affiche un motif LED d'erreur pendant un temps donné puis remet l'indicateur en mode 'sequence_running'\&. 
+.PP
+\fBParamètres\fP
+.RS 4
+\fIerror_pattern\fP Nom du motif LED à afficher\&. 
+.br
+\fIsleep_time\fP Durée d'affichage en secondes (par défaut 2s)\&. 
+.RE
+.PP
+\fBRenvoie\fP
+.RS 4
+None 
+.RE
+.PP
+
+.SS "app\&.main\&.signal_handler ( sig,  frame)"
+
+.PP
+Gestionnaire POSIX pour les signaux (Ctrl+C)\&. Met le drapeau \fRsequencer_running\fP à False et déclenche l'événement \fRstop_event\fP pour demander un arrêt propre\&. 
+.PP
+\fBParamètres\fP
+.RS 4
+\fIsig\fP Signal reçu (int)\&. 
+.br
+\fIframe\fP Contexte d'exécution (non utilisé)\&. 
+.RE
+.PP
+\fBRenvoie\fP
+.RS 4
+None 
+.RE
+.PP
+
+.SS "app\&.main\&.start_webui_server ()"
+
+.PP
+Lance le serveur web local dans un thread séparé\&. Import dynamique du module \fR\fBwebui\&.webui_server\fP\fP et démarrage de l'application Flask/WSGI\&. Les exceptions sont interceptées et converties en messages sur la sortie standard pour ne pas interrompre le thread principal\&. 
+.PP
+\fBRenvoie\fP
+.RS 4
+None 
+.RE
+.PP
+
+.SH "Documentation des variables"
+.PP 
+.SS "app\&.main\&.CURRENT_DIR = os\&.path\&.dirname(os\&.path\&.abspath(__file__))"
+
+.SS "app\&.main\&.force_sequence = threading\&.Event()"
+
+.SS "app\&.main\&.led_indicator = None"
+
+.SS "bool app\&.main\&.sequencer_running = False"
+
+.SS "app\&.main\&.SRC_DIR = os\&.path\&.dirname(\fBCURRENT_DIR\fP)"
+
+.SS "app\&.main\&.stop_event = threading\&.Event()"
+
+.SH "Auteur"
+.PP 
+Généré automatiquement par Doxygen pour 2510_RegulationChauffage à partir du code source\&.

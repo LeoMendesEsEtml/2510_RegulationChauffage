@@ -1,0 +1,852 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="fr">
+  <compounddef id="classapp_1_1adc__ads124s08_1_1_ads124s08" kind="class" language="Python" prot="public">
+    <compoundname>app::adc_ads124s08::Ads124s08</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classapp_1_1adc__ads124s08_1_1_ads124s08_1ad6ceb5f8844a34706d24f0d510abf081" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>app.adc_ads124s08.Ads124s08::spi</definition>
+        <argsstring></argsstring>
+        <name>spi</name>
+        <qualifiedname>app.adc_ads124s08.Ads124s08.spi</qualifiedname>
+        <initializer>=  spidev.SpiDev()</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/adc_ads124s08.py" line="232" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/adc_ads124s08.py" bodystart="232" bodyend="-1"/>
+        <referencedby refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1a2f6a4281f1eaac0a7120e6b507b1c9e6" compoundref="adc__ads124s08_8py" startline="326" endline="347">app.adc_ads124s08.Ads124s08._rreg</referencedby>
+        <referencedby refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1a6c3a8c9cc298fbe29123898f8e404b82" compoundref="adc__ads124s08_8py" startline="363" endline="374">app.adc_ads124s08.Ads124s08._wreg</referencedby>
+        <referencedby refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1ac8b34f0152689ddfc7950f31d10cd62f" compoundref="adc__ads124s08_8py" startline="297" endline="310">app.adc_ads124s08.Ads124s08.close</referencedby>
+        <referencedby refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1a56dff2b65427bc620cc661de71d9d44d" compoundref="adc__ads124s08_8py" startline="277" endline="286">app.adc_ads124s08.Ads124s08.read_id</referencedby>
+        <referencedby refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1a5d7414311a828e4231a22b6e414cbfba" compoundref="adc__ads124s08_8py" startline="633" endline="652">app.adc_ads124s08.Ads124s08.start</referencedby>
+        <referencedby refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1a30d1ac487b9ef8dcfb310cea695db0f9" compoundref="adc__ads124s08_8py" startline="663" endline="666">app.adc_ads124s08.Ads124s08.stop</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="classapp_1_1adc__ads124s08_1_1_ads124s08_1abae1495ff14fcfffa871c4dcdb150cdd" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>app.adc_ads124s08.Ads124s08::gpio_drdy</definition>
+        <argsstring></argsstring>
+        <name>gpio_drdy</name>
+        <qualifiedname>app.adc_ads124s08.Ads124s08.gpio_drdy</qualifiedname>
+        <initializer>=  GPIO(GPIO_CHIP_PATH, ADC_DRDY, &quot;in&quot;)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/adc_ads124s08.py" line="244" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/adc_ads124s08.py" bodystart="244" bodyend="-1"/>
+        <referencedby refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1ad1af9e1885ee3e2576eba6720251ef36" compoundref="adc__ads124s08_8py" startline="410" endline="435">app.adc_ads124s08.Ads124s08._ensure_drdy_high</referencedby>
+        <referencedby refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1a54727c06031c4ca2229653dd01edfe03" compoundref="adc__ads124s08_8py" startline="387" endline="395">app.adc_ads124s08.Ads124s08._sclk_nudge</referencedby>
+        <referencedby refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1ac8b34f0152689ddfc7950f31d10cd62f" compoundref="adc__ads124s08_8py" startline="297" endline="310">app.adc_ads124s08.Ads124s08.close</referencedby>
+        <referencedby refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1abe455695d580ba27f0e5c559414fefbf" compoundref="adc__ads124s08_8py" startline="513" endline="622">app.adc_ads124s08.Ads124s08.configure_channel</referencedby>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classapp_1_1adc__ads124s08_1_1_ads124s08_1ad07d394c9bbe4d22ca8fb590382c2554" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>app.adc_ads124s08.Ads124s08.__init__</definition>
+        <argsstring>(self)</argsstring>
+        <name>__init__</name>
+        <qualifiedname>app.adc_ads124s08.Ads124s08.__init__</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+<para>Constructeur de la classe <ref refid="classapp_1_1adc__ads124s08_1_1_ads124s08" kindref="compound">Ads124s08</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Initialise la communication SPI, configure le GPIO DRDY, effectue un reset de l&apos;ADC et vérifie la communication en lisant le registre d&apos;identification.</para>
+<para><parameterlist kind="exception"><parameteritem>
+<parameternamelist>
+<parametername>Peut</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>lever des exceptions SPI ou GPIO en cas d&apos;échec. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="post"><para>L&apos;ADC est prêt pour la configuration et les mesures. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/adc_ads124s08.py" line="229" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/adc_ads124s08.py" bodystart="229" bodyend="266"/>
+      </memberdef>
+      <memberdef kind="function" id="classapp_1_1adc__ads124s08_1_1_ads124s08_1a56dff2b65427bc620cc661de71d9d44d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>app.adc_ads124s08.Ads124s08.read_id</definition>
+        <argsstring>(self)</argsstring>
+        <name>read_id</name>
+        <qualifiedname>app.adc_ads124s08.Ads124s08.read_id</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+<para>Lit le registre d&apos;identification de l&apos;ADC. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Effectue une lecture du registre ID (0x00) pour vérifier la communication SPI et identifier le type d&apos;ADC connecté.</para>
+<para><simplesect kind="return"><para>Valeur du registre ID (0x00-0xFF) ou None en cas d&apos;erreur.</para>
+</simplesect>
+<simplesect kind="note"><para>Utilisé principalement pour la vérification de communication. </para>
+</simplesect>
+<simplesect kind="see"><para><bold>init</bold> </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/adc_ads124s08.py" line="277" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/adc_ads124s08.py" bodystart="277" bodyend="286"/>
+        <references refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1ad6ceb5f8844a34706d24f0d510abf081" compoundref="adc__ads124s08_8py" startline="232">app.adc_ads124s08.Ads124s08.spi</references>
+      </memberdef>
+      <memberdef kind="function" id="classapp_1_1adc__ads124s08_1_1_ads124s08_1ac8b34f0152689ddfc7950f31d10cd62f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>app.adc_ads124s08.Ads124s08.close</definition>
+        <argsstring>(self)</argsstring>
+        <name>close</name>
+        <qualifiedname>app.adc_ads124s08.Ads124s08.close</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+<para>Ferme les interfaces SPI et GPIO proprement. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Libère les ressources système utilisées par le driver. Méthode à appeler avant la destruction de l&apos;objet.</para>
+<para><simplesect kind="return"><para>Rien.</para>
+</simplesect>
+<simplesect kind="note"><para>Ignore les erreurs de fermeture pour éviter les exceptions. </para>
+</simplesect>
+<simplesect kind="see"><para><bold>init</bold> </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/adc_ads124s08.py" line="297" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/adc_ads124s08.py" bodystart="297" bodyend="310"/>
+        <references refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1ac8b34f0152689ddfc7950f31d10cd62f" compoundref="adc__ads124s08_8py" startline="297" endline="310">app.adc_ads124s08.Ads124s08.close</references>
+        <references refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1abae1495ff14fcfffa871c4dcdb150cdd" compoundref="adc__ads124s08_8py" startline="244">app.adc_ads124s08.Ads124s08.gpio_drdy</references>
+        <references refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1ad6ceb5f8844a34706d24f0d510abf081" compoundref="adc__ads124s08_8py" startline="232">app.adc_ads124s08.Ads124s08.spi</references>
+        <referencedby refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1ac8b34f0152689ddfc7950f31d10cd62f" compoundref="adc__ads124s08_8py" startline="297" endline="310">app.adc_ads124s08.Ads124s08.close</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classapp_1_1adc__ads124s08_1_1_ads124s08_1a6cbdea3f16ae1dff329ec8e45ef859d1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>app.adc_ads124s08.Ads124s08.wait_drdy_falling_edge</definition>
+        <argsstring>(self, timeout_s)</argsstring>
+        <name>wait_drdy_falling_edge</name>
+        <qualifiedname>app.adc_ads124s08.Ads124s08.wait_drdy_falling_edge</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>timeout_s</type>
+          <defname>timeout_s</defname>
+        </param>
+        <briefdescription>
+<para>Attend un front descendant sur DRDY (HIGH -&gt; LOW) avec timeout. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Surveille le signal DRDY pour détecter une transition de HIGH vers LOW, indiquant qu&apos;une nouvelle conversion est disponible.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>timeout_s</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Timeout en secondes pour l&apos;attente du front.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>True si front descendant détecté, False en cas de timeout.</para>
+</simplesect>
+<simplesect kind="note"><para>Méthode cruciale pour la synchronisation des mesures. </para>
+</simplesect>
+<simplesect kind="see"><para><ref refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1a6c3422094f1375f8e91bff96eb299f69" kindref="member">measure_resistance</ref> </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/adc_ads124s08.py" line="448" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/adc_ads124s08.py" bodystart="448" bodyend="473"/>
+        <references refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1a6c3a8c9cc298fbe29123898f8e404b82" compoundref="adc__ads124s08_8py" startline="363" endline="374">app.adc_ads124s08.Ads124s08._wreg</references>
+        <referencedby refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1ac53728ccbaada975b3204c4e3a4364aa" compoundref="adc__ads124s08_8py" startline="677" endline="696">app.adc_ads124s08.Ads124s08.read_code24</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classapp_1_1adc__ads124s08_1_1_ads124s08_1a7e7fb10a1acebe2f4200a52670c2fb0c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>app.adc_ads124s08.Ads124s08.set_single_shot_lowlatency</definition>
+        <argsstring>(self, dr_nibble)</argsstring>
+        <name>set_single_shot_lowlatency</name>
+        <qualifiedname>app.adc_ads124s08.Ads124s08.set_single_shot_lowlatency</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>dr_nibble</type>
+          <defname>dr_nibble</defname>
+        </param>
+        <briefdescription>
+<para>Configure le mode single-shot low-latency de l&apos;ADC. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Configure le registre DATARATE pour utiliser le mode single-shot avec filtre low-latency et data rate spécifié.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>dr_nibble</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Code de data rate (4 bits, 0x00-0x0F).</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Rien.</para>
+</simplesect>
+<simplesect kind="note"><para>Mode optimisé pour des mesures rapides et ponctuelles. </para>
+</simplesect>
+<simplesect kind="see"><para><ref refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1abe455695d580ba27f0e5c559414fefbf" kindref="member">configure_channel</ref> </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/adc_ads124s08.py" line="486" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/adc_ads124s08.py" bodystart="486" bodyend="497"/>
+        <referencedby refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1abe455695d580ba27f0e5c559414fefbf" compoundref="adc__ads124s08_8py" startline="513" endline="622">app.adc_ads124s08.Ads124s08.configure_channel</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classapp_1_1adc__ads124s08_1_1_ads124s08_1abe455695d580ba27f0e5c559414fefbf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>app.adc_ads124s08.Ads124s08.configure_channel</definition>
+        <argsstring>(self, channel_index, pga_gain, idac_uA)</argsstring>
+        <name>configure_channel</name>
+        <qualifiedname>app.adc_ads124s08.Ads124s08.configure_channel</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>channel_index</type>
+          <defname>channel_index</defname>
+        </param>
+        <param>
+          <type>pga_gain</type>
+          <defname>pga_gain</defname>
+        </param>
+        <param>
+          <type>idac_uA</type>
+          <defname>idac_uA</defname>
+        </param>
+        <briefdescription>
+<para>Configure un canal ADC avec ses paramètres de mesure. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Configure complètement un canal ADC avec le gain PGA, le courant IDAC et le routage des entrées analogiques. Effectue une configuration séquentielle de tous les registres.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>channel_index</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Index du canal physique (1-4). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pga_gain</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Gain de l&apos;amplificateur programmable (1-128). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>idac_uA</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Courant IDAC en microampères (10-2000).</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Rien.</para>
+</simplesect>
+<parameterlist kind="exception"><parameteritem>
+<parameternamelist>
+<parametername>ValueError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>si le canal ou les paramètres sont invalides. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="see"><para><ref refid="namespaceapp_1_1adc__ads124s08_1a0117399a18d516c747ca6b060599452f" kindref="member">encode_gain</ref>, <ref refid="namespaceapp_1_1adc__ads124s08_1a8f9279b8505f8d634ed73c51dcab29c9" kindref="member">encode_idac_uA</ref> </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/adc_ads124s08.py" line="513" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/adc_ads124s08.py" bodystart="513" bodyend="622"/>
+        <references refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1a2f6a4281f1eaac0a7120e6b507b1c9e6" compoundref="adc__ads124s08_8py" startline="326" endline="347">app.adc_ads124s08.Ads124s08._rreg</references>
+        <references refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1a6c3a8c9cc298fbe29123898f8e404b82" compoundref="adc__ads124s08_8py" startline="363" endline="374">app.adc_ads124s08.Ads124s08._wreg</references>
+        <references refid="namespaceapp_1_1adc__ads124s08_1a0117399a18d516c747ca6b060599452f" compoundref="adc__ads124s08_8py" startline="106" endline="134">app.adc_ads124s08.encode_gain</references>
+        <references refid="namespaceapp_1_1adc__ads124s08_1a8f9279b8505f8d634ed73c51dcab29c9" compoundref="adc__ads124s08_8py" startline="147" endline="175">app.adc_ads124s08.encode_idac_uA</references>
+        <references refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1abae1495ff14fcfffa871c4dcdb150cdd" compoundref="adc__ads124s08_8py" startline="244">app.adc_ads124s08.Ads124s08.gpio_drdy</references>
+        <references refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1a7e7fb10a1acebe2f4200a52670c2fb0c" compoundref="adc__ads124s08_8py" startline="486" endline="497">app.adc_ads124s08.Ads124s08.set_single_shot_lowlatency</references>
+      </memberdef>
+      <memberdef kind="function" id="classapp_1_1adc__ads124s08_1_1_ads124s08_1a5d7414311a828e4231a22b6e414cbfba" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>app.adc_ads124s08.Ads124s08.start</definition>
+        <argsstring>(self)</argsstring>
+        <name>start</name>
+        <qualifiedname>app.adc_ads124s08.Ads124s08.start</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+<para>Démarre une conversion ADC. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Assure que DRDY est à HIGH puis envoie la commande START pour initier une nouvelle conversion sur le canal configuré.</para>
+<para><simplesect kind="return"><para>Rien.</para>
+</simplesect>
+<simplesect kind="note"><para>DRDY doit être HIGH avant le START pour une conversion valide. </para>
+</simplesect>
+<simplesect kind="see"><para><ref refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1a30d1ac487b9ef8dcfb310cea695db0f9" kindref="member">stop</ref>, <ref refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1a6cbdea3f16ae1dff329ec8e45ef859d1" kindref="member">wait_drdy_falling_edge</ref> </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/adc_ads124s08.py" line="633" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/adc_ads124s08.py" bodystart="633" bodyend="652"/>
+        <references refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1ad6ceb5f8844a34706d24f0d510abf081" compoundref="adc__ads124s08_8py" startline="232">app.adc_ads124s08.Ads124s08.spi</references>
+        <referencedby refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1ac53728ccbaada975b3204c4e3a4364aa" compoundref="adc__ads124s08_8py" startline="677" endline="696">app.adc_ads124s08.Ads124s08.read_code24</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classapp_1_1adc__ads124s08_1_1_ads124s08_1a30d1ac487b9ef8dcfb310cea695db0f9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>app.adc_ads124s08.Ads124s08.stop</definition>
+        <argsstring>(self)</argsstring>
+        <name>stop</name>
+        <qualifiedname>app.adc_ads124s08.Ads124s08.stop</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+<para>Arrête une conversion ADC en cours. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Envoie la commande STOP pour interrompre toute conversion en cours et remettre l&apos;ADC en état idle.</para>
+<para><simplesect kind="return"><para>Rien.</para>
+</simplesect>
+<simplesect kind="note"><para>Utilisé après lecture des données ou en cas d&apos;erreur. </para>
+</simplesect>
+<simplesect kind="see"><para><ref refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1a5d7414311a828e4231a22b6e414cbfba" kindref="member">start</ref>, <ref refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1ac53728ccbaada975b3204c4e3a4364aa" kindref="member">read_code24</ref> </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/adc_ads124s08.py" line="663" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/adc_ads124s08.py" bodystart="663" bodyend="666"/>
+        <references refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1ad6ceb5f8844a34706d24f0d510abf081" compoundref="adc__ads124s08_8py" startline="232">app.adc_ads124s08.Ads124s08.spi</references>
+        <referencedby refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1a6c3422094f1375f8e91bff96eb299f69" compoundref="adc__ads124s08_8py" startline="712" endline="769">app.adc_ads124s08.Ads124s08.measure_resistance</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classapp_1_1adc__ads124s08_1_1_ads124s08_1ac53728ccbaada975b3204c4e3a4364aa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>app.adc_ads124s08.Ads124s08.read_code24</definition>
+        <argsstring>(self)</argsstring>
+        <name>read_code24</name>
+        <qualifiedname>app.adc_ads124s08.Ads124s08.read_code24</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+<para>Lit un code de données 24 bits depuis l&apos;ADC. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Utilise la commande RDATA pour lire les 3 octets de données de conversion et les convertit en entier signé.</para>
+<para><simplesect kind="return"><para>Valeur signée 24 bits ou None en cas d&apos;erreur SPI.</para>
+</simplesect>
+<simplesect kind="note"><para>Doit être appelé après détection du front descendant DRDY. </para>
+</simplesect>
+<simplesect kind="see"><para><ref refid="namespaceapp_1_1adc__ads124s08_1a2d49f7c13e0b47db65080ab59febed76" kindref="member">sign_extend_24</ref>, <ref refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1a6c3422094f1375f8e91bff96eb299f69" kindref="member">measure_resistance</ref> </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/adc_ads124s08.py" line="677" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/adc_ads124s08.py" bodystart="677" bodyend="696"/>
+        <references refid="namespaceapp_1_1adc__ads124s08_1a2d49f7c13e0b47db65080ab59febed76" compoundref="adc__ads124s08_8py" startline="190" endline="207">app.adc_ads124s08.sign_extend_24</references>
+        <references refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1a5d7414311a828e4231a22b6e414cbfba" compoundref="adc__ads124s08_8py" startline="633" endline="652">app.adc_ads124s08.Ads124s08.start</references>
+        <references refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1a6cbdea3f16ae1dff329ec8e45ef859d1" compoundref="adc__ads124s08_8py" startline="448" endline="473">app.adc_ads124s08.Ads124s08.wait_drdy_falling_edge</references>
+        <referencedby refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1a6c3422094f1375f8e91bff96eb299f69" compoundref="adc__ads124s08_8py" startline="712" endline="769">app.adc_ads124s08.Ads124s08.measure_resistance</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classapp_1_1adc__ads124s08_1_1_ads124s08_1a6c3422094f1375f8e91bff96eb299f69" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>app.adc_ads124s08.Ads124s08.measure_resistance</definition>
+        <argsstring>(self, rref_ohm, pga_gain, timeout_s)</argsstring>
+        <name>measure_resistance</name>
+        <qualifiedname>app.adc_ads124s08.Ads124s08.measure_resistance</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>rref_ohm</type>
+          <defname>rref_ohm</defname>
+        </param>
+        <param>
+          <type>pga_gain</type>
+          <defname>pga_gain</defname>
+        </param>
+        <param>
+          <type>timeout_s</type>
+          <defname>timeout_s</defname>
+        </param>
+        <briefdescription>
+<para>Mesure la résistance d&apos;une sonde via l&apos;ADC. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Effectue une mesure complète: démarrage de conversion, attente DRDY, lecture du code et calcul de la résistance selon la formule ratiométrique.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>rref_ohm</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Résistance de référence en ohms. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pga_gain</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Gain PGA utilisé pour la mesure. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>timeout_s</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Timeout en secondes pour la conversion.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Résistance mesurée en ohms ou None en cas d&apos;erreur.</para>
+</simplesect>
+<simplesect kind="note"><para>Utilise la formule: R = |code|/FS * (Rref / gain). </para>
+</simplesect>
+<simplesect kind="see"><para><ref refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1a29331f015d0a23fb89fa1aedce5a33b3" kindref="member">measure_temperature</ref>, <ref refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1abe455695d580ba27f0e5c559414fefbf" kindref="member">configure_channel</ref> </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/adc_ads124s08.py" line="712" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/adc_ads124s08.py" bodystart="712" bodyend="769"/>
+        <references refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1a6c3422094f1375f8e91bff96eb299f69" compoundref="adc__ads124s08_8py" startline="712" endline="769">app.adc_ads124s08.Ads124s08.measure_resistance</references>
+        <references refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1ac53728ccbaada975b3204c4e3a4364aa" compoundref="adc__ads124s08_8py" startline="677" endline="696">app.adc_ads124s08.Ads124s08.read_code24</references>
+        <references refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1a30d1ac487b9ef8dcfb310cea695db0f9" compoundref="adc__ads124s08_8py" startline="663" endline="666">app.adc_ads124s08.Ads124s08.stop</references>
+        <referencedby refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1a6c3422094f1375f8e91bff96eb299f69" compoundref="adc__ads124s08_8py" startline="712" endline="769">app.adc_ads124s08.Ads124s08.measure_resistance</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classapp_1_1adc__ads124s08_1_1_ads124s08_1a29331f015d0a23fb89fa1aedce5a33b3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>app.adc_ads124s08.Ads124s08.measure_temperature</definition>
+        <argsstring>(self, sensor_name, rref_ohm, pga_gain, timeout_s)</argsstring>
+        <name>measure_temperature</name>
+        <qualifiedname>app.adc_ads124s08.Ads124s08.measure_temperature</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>sensor_name</type>
+          <defname>sensor_name</defname>
+        </param>
+        <param>
+          <type>rref_ohm</type>
+          <defname>rref_ohm</defname>
+        </param>
+        <param>
+          <type>pga_gain</type>
+          <defname>pga_gain</defname>
+        </param>
+        <param>
+          <type>timeout_s</type>
+          <defname>timeout_s</defname>
+        </param>
+        <briefdescription>
+<para>Mesure la température d&apos;un capteur via l&apos;ADC. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Effectue une mesure de résistance puis utilise les tables de conversion de capteurs pour obtenir la température correspondante en degrés Celsius.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>sensor_name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Nom du capteur (doit exister dans SENSOR_TABLES). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>rref_ohm</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Résistance de référence en ohms. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pga_gain</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Gain PGA utilisé pour la mesure. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>timeout_s</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Timeout en secondes pour la conversion.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Température mesurée en °C ou None si erreur.</para>
+</simplesect>
+<parameterlist kind="exception"><parameteritem>
+<parameternamelist>
+<parametername>Retourne</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>None si capteur inconnu ou hors plage. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="see"><para><ref refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1a6c3422094f1375f8e91bff96eb299f69" kindref="member">measure_resistance</ref>, resistance_to_temperature_dynamic </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/adc_ads124s08.py" line="786" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/adc_ads124s08.py" bodystart="786" bodyend="819"/>
+        <references refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1a2f6a4281f1eaac0a7120e6b507b1c9e6" compoundref="adc__ads124s08_8py" startline="326" endline="347">app.adc_ads124s08.Ads124s08._rreg</references>
+      </memberdef>
+      <memberdef kind="function" id="classapp_1_1adc__ads124s08_1_1_ads124s08_1af51ca6a1c8d208a333556ce44e9cbb17" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>app.adc_ads124s08.Ads124s08.read_gain</definition>
+        <argsstring>(self)</argsstring>
+        <name>read_gain</name>
+        <qualifiedname>app.adc_ads124s08.Ads124s08.read_gain</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+<para>Lit le registre de gain PGA pour diagnostic. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Effectue une lecture du registre PGA et affiche sa valeur pour vérification de la configuration du gain.</para>
+<para><simplesect kind="return"><para>Valeur brute du registre PGA (0x00-0xFF).</para>
+</simplesect>
+<simplesect kind="note"><para>Utilisé principalement pour le debug et la vérification. </para>
+</simplesect>
+<simplesect kind="see"><para><ref refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1abe455695d580ba27f0e5c559414fefbf" kindref="member">configure_channel</ref> </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/adc_ads124s08.py" line="830" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/adc_ads124s08.py" bodystart="830" bodyend="837"/>
+        <references refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1a2f6a4281f1eaac0a7120e6b507b1c9e6" compoundref="adc__ads124s08_8py" startline="326" endline="347">app.adc_ads124s08.Ads124s08._rreg</references>
+      </memberdef>
+      <memberdef kind="function" id="classapp_1_1adc__ads124s08_1_1_ads124s08_1a424495225e0f75a1aa7cc76067b6110e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>app.adc_ads124s08.Ads124s08.read_ref</definition>
+        <argsstring>(self)</argsstring>
+        <name>read_ref</name>
+        <qualifiedname>app.adc_ads124s08.Ads124s08.read_ref</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+<para>Lit le registre de configuration de la référence. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Effectue une lecture du registre REF et affiche sa valeur pour vérification de la configuration de la référence.</para>
+<para><simplesect kind="return"><para>Valeur brute du registre REF (0x00-0xFF).</para>
+</simplesect>
+<simplesect kind="note"><para>Utilisé principalement pour le debug et la vérification. </para>
+</simplesect>
+<simplesect kind="see"><para><ref refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1abe455695d580ba27f0e5c559414fefbf" kindref="member">configure_channel</ref> </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/adc_ads124s08.py" line="848" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/adc_ads124s08.py" bodystart="848" bodyend="855"/>
+        <references refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1a2f6a4281f1eaac0a7120e6b507b1c9e6" compoundref="adc__ads124s08_8py" startline="326" endline="347">app.adc_ads124s08.Ads124s08._rreg</references>
+      </memberdef>
+      <memberdef kind="function" id="classapp_1_1adc__ads124s08_1_1_ads124s08_1ab9ddb24eaa7ad6eb852732fb1534e79d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>app.adc_ads124s08.Ads124s08.read_inpmux</definition>
+        <argsstring>(self)</argsstring>
+        <name>read_inpmux</name>
+        <qualifiedname>app.adc_ads124s08.Ads124s08.read_inpmux</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+<para>Lit le registre de configuration du multiplexeur d&apos;entrée. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Effectue une lecture du registre INPMUX et affiche sa valeur pour vérification du routage des entrées analogiques.</para>
+<para><simplesect kind="return"><para>Valeur brute du registre INPMUX (0x00-0xFF).</para>
+</simplesect>
+<simplesect kind="note"><para>Utilisé principalement pour le debug et la vérification. </para>
+</simplesect>
+<simplesect kind="see"><para><ref refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1abe455695d580ba27f0e5c559414fefbf" kindref="member">configure_channel</ref> </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/adc_ads124s08.py" line="866" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/adc_ads124s08.py" bodystart="866" bodyend="873"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="protected-func">
+      <memberdef kind="function" id="classapp_1_1adc__ads124s08_1_1_ads124s08_1a2f6a4281f1eaac0a7120e6b507b1c9e6" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>app.adc_ads124s08.Ads124s08._rreg</definition>
+        <argsstring>(self, addr, nbytes)</argsstring>
+        <name>_rreg</name>
+        <qualifiedname>app.adc_ads124s08.Ads124s08._rreg</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>addr</type>
+          <defname>addr</defname>
+        </param>
+        <param>
+          <type>nbytes</type>
+          <defname>nbytes</defname>
+        </param>
+        <briefdescription>
+<para>Lit un ou plusieurs registres de l&apos;ADC via SPI. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Utilise la commande RREG de l&apos;ADS124S08 pour lire des registres consécutifs starting à l&apos;adresse donnée.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>addr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Adresse du premier registre à lire (0x00-0x1F). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>nbytes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Nombre d&apos;octets à lire.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Liste des valeurs lues depuis les registres.</para>
+</simplesect>
+<simplesect kind="note"><para>Méthode privée pour les opérations internes du driver. </para>
+</simplesect>
+<simplesect kind="see"><para><ref refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1a6c3a8c9cc298fbe29123898f8e404b82" kindref="member">_wreg</ref> </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/adc_ads124s08.py" line="326" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/adc_ads124s08.py" bodystart="326" bodyend="347"/>
+        <references refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1ad6ceb5f8844a34706d24f0d510abf081" compoundref="adc__ads124s08_8py" startline="232">app.adc_ads124s08.Ads124s08.spi</references>
+        <referencedby refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1a6c3a8c9cc298fbe29123898f8e404b82" compoundref="adc__ads124s08_8py" startline="363" endline="374">app.adc_ads124s08.Ads124s08._wreg</referencedby>
+        <referencedby refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1abe455695d580ba27f0e5c559414fefbf" compoundref="adc__ads124s08_8py" startline="513" endline="622">app.adc_ads124s08.Ads124s08.configure_channel</referencedby>
+        <referencedby refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1a29331f015d0a23fb89fa1aedce5a33b3" compoundref="adc__ads124s08_8py" startline="786" endline="819">app.adc_ads124s08.Ads124s08.measure_temperature</referencedby>
+        <referencedby refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1af51ca6a1c8d208a333556ce44e9cbb17" compoundref="adc__ads124s08_8py" startline="830" endline="837">app.adc_ads124s08.Ads124s08.read_gain</referencedby>
+        <referencedby refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1a424495225e0f75a1aa7cc76067b6110e" compoundref="adc__ads124s08_8py" startline="848" endline="855">app.adc_ads124s08.Ads124s08.read_ref</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classapp_1_1adc__ads124s08_1_1_ads124s08_1a6c3a8c9cc298fbe29123898f8e404b82" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>app.adc_ads124s08.Ads124s08._wreg</definition>
+        <argsstring>(self, addr, data_bytes)</argsstring>
+        <name>_wreg</name>
+        <qualifiedname>app.adc_ads124s08.Ads124s08._wreg</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>addr</type>
+          <defname>addr</defname>
+        </param>
+        <param>
+          <type>data_bytes</type>
+          <defname>data_bytes</defname>
+        </param>
+        <briefdescription>
+<para>Écrit dans un ou plusieurs registres de l&apos;ADC via SPI. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Utilise la commande WREG de l&apos;ADS124S08 pour écrire des données dans des registres consécutifs.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>addr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Adresse du premier registre à écrire (0x00-0x1F). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>data_bytes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Liste des octets à écrire dans les registres.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Rien.</para>
+</simplesect>
+<simplesect kind="note"><para>Méthode privée pour les opérations internes du driver. </para>
+</simplesect>
+<simplesect kind="see"><para><ref refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1a2f6a4281f1eaac0a7120e6b507b1c9e6" kindref="member">_rreg</ref> </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/adc_ads124s08.py" line="363" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/adc_ads124s08.py" bodystart="363" bodyend="374"/>
+        <references refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1a2f6a4281f1eaac0a7120e6b507b1c9e6" compoundref="adc__ads124s08_8py" startline="326" endline="347">app.adc_ads124s08.Ads124s08._rreg</references>
+        <references refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1ad6ceb5f8844a34706d24f0d510abf081" compoundref="adc__ads124s08_8py" startline="232">app.adc_ads124s08.Ads124s08.spi</references>
+        <referencedby refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1abe455695d580ba27f0e5c559414fefbf" compoundref="adc__ads124s08_8py" startline="513" endline="622">app.adc_ads124s08.Ads124s08.configure_channel</referencedby>
+        <referencedby refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1a6cbdea3f16ae1dff329ec8e45ef859d1" compoundref="adc__ads124s08_8py" startline="448" endline="473">app.adc_ads124s08.Ads124s08.wait_drdy_falling_edge</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classapp_1_1adc__ads124s08_1_1_ads124s08_1a54727c06031c4ca2229653dd01edfe03" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>app.adc_ads124s08.Ads124s08._sclk_nudge</definition>
+        <argsstring>(self)</argsstring>
+        <name>_sclk_nudge</name>
+        <qualifiedname>app.adc_ads124s08.Ads124s08._sclk_nudge</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+<para>Envoie un coup de pouce sur SCLK pour synchroniser DRDY. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Effectue une lecture factice du registre STATUS pour générer des transitions sur SCLK et forcer DRDY à l&apos;état HIGH.</para>
+<para><simplesect kind="return"><para>Rien.</para>
+</simplesect>
+<simplesect kind="note"><para>Utilisé quand DRDY reste bloqué à LOW de manière inattendue. </para>
+</simplesect>
+<simplesect kind="see"><para><ref refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1ad1af9e1885ee3e2576eba6720251ef36" kindref="member">_ensure_drdy_high</ref> </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/adc_ads124s08.py" line="387" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/adc_ads124s08.py" bodystart="387" bodyend="395"/>
+        <references refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1abae1495ff14fcfffa871c4dcdb150cdd" compoundref="adc__ads124s08_8py" startline="244">app.adc_ads124s08.Ads124s08.gpio_drdy</references>
+        <referencedby refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1ad1af9e1885ee3e2576eba6720251ef36" compoundref="adc__ads124s08_8py" startline="410" endline="435">app.adc_ads124s08.Ads124s08._ensure_drdy_high</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classapp_1_1adc__ads124s08_1_1_ads124s08_1ad1af9e1885ee3e2576eba6720251ef36" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>app.adc_ads124s08.Ads124s08._ensure_drdy_high</definition>
+        <argsstring>(self, timeout_ms)</argsstring>
+        <name>_ensure_drdy_high</name>
+        <qualifiedname>app.adc_ads124s08.Ads124s08._ensure_drdy_high</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>timeout_ms</type>
+          <defname>timeout_ms</defname>
+        </param>
+        <briefdescription>
+<para>Assure que le signal DRDY est à l&apos;état HIGH. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Attend que DRDY passe à HIGH avec possibilité de coup de pouce sur SCLK si nécessaire. Timeout configurable.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>timeout_ms</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Timeout en millisecondes pour l&apos;attente.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>True si DRDY est HIGH, False en cas de timeout.</para>
+</simplesect>
+<simplesect kind="note"><para>Méthode critique pour la synchronisation des conversions. </para>
+</simplesect>
+<simplesect kind="see"><para><ref refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1a6cbdea3f16ae1dff329ec8e45ef859d1" kindref="member">wait_drdy_falling_edge</ref> </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/adc_ads124s08.py" line="410" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/adc_ads124s08.py" bodystart="410" bodyend="435"/>
+        <references refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1a54727c06031c4ca2229653dd01edfe03" compoundref="adc__ads124s08_8py" startline="387" endline="395">app.adc_ads124s08.Ads124s08._sclk_nudge</references>
+        <references refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1abae1495ff14fcfffa871c4dcdb150cdd" compoundref="adc__ads124s08_8py" startline="244">app.adc_ads124s08.Ads124s08.gpio_drdy</references>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Driver pour l&apos;ADC ADS124S08 avec interface SPI. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Cette classe encapsule toutes les fonctionnalités nécessaires pour communiquer avec l&apos;ADC ADS124S08 via SPI en mode 1.0. Supporte la configuration automatique, la mesure de résistance et la conversion en température.</para>
+<para><simplesect kind="note"><para>L&apos;ADC doit être connecté via SPI1 et le signal DRDY sur GPIO. </para>
+</simplesect>
+<simplesect kind="see"><para><ref refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1abe455695d580ba27f0e5c559414fefbf" kindref="member">configure_channel</ref>, <ref refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1a6c3422094f1375f8e91bff96eb299f69" kindref="member">measure_resistance</ref>, <ref refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1a29331f015d0a23fb89fa1aedce5a33b3" kindref="member">measure_temperature</ref> </para>
+</simplesect>
+</para>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>app.adc_ads124s08.Ads124s08</label>
+        <link refid="classapp_1_1adc__ads124s08_1_1_ads124s08"/>
+      </node>
+    </collaborationgraph>
+    <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/adc_ads124s08.py" line="218" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/adc_ads124s08.py" bodystart="218" bodyend="873"/>
+    <listofallmembers>
+      <member refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1ad07d394c9bbe4d22ca8fb590382c2554" prot="public" virt="non-virtual"><scope>app::adc_ads124s08::Ads124s08</scope><name>__init__</name></member>
+      <member refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1ad1af9e1885ee3e2576eba6720251ef36" prot="protected" virt="non-virtual"><scope>app::adc_ads124s08::Ads124s08</scope><name>_ensure_drdy_high</name></member>
+      <member refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1a2f6a4281f1eaac0a7120e6b507b1c9e6" prot="protected" virt="non-virtual"><scope>app::adc_ads124s08::Ads124s08</scope><name>_rreg</name></member>
+      <member refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1a54727c06031c4ca2229653dd01edfe03" prot="protected" virt="non-virtual"><scope>app::adc_ads124s08::Ads124s08</scope><name>_sclk_nudge</name></member>
+      <member refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1a6c3a8c9cc298fbe29123898f8e404b82" prot="protected" virt="non-virtual"><scope>app::adc_ads124s08::Ads124s08</scope><name>_wreg</name></member>
+      <member refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1ac8b34f0152689ddfc7950f31d10cd62f" prot="public" virt="non-virtual"><scope>app::adc_ads124s08::Ads124s08</scope><name>close</name></member>
+      <member refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1abe455695d580ba27f0e5c559414fefbf" prot="public" virt="non-virtual"><scope>app::adc_ads124s08::Ads124s08</scope><name>configure_channel</name></member>
+      <member refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1abae1495ff14fcfffa871c4dcdb150cdd" prot="public" virt="non-virtual"><scope>app::adc_ads124s08::Ads124s08</scope><name>gpio_drdy</name></member>
+      <member refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1a6c3422094f1375f8e91bff96eb299f69" prot="public" virt="non-virtual"><scope>app::adc_ads124s08::Ads124s08</scope><name>measure_resistance</name></member>
+      <member refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1a29331f015d0a23fb89fa1aedce5a33b3" prot="public" virt="non-virtual"><scope>app::adc_ads124s08::Ads124s08</scope><name>measure_temperature</name></member>
+      <member refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1ac53728ccbaada975b3204c4e3a4364aa" prot="public" virt="non-virtual"><scope>app::adc_ads124s08::Ads124s08</scope><name>read_code24</name></member>
+      <member refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1af51ca6a1c8d208a333556ce44e9cbb17" prot="public" virt="non-virtual"><scope>app::adc_ads124s08::Ads124s08</scope><name>read_gain</name></member>
+      <member refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1a56dff2b65427bc620cc661de71d9d44d" prot="public" virt="non-virtual"><scope>app::adc_ads124s08::Ads124s08</scope><name>read_id</name></member>
+      <member refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1ab9ddb24eaa7ad6eb852732fb1534e79d" prot="public" virt="non-virtual"><scope>app::adc_ads124s08::Ads124s08</scope><name>read_inpmux</name></member>
+      <member refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1a424495225e0f75a1aa7cc76067b6110e" prot="public" virt="non-virtual"><scope>app::adc_ads124s08::Ads124s08</scope><name>read_ref</name></member>
+      <member refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1a7e7fb10a1acebe2f4200a52670c2fb0c" prot="public" virt="non-virtual"><scope>app::adc_ads124s08::Ads124s08</scope><name>set_single_shot_lowlatency</name></member>
+      <member refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1ad6ceb5f8844a34706d24f0d510abf081" prot="public" virt="non-virtual"><scope>app::adc_ads124s08::Ads124s08</scope><name>spi</name></member>
+      <member refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1a5d7414311a828e4231a22b6e414cbfba" prot="public" virt="non-virtual"><scope>app::adc_ads124s08::Ads124s08</scope><name>start</name></member>
+      <member refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1a30d1ac487b9ef8dcfb310cea695db0f9" prot="public" virt="non-virtual"><scope>app::adc_ads124s08::Ads124s08</scope><name>stop</name></member>
+      <member refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1a6cbdea3f16ae1dff329ec8e45ef859d1" prot="public" virt="non-virtual"><scope>app::adc_ads124s08::Ads124s08</scope><name>wait_drdy_falling_edge</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

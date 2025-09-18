@@ -1,0 +1,5 @@
+<map id="app.temperature_conversion.temperature_to_resistance_dynamic" name="app.temperature_conversion.temperature_to_resistance_dynamic">
+<area shape="rect" id="Node000001" title="Convertit une température en résistance pour un capteur donné (conversion inverse)." alt="" coords="286,5,544,48"/>
+<area shape="rect" id="Node000002" href="$namespaceapp_1_1temperature__conversion.html#a2955653dd2d798b6d389f79519b3b747" title="Fonction de conversion principale pour la simulation de résistance." alt="" coords="5,5,238,48"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="270,29,238,29,238,24,270,24"/>
+</map>

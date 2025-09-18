@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_namespaceapp_1_1config__loader" xml:lang="fr">
+<title>Référence de l&apos;espace de nommage app.config_loader</title>
+<indexterm><primary>app.config_loader</primary></indexterm>
+<simplesect>
+    <title>Fonctions    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_namespaceapp_1_1config__loader_1ae642fb808edb3680f9bed49a9b3dfe65">load_config</link> (path)</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Documentation des fonctions</title>
+<anchor xml:id="_namespaceapp_1_1config__loader_1ae642fb808edb3680f9bed49a9b3dfe65"/><section>
+    <title>load_config()</title>
+<indexterm><primary>load_config</primary><secondary>app.config_loader</secondary></indexterm>
+<indexterm><primary>app.config_loader</primary><secondary>load_config</secondary></indexterm>
+<para><computeroutput>app.config_loader.load_config ( path)</computeroutput></para></section>
+</section>
+</section>

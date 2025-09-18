@@ -1,0 +1,7 @@
+<map id="app.adc_ads124s08.Ads124s08.wait_drdy_falling_edge" name="app.adc_ads124s08.Ads124s08.wait_drdy_falling_edge">
+<area shape="rect" id="Node000001" title="Attend un front descendant sur DRDY (HIGH &#45;&gt; LOW) avec timeout." alt="" coords="5,5,240,48"/>
+<area shape="rect" id="Node000002" href="$classapp_1_1adc__ads124s08_1_1_ads124s08.html#a6c3a8c9cc298fbe29123898f8e404b82" title="Écrit dans un ou plusieurs registres de l&#39;ADC via SPI." alt="" coords="288,13,533,40"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="240,24,272,24,272,29,240,29"/>
+<area shape="rect" id="Node000003" href="$classapp_1_1adc__ads124s08_1_1_ads124s08.html#a2f6a4281f1eaac0a7120e6b507b1c9e6" title="Lit un ou plusieurs registres de l&#39;ADC via SPI." alt="" coords="581,13,820,40"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="534,24,565,24,565,29,534,29"/>
+</map>

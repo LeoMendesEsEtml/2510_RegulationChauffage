@@ -1,0 +1,181 @@
+.TH "app.resistance_simulation.ResistanceSimulator" 3 "2510_RegulationChauffage" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+app.resistance_simulation.ResistanceSimulator \- Contrôleur pour la simulation de résistance via MUX\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Fonctions membres publiques"
+
+.in +1c
+.ti -1c
+.RI "\fB__init__\fP (self, int \fBspeed_hz\fP=100000)"
+.br
+.RI "Initialise le simulateur de résistance\&. "
+.ti -1c
+.RI "\fBclose\fP (self)"
+.br
+.RI "Ferme les connexions du simulateur\&. "
+.ti -1c
+.RI "float \fBcalculate_parallel_resistance\fP (self, List[float] resistances)"
+.br
+.RI "Calcule la résistance équivalente de résistances en parallèle\&. "
+.ti -1c
+.RI "bool \fBapply_resistance_simulation\fP (self, float target_resistance, int measurement_channel, str sensor_type='Ni1000 TK5000')"
+.br
+.RI "Applique une résistance simulée via le MUX sur le canal de mesure\&. "
+.ti -1c
+.RI "Dict[str, any] \fBget_current_simulation\fP (self)"
+.br
+.RI "Retourne l'état actuel de la simulation\&. "
+.ti -1c
+.RI "bool \fBvalidate_resistance_applied\fP (self, float expected_resistance, float tolerance=0\&.10)"
+.br
+.RI "Valide que la résistance appliquée correspond à l'attendu\&. "
+.ti -1c
+.RI "\fBreset_simulation\fP (self)"
+.br
+.RI "Remet la simulation à zéro (désactive tous les canaux)\&. "
+.in -1c
+.SS "Attributs publics"
+
+.in +1c
+.ti -1c
+.RI "\fBmux\fP = None"
+.br
+.ti -1c
+.RI "\fBspeed_hz\fP = speed_hz"
+.br
+.ti -1c
+.RI "\fBcurrent_resistance\fP = None"
+.br
+.ti -1c
+.RI "list \fBactive_channels\fP = []"
+.br
+.in -1c
+.SH "Description détaillée"
+.PP 
+Contrôleur pour la simulation de résistance via MUX\&. 
+
+Classe principale qui encapsule toute la logique de simulation de résistance en utilisant le multiplexeur ADG731 et les mappings de résistances calibrées\&. 
+.SH "Documentation des constructeurs et destructeur"
+.PP 
+.SS "app\&.resistance_simulation\&.ResistanceSimulator\&.__init__ ( self, int  speed_hz = \fR100000\fP)"
+
+.PP
+Initialise le simulateur de résistance\&. Constructeur qui configure le multiplexeur ADG731 avec la vitesse SPI spécifiée et initialise les variables d'état du simulateur\&.
+
+.PP
+\fBParamètres\fP
+.RS 4
+\fIspeed_hz\fP Vitesse de communication SPI en Hz (défaut: 100kHz)\&.
+.RE
+.PP
+\fBExceptions\fP
+.RS 4
+\fI\fBResistanceSimulationError\fP\fP si l'initialisation du MUX échoue\&. 
+.RE
+.PP
+
+.SH "Documentation des fonctions membres"
+.PP 
+.SS " bool app\&.resistance_simulation\&.ResistanceSimulator\&.apply_resistance_simulation ( self, float target_resistance, int measurement_channel, str  sensor_type = \fR'Ni1000 TK5000'\fP)"
+
+.PP
+Applique une résistance simulée via le MUX sur le canal de mesure\&. Fonction principale qui recherche le canal MUX optimal pour simuler la résistance cible, configure le multiplexeur et mémorise l'état de la simulation\&.
+
+.PP
+\fBParamètres\fP
+.RS 4
+\fItarget_resistance\fP Résistance à simuler [Ohms]\&. 
+.br
+\fImeasurement_channel\fP Canal sur lequel la mesure a été faite (info)\&. 
+.br
+\fIsensor_type\fP Type de sonde pour sélectionner la carte MUX\&.
+.RE
+.PP
+\fBRenvoie\fP
+.RS 4
+True si succès, False en cas d'erreur\&. 
+.RE
+.PP
+
+.SS " float app\&.resistance_simulation\&.ResistanceSimulator\&.calculate_parallel_resistance ( self, List[float] resistances)"
+
+.PP
+Calcule la résistance équivalente de résistances en parallèle\&. Applique la formule 1/Req = 1/R1 + 1/R2 + \&.\&.\&. + 1/Rn pour calculer la résistance équivalente d'un ensemble de résistances connectées en parallèle\&.
+
+.PP
+\fBParamètres\fP
+.RS 4
+\fIresistances\fP Liste des valeurs de résistance en parallèle [Ohms]\&.
+.RE
+.PP
+\fBRenvoie\fP
+.RS 4
+Résistance équivalente calculée [Ohms]\&. Retourne l'infini si la liste est vide\&. 
+.RE
+.PP
+
+.SS "app\&.resistance_simulation\&.ResistanceSimulator\&.close ( self)"
+
+.PP
+Ferme les connexions du simulateur\&. Méthode de nettoyage qui ferme proprement la connexion SPI avec le multiplexeur et libère les ressources\&. 
+.SS " Dict[str, any] app\&.resistance_simulation\&.ResistanceSimulator\&.get_current_simulation ( self)"
+
+.PP
+Retourne l'état actuel de la simulation\&. Fonction d'interrogation qui fournit un dictionnaire contenant toutes les informations sur l'état actuel de la simulation de résistance\&.
+
+.PP
+\fBRenvoie\fP
+.RS 4
+Dictionnaire contenant les informations actuelles:
+.IP "\(bu" 2
+resistance: valeur appliquée [Ohms] ou None
+.IP "\(bu" 2
+active_channels: liste des canaux MUX actifs
+.IP "\(bu" 2
+mux_available: disponibilité du multiplexeur 
+.PP
+.RE
+.PP
+
+.SS "app\&.resistance_simulation\&.ResistanceSimulator\&.reset_simulation ( self)"
+
+.PP
+Remet la simulation à zéro (désactive tous les canaux)\&. Procédure de nettoyage qui désactive tous les canaux de tous les multiplexeurs et remet l'état de simulation à sa configuration initiale\&. 
+.SS " bool app\&.resistance_simulation\&.ResistanceSimulator\&.validate_resistance_applied ( self, float expected_resistance, float  tolerance = \fR0\&.10\fP)"
+
+.PP
+Valide que la résistance appliquée correspond à l'attendu\&. Fonction de validation qui compare la résistance actuellement appliquée avec la valeur attendue en tenant compte d'une tolérance relative spécifiée\&.
+
+.PP
+\fBParamètres\fP
+.RS 4
+\fIexpected_resistance\fP Résistance attendue pour la validation [Ohms]\&. 
+.br
+\fItolerance\fP Tolérance relative acceptée (défaut: 10%)\&.
+.RE
+.PP
+\fBRenvoie\fP
+.RS 4
+True si la résistance est dans la tolérance\&. 
+.RE
+.PP
+
+.SH "Documentation des données membres"
+.PP 
+.SS "list app\&.resistance_simulation\&.ResistanceSimulator\&.active_channels = []"
+
+.SS "app\&.resistance_simulation\&.ResistanceSimulator\&.current_resistance = None"
+
+.SS "app\&.resistance_simulation\&.ResistanceSimulator\&.mux = None"
+
+.SS "app\&.resistance_simulation\&.ResistanceSimulator\&.speed_hz = speed_hz"
+
+
+.SH "Auteur"
+.PP 
+Généré automatiquement par Doxygen pour 2510_RegulationChauffage à partir du code source\&.

@@ -1,0 +1,232 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="fr">
+  <compounddef id="classapp_1_1api__client_1_1_api_client" kind="class" language="Python" prot="public">
+    <compoundname>app::api_client::ApiClient</compoundname>
+    <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="classapp_1_1api__client_1_1_api_client_1a7f77d1e9774dd8035a541b442f65ed67" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str app.api_client.ApiClient::API_PATH_PREFIX</definition>
+        <argsstring></argsstring>
+        <name>API_PATH_PREFIX</name>
+        <qualifiedname>app.api_client.ApiClient.API_PATH_PREFIX</qualifiedname>
+        <initializer>=  &quot;&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/api_client.py" line="65" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/api_client.py" bodystart="65" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classapp_1_1api__client_1_1_api_client_1affa2a7db3feeb2b89fea02782fa7651e" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>app.api_client.ApiClient::mac_address</definition>
+        <argsstring></argsstring>
+        <name>mac_address</name>
+        <qualifiedname>app.api_client.ApiClient.mac_address</qualifiedname>
+        <initializer>=  mac_address</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/api_client.py" line="76" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/api_client.py" bodystart="76" bodyend="-1"/>
+        <referencedby refid="classapp_1_1api__client_1_1_api_client_1a263a088e7aba74e112fc19313eb564a4" compoundref="api__client_8py" startline="159" endline="204">app.api_client.ApiClient.get_forecast</referencedby>
+        <referencedby refid="classapp_1_1api__client_1_1_api_client_1ad01feeab923001f13a9d7fec632b0535" compoundref="api__client_8py" startline="91" endline="147">app.api_client.ApiClient.get_parameters</referencedby>
+        <referencedby refid="classapp_1_1api__client_1_1_api_client_1a5466d28aa6db01b5d8980725bd66849e" compoundref="api__client_8py" startline="217" endline="275">app.api_client.ApiClient.post_measured_temperature</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="classapp_1_1api__client_1_1_api_client_1a1e7978396a583d3e306416a96e6e3d44" prot="public" static="no" mutable="no">
+        <type>str</type>
+        <definition>str app.api_client.ApiClient::base_url</definition>
+        <argsstring></argsstring>
+        <name>base_url</name>
+        <qualifiedname>app.api_client.ApiClient.base_url</qualifiedname>
+        <initializer>=  &quot;https://dev.oblosolutions.ch&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/api_client.py" line="78" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/api_client.py" bodystart="78" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classapp_1_1api__client_1_1_api_client_1a171cc745f73567764ce9c9b91b641073" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>app.api_client.ApiClient.__init__</definition>
+        <argsstring>(self, str mac_address)</argsstring>
+        <name>__init__</name>
+        <qualifiedname>app.api_client.ApiClient.__init__</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>str</type>
+          <declname>mac_address</declname>
+        </param>
+        <briefdescription>
+<para>Initialise le client API. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Configure l&apos;adresse MAC du dispositif et l&apos;URL de base pour les communications avec les services oblosolutions.ch.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>mac_address</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Adresse MAC du dispositif (ex: &quot;0030DEABCDEF&quot;). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/api_client.py" line="74" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/api_client.py" bodystart="74" bodyend="79"/>
+      </memberdef>
+      <memberdef kind="function" id="classapp_1_1api__client_1_1_api_client_1ad01feeab923001f13a9d7fec632b0535" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>Dict[str, Any]</type>
+        <definition> Dict[str, Any] app.api_client.ApiClient.get_parameters</definition>
+        <argsstring>(self)</argsstring>
+        <name>get_parameters</name>
+        <qualifiedname>app.api_client.ApiClient.get_parameters</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+<para>Récupère les paramètres depuis l&apos;API td25_param. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Effectue une requête GET vers l&apos;endpoint td25_param avec l&apos;adresse MAC comme paramètre. Parse la réponse JSON et extrait les champs probe_type, n, k_m et temperature. Inclut un système de retry automatique en cas d&apos;échec.</para>
+<para><simplesect kind="return"><para>Dictionnaire contenant probe_type, n, k_m, temperature.</para>
+</simplesect>
+<parameterlist kind="exception"><parameteritem>
+<parameternamelist>
+<parametername><ref refid="classapp_1_1api__client_1_1_api_error" kindref="compound">ApiError</ref></parametername>
+</parameternamelist>
+<parameterdescription>
+<para>En cas d&apos;erreur de récupération des données. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/api_client.py" line="91" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/api_client.py" bodystart="91" bodyend="147"/>
+        <references refid="classapp_1_1api__client_1_1_api_client_1affa2a7db3feeb2b89fea02782fa7651e" compoundref="api__client_8py" startline="76">app.api_client.ApiClient.mac_address</references>
+      </memberdef>
+      <memberdef kind="function" id="classapp_1_1api__client_1_1_api_client_1a263a088e7aba74e112fc19313eb564a4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>Dict[str, Any]</type>
+        <definition> Dict[str, Any] app.api_client.ApiClient.get_forecast</definition>
+        <argsstring>(self)</argsstring>
+        <name>get_forecast</name>
+        <qualifiedname>app.api_client.ApiClient.get_forecast</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+<para>Récupère la température prévue depuis l&apos;API td25_forecast. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Effectue une requête GET vers l&apos;endpoint td25_forecast avec l&apos;adresse MAC comme paramètre. Parse la réponse JSON et extrait la température de prévision météorologique. Inclut un système de retry automatique en cas d&apos;échec.</para>
+<para><simplesect kind="return"><para>Dictionnaire contenant la temperature prévue.</para>
+</simplesect>
+<parameterlist kind="exception"><parameteritem>
+<parameternamelist>
+<parametername><ref refid="classapp_1_1api__client_1_1_api_error" kindref="compound">ApiError</ref></parametername>
+</parameternamelist>
+<parameterdescription>
+<para>En cas d&apos;erreur de récupération des données. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/api_client.py" line="159" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/api_client.py" bodystart="159" bodyend="204"/>
+        <references refid="classapp_1_1api__client_1_1_api_client_1affa2a7db3feeb2b89fea02782fa7651e" compoundref="api__client_8py" startline="76">app.api_client.ApiClient.mac_address</references>
+      </memberdef>
+      <memberdef kind="function" id="classapp_1_1api__client_1_1_api_client_1a5466d28aa6db01b5d8980725bd66849e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition> bool app.api_client.ApiClient.post_measured_temperature</definition>
+        <argsstring>(self, float temperature, int channel=None)</argsstring>
+        <name>post_measured_temperature</name>
+        <qualifiedname>app.api_client.ApiClient.post_measured_temperature</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>temperature</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>channel</declname>
+          <defval>None</defval>
+        </param>
+        <briefdescription>
+<para>Envoie la température mesurée vers l&apos;API td25_param. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Effectue une requête POST vers l&apos;endpoint td25_param avec la température mesurée et optionnellement le numéro de canal. Tous les paramètres sont envoyés dans l&apos;URL comme paramètres de requête. Inclut un système de retry automatique.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>temperature</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Température mesurée en °C. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>channel</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Canal de mesure (optionnel).</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>True si succès, False sinon. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/api_client.py" line="217" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/api_client.py" bodystart="217" bodyend="275"/>
+        <references refid="classapp_1_1api__client_1_1_api_client_1affa2a7db3feeb2b89fea02782fa7651e" compoundref="api__client_8py" startline="76">app.api_client.ApiClient.mac_address</references>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Client pour interroger les APIs oblosolutions.ch. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Fournit des méthodes pour récupérer les paramètres de simulation, les prévisions météo et envoyer les mesures de température. Gère automatiquement les retries et les timeouts. </para>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>app.api_client.ApiClient</label>
+        <link refid="classapp_1_1api__client_1_1_api_client"/>
+      </node>
+    </collaborationgraph>
+    <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/api_client.py" line="62" column="1" bodyfile="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/api_client.py" bodystart="62" bodyend="275"/>
+    <listofallmembers>
+      <member refid="classapp_1_1api__client_1_1_api_client_1a171cc745f73567764ce9c9b91b641073" prot="public" virt="non-virtual"><scope>app::api_client::ApiClient</scope><name>__init__</name></member>
+      <member refid="classapp_1_1api__client_1_1_api_client_1a7f77d1e9774dd8035a541b442f65ed67" prot="public" virt="non-virtual"><scope>app::api_client::ApiClient</scope><name>API_PATH_PREFIX</name></member>
+      <member refid="classapp_1_1api__client_1_1_api_client_1a1e7978396a583d3e306416a96e6e3d44" prot="public" virt="non-virtual"><scope>app::api_client::ApiClient</scope><name>base_url</name></member>
+      <member refid="classapp_1_1api__client_1_1_api_client_1a263a088e7aba74e112fc19313eb564a4" prot="public" virt="non-virtual"><scope>app::api_client::ApiClient</scope><name>get_forecast</name></member>
+      <member refid="classapp_1_1api__client_1_1_api_client_1ad01feeab923001f13a9d7fec632b0535" prot="public" virt="non-virtual"><scope>app::api_client::ApiClient</scope><name>get_parameters</name></member>
+      <member refid="classapp_1_1api__client_1_1_api_client_1affa2a7db3feeb2b89fea02782fa7651e" prot="public" virt="non-virtual"><scope>app::api_client::ApiClient</scope><name>mac_address</name></member>
+      <member refid="classapp_1_1api__client_1_1_api_client_1a5466d28aa6db01b5d8980725bd66849e" prot="public" virt="non-virtual"><scope>app::api_client::ApiClient</scope><name>post_measured_temperature</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

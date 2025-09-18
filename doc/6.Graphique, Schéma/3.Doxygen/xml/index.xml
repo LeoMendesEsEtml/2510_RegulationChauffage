@@ -1,0 +1,302 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.14.0" xml:lang="fr">
+  <compound refid="classapp_1_1hw__mux__adg731_1_1_adg731_mux_spi" kind="class"><name>app::hw_mux_adg731::Adg731MuxSpi</name>
+    <member refid="classapp_1_1hw__mux__adg731_1_1_adg731_mux_spi_1a45d7743b30c6b2238fb9bf8ec1fc4814" kind="variable"><name>DEV</name></member>
+    <member refid="classapp_1_1hw__mux__adg731_1_1_adg731_mux_spi_1a3f9d44d59b25aaec550ee234dfa55efd" kind="variable"><name>speed</name></member>
+    <member refid="classapp_1_1hw__mux__adg731_1_1_adg731_mux_spi_1a8660e960365a4eccad962d9cd878f0b7" kind="variable"><name>handles</name></member>
+    <member refid="classapp_1_1hw__mux__adg731_1_1_adg731_mux_spi_1a38043de4d45add48839b60c3c1e4aef0" kind="function"><name>__init__</name></member>
+    <member refid="classapp_1_1hw__mux__adg731_1_1_adg731_mux_spi_1a98d7e0145243c76bb250d0b7601d54c9" kind="function"><name>close</name></member>
+    <member refid="classapp_1_1hw__mux__adg731_1_1_adg731_mux_spi_1a1d21810662e9c89483f4a8d5430167cd" kind="function"><name>set_channel</name></member>
+    <member refid="classapp_1_1hw__mux__adg731_1_1_adg731_mux_spi_1a847670de338ddbc0e2257f8d821cd82a" kind="function"><name>set_output_channel</name></member>
+  </compound>
+  <compound refid="classapp_1_1adc__ads124s08_1_1_ads124s08" kind="class"><name>app::adc_ads124s08::Ads124s08</name>
+    <member refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1ad6ceb5f8844a34706d24f0d510abf081" kind="variable"><name>spi</name></member>
+    <member refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1abae1495ff14fcfffa871c4dcdb150cdd" kind="variable"><name>gpio_drdy</name></member>
+    <member refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1ad07d394c9bbe4d22ca8fb590382c2554" kind="function"><name>__init__</name></member>
+    <member refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1a56dff2b65427bc620cc661de71d9d44d" kind="function"><name>read_id</name></member>
+    <member refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1ac8b34f0152689ddfc7950f31d10cd62f" kind="function"><name>close</name></member>
+    <member refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1a6cbdea3f16ae1dff329ec8e45ef859d1" kind="function"><name>wait_drdy_falling_edge</name></member>
+    <member refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1a7e7fb10a1acebe2f4200a52670c2fb0c" kind="function"><name>set_single_shot_lowlatency</name></member>
+    <member refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1abe455695d580ba27f0e5c559414fefbf" kind="function"><name>configure_channel</name></member>
+    <member refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1a5d7414311a828e4231a22b6e414cbfba" kind="function"><name>start</name></member>
+    <member refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1a30d1ac487b9ef8dcfb310cea695db0f9" kind="function"><name>stop</name></member>
+    <member refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1ac53728ccbaada975b3204c4e3a4364aa" kind="function"><name>read_code24</name></member>
+    <member refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1a6c3422094f1375f8e91bff96eb299f69" kind="function"><name>measure_resistance</name></member>
+    <member refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1a29331f015d0a23fb89fa1aedce5a33b3" kind="function"><name>measure_temperature</name></member>
+    <member refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1af51ca6a1c8d208a333556ce44e9cbb17" kind="function"><name>read_gain</name></member>
+    <member refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1a424495225e0f75a1aa7cc76067b6110e" kind="function"><name>read_ref</name></member>
+    <member refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1ab9ddb24eaa7ad6eb852732fb1534e79d" kind="function"><name>read_inpmux</name></member>
+    <member refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1a2f6a4281f1eaac0a7120e6b507b1c9e6" kind="function"><name>_rreg</name></member>
+    <member refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1a6c3a8c9cc298fbe29123898f8e404b82" kind="function"><name>_wreg</name></member>
+    <member refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1a54727c06031c4ca2229653dd01edfe03" kind="function"><name>_sclk_nudge</name></member>
+    <member refid="classapp_1_1adc__ads124s08_1_1_ads124s08_1ad1af9e1885ee3e2576eba6720251ef36" kind="function"><name>_ensure_drdy_high</name></member>
+  </compound>
+  <compound refid="classapp_1_1api__client_1_1_api_client" kind="class"><name>app::api_client::ApiClient</name>
+    <member refid="classapp_1_1api__client_1_1_api_client_1a7f77d1e9774dd8035a541b442f65ed67" kind="variable"><name>API_PATH_PREFIX</name></member>
+    <member refid="classapp_1_1api__client_1_1_api_client_1affa2a7db3feeb2b89fea02782fa7651e" kind="variable"><name>mac_address</name></member>
+    <member refid="classapp_1_1api__client_1_1_api_client_1a1e7978396a583d3e306416a96e6e3d44" kind="variable"><name>base_url</name></member>
+    <member refid="classapp_1_1api__client_1_1_api_client_1a171cc745f73567764ce9c9b91b641073" kind="function"><name>__init__</name></member>
+    <member refid="classapp_1_1api__client_1_1_api_client_1ad01feeab923001f13a9d7fec632b0535" kind="function"><name>get_parameters</name></member>
+    <member refid="classapp_1_1api__client_1_1_api_client_1a263a088e7aba74e112fc19313eb564a4" kind="function"><name>get_forecast</name></member>
+    <member refid="classapp_1_1api__client_1_1_api_client_1a5466d28aa6db01b5d8980725bd66849e" kind="function"><name>post_measured_temperature</name></member>
+  </compound>
+  <compound refid="classapp_1_1api__client_1_1_api_error" kind="class"><name>app::api_client::ApiError</name>
+  </compound>
+  <compound refid="classapp_1_1front__led__management_1_1_led_error_indicator" kind="class"><name>app::front_led_management::LedErrorIndicator</name>
+    <member refid="classapp_1_1front__led__management_1_1_led_error_indicator_1a68352453f8736e536d1c4d1cf5f379d9" kind="variable"><name>BASE_BLINK_TIME</name></member>
+    <member refid="classapp_1_1front__led__management_1_1_led_error_indicator_1a0521216014828258afe5018da19da068" kind="variable"><name>CYCLE_TIME</name></member>
+  </compound>
+  <compound refid="classapp_1_1resistance__simulation_1_1_resistance_simulation_error" kind="class"><name>app::resistance_simulation::ResistanceSimulationError</name>
+  </compound>
+  <compound refid="classapp_1_1resistance__simulation_1_1_resistance_simulator" kind="class"><name>app::resistance_simulation::ResistanceSimulator</name>
+    <member refid="classapp_1_1resistance__simulation_1_1_resistance_simulator_1af3606629707a477326150edf2a509372" kind="variable"><name>mux</name></member>
+    <member refid="classapp_1_1resistance__simulation_1_1_resistance_simulator_1ae5b48bf05a00308d6773645c7aa10b71" kind="variable"><name>speed_hz</name></member>
+    <member refid="classapp_1_1resistance__simulation_1_1_resistance_simulator_1aa1763da19373d1872a716cde755786bc" kind="variable"><name>current_resistance</name></member>
+    <member refid="classapp_1_1resistance__simulation_1_1_resistance_simulator_1aeaae96a14daee0614aa7cb5039a7f33c" kind="variable"><name>active_channels</name></member>
+    <member refid="classapp_1_1resistance__simulation_1_1_resistance_simulator_1a5542d1fa1714527b926320a821ad808e" kind="function"><name>__init__</name></member>
+    <member refid="classapp_1_1resistance__simulation_1_1_resistance_simulator_1a755f6de9c1e441ce53378b8c0e3809ba" kind="function"><name>close</name></member>
+    <member refid="classapp_1_1resistance__simulation_1_1_resistance_simulator_1aa7620a3456e0d1878186280753295744" kind="function"><name>calculate_parallel_resistance</name></member>
+    <member refid="classapp_1_1resistance__simulation_1_1_resistance_simulator_1af37b47aad2cb3d0526e6d462b91f570d" kind="function"><name>apply_resistance_simulation</name></member>
+    <member refid="classapp_1_1resistance__simulation_1_1_resistance_simulator_1ab653abb1151252481121be10148c757f" kind="function"><name>get_current_simulation</name></member>
+    <member refid="classapp_1_1resistance__simulation_1_1_resistance_simulator_1a8ff1f89807bce5808bf0a6abd866f5b3" kind="function"><name>validate_resistance_applied</name></member>
+    <member refid="classapp_1_1resistance__simulation_1_1_resistance_simulator_1a8cc3d0868205e9d7f1d1e94e4914a5f6" kind="function"><name>reset_simulation</name></member>
+  </compound>
+  <compound refid="classapp_1_1hw__tmux1204_1_1_tmux1204" kind="class"><name>app::hw_tmux1204::Tmux1204</name>
+    <member refid="classapp_1_1hw__tmux1204_1_1_tmux1204_1ae24903744a302da76471ed0b57efcc33" kind="variable"><name>gpio_a1</name></member>
+    <member refid="classapp_1_1hw__tmux1204_1_1_tmux1204_1af3bcd7ec404eef12d3dc588631b76685" kind="variable"><name>gpio_a0</name></member>
+    <member refid="classapp_1_1hw__tmux1204_1_1_tmux1204_1ab0f13b4513248f3d296baeab7e559fe2" kind="function"><name>__init__</name></member>
+    <member refid="classapp_1_1hw__tmux1204_1_1_tmux1204_1aeece5a8953354758865f35beb5d0e911" kind="function"><name>close</name></member>
+    <member refid="classapp_1_1hw__tmux1204_1_1_tmux1204_1a2ffdb1f55fc229434ee7f0c8de822a80" kind="function"><name>set_bits</name></member>
+    <member refid="classapp_1_1hw__tmux1204_1_1_tmux1204_1af3580f52e52bd0726dfb5fb09b6eaf7e" kind="function"><name>select_rref_ohm</name></member>
+  </compound>
+  <compound refid="namespaceapp" kind="namespace"><name>app</name>
+  </compound>
+  <compound refid="namespaceapp_1_1adc__ads124s08" kind="namespace"><name>app::adc_ads124s08</name>
+    <member refid="namespaceapp_1_1adc__ads124s08_1a95d2ed0295f793db669188acfc42e035" kind="variable"><name>REG_ID</name></member>
+    <member refid="namespaceapp_1_1adc__ads124s08_1a08370a57876abbb36233f903990f7090" kind="variable"><name>REG_STATUS</name></member>
+    <member refid="namespaceapp_1_1adc__ads124s08_1acc5fdb3a177b32ce008beb7d4f593e5a" kind="variable"><name>REG_INPMUX</name></member>
+    <member refid="namespaceapp_1_1adc__ads124s08_1a6693b8b3c92c4e605cd93396bbf437e4" kind="variable"><name>REG_PGA</name></member>
+    <member refid="namespaceapp_1_1adc__ads124s08_1a3570ad44d2f9dd31da3eb36e6bb43a74" kind="variable"><name>REG_DATARATE</name></member>
+    <member refid="namespaceapp_1_1adc__ads124s08_1a37082f74d6a0e13791161957521dda36" kind="variable"><name>REG_REF</name></member>
+    <member refid="namespaceapp_1_1adc__ads124s08_1ad6a2ed950510eefbb3d8e16c5d44aa9a" kind="variable"><name>REG_IDACMUX</name></member>
+    <member refid="namespaceapp_1_1adc__ads124s08_1ab33f3d3b9eff07796c0954fb0a26a0f9" kind="variable"><name>REG_SYS</name></member>
+    <member refid="namespaceapp_1_1adc__ads124s08_1a29344761380eb9759a168a517077c1f8" kind="variable"><name>REG_IDACMAG</name></member>
+    <member refid="namespaceapp_1_1adc__ads124s08_1ac53df39aab8783f89db1de629453dac2" kind="variable"><name>CMD_RESET</name></member>
+    <member refid="namespaceapp_1_1adc__ads124s08_1afdbb53f6073883d5fae13b41f4054ad2" kind="variable"><name>CMD_START</name></member>
+    <member refid="namespaceapp_1_1adc__ads124s08_1a584dd419d6c692fe7fdbf9c318b0e9da" kind="variable"><name>CMD_STOP</name></member>
+    <member refid="namespaceapp_1_1adc__ads124s08_1a295dbc291719574e76ddc5a7a2467087" kind="variable"><name>CMD_RDATA</name></member>
+    <member refid="namespaceapp_1_1adc__ads124s08_1a9d806c5f058f08f8ee7e226d706694f1" kind="variable"><name>FS</name></member>
+    <member refid="namespaceapp_1_1adc__ads124s08_1a8919c033b020e8f54f713cea9d68fa22" kind="variable"><name>CHANNELS</name></member>
+    <member refid="namespaceapp_1_1adc__ads124s08_1a0117399a18d516c747ca6b060599452f" kind="function"><name>encode_gain</name></member>
+    <member refid="namespaceapp_1_1adc__ads124s08_1a8f9279b8505f8d634ed73c51dcab29c9" kind="function"><name>encode_idac_uA</name></member>
+    <member refid="namespaceapp_1_1adc__ads124s08_1a2d49f7c13e0b47db65080ab59febed76" kind="function"><name>sign_extend_24</name></member>
+  </compound>
+  <compound refid="namespaceapp_1_1api__client" kind="namespace"><name>app::api_client</name>
+    <member refid="namespaceapp_1_1api__client_1ac070ba1d4d0b10ca200ef77c3bd68fd5" kind="variable"><name>REQUEST_TIMEOUT</name></member>
+    <member refid="namespaceapp_1_1api__client_1a3a47289c37788e389f3f62c12ee9312a" kind="variable"><name>MAX_RETRIES</name></member>
+    <member refid="namespaceapp_1_1api__client_1a58ef9b423e01b1428c03ba4c7b7a7e1b" kind="variable"><name>RETRY_DELAY</name></member>
+    <member refid="namespaceapp_1_1api__client_1a1f94a135976701bdeeb72eb5acf4bbd4" kind="variable"><name>test_mac</name></member>
+    <member refid="namespaceapp_1_1api__client_1ac478207d8e3a7c898761fd35c77390d0" kind="variable"><name>data</name></member>
+    <member refid="namespaceapp_1_1api__client_1af48f8165ee988985679357bd07baafdb" kind="function"><name>get_simulation_data</name></member>
+    <member refid="namespaceapp_1_1api__client_1abf9801a9e4bcf9817f44a2c08e68d938" kind="function"><name>send_temperature_measurement</name></member>
+  </compound>
+  <compound refid="namespaceapp_1_1config__loader" kind="namespace"><name>app::config_loader</name>
+    <member refid="namespaceapp_1_1config__loader_1ae642fb808edb3680f9bed49a9b3dfe65" kind="function"><name>load_config</name></member>
+  </compound>
+  <compound refid="namespaceapp_1_1front__led__management" kind="namespace"><name>app::front_led_management</name>
+    <member refid="namespaceapp_1_1front__led__management_1ab7831833c4fa77c5bcc4a03235168b64" kind="function"><name>create_led_indicator</name></member>
+  </compound>
+  <compound refid="namespaceapp_1_1hw__mux__adg731" kind="namespace"><name>app::hw_mux_adg731</name>
+    <member refid="namespaceapp_1_1hw__mux__adg731_1a191556bfaa023e4d6e1f2099dca9db46" kind="function"><name>adg731_ctrl_byte</name></member>
+  </compound>
+  <compound refid="namespaceapp_1_1hw__tmux1204" kind="namespace"><name>app::hw_tmux1204</name>
+  </compound>
+  <compound refid="namespaceapp_1_1main" kind="namespace"><name>app::main</name>
+    <member refid="namespaceapp_1_1main_1aff7cd4e0e9d7b9068e94858a4c527314" kind="variable"><name>CURRENT_DIR</name></member>
+    <member refid="namespaceapp_1_1main_1ad64332bd025eb979f3c8b5aa2267bfd3" kind="variable"><name>SRC_DIR</name></member>
+    <member refid="namespaceapp_1_1main_1a4a86ee89abd84627e36c0320969924ac" kind="variable"><name>sequencer_running</name></member>
+    <member refid="namespaceapp_1_1main_1a35b15b3661aab25e707f368b9d8999ec" kind="variable"><name>stop_event</name></member>
+    <member refid="namespaceapp_1_1main_1adcd9b846c9a069d44dad6fb465d9840c" kind="variable"><name>force_sequence</name></member>
+    <member refid="namespaceapp_1_1main_1a0d1f132bf1e682ae958346b489d89772" kind="variable"><name>led_indicator</name></member>
+    <member refid="namespaceapp_1_1main_1ad21574e7873c2ce3e62f3b74e9a10f6a" kind="function"><name>start_webui_server</name></member>
+    <member refid="namespaceapp_1_1main_1a7e7d269529399106243cc74fc3c73b6a" kind="function"><name>save_last_state</name></member>
+    <member refid="namespaceapp_1_1main_1abe819be4d1d22ae06c4753392322a35b" kind="function"><name>signal_handler</name></member>
+    <member refid="namespaceapp_1_1main_1ab98791c04a040ea7d728c8cda86d0677" kind="function"><name>input_monitor</name></member>
+    <member refid="namespaceapp_1_1main_1a1b3211e7ab2da62ed461ce881f0ce556" kind="function"><name>show_error_and_continue</name></member>
+    <member refid="namespaceapp_1_1main_1abde8d10de044e070eb5eab1e448cd558" kind="function"><name>run_measurement_sequence</name></member>
+    <member refid="namespaceapp_1_1main_1a2d15309f12a3472b94e8cace0ace5a6b" kind="function"><name>reload_timing_config</name></member>
+    <member refid="namespaceapp_1_1main_1a3e4dda2887e910e984519bea9a420dc2" kind="function"><name>main</name></member>
+  </compound>
+  <compound refid="namespaceapp_1_1mesure__24v__dry__contact" kind="namespace"><name>app::mesure_24v_dry_contact</name>
+    <member refid="namespaceapp_1_1mesure__24v__dry__contact_1a453d71784bc90759879ed4710eddaae7" kind="variable"><name>CM_24V_OUT_1</name></member>
+    <member refid="namespaceapp_1_1mesure__24v__dry__contact_1af472e52ff88e296aea83c8cc79d5620c" kind="variable"><name>CM_24V_SENSE_1</name></member>
+    <member refid="namespaceapp_1_1mesure__24v__dry__contact_1a8b67517287b2c5e4ef8bfa43ae6b4729" kind="variable"><name>CM_24V_OUT_2</name></member>
+    <member refid="namespaceapp_1_1mesure__24v__dry__contact_1a04e3ff2fcb546df09d9f9395e419df3c" kind="variable"><name>CM_24V_SENSE_2</name></member>
+    <member refid="namespaceapp_1_1mesure__24v__dry__contact_1aa7723504bd319fbc27af31e9cb1f5ba9" kind="variable"><name>io_24v_ch1_ok</name></member>
+    <member refid="namespaceapp_1_1mesure__24v__dry__contact_1abcab5b3d8575048fb3ca52576a6a2e79" kind="variable"><name>io_24v_ch2_ok</name></member>
+    <member refid="namespaceapp_1_1mesure__24v__dry__contact_1ab7cf8a3e7b655f7414576fdb402a58b6" kind="function"><name>test_24v_dry_contact</name></member>
+    <member refid="namespaceapp_1_1mesure__24v__dry__contact_1a92312106402fd2af723b0eecd78addaf" kind="function"><name>get_dry_contact_status</name></member>
+  </compound>
+  <compound refid="namespaceapp_1_1pins__cm5" kind="namespace"><name>app::pins_cm5</name>
+    <member refid="namespaceapp_1_1pins__cm5_1af1d01246bc2bdb28706c1e6d311c32d7" kind="variable"><name>GPIO_CHIP_PATH</name></member>
+    <member refid="namespaceapp_1_1pins__cm5_1a85d9ae6ac38c784a57f1df12d873df9e" kind="variable"><name>MUX_CS_4</name></member>
+    <member refid="namespaceapp_1_1pins__cm5_1a7af5bb4ba1b5e7903ad67473b087be16" kind="variable"><name>MUX_CS_3</name></member>
+    <member refid="namespaceapp_1_1pins__cm5_1a02d8b1f8ea18e8ca0406421ae100b750" kind="variable"><name>MUX_CS_2</name></member>
+    <member refid="namespaceapp_1_1pins__cm5_1a2b4b1ad07cc66496e86d86a5528df32b" kind="variable"><name>MUX_CS_1</name></member>
+    <member refid="namespaceapp_1_1pins__cm5_1a001569b7c2bfb9dfc01cffe61578eb27" kind="variable"><name>MUX_MOSI_DUMMY</name></member>
+    <member refid="namespaceapp_1_1pins__cm5_1a695f8e334328d47113d763fba85ea9e3" kind="variable"><name>MUX_SCLK_DUMMY</name></member>
+    <member refid="namespaceapp_1_1pins__cm5_1a35b6be61b6d4cb85e21aa59866f3d095" kind="variable"><name>CM_24V_OUT_1</name></member>
+    <member refid="namespaceapp_1_1pins__cm5_1a88fd865f03c9f246ac8d65e8d0afe92e" kind="variable"><name>CM_24V_SENSE_1</name></member>
+    <member refid="namespaceapp_1_1pins__cm5_1a30a0aa5102bb2df299b2e9dd3e454946" kind="variable"><name>CM_24V_OUT_2</name></member>
+    <member refid="namespaceapp_1_1pins__cm5_1aad243ac39af06d31f52bfbd28872f52c" kind="variable"><name>CM_24V_SENSE_2</name></member>
+    <member refid="namespaceapp_1_1pins__cm5_1a1f2a9f8ae72ada5c471dcabeda39ff94" kind="variable"><name>CMD_RELAY</name></member>
+    <member refid="namespaceapp_1_1pins__cm5_1a5c82ead3a09bf677b0540cb1f1b39ccb" kind="variable"><name>CS_ADC_DUMMY</name></member>
+    <member refid="namespaceapp_1_1pins__cm5_1a341e8e8f73df01d2f780f0ba22bef655" kind="variable"><name>SPI_MISO_ADC_DMY</name></member>
+    <member refid="namespaceapp_1_1pins__cm5_1abdef5fa06d0df26fb2b1529ae78106b8" kind="variable"><name>SPI_MOSI_ADC_DMY</name></member>
+    <member refid="namespaceapp_1_1pins__cm5_1a72500e21b93a5b8bf357a4d084d33f88" kind="variable"><name>SPI_SCLK_ADC_DMY</name></member>
+    <member refid="namespaceapp_1_1pins__cm5_1ab783ddc68bb5deccff5c4afeebf0f059" kind="variable"><name>ADC_DRDY</name></member>
+    <member refid="namespaceapp_1_1pins__cm5_1ada8a810372334f4c3d45a61f3e3dfff9" kind="variable"><name>ADC_START_SYNC</name></member>
+    <member refid="namespaceapp_1_1pins__cm5_1a2beb922666cc8aeea223f68a702a1b19" kind="variable"><name>ADC_A0</name></member>
+    <member refid="namespaceapp_1_1pins__cm5_1aa41ecf65d54d7560c0a05b549a722afd" kind="variable"><name>ADC_A1</name></member>
+    <member refid="namespaceapp_1_1pins__cm5_1adc501cb01eb22c26240fd22e5e572a93" kind="variable"><name>FRONT_LED</name></member>
+    <member refid="namespaceapp_1_1pins__cm5_1a7f7f52f96aacfc3b968d398382178036" kind="variable"><name>SPI0_BUS</name></member>
+    <member refid="namespaceapp_1_1pins__cm5_1ac3f90aa5494bfd7cb328ab859270ba34" kind="variable"><name>SPI1_BUS</name></member>
+    <member refid="namespaceapp_1_1pins__cm5_1a368d5549c798e09e8775e0e73b96d14c" kind="variable"><name>SPI0_DEV0</name></member>
+    <member refid="namespaceapp_1_1pins__cm5_1a0ca4080866506142fe823a43d5cc9b04" kind="variable"><name>SPI0_DEV1</name></member>
+    <member refid="namespaceapp_1_1pins__cm5_1a9972c7d851be0cf7f570cd6afb0afdce" kind="variable"><name>SPI1_DEV0</name></member>
+    <member refid="namespaceapp_1_1pins__cm5_1a885ffd3784ac740228820ac13e88a615" kind="variable"><name>SPI_MUX_SPEED_HZ</name></member>
+    <member refid="namespaceapp_1_1pins__cm5_1af4c124729456a53c298e00a7ad18d434" kind="variable"><name>SPI_ADC_SPEED_HZ</name></member>
+  </compound>
+  <compound refid="namespaceapp_1_1resistance__mapping" kind="namespace"><name>app::resistance_mapping</name>
+    <member refid="namespaceapp_1_1resistance__mapping_1a3b615cabdb8c20924f8da06a285bc117" kind="variable"><name>CHANNEL_MUX</name></member>
+    <member refid="namespaceapp_1_1resistance__mapping_1abcef5f0352c26d7e5540d9bc85a3e3fa" kind="function"><name>get_channel_mux_map</name></member>
+    <member refid="namespaceapp_1_1resistance__mapping_1ad97e98ca666d8a3efb4c892acd311297" kind="function"><name>find_closest_channel</name></member>
+  </compound>
+  <compound refid="namespaceapp_1_1resistance__simulation" kind="namespace"><name>app::resistance_simulation</name>
+    <member refid="namespaceapp_1_1resistance__simulation_1a1e0083edc4bb5cd3cf145384e73c9fb3" kind="variable"><name>sim</name></member>
+    <member refid="namespaceapp_1_1resistance__simulation_1af7b157026a22cabc88ac2a1df2bf0a45" kind="variable"><name>success</name></member>
+    <member refid="namespaceapp_1_1resistance__simulation_1a0b6740f840f43350912072a8757fb6e5" kind="variable"><name>valid</name></member>
+    <member refid="namespaceapp_1_1resistance__simulation_1ab4df858485a2008da66e5eaed218f67b" kind="function"><name>apply_resistance_simulation</name></member>
+  </compound>
+  <compound refid="namespaceapp_1_1sensor__profiles" kind="namespace"><name>app::sensor_profiles</name>
+    <member refid="namespaceapp_1_1sensor__profiles_1a8e0133ad4e40a6805aacf8f271fe96b5" kind="variable"><name>SENSOR_PROFILES</name></member>
+    <member refid="namespaceapp_1_1sensor__profiles_1aea6e8ef0fc12b3785bef45a23fde7b81" kind="function"><name>get_profile</name></member>
+  </compound>
+  <compound refid="namespaceapp_1_1temperature__conversion" kind="namespace"><name>app::temperature_conversion</name>
+    <member refid="namespaceapp_1_1temperature__conversion_1a2f762505fc59cc6983734bb32a6a1688" kind="function"><name>resistance_to_temperature</name></member>
+    <member refid="namespaceapp_1_1temperature__conversion_1aff1ea0c25c07f16216abc29f0b51dbcb" kind="function"><name>resistance_to_temperature_dynamic</name></member>
+    <member refid="namespaceapp_1_1temperature__conversion_1ae4de96194237eecce3dd936d5c6ee5f1" kind="function"><name>temperature_to_resistance_dynamic</name></member>
+    <member refid="namespaceapp_1_1temperature__conversion_1a2955653dd2d798b6d389f79519b3b747" kind="function"><name>convert_temperature_to_resistance</name></member>
+    <member refid="namespaceapp_1_1temperature__conversion_1aa8915bfda252299d2cda2ea561b46ffe" kind="function"><name>get_supported_probe_types</name></member>
+    <member refid="namespaceapp_1_1temperature__conversion_1aa8da477a88ed675741e3be17b99fac56" kind="function"><name>validate_temperature_range</name></member>
+  </compound>
+  <compound refid="namespaceapp_1_1temperature__simulation" kind="namespace"><name>app::temperature_simulation</name>
+    <member refid="namespaceapp_1_1temperature__simulation_1ad0955f54e494774453fd9395ddf156f3" kind="function"><name>calculate_simulated_temperature</name></member>
+    <member refid="namespaceapp_1_1temperature__simulation_1a34c95102387b78fc0ae24419cfdc62be" kind="function"><name>validate_simulation_parameters</name></member>
+    <member refid="namespaceapp_1_1temperature__simulation_1a9dce35a5a5235426dcb9002af6f2fe80" kind="function"><name>run_temperature_simulation</name></member>
+  </compound>
+  <compound refid="namespaceapp_1_1test__lm70__compatible" kind="namespace"><name>app::test_lm70_compatible</name>
+    <member refid="namespaceapp_1_1test__lm70__compatible_1a6144e5814c4b07e44b35663388492ccf" kind="variable"><name>level</name></member>
+    <member refid="namespaceapp_1_1test__lm70__compatible_1a3a80c3c5818d76fa540d2608b8eb5251" kind="variable"><name>format</name></member>
+    <member refid="namespaceapp_1_1test__lm70__compatible_1a3634281bf1f55048d00aea77532f59dd" kind="variable"><name>handlers</name></member>
+    <member refid="namespaceapp_1_1test__lm70__compatible_1a57491bf19a08b2bf673b87010c9cf817" kind="variable"><name>logger</name></member>
+    <member refid="namespaceapp_1_1test__lm70__compatible_1ae1e57a5467abd88aebe4e8a4ef2f8c47" kind="variable"><name>LM70_CS_GPIO</name></member>
+    <member refid="namespaceapp_1_1test__lm70__compatible_1ab158092e70bb66d47e0a9fd2cc1ea342" kind="variable"><name>SPI_MOSI_ADC_GPIO</name></member>
+    <member refid="namespaceapp_1_1test__lm70__compatible_1a9e3001ec2848de215182db26ce3b4828" kind="variable"><name>SPI_MISO_ADC_GPIO</name></member>
+    <member refid="namespaceapp_1_1test__lm70__compatible_1a2a6df630baf4617a726e2cd0d0b2ab6b" kind="variable"><name>SPI_SCLK_ADC_GPIO</name></member>
+    <member refid="namespaceapp_1_1test__lm70__compatible_1a71a3572d1e3aed0054cb2dedfa506fd6" kind="variable"><name>current_dir</name></member>
+    <member refid="namespaceapp_1_1test__lm70__compatible_1ae03ea432cb4b4f1e7d77dd39a1bf3ec1" kind="variable"><name>src_dir</name></member>
+    <member refid="namespaceapp_1_1test__lm70__compatible_1a142361b80c799ba1f4b3ae421b992bc9" kind="variable"><name>spi</name></member>
+    <member refid="namespaceapp_1_1test__lm70__compatible_1a06d07a4e6af2b1db673085b33a2deda8" kind="variable"><name>max_speed_hz</name></member>
+    <member refid="namespaceapp_1_1test__lm70__compatible_1a03dc9acc375bdb9ed7305b35a1652c06" kind="variable"><name>mode</name></member>
+    <member refid="namespaceapp_1_1test__lm70__compatible_1a931848fa47b9f7e6158745ac557b5d6b" kind="variable"><name>bits_per_word</name></member>
+    <member refid="namespaceapp_1_1test__lm70__compatible_1af5b44993c1442a69936834f072f09bd8" kind="function"><name>test_lm70</name></member>
+  </compound>
+  <compound refid="namespaceapp_1_1test__spi__adc" kind="namespace"><name>app::test_spi_adc</name>
+    <member refid="namespaceapp_1_1test__spi__adc_1a56a28483bc9adb1b182bdbcb7c9dc8ac" kind="function"><name>test_spi_adc</name></member>
+  </compound>
+  <compound refid="namespaceconfig__module" kind="namespace"><name>config_module</name>
+  </compound>
+  <compound refid="namespaceconfig__module_1_1cm5__config" kind="namespace"><name>config_module::cm5_config</name>
+    <member refid="namespaceconfig__module_1_1cm5__config_1a98f07cbc7aad810cb848630cde11db65" kind="variable"><name>ADC_CHANNELS</name></member>
+    <member refid="namespaceconfig__module_1_1cm5__config_1a1b2cec317a1cf375b2d43c263f5a665b" kind="function"><name>build_hw</name></member>
+  </compound>
+  <compound refid="namespacewebui" kind="namespace"><name>webui</name>
+  </compound>
+  <compound refid="namespacewebui_1_1webui__server" kind="namespace"><name>webui::webui_server</name>
+    <member refid="namespacewebui_1_1webui__server_1a5de8cf19497f30c68ef48229ed037e2d" kind="variable"><name>BASE_DIR</name></member>
+    <member refid="namespacewebui_1_1webui__server_1ad1e31aeef058a01b14bbfa0e216b43d6" kind="variable"><name>CONFIG_PATH</name></member>
+    <member refid="namespacewebui_1_1webui__server_1a9f76ef91507216717dc653f7b9479cbb" kind="variable"><name>STATE_PATH</name></member>
+    <member refid="namespacewebui_1_1webui__server_1ad2ed404946ddf35648333368e4392c28" kind="variable"><name>WEBUI_DIR</name></member>
+    <member refid="namespacewebui_1_1webui__server_1a7a4894526f1923df3ef5c7000ba4232c" kind="variable"><name>app</name></member>
+    <member refid="namespacewebui_1_1webui__server_1a3eb0a70910bd6aab440ad5d5fc00f39d" kind="variable"><name>host</name></member>
+    <member refid="namespacewebui_1_1webui__server_1ab660a159b0414ddafb0b1e81ae6a476b" kind="variable"><name>port</name></member>
+    <member refid="namespacewebui_1_1webui__server_1ab49b8a0bc3425c50079480de48990dcc" kind="function"><name>serve_index</name></member>
+    <member refid="namespacewebui_1_1webui__server_1a4c0c0ae9a45c748c0089996cf34a199e" kind="function"><name>get_config</name></member>
+    <member refid="namespacewebui_1_1webui__server_1a5e3c84f0b6e1334a0fb7d3375965e0f6" kind="function"><name>put_config</name></member>
+    <member refid="namespacewebui_1_1webui__server_1a1e99eca46e51fb406153841d145748cc" kind="function"><name>get_last</name></member>
+    <member refid="namespacewebui_1_1webui__server_1a431000dffb42d4b4cd2ce023fa0c4a1e" kind="function"><name>force_reload</name></member>
+  </compound>
+  <compound refid="app_2____init_____8py" kind="file"><name>__init__.py</name>
+  </compound>
+  <compound refid="config__module_2____init_____8py" kind="file"><name>__init__.py</name>
+  </compound>
+  <compound refid="webui_2____init_____8py" kind="file"><name>__init__.py</name>
+  </compound>
+  <compound refid="adc__ads124s08_8py" kind="file"><name>adc_ads124s08.py</name>
+  </compound>
+  <compound refid="api__client_8py" kind="file"><name>api_client.py</name>
+  </compound>
+  <compound refid="config__loader_8py" kind="file"><name>config_loader.py</name>
+  </compound>
+  <compound refid="front__led__management_8py" kind="file"><name>front_led_management.py</name>
+  </compound>
+  <compound refid="hw__mux__adg731_8py" kind="file"><name>hw_mux_adg731.py</name>
+  </compound>
+  <compound refid="hw__tmux1204_8py" kind="file"><name>hw_tmux1204.py</name>
+  </compound>
+  <compound refid="main_8py" kind="file"><name>main.py</name>
+  </compound>
+  <compound refid="mesure__24v__dry__contact_8py" kind="file"><name>mesure_24v_dry_contact.py</name>
+  </compound>
+  <compound refid="pins__cm5_8py" kind="file"><name>pins_cm5.py</name>
+  </compound>
+  <compound refid="resistance__mapping_8py" kind="file"><name>resistance_mapping.py</name>
+  </compound>
+  <compound refid="resistance__simulation_8py" kind="file"><name>resistance_simulation.py</name>
+  </compound>
+  <compound refid="sensor__profiles_8py" kind="file"><name>sensor_profiles.py</name>
+  </compound>
+  <compound refid="temperature__conversion_8py" kind="file"><name>temperature_conversion.py</name>
+  </compound>
+  <compound refid="temperature__simulation_8py" kind="file"><name>temperature_simulation.py</name>
+  </compound>
+  <compound refid="test__lm70__compatible_8py" kind="file"><name>test_lm70_compatible.py</name>
+  </compound>
+  <compound refid="test__spi__adc_8py" kind="file"><name>test_spi_adc.py</name>
+  </compound>
+  <compound refid="cm5__config_8py" kind="file"><name>cm5_config.py</name>
+  </compound>
+  <compound refid="webui__server_8py" kind="file"><name>webui_server.py</name>
+  </compound>
+  <compound refid="dir_1b06078b4d982c1b64abd34436c8aa54" kind="dir"><name>C:/Users/thebi/Documents/2510_RegulationChauffage</name>
+  </compound>
+  <compound refid="dir_62261ce8f5512dd0af63408535a215d7" kind="dir"><name>C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare</name>
+  </compound>
+  <compound refid="dir_194a6b39714955f6d6b57228b865c8d6" kind="dir"><name>C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app</name>
+  </compound>
+  <compound refid="dir_eeb81aa684f40f7b9c7a7aac642db388" kind="dir"><name>C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/config_module</name>
+  </compound>
+  <compound refid="dir_9ce5bac9cd81f23a20cf451fc30b31c2" kind="dir"><name>C:/Users/thebi/Documents/2510_RegulationChauffage/doc</name>
+  </compound>
+  <compound refid="dir_f396504afdc959660871b003fa10164d" kind="dir"><name>C:/Users/thebi/Documents</name>
+  </compound>
+  <compound refid="dir_ce690f3e856880fba2f242fa91d49dc9" kind="dir"><name>C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen</name>
+  </compound>
+  <compound refid="dir_a30191f5867566fd376dca42effbb4e4" kind="dir"><name>C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src</name>
+  </compound>
+  <compound refid="dir_66b2cbd9a818255da9ff447d4313ad04" kind="dir"><name>C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/webui</name>
+  </compound>
+  <compound refid="_c_1_2_users_2thebi_2_documents_22510__regulation_chauffage_2doc_29_8_soft_ware_2_doxygen_2src_2app_2config_loader_8py-example" kind="example"><name>C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/config_loader.py</name>
+  </compound>
+</doxygenindex>

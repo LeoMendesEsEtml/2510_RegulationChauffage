@@ -1,0 +1,5 @@
+<map id="app.adc_ads124s08.Ads124s08.read_gain" name="app.adc_ads124s08.Ads124s08.read_gain">
+<area shape="rect" id="Node000001" title="Lit le registre de gain PGA pour diagnostic." alt="" coords="5,5,272,32"/>
+<area shape="rect" id="Node000002" href="$classapp_1_1adc__ads124s08_1_1_ads124s08.html#a2f6a4281f1eaac0a7120e6b507b1c9e6" title="Lit un ou plusieurs registres de l&#39;ADC via SPI." alt="" coords="320,5,559,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="272,16,304,16,304,21,272,21"/>
+</map>

@@ -1,0 +1,9 @@
+digraph "Graphe hiérarchique des classes"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  rankdir="LR";
+  Node0 [id="Node000000",label="app.adc_ads124s08.Ads124s08",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classapp_1_1adc__ads124s08_1_1_ads124s08.html",tooltip="Driver pour l'ADC ADS124S08 avec interface SPI."];
+}

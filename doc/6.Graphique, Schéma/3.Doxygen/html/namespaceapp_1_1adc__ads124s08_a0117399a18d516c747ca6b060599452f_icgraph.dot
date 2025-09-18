@@ -1,0 +1,11 @@
+digraph "app.adc_ads124s08.encode_gain"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  rankdir="RL";
+  Node1 [id="Node000001",label="app.adc_ads124s08.encode_gain",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip="Encode le gain PGA en code binaire pour le registre."];
+  Node1 -> Node2 [id="edge1_Node000001_Node000002",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node2 [id="Node000002",label="app.adc_ads124s08.Ads124s08.configure\l_channel",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classapp_1_1adc__ads124s08_1_1_ads124s08.html#abe455695d580ba27f0e5c559414fefbf",tooltip="Configure un canal ADC avec ses paramètres de mesure."];
+}

@@ -1,0 +1,580 @@
+.TH "app.adc_ads124s08.Ads124s08" 3 "2510_RegulationChauffage" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+app.adc_ads124s08.Ads124s08 \- Driver pour l'ADC ADS124S08 avec interface SPI\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Fonctions membres publiques"
+
+.in +1c
+.ti -1c
+.RI "\fB__init__\fP (self)"
+.br
+.RI "Constructeur de la classe \fBAds124s08\fP\&. "
+.ti -1c
+.RI "\fBread_id\fP (self)"
+.br
+.RI "Lit le registre d'identification de l'ADC\&. "
+.ti -1c
+.RI "\fBclose\fP (self)"
+.br
+.RI "Ferme les interfaces SPI et GPIO proprement\&. "
+.ti -1c
+.RI "\fBwait_drdy_falling_edge\fP (self, timeout_s)"
+.br
+.RI "Attend un front descendant sur DRDY (HIGH -> LOW) avec timeout\&. "
+.ti -1c
+.RI "\fBset_single_shot_lowlatency\fP (self, dr_nibble)"
+.br
+.RI "Configure le mode single-shot low-latency de l'ADC\&. "
+.ti -1c
+.RI "\fBconfigure_channel\fP (self, channel_index, pga_gain, idac_uA)"
+.br
+.RI "Configure un canal ADC avec ses paramètres de mesure\&. "
+.ti -1c
+.RI "\fBstart\fP (self)"
+.br
+.RI "Démarre une conversion ADC\&. "
+.ti -1c
+.RI "\fBstop\fP (self)"
+.br
+.RI "Arrête une conversion ADC en cours\&. "
+.ti -1c
+.RI "\fBread_code24\fP (self)"
+.br
+.RI "Lit un code de données 24 bits depuis l'ADC\&. "
+.ti -1c
+.RI "\fBmeasure_resistance\fP (self, rref_ohm, pga_gain, timeout_s)"
+.br
+.RI "Mesure la résistance d'une sonde via l'ADC\&. "
+.ti -1c
+.RI "\fBmeasure_temperature\fP (self, sensor_name, rref_ohm, pga_gain, timeout_s)"
+.br
+.RI "Mesure la température d'un capteur via l'ADC\&. "
+.ti -1c
+.RI "\fBread_gain\fP (self)"
+.br
+.RI "Lit le registre de gain PGA pour diagnostic\&. "
+.ti -1c
+.RI "\fBread_ref\fP (self)"
+.br
+.RI "Lit le registre de configuration de la référence\&. "
+.ti -1c
+.RI "\fBread_inpmux\fP (self)"
+.br
+.RI "Lit le registre de configuration du multiplexeur d'entrée\&. "
+.in -1c
+.SS "Attributs publics"
+
+.in +1c
+.ti -1c
+.RI "\fBspi\fP = spidev\&.SpiDev()"
+.br
+.ti -1c
+.RI "\fBgpio_drdy\fP = GPIO(GPIO_CHIP_PATH, ADC_DRDY, 'in')"
+.br
+.in -1c
+.SS "Fonctions membres protégées"
+
+.in +1c
+.ti -1c
+.RI "\fB_rreg\fP (self, addr, nbytes)"
+.br
+.RI "Lit un ou plusieurs registres de l'ADC via SPI\&. "
+.ti -1c
+.RI "\fB_wreg\fP (self, addr, data_bytes)"
+.br
+.RI "Écrit dans un ou plusieurs registres de l'ADC via SPI\&. "
+.ti -1c
+.RI "\fB_sclk_nudge\fP (self)"
+.br
+.RI "Envoie un coup de pouce sur SCLK pour synchroniser DRDY\&. "
+.ti -1c
+.RI "\fB_ensure_drdy_high\fP (self, timeout_ms)"
+.br
+.RI "Assure que le signal DRDY est à l'état HIGH\&. "
+.in -1c
+.SH "Description détaillée"
+.PP 
+Driver pour l'ADC ADS124S08 avec interface SPI\&. 
+
+Cette classe encapsule toutes les fonctionnalités nécessaires pour communiquer avec l'ADC ADS124S08 via SPI en mode 1\&.0\&. Supporte la configuration automatique, la mesure de résistance et la conversion en température\&.
+
+.PP
+\fBNote\fP
+.RS 4
+L'ADC doit être connecté via SPI1 et le signal DRDY sur GPIO\&. 
+.RE
+.PP
+\fBVoir également\fP
+.RS 4
+\fBconfigure_channel\fP, \fBmeasure_resistance\fP, \fBmeasure_temperature\fP 
+.RE
+.PP
+
+.SH "Documentation des constructeurs et destructeur"
+.PP 
+.SS "app\&.adc_ads124s08\&.Ads124s08\&.__init__ ( self)"
+
+.PP
+Constructeur de la classe \fBAds124s08\fP\&. Initialise la communication SPI, configure le GPIO DRDY, effectue un reset de l'ADC et vérifie la communication en lisant le registre d'identification\&.
+
+.PP
+\fBExceptions\fP
+.RS 4
+\fIPeut\fP lever des exceptions SPI ou GPIO en cas d'échec\&. 
+.RE
+.PP
+\fBPostcondition\fP
+.RS 4
+L'ADC est prêt pour la configuration et les mesures\&. 
+.RE
+.PP
+
+.SH "Documentation des fonctions membres"
+.PP 
+.SS "app\&.adc_ads124s08\&.Ads124s08\&._ensure_drdy_high ( self,  timeout_ms)\fR [protected]\fP"
+
+.PP
+Assure que le signal DRDY est à l'état HIGH\&. Attend que DRDY passe à HIGH avec possibilité de coup de pouce sur SCLK si nécessaire\&. Timeout configurable\&.
+
+.PP
+\fBParamètres\fP
+.RS 4
+\fItimeout_ms\fP Timeout en millisecondes pour l'attente\&.
+.RE
+.PP
+\fBRenvoie\fP
+.RS 4
+True si DRDY est HIGH, False en cas de timeout\&.
+.RE
+.PP
+\fBNote\fP
+.RS 4
+Méthode critique pour la synchronisation des conversions\&. 
+.RE
+.PP
+\fBVoir également\fP
+.RS 4
+\fBwait_drdy_falling_edge\fP 
+.RE
+.PP
+
+.SS "app\&.adc_ads124s08\&.Ads124s08\&._rreg ( self,  addr,  nbytes)\fR [protected]\fP"
+
+.PP
+Lit un ou plusieurs registres de l'ADC via SPI\&. Utilise la commande RREG de l'ADS124S08 pour lire des registres consécutifs starting à l'adresse donnée\&.
+
+.PP
+\fBParamètres\fP
+.RS 4
+\fIaddr\fP Adresse du premier registre à lire (0x00-0x1F)\&. 
+.br
+\fInbytes\fP Nombre d'octets à lire\&.
+.RE
+.PP
+\fBRenvoie\fP
+.RS 4
+Liste des valeurs lues depuis les registres\&.
+.RE
+.PP
+\fBNote\fP
+.RS 4
+Méthode privée pour les opérations internes du driver\&. 
+.RE
+.PP
+\fBVoir également\fP
+.RS 4
+\fB_wreg\fP 
+.RE
+.PP
+
+.SS "app\&.adc_ads124s08\&.Ads124s08\&._sclk_nudge ( self)\fR [protected]\fP"
+
+.PP
+Envoie un coup de pouce sur SCLK pour synchroniser DRDY\&. Effectue une lecture factice du registre STATUS pour générer des transitions sur SCLK et forcer DRDY à l'état HIGH\&.
+
+.PP
+\fBRenvoie\fP
+.RS 4
+Rien\&.
+.RE
+.PP
+\fBNote\fP
+.RS 4
+Utilisé quand DRDY reste bloqué à LOW de manière inattendue\&. 
+.RE
+.PP
+\fBVoir également\fP
+.RS 4
+\fB_ensure_drdy_high\fP 
+.RE
+.PP
+
+.SS "app\&.adc_ads124s08\&.Ads124s08\&._wreg ( self,  addr,  data_bytes)\fR [protected]\fP"
+
+.PP
+Écrit dans un ou plusieurs registres de l'ADC via SPI\&. Utilise la commande WREG de l'ADS124S08 pour écrire des données dans des registres consécutifs\&.
+
+.PP
+\fBParamètres\fP
+.RS 4
+\fIaddr\fP Adresse du premier registre à écrire (0x00-0x1F)\&. 
+.br
+\fIdata_bytes\fP Liste des octets à écrire dans les registres\&.
+.RE
+.PP
+\fBRenvoie\fP
+.RS 4
+Rien\&.
+.RE
+.PP
+\fBNote\fP
+.RS 4
+Méthode privée pour les opérations internes du driver\&. 
+.RE
+.PP
+\fBVoir également\fP
+.RS 4
+\fB_rreg\fP 
+.RE
+.PP
+
+.SS "app\&.adc_ads124s08\&.Ads124s08\&.close ( self)"
+
+.PP
+Ferme les interfaces SPI et GPIO proprement\&. Libère les ressources système utilisées par le driver\&. Méthode à appeler avant la destruction de l'objet\&.
+
+.PP
+\fBRenvoie\fP
+.RS 4
+Rien\&.
+.RE
+.PP
+\fBNote\fP
+.RS 4
+Ignore les erreurs de fermeture pour éviter les exceptions\&. 
+.RE
+.PP
+\fBVoir également\fP
+.RS 4
+\fBinit\fP 
+.RE
+.PP
+
+.SS "app\&.adc_ads124s08\&.Ads124s08\&.configure_channel ( self,  channel_index,  pga_gain,  idac_uA)"
+
+.PP
+Configure un canal ADC avec ses paramètres de mesure\&. Configure complètement un canal ADC avec le gain PGA, le courant IDAC et le routage des entrées analogiques\&. Effectue une configuration séquentielle de tous les registres\&.
+
+.PP
+\fBParamètres\fP
+.RS 4
+\fIchannel_index\fP Index du canal physique (1-4)\&. 
+.br
+\fIpga_gain\fP Gain de l'amplificateur programmable (1-128)\&. 
+.br
+\fIidac_uA\fP Courant IDAC en microampères (10-2000)\&.
+.RE
+.PP
+\fBRenvoie\fP
+.RS 4
+Rien\&.
+.RE
+.PP
+\fBExceptions\fP
+.RS 4
+\fIValueError\fP si le canal ou les paramètres sont invalides\&. 
+.RE
+.PP
+\fBVoir également\fP
+.RS 4
+\fBencode_gain\fP, \fBencode_idac_uA\fP 
+.RE
+.PP
+
+.SS "app\&.adc_ads124s08\&.Ads124s08\&.measure_resistance ( self,  rref_ohm,  pga_gain,  timeout_s)"
+
+.PP
+Mesure la résistance d'une sonde via l'ADC\&. Effectue une mesure complète: démarrage de conversion, attente DRDY, lecture du code et calcul de la résistance selon la formule ratiométrique\&.
+
+.PP
+\fBParamètres\fP
+.RS 4
+\fIrref_ohm\fP Résistance de référence en ohms\&. 
+.br
+\fIpga_gain\fP Gain PGA utilisé pour la mesure\&. 
+.br
+\fItimeout_s\fP Timeout en secondes pour la conversion\&.
+.RE
+.PP
+\fBRenvoie\fP
+.RS 4
+Résistance mesurée en ohms ou None en cas d'erreur\&.
+.RE
+.PP
+\fBNote\fP
+.RS 4
+Utilise la formule: R = |code|/FS * (Rref / gain)\&. 
+.RE
+.PP
+\fBVoir également\fP
+.RS 4
+\fBmeasure_temperature\fP, \fBconfigure_channel\fP 
+.RE
+.PP
+
+.SS "app\&.adc_ads124s08\&.Ads124s08\&.measure_temperature ( self,  sensor_name,  rref_ohm,  pga_gain,  timeout_s)"
+
+.PP
+Mesure la température d'un capteur via l'ADC\&. Effectue une mesure de résistance puis utilise les tables de conversion de capteurs pour obtenir la température correspondante en degrés Celsius\&.
+
+.PP
+\fBParamètres\fP
+.RS 4
+\fIsensor_name\fP Nom du capteur (doit exister dans SENSOR_TABLES)\&. 
+.br
+\fIrref_ohm\fP Résistance de référence en ohms\&. 
+.br
+\fIpga_gain\fP Gain PGA utilisé pour la mesure\&. 
+.br
+\fItimeout_s\fP Timeout en secondes pour la conversion\&.
+.RE
+.PP
+\fBRenvoie\fP
+.RS 4
+Température mesurée en °C ou None si erreur\&.
+.RE
+.PP
+\fBExceptions\fP
+.RS 4
+\fIRetourne\fP None si capteur inconnu ou hors plage\&. 
+.RE
+.PP
+\fBVoir également\fP
+.RS 4
+\fBmeasure_resistance\fP, resistance_to_temperature_dynamic 
+.RE
+.PP
+
+.SS "app\&.adc_ads124s08\&.Ads124s08\&.read_code24 ( self)"
+
+.PP
+Lit un code de données 24 bits depuis l'ADC\&. Utilise la commande RDATA pour lire les 3 octets de données de conversion et les convertit en entier signé\&.
+
+.PP
+\fBRenvoie\fP
+.RS 4
+Valeur signée 24 bits ou None en cas d'erreur SPI\&.
+.RE
+.PP
+\fBNote\fP
+.RS 4
+Doit être appelé après détection du front descendant DRDY\&. 
+.RE
+.PP
+\fBVoir également\fP
+.RS 4
+\fBsign_extend_24\fP, \fBmeasure_resistance\fP 
+.RE
+.PP
+
+.SS "app\&.adc_ads124s08\&.Ads124s08\&.read_gain ( self)"
+
+.PP
+Lit le registre de gain PGA pour diagnostic\&. Effectue une lecture du registre PGA et affiche sa valeur pour vérification de la configuration du gain\&.
+
+.PP
+\fBRenvoie\fP
+.RS 4
+Valeur brute du registre PGA (0x00-0xFF)\&.
+.RE
+.PP
+\fBNote\fP
+.RS 4
+Utilisé principalement pour le debug et la vérification\&. 
+.RE
+.PP
+\fBVoir également\fP
+.RS 4
+\fBconfigure_channel\fP 
+.RE
+.PP
+
+.SS "app\&.adc_ads124s08\&.Ads124s08\&.read_id ( self)"
+
+.PP
+Lit le registre d'identification de l'ADC\&. Effectue une lecture du registre ID (0x00) pour vérifier la communication SPI et identifier le type d'ADC connecté\&.
+
+.PP
+\fBRenvoie\fP
+.RS 4
+Valeur du registre ID (0x00-0xFF) ou None en cas d'erreur\&.
+.RE
+.PP
+\fBNote\fP
+.RS 4
+Utilisé principalement pour la vérification de communication\&. 
+.RE
+.PP
+\fBVoir également\fP
+.RS 4
+\fBinit\fP 
+.RE
+.PP
+
+.SS "app\&.adc_ads124s08\&.Ads124s08\&.read_inpmux ( self)"
+
+.PP
+Lit le registre de configuration du multiplexeur d'entrée\&. Effectue une lecture du registre INPMUX et affiche sa valeur pour vérification du routage des entrées analogiques\&.
+
+.PP
+\fBRenvoie\fP
+.RS 4
+Valeur brute du registre INPMUX (0x00-0xFF)\&.
+.RE
+.PP
+\fBNote\fP
+.RS 4
+Utilisé principalement pour le debug et la vérification\&. 
+.RE
+.PP
+\fBVoir également\fP
+.RS 4
+\fBconfigure_channel\fP 
+.RE
+.PP
+
+.SS "app\&.adc_ads124s08\&.Ads124s08\&.read_ref ( self)"
+
+.PP
+Lit le registre de configuration de la référence\&. Effectue une lecture du registre REF et affiche sa valeur pour vérification de la configuration de la référence\&.
+
+.PP
+\fBRenvoie\fP
+.RS 4
+Valeur brute du registre REF (0x00-0xFF)\&.
+.RE
+.PP
+\fBNote\fP
+.RS 4
+Utilisé principalement pour le debug et la vérification\&. 
+.RE
+.PP
+\fBVoir également\fP
+.RS 4
+\fBconfigure_channel\fP 
+.RE
+.PP
+
+.SS "app\&.adc_ads124s08\&.Ads124s08\&.set_single_shot_lowlatency ( self,  dr_nibble)"
+
+.PP
+Configure le mode single-shot low-latency de l'ADC\&. Configure le registre DATARATE pour utiliser le mode single-shot avec filtre low-latency et data rate spécifié\&.
+
+.PP
+\fBParamètres\fP
+.RS 4
+\fIdr_nibble\fP Code de data rate (4 bits, 0x00-0x0F)\&.
+.RE
+.PP
+\fBRenvoie\fP
+.RS 4
+Rien\&.
+.RE
+.PP
+\fBNote\fP
+.RS 4
+Mode optimisé pour des mesures rapides et ponctuelles\&. 
+.RE
+.PP
+\fBVoir également\fP
+.RS 4
+\fBconfigure_channel\fP 
+.RE
+.PP
+
+.SS "app\&.adc_ads124s08\&.Ads124s08\&.start ( self)"
+
+.PP
+Démarre une conversion ADC\&. Assure que DRDY est à HIGH puis envoie la commande START pour initier une nouvelle conversion sur le canal configuré\&.
+
+.PP
+\fBRenvoie\fP
+.RS 4
+Rien\&.
+.RE
+.PP
+\fBNote\fP
+.RS 4
+DRDY doit être HIGH avant le START pour une conversion valide\&. 
+.RE
+.PP
+\fBVoir également\fP
+.RS 4
+\fBstop\fP, \fBwait_drdy_falling_edge\fP 
+.RE
+.PP
+
+.SS "app\&.adc_ads124s08\&.Ads124s08\&.stop ( self)"
+
+.PP
+Arrête une conversion ADC en cours\&. Envoie la commande STOP pour interrompre toute conversion en cours et remettre l'ADC en état idle\&.
+
+.PP
+\fBRenvoie\fP
+.RS 4
+Rien\&.
+.RE
+.PP
+\fBNote\fP
+.RS 4
+Utilisé après lecture des données ou en cas d'erreur\&. 
+.RE
+.PP
+\fBVoir également\fP
+.RS 4
+\fBstart\fP, \fBread_code24\fP 
+.RE
+.PP
+
+.SS "app\&.adc_ads124s08\&.Ads124s08\&.wait_drdy_falling_edge ( self,  timeout_s)"
+
+.PP
+Attend un front descendant sur DRDY (HIGH -> LOW) avec timeout\&. Surveille le signal DRDY pour détecter une transition de HIGH vers LOW, indiquant qu'une nouvelle conversion est disponible\&.
+
+.PP
+\fBParamètres\fP
+.RS 4
+\fItimeout_s\fP Timeout en secondes pour l'attente du front\&.
+.RE
+.PP
+\fBRenvoie\fP
+.RS 4
+True si front descendant détecté, False en cas de timeout\&.
+.RE
+.PP
+\fBNote\fP
+.RS 4
+Méthode cruciale pour la synchronisation des mesures\&. 
+.RE
+.PP
+\fBVoir également\fP
+.RS 4
+\fBmeasure_resistance\fP 
+.RE
+.PP
+
+.SH "Documentation des données membres"
+.PP 
+.SS "app\&.adc_ads124s08\&.Ads124s08\&.gpio_drdy = GPIO(GPIO_CHIP_PATH, ADC_DRDY, 'in')"
+
+.SS "app\&.adc_ads124s08\&.Ads124s08\&.spi = spidev\&.SpiDev()"
+
+
+.SH "Auteur"
+.PP 
+Généré automatiquement par Doxygen pour 2510_RegulationChauffage à partir du code source\&.

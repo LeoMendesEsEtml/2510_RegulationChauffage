@@ -1,0 +1,168 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="fr">
+  <compounddef id="pins__cm5_8py" kind="file" language="Python">
+    <compoundname>pins_cm5.py</compoundname>
+    <innernamespace refid="namespaceapp">app</innernamespace>
+    <innernamespace refid="namespaceapp_1_1pins__cm5">app::pins_cm5</innernamespace>
+    <briefdescription>
+<para>Mapping GPIO et SPI fixés pour la plateforme CM5. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Ce module définit tous les assignements de broches GPIO et les paramètres SPI fixes pour la carte CM5. Ces constantes ne doivent pas être modifiées via la configuration utilisateur car elles correspondent au routage matériel de la carte. <simplesect kind="author"><para>Léo Mendes @project 2510_RegulationsChauffage @Mandant Oblo_solution </para>
+</simplesect>
+<simplesect kind="date"><para>2025-09-18 </para>
+</simplesect>
+<simplesect kind="version"><para>1.0.0 </para>
+</simplesect>
+<simplesect kind="copyright"><para>Copyright (c) 2025 </para>
+</simplesect>
+</para>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1" refid="namespaceapp_1_1pins__cm5" refkind="compound"><highlight class="comment">#<sp/>-*-<sp/>coding:<sp/>utf-8<sp/>-*-</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="stringliteral">&quot;&quot;&quot;</highlight></codeline>
+<codeline lineno="3"><highlight class="stringliteral">@file<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pins_cm5.py</highlight></codeline>
+<codeline lineno="4"><highlight class="stringliteral">@brief<sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mapping<sp/>GPIO<sp/>et<sp/>SPI<sp/>fixés<sp/>pour<sp/>la<sp/>plateforme<sp/>CM5.</highlight></codeline>
+<codeline lineno="5"><highlight class="stringliteral">@details<sp/><sp/><sp/><sp/><sp/>Ce<sp/>module<sp/>définit<sp/>tous<sp/>les<sp/>assignements<sp/>de<sp/>broches<sp/>GPIO<sp/>et</highlight></codeline>
+<codeline lineno="6"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>les<sp/>paramètres<sp/>SPI<sp/>fixes<sp/>pour<sp/>la<sp/>carte<sp/>CM5.<sp/>Ces<sp/>constantes</highlight></codeline>
+<codeline lineno="7"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ne<sp/>doivent<sp/>pas<sp/>être<sp/>modifiées<sp/>via<sp/>la<sp/>configuration<sp/>utilisateur</highlight></codeline>
+<codeline lineno="8"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>car<sp/>elles<sp/>correspondent<sp/>au<sp/>routage<sp/>matériel<sp/>de<sp/>la<sp/>carte.</highlight></codeline>
+<codeline lineno="9"><highlight class="stringliteral">@author<sp/><sp/><sp/><sp/><sp/><sp/>Léo<sp/>Mendes</highlight></codeline>
+<codeline lineno="10"><highlight class="stringliteral">@project<sp/><sp/><sp/><sp/><sp/>2510_RegulationsChauffage</highlight></codeline>
+<codeline lineno="11"><highlight class="stringliteral">@Mandant<sp/><sp/><sp/><sp/><sp/>Oblo_solution</highlight></codeline>
+<codeline lineno="12"><highlight class="stringliteral">@date<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2025-09-18</highlight></codeline>
+<codeline lineno="13"><highlight class="stringliteral">@version<sp/><sp/><sp/><sp/><sp/>1.0.0</highlight></codeline>
+<codeline lineno="14"><highlight class="stringliteral">@copyright<sp/><sp/><sp/>Copyright<sp/>(c)<sp/>2025</highlight></codeline>
+<codeline lineno="15"><highlight class="stringliteral">&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="comment">#<sp/>---------------------------------------------------------------------------</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="comment">#<sp/>GPIO<sp/>principal<sp/>et<sp/>configuration<sp/>système</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="comment">#<sp/>---------------------------------------------------------------------------</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="comment">#<sp/>Chemin<sp/>du<sp/>contrôleur<sp/>GPIO<sp/>principal<sp/>sur<sp/>le<sp/>système<sp/>Linux</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23" refid="namespaceapp_1_1pins__cm5_1af1d01246bc2bdb28706c1e6d311c32d7" refkind="member"><highlight class="normal">GPIO_CHIP_PATH<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;/dev/gpiochip0&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="comment">#<sp/>---------------------------------------------------------------------------</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="comment">#<sp/>Multiplexeur<sp/>ADG731<sp/>-<sp/>Chip<sp/>Select</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="comment">#<sp/>---------------------------------------------------------------------------</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="comment">#<sp/>Broches<sp/>de<sp/>sélection<sp/>CS<sp/>pour<sp/>les<sp/>4<sp/>multiplexeurs<sp/>ADG731</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31" refid="namespaceapp_1_1pins__cm5_1a85d9ae6ac38c784a57f1df12d873df9e" refkind="member"><highlight class="normal">MUX_CS_4<sp/>=<sp/>2</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="comment">#<sp/>Broches<sp/>de<sp/>sélection<sp/>CS<sp/>pour<sp/>les<sp/>3<sp/>multiplexeurs<sp/>ADG731</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33" refid="namespaceapp_1_1pins__cm5_1a7af5bb4ba1b5e7903ad67473b087be16" refkind="member"><highlight class="normal">MUX_CS_3<sp/>=<sp/>3</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="comment">#<sp/>Broches<sp/>de<sp/>sélection<sp/>CS<sp/>pour<sp/>les<sp/>2<sp/>multiplexeurs<sp/>ADG731</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35" refid="namespaceapp_1_1pins__cm5_1a02d8b1f8ea18e8ca0406421ae100b750" refkind="member"><highlight class="normal">MUX_CS_2<sp/>=<sp/>7</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">#<sp/>Broches<sp/>de<sp/>sélection<sp/>CS<sp/>pour<sp/>les<sp/>1<sp/>multiplexeurs<sp/>ADG731</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37" refid="namespaceapp_1_1pins__cm5_1a2b4b1ad07cc66496e86d86a5528df32b" refkind="member"><highlight class="normal">MUX_CS_1<sp/>=<sp/>8</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">#<sp/>---------------------------------------------------------------------------</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">#<sp/>Broches<sp/>SPI<sp/>multiplexeur<sp/>(dummy)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">#<sp/>---------------------------------------------------------------------------</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">#<sp/>Broche<sp/>MOSI<sp/>dummy<sp/>pour<sp/>le<sp/>multiplexeur<sp/>(non<sp/>utilisée<sp/>directement)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45" refid="namespaceapp_1_1pins__cm5_1a001569b7c2bfb9dfc01cffe61578eb27" refkind="member"><highlight class="normal">MUX_MOSI_DUMMY<sp/>=<sp/>10</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">#<sp/>Broche<sp/>SCLK<sp/>dummy<sp/>pour<sp/>le<sp/>multiplexeur<sp/>(non<sp/>utilisée<sp/>directement)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47" refid="namespaceapp_1_1pins__cm5_1a695f8e334328d47113d763fba85ea9e3" refkind="member"><highlight class="normal">MUX_SCLK_DUMMY<sp/>=<sp/>11</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="comment">#<sp/>---------------------------------------------------------------------------</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="comment">#<sp/>Commande<sp/>et<sp/>mesure<sp/>24V</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="comment">#<sp/>---------------------------------------------------------------------------</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="comment">#<sp/>Sortie<sp/>de<sp/>commande<sp/>24V<sp/>pour<sp/>le<sp/>canal<sp/>1</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55" refid="namespaceapp_1_1pins__cm5_1a35b6be61b6d4cb85e21aa59866f3d095" refkind="member"><highlight class="normal">CM_24V_OUT_1<sp/>=<sp/>13</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="comment">#<sp/>Entrée<sp/>de<sp/>mesure<sp/>(sense)<sp/>24V<sp/>pour<sp/>le<sp/>canal<sp/>1</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57" refid="namespaceapp_1_1pins__cm5_1a88fd865f03c9f246ac8d65e8d0afe92e" refkind="member"><highlight class="normal">CM_24V_SENSE_1<sp/>=<sp/>14</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="comment">#<sp/>Sortie<sp/>de<sp/>commande<sp/>24V<sp/>pour<sp/>le<sp/>canal<sp/>2</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59" refid="namespaceapp_1_1pins__cm5_1a30a0aa5102bb2df299b2e9dd3e454946" refkind="member"><highlight class="normal">CM_24V_OUT_2<sp/>=<sp/>15</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="comment">#<sp/>Entrée<sp/>de<sp/>mesure<sp/>(sense)<sp/>24V<sp/>pour<sp/>le<sp/>canal<sp/>2</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61" refid="namespaceapp_1_1pins__cm5_1aad243ac39af06d31f52bfbd28872f52c" refkind="member"><highlight class="normal">CM_24V_SENSE_2<sp/>=<sp/>16</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="comment">#<sp/>---------------------------------------------------------------------------</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="comment">#<sp/>Relais<sp/>de<sp/>commande</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="comment">#<sp/>---------------------------------------------------------------------------</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="comment">#<sp/>Broche<sp/>de<sp/>commande<sp/>du<sp/>relais<sp/>principal<sp/>de<sp/>puissance</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69" refid="namespaceapp_1_1pins__cm5_1a1f2a9f8ae72ada5c471dcabeda39ff94" refkind="member"><highlight class="normal">CMD_RELAY<sp/>=<sp/>17</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight><highlight class="comment">#<sp/>---------------------------------------------------------------------------</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight><highlight class="comment">#<sp/>ADC<sp/>ADS124S08<sp/>-<sp/>Configuration<sp/>SPI</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="comment">#<sp/>---------------------------------------------------------------------------</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight><highlight class="comment">#<sp/>Chip<sp/>Select<sp/>ADC<sp/>dummy<sp/>(géré<sp/>par<sp/>spidev1.0)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="77" refid="namespaceapp_1_1pins__cm5_1a5c82ead3a09bf677b0540cb1f1b39ccb" refkind="member"><highlight class="normal">CS_ADC_DUMMY<sp/>=<sp/>18</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight><highlight class="comment">#<sp/>Broche<sp/>MISO<sp/>ADC<sp/>dummy<sp/>(gérée<sp/>par<sp/>le<sp/>driver<sp/>SPI)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="79" refid="namespaceapp_1_1pins__cm5_1a341e8e8f73df01d2f780f0ba22bef655" refkind="member"><highlight class="normal">SPI_MISO_ADC_DMY<sp/>=<sp/>19</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight><highlight class="comment">#<sp/>Broche<sp/>MOSI<sp/>ADC<sp/>dummy<sp/>(gérée<sp/>par<sp/>le<sp/>driver<sp/>SPI)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="81" refid="namespaceapp_1_1pins__cm5_1abdef5fa06d0df26fb2b1529ae78106b8" refkind="member"><highlight class="normal">SPI_MOSI_ADC_DMY<sp/>=<sp/>20</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight><highlight class="comment">#<sp/>Broche<sp/>SCLK<sp/>ADC<sp/>dummy<sp/>(gérée<sp/>par<sp/>le<sp/>driver<sp/>SPI)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="83" refid="namespaceapp_1_1pins__cm5_1a72500e21b93a5b8bf357a4d084d33f88" refkind="member"><highlight class="normal">SPI_SCLK_ADC_DMY<sp/>=<sp/>21</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight><highlight class="comment">#<sp/>---------------------------------------------------------------------------</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight><highlight class="comment">#<sp/>ADC<sp/>ADS124S08<sp/>-<sp/>Signaux<sp/>de<sp/>contrôle</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight><highlight class="comment">#<sp/>---------------------------------------------------------------------------</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight><highlight class="comment">#<sp/>Signal<sp/>Data<sp/>Ready<sp/>de<sp/>l&apos;ADC<sp/>(interruption<sp/>de<sp/>fin<sp/>de<sp/>conversion)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="91" refid="namespaceapp_1_1pins__cm5_1ab783ddc68bb5deccff5c4afeebf0f059" refkind="member"><highlight class="normal">ADC_DRDY<sp/>=<sp/>22</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight><highlight class="comment">#<sp/>Signal<sp/>START/SYNC<sp/>de<sp/>l&apos;ADC<sp/>(non<sp/>utilisé,<sp/>démarrage<sp/>via<sp/>SPI)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="93" refid="namespaceapp_1_1pins__cm5_1ada8a810372334f4c3d45a61f3e3dfff9" refkind="member"><highlight class="normal">ADC_START_SYNC<sp/>=<sp/>23</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight><highlight class="comment">#<sp/>---------------------------------------------------------------------------</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight><highlight class="comment">#<sp/>ADC<sp/>ADS124S08<sp/>-<sp/>Sélection<sp/>d&apos;entrées</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight><highlight class="comment">#<sp/>---------------------------------------------------------------------------</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight><highlight class="comment">#<sp/>Bit<sp/>A0<sp/>de<sp/>sélection<sp/>du<sp/>canal<sp/>analogique<sp/>de<sp/>l&apos;ADC</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="101" refid="namespaceapp_1_1pins__cm5_1a2beb922666cc8aeea223f68a702a1b19" refkind="member"><highlight class="normal">ADC_A0<sp/>=<sp/>24</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight><highlight class="comment">#<sp/>Bit<sp/>A1<sp/>de<sp/>sélection<sp/>du<sp/>canal<sp/>analogique<sp/>de<sp/>l&apos;ADC</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="103" refid="namespaceapp_1_1pins__cm5_1aa41ecf65d54d7560c0a05b549a722afd" refkind="member"><highlight class="normal">ADC_A1<sp/>=<sp/>25</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight><highlight class="comment">#<sp/>---------------------------------------------------------------------------</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight><highlight class="comment">#<sp/>Indicateurs<sp/>visuels</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight><highlight class="comment">#<sp/>---------------------------------------------------------------------------</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight><highlight class="comment">#<sp/>LED<sp/>de<sp/>façade<sp/>pour<sp/>indication<sp/>d&apos;état<sp/>du<sp/>système</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="111" refid="namespaceapp_1_1pins__cm5_1adc501cb01eb22c26240fd22e5e572a93" refkind="member"><highlight class="normal">FRONT_LED<sp/>=<sp/>27</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight><highlight class="comment">#<sp/>---------------------------------------------------------------------------</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight><highlight class="comment">#<sp/>Configuration<sp/>des<sp/>bus<sp/>SPI</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight><highlight class="comment">#<sp/>---------------------------------------------------------------------------</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight><highlight class="comment">#<sp/>Numéro<sp/>du<sp/>bus<sp/>SPI0<sp/>(pour<sp/>multiplexeurs<sp/>éventuels)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="119" refid="namespaceapp_1_1pins__cm5_1a7f7f52f96aacfc3b968d398382178036" refkind="member"><highlight class="normal">SPI0_BUS<sp/>=<sp/>0</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight><highlight class="comment">#<sp/>Numéro<sp/>du<sp/>bus<sp/>SPI1<sp/>(pour<sp/>ADC<sp/>ADS124S08)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="121" refid="namespaceapp_1_1pins__cm5_1ac3f90aa5494bfd7cb328ab859270ba34" refkind="member"><highlight class="normal">SPI1_BUS<sp/>=<sp/>1</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight><highlight class="comment">#<sp/>---------------------------------------------------------------------------</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight><highlight class="comment">#<sp/>Configuration<sp/>des<sp/>devices<sp/>SPI</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight><highlight class="comment">#<sp/>---------------------------------------------------------------------------</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight><highlight class="comment">#<sp/>Device<sp/>0<sp/>sur<sp/>le<sp/>bus<sp/>SPI0</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="129" refid="namespaceapp_1_1pins__cm5_1a368d5549c798e09e8775e0e73b96d14c" refkind="member"><highlight class="normal">SPI0_DEV0<sp/>=<sp/>0</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight><highlight class="comment">#<sp/>Device<sp/>1<sp/>sur<sp/>le<sp/>bus<sp/>SPI0</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="131" refid="namespaceapp_1_1pins__cm5_1a0ca4080866506142fe823a43d5cc9b04" refkind="member"><highlight class="normal">SPI0_DEV1<sp/>=<sp/>1</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight><highlight class="comment">#<sp/>Device<sp/>0<sp/>sur<sp/>le<sp/>bus<sp/>SPI1<sp/>(correspond<sp/>à<sp/>/dev/spidev1.0<sp/>pour<sp/>l&apos;ADC)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="133" refid="namespaceapp_1_1pins__cm5_1a9972c7d851be0cf7f570cd6afb0afdce" refkind="member"><highlight class="normal">SPI1_DEV0<sp/>=<sp/>0</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight><highlight class="comment">#<sp/>---------------------------------------------------------------------------</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight><highlight class="comment">#<sp/>Vitesses<sp/>de<sp/>communication<sp/>SPI</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight><highlight class="comment">#<sp/>---------------------------------------------------------------------------</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight><highlight class="comment">#<sp/>Fréquence<sp/>SPI<sp/>pour<sp/>la<sp/>communication<sp/>avec<sp/>les<sp/>multiplexeurs<sp/>ADG731<sp/>[Hz]</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="141" refid="namespaceapp_1_1pins__cm5_1a885ffd3784ac740228820ac13e88a615" refkind="member"><highlight class="normal">SPI_MUX_SPEED_HZ<sp/>=<sp/>100000</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight><highlight class="comment">#<sp/>Fréquence<sp/>SPI<sp/>pour<sp/>la<sp/>communication<sp/>avec<sp/>l&apos;ADC<sp/>ADS124S08<sp/>[Hz]</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="143" refid="namespaceapp_1_1pins__cm5_1af4c124729456a53c298e00a7ad18d434" refkind="member"><highlight class="normal">SPI_ADC_SPEED_HZ<sp/>=<sp/>100000</highlight></codeline>
+    </programlisting>
+    <location file="C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/pins_cm5.py"/>
+  </compounddef>
+</doxygen>

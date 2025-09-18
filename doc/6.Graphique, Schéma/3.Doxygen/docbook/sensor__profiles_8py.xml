@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_sensor__profiles_8py" xml:lang="fr">
+<title>Référence du fichier C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/sensor_profiles.py</title>
+<indexterm><primary>C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/sensor_profiles.py</primary></indexterm>
+<para>
+
+<para>Profils capteurs extraits de &apos;Calcul ADC.xlsx&apos; (Feuil1). </para>
+ 
+</para>
+<simplesect>
+    <title>Espaces de nommage    </title>
+        <itemizedlist>
+            <listitem><para>namespace <link linkend="_namespaceapp">app</link></para>
+</listitem>
+            <listitem><para>namespace <link linkend="_namespaceapp_1_1sensor__profiles">app.sensor_profiles</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Fonctions    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_namespaceapp_1_1sensor__profiles_1aea6e8ef0fc12b3785bef45a23fde7b81">app.sensor_profiles.get_profile</link> (sensor_name)</para>
+
+<para>Récupère le profil de configuration ADC pour un capteur donné. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Variables    </title>
+        <itemizedlist>
+            <listitem><para>dict <link linkend="_namespaceapp_1_1sensor__profiles_1a8e0133ad4e40a6805aacf8f271fe96b5">app.sensor_profiles.SENSOR_PROFILES</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Description détaillée</title>
+
+<para>Profils capteurs extraits de &apos;Calcul ADC.xlsx&apos; (Feuil1). </para>
+
+<para>Ce module contient les profils de configuration pour différents types de capteurs de température avec leurs paramètres ADC optimisés (Rref, IDAC, PGA) et leurs tables de conversion température/résistance. Les données proviennent des calculs d&apos;optimisation du fichier Excel de référence. <formalpara><title>Auteur</title>
+
+<para>Léo Mendes @project 2510_RegulationsChauffage @Mandant Oblo_solution </para>
+</formalpara>
+<formalpara><title>Date</title>
+
+<para>2025-09-18 </para>
+</formalpara>
+<formalpara><title>Version</title>
+
+<para>1.0.0 </para>
+</formalpara>
+<formalpara><title>Copyright</title>
+
+<para>Copyright (c) 2025 </para>
+</formalpara>
+</para>
+</section>
+</section>

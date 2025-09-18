@@ -1,0 +1,58 @@
+\doxysection{Référence de l\textquotesingle{}espace de nommage app.\+sensor\+\_\+profiles}
+\hypertarget{namespaceapp_1_1sensor__profiles}{}\label{namespaceapp_1_1sensor__profiles}\index{app.sensor\_profiles@{app.sensor\_profiles}}
+\doxysubsubsection*{Fonctions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceapp_1_1sensor__profiles_aea6e8ef0fc12b3785bef45a23fde7b81}{get\+\_\+profile}} (sensor\+\_\+name)
+\begin{DoxyCompactList}\small\item\em Récupère le profil de configuration ADC pour un capteur donné. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+dict \mbox{\hyperlink{namespaceapp_1_1sensor__profiles_a8e0133ad4e40a6805aacf8f271fe96b5}{SENSOR\+\_\+\+PROFILES}}
+\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{namespaceapp_1_1sensor__profiles_doc-func-members}
+\doxysubsection{Documentation des fonctions}
+\Hypertarget{namespaceapp_1_1sensor__profiles_aea6e8ef0fc12b3785bef45a23fde7b81}\index{app.sensor\_profiles@{app.sensor\_profiles}!get\_profile@{get\_profile}}
+\index{get\_profile@{get\_profile}!app.sensor\_profiles@{app.sensor\_profiles}}
+\doxysubsubsection{\texorpdfstring{get\_profile()}{get\_profile()}}
+{\footnotesize\ttfamily \label{namespaceapp_1_1sensor__profiles_aea6e8ef0fc12b3785bef45a23fde7b81} 
+app.\+sensor\+\_\+profiles.\+get\+\_\+profile (\begin{DoxyParamCaption}\item[{}]{sensor\+\_\+name}{}\end{DoxyParamCaption})}
+
+
+
+Récupère le profil de configuration ADC pour un capteur donné. 
+
+Fonction d\textquotesingle{}accès qui retourne le dictionnaire de configuration contenant les paramètres optimisés (Rref, IDAC, PGA) pour un type de capteur spécifique.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em sensor\+\_\+name} & Nom du type de capteur recherché.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+Dictionnaire contenant les paramètres de configuration\+:
+\begin{DoxyItemize}
+\item rref\+\_\+ohm\+: résistance de référence \mbox{[}Ohms\mbox{]}
+\item idac\+\_\+uA\+: courant d\textquotesingle{}excitation \mbox{[}microampères\mbox{]}
+\item pga\+\_\+gain\+: gain programmable \mbox{[}1-\/128\mbox{]}
+\end{DoxyItemize}
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Key\+Error} & si le type de capteur n\textquotesingle{}est pas reconnu. \\
+\hline
+\end{DoxyExceptions}
+
+
+\label{doc-var-members}
+\Hypertarget{namespaceapp_1_1sensor__profiles_doc-var-members}
+\doxysubsection{Documentation des variables}
+\Hypertarget{namespaceapp_1_1sensor__profiles_a8e0133ad4e40a6805aacf8f271fe96b5}\index{app.sensor\_profiles@{app.sensor\_profiles}!SENSOR\_PROFILES@{SENSOR\_PROFILES}}
+\index{SENSOR\_PROFILES@{SENSOR\_PROFILES}!app.sensor\_profiles@{app.sensor\_profiles}}
+\doxysubsubsection{\texorpdfstring{SENSOR\_PROFILES}{SENSOR\_PROFILES}}
+{\footnotesize\ttfamily \label{namespaceapp_1_1sensor__profiles_a8e0133ad4e40a6805aacf8f271fe96b5} 
+dict app.\+sensor\+\_\+profiles.\+SENSOR\+\_\+\+PROFILES}
+

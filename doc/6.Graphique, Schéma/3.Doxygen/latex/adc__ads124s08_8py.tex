@@ -1,0 +1,78 @@
+\doxysection{Référence du fichier C\+:/\+Users/thebi/\+Documents/2510\+\_\+\+Regulation\+Chauffage/doc/9.Soft\+Ware/\+Doxygen/src/app/adc\+\_\+ads124s08.py}
+\hypertarget{adc__ads124s08_8py}{}\label{adc__ads124s08_8py}\index{C:/Users/thebi/Documents/2510\_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/adc\_ads124s08.py@{C:/Users/thebi/Documents/2510\_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/adc\_ads124s08.py}}
+
+
+Driver pour l\textquotesingle{}ADC ADS124\+S08 avec communication SPI.  
+
+
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classapp_1_1adc__ads124s08_1_1_ads124s08}{app.\+adc\+\_\+ads124s08.\+Ads124s08}}
+\begin{DoxyCompactList}\small\item\em Driver pour l\textquotesingle{}ADC ADS124\+S08 avec interface SPI. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Espaces de nommage}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespaceapp}{app}}
+\item 
+namespace \mbox{\hyperlink{namespaceapp_1_1adc__ads124s08}{app.\+adc\+\_\+ads124s08}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Fonctions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceapp_1_1adc__ads124s08_a0117399a18d516c747ca6b060599452f}{app.\+adc\+\_\+ads124s08.\+encode\+\_\+gain}} (pga\+\_\+gain)
+\begin{DoxyCompactList}\small\item\em Encode le gain PGA en code binaire pour le registre. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespaceapp_1_1adc__ads124s08_a8f9279b8505f8d634ed73c51dcab29c9}{app.\+adc\+\_\+ads124s08.\+encode\+\_\+idac\+\_\+uA}} (idac\+\_\+uA)
+\begin{DoxyCompactList}\small\item\em Encode la magnitude IDAC en code binaire pour le registre. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespaceapp_1_1adc__ads124s08_a2d49f7c13e0b47db65080ab59febed76}{app.\+adc\+\_\+ads124s08.\+sign\+\_\+extend\+\_\+24}} (b0, b1, b2)
+\begin{DoxyCompactList}\small\item\em Étend le signe d\textquotesingle{}un code ADC 24 bits vers 32 bits. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{namespaceapp_1_1adc__ads124s08_a95d2ed0295f793db669188acfc42e035}{app.\+adc\+\_\+ads124s08.\+REG\+\_\+\+ID}} = 0x00
+\item 
+int \mbox{\hyperlink{namespaceapp_1_1adc__ads124s08_a08370a57876abbb36233f903990f7090}{app.\+adc\+\_\+ads124s08.\+REG\+\_\+\+STATUS}} = 0x01
+\item 
+int \mbox{\hyperlink{namespaceapp_1_1adc__ads124s08_acc5fdb3a177b32ce008beb7d4f593e5a}{app.\+adc\+\_\+ads124s08.\+REG\+\_\+\+INPMUX}} = 0x02
+\item 
+int \mbox{\hyperlink{namespaceapp_1_1adc__ads124s08_a6693b8b3c92c4e605cd93396bbf437e4}{app.\+adc\+\_\+ads124s08.\+REG\+\_\+\+PGA}} = 0x03
+\item 
+int \mbox{\hyperlink{namespaceapp_1_1adc__ads124s08_a3570ad44d2f9dd31da3eb36e6bb43a74}{app.\+adc\+\_\+ads124s08.\+REG\+\_\+\+DATARATE}} = 0x04
+\item 
+int \mbox{\hyperlink{namespaceapp_1_1adc__ads124s08_a37082f74d6a0e13791161957521dda36}{app.\+adc\+\_\+ads124s08.\+REG\+\_\+\+REF}} = 0x05
+\item 
+int \mbox{\hyperlink{namespaceapp_1_1adc__ads124s08_ad6a2ed950510eefbb3d8e16c5d44aa9a}{app.\+adc\+\_\+ads124s08.\+REG\+\_\+\+IDACMUX}} = 0x07
+\item 
+int \mbox{\hyperlink{namespaceapp_1_1adc__ads124s08_ab33f3d3b9eff07796c0954fb0a26a0f9}{app.\+adc\+\_\+ads124s08.\+REG\+\_\+\+SYS}} = 0x09
+\item 
+int \mbox{\hyperlink{namespaceapp_1_1adc__ads124s08_a29344761380eb9759a168a517077c1f8}{app.\+adc\+\_\+ads124s08.\+REG\+\_\+\+IDACMAG}} = 0x06
+\item 
+int \mbox{\hyperlink{namespaceapp_1_1adc__ads124s08_ac53df39aab8783f89db1de629453dac2}{app.\+adc\+\_\+ads124s08.\+CMD\+\_\+\+RESET}} = 0x06
+\item 
+int \mbox{\hyperlink{namespaceapp_1_1adc__ads124s08_afdbb53f6073883d5fae13b41f4054ad2}{app.\+adc\+\_\+ads124s08.\+CMD\+\_\+\+START}} = 0x08
+\item 
+int \mbox{\hyperlink{namespaceapp_1_1adc__ads124s08_a584dd419d6c692fe7fdbf9c318b0e9da}{app.\+adc\+\_\+ads124s08.\+CMD\+\_\+\+STOP}} = 0x0A
+\item 
+int \mbox{\hyperlink{namespaceapp_1_1adc__ads124s08_a295dbc291719574e76ddc5a7a2467087}{app.\+adc\+\_\+ads124s08.\+CMD\+\_\+\+RDATA}} = 0x12
+\item 
+tuple \mbox{\hyperlink{namespaceapp_1_1adc__ads124s08_a9d806c5f058f08f8ee7e226d706694f1}{app.\+adc\+\_\+ads124s08.\+FS}} = (1 $<$$<$ 23) -\/ 1
+\item 
+dict \mbox{\hyperlink{namespaceapp_1_1adc__ads124s08_a8919c033b020e8f54f713cea9d68fa22}{app.\+adc\+\_\+ads124s08.\+CHANNELS}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+Driver pour l\textquotesingle{}ADC ADS124\+S08 avec communication SPI. 
+
+Ce module fournit une interface complète pour la communication avec l\textquotesingle{}ADC ADS124\+S08 via SPI en mode 1.\+0. Supporte la mesure de résistance et température avec configuration automatique des registres. S� Reset → Configuration → Mesure bloquante avec DRDY. \begin{DoxyAuthor}{Auteur}
+Léo Mendes @project 2510\+\_\+\+Regulations\+Chauffage @\+Mandant Oblo\+\_\+solution 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2025-\/09-\/18 
+\end{DoxyDate}
+\begin{DoxyVersion}{Version}
+1.\+0.\+0 
+\end{DoxyVersion}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2025 
+\end{DoxyCopyright}

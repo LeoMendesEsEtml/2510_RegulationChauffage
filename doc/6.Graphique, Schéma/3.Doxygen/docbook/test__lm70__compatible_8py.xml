@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_test__lm70__compatible_8py" xml:lang="fr">
+<title>Référence du fichier C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/test_lm70_compatible.py</title>
+<indexterm><primary>C:/Users/thebi/Documents/2510_RegulationChauffage/doc/9.SoftWare/Doxygen/src/app/test_lm70_compatible.py</primary></indexterm>
+<simplesect>
+    <title>Espaces de nommage    </title>
+        <itemizedlist>
+            <listitem><para>namespace <link linkend="_namespaceapp">app</link></para>
+</listitem>
+            <listitem><para>namespace <link linkend="_namespaceapp_1_1test__lm70__compatible">app.test_lm70_compatible</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Fonctions    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_namespaceapp_1_1test__lm70__compatible_1af5b44993c1442a69936834f072f09bd8">app.test_lm70_compatible.test_lm70</link> ()</para>
+
+<para>Test de communication SPI avec le capteur LM70. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Variables    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_namespaceapp_1_1test__lm70__compatible_1a6144e5814c4b07e44b35663388492ccf">app.test_lm70_compatible.level</link></para>
+</listitem>
+            <listitem><para><link linkend="_namespaceapp_1_1test__lm70__compatible_1a3a80c3c5818d76fa540d2608b8eb5251">app.test_lm70_compatible.format</link></para>
+</listitem>
+            <listitem><para><link linkend="_namespaceapp_1_1test__lm70__compatible_1a3634281bf1f55048d00aea77532f59dd">app.test_lm70_compatible.handlers</link></para>
+</listitem>
+            <listitem><para><link linkend="_namespaceapp_1_1test__lm70__compatible_1a57491bf19a08b2bf673b87010c9cf817">app.test_lm70_compatible.logger</link> = logging.getLogger(&quot;LM70-Test&quot;)</para>
+</listitem>
+            <listitem><para>int <link linkend="_namespaceapp_1_1test__lm70__compatible_1ae1e57a5467abd88aebe4e8a4ef2f8c47">app.test_lm70_compatible.LM70_CS_GPIO</link> = 18</para>
+</listitem>
+            <listitem><para>int <link linkend="_namespaceapp_1_1test__lm70__compatible_1ab158092e70bb66d47e0a9fd2cc1ea342">app.test_lm70_compatible.SPI_MOSI_ADC_GPIO</link> = 20</para>
+</listitem>
+            <listitem><para>int <link linkend="_namespaceapp_1_1test__lm70__compatible_1a9e3001ec2848de215182db26ce3b4828">app.test_lm70_compatible.SPI_MISO_ADC_GPIO</link> = 19</para>
+</listitem>
+            <listitem><para>int <link linkend="_namespaceapp_1_1test__lm70__compatible_1a2a6df630baf4617a726e2cd0d0b2ab6b">app.test_lm70_compatible.SPI_SCLK_ADC_GPIO</link> = 21</para>
+</listitem>
+            <listitem><para><link linkend="_namespaceapp_1_1test__lm70__compatible_1a71a3572d1e3aed0054cb2dedfa506fd6">app.test_lm70_compatible.current_dir</link> = os.path.dirname(os.path.abspath(__file__))</para>
+</listitem>
+            <listitem><para>str <link linkend="_namespaceapp_1_1test__lm70__compatible_1ae03ea432cb4b4f1e7d77dd39a1bf3ec1">app.test_lm70_compatible.src_dir</link> = os.path.dirname(<link linkend="_namespaceapp_1_1test__lm70__compatible_1a71a3572d1e3aed0054cb2dedfa506fd6">current_dir</link>) if &quot;src&quot; in <link linkend="_namespaceapp_1_1test__lm70__compatible_1a71a3572d1e3aed0054cb2dedfa506fd6">current_dir</link> else <link linkend="_namespaceapp_1_1test__lm70__compatible_1a71a3572d1e3aed0054cb2dedfa506fd6">current_dir</link></para>
+</listitem>
+            <listitem><para><link linkend="_namespaceapp_1_1test__lm70__compatible_1a142361b80c799ba1f4b3ae421b992bc9">app.test_lm70_compatible.spi</link> = spidev.SpiDev()</para>
+</listitem>
+            <listitem><para><link linkend="_namespaceapp_1_1test__lm70__compatible_1a06d07a4e6af2b1db673085b33a2deda8">app.test_lm70_compatible.max_speed_hz</link></para>
+</listitem>
+            <listitem><para><link linkend="_namespaceapp_1_1test__lm70__compatible_1a03dc9acc375bdb9ed7305b35a1652c06">app.test_lm70_compatible.mode</link></para>
+</listitem>
+            <listitem><para><link linkend="_namespaceapp_1_1test__lm70__compatible_1a931848fa47b9f7e6158745ac557b5d6b">app.test_lm70_compatible.bits_per_word</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+</section>

@@ -1,0 +1,162 @@
+\doxysection{Référence de la classe app.\+api\+\_\+client.\+Api\+Client}
+\hypertarget{classapp_1_1api__client_1_1_api_client}{}\label{classapp_1_1api__client_1_1_api_client}\index{app.api\_client.ApiClient@{app.api\_client.ApiClient}}
+
+
+Client pour interroger les APIs oblosolutions.\+ch.  
+
+
+
+
+Graphe de collaboration de app.\+api\+\_\+client.\+Api\+Client\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=228pt]{classapp_1_1api__client_1_1_api_client__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Fonctions membres publiques}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classapp_1_1api__client_1_1_api_client_a171cc745f73567764ce9c9b91b641073}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, str \mbox{\hyperlink{classapp_1_1api__client_1_1_api_client_affa2a7db3feeb2b89fea02782fa7651e}{mac\+\_\+address}})
+\begin{DoxyCompactList}\small\item\em Initialise le client API. \end{DoxyCompactList}\item 
+Dict\mbox{[}str, Any\mbox{]} \mbox{\hyperlink{classapp_1_1api__client_1_1_api_client_ad01feeab923001f13a9d7fec632b0535}{get\+\_\+parameters}} (self)
+\begin{DoxyCompactList}\small\item\em Récupère les paramètres depuis l\textquotesingle{}API td25\+\_\+param. \end{DoxyCompactList}\item 
+Dict\mbox{[}str, Any\mbox{]} \mbox{\hyperlink{classapp_1_1api__client_1_1_api_client_a263a088e7aba74e112fc19313eb564a4}{get\+\_\+forecast}} (self)
+\begin{DoxyCompactList}\small\item\em Récupère la température prévue depuis l\textquotesingle{}API td25\+\_\+forecast. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classapp_1_1api__client_1_1_api_client_a5466d28aa6db01b5d8980725bd66849e}{post\+\_\+measured\+\_\+temperature}} (self, float temperature, int channel=None)
+\begin{DoxyCompactList}\small\item\em Envoie la température mesurée vers l\textquotesingle{}API td25\+\_\+param. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Attributs publics}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classapp_1_1api__client_1_1_api_client_affa2a7db3feeb2b89fea02782fa7651e}{mac\+\_\+address}} = mac\+\_\+address
+\item 
+str \mbox{\hyperlink{classapp_1_1api__client_1_1_api_client_a1e7978396a583d3e306416a96e6e3d44}{base\+\_\+url}} = "{}https\+://dev.\+oblosolutions.\+ch"{}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Attributs publics statiques}
+\begin{DoxyCompactItemize}
+\item 
+str \mbox{\hyperlink{classapp_1_1api__client_1_1_api_client_a7f77d1e9774dd8035a541b442f65ed67}{API\+\_\+\+PATH\+\_\+\+PREFIX}} = "{}"{}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+Client pour interroger les APIs oblosolutions.\+ch. 
+
+Fournit des méthodes pour récupérer les paramètres de simulation, les prévisions météo et envoyer les mesures de température. Gère automatiquement les retries et les timeouts. 
+
+\label{doc-constructors}
+\Hypertarget{classapp_1_1api__client_1_1_api_client_doc-constructors}
+\doxysubsection{Documentation des constructeurs et destructeur}
+\Hypertarget{classapp_1_1api__client_1_1_api_client_a171cc745f73567764ce9c9b91b641073}\index{app.api\_client.ApiClient@{app.api\_client.ApiClient}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!app.api\_client.ApiClient@{app.api\_client.ApiClient}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classapp_1_1api__client_1_1_api_client_a171cc745f73567764ce9c9b91b641073} 
+app.\+api\+\_\+client.\+Api\+Client.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{str}]{mac\+\_\+address}{}\end{DoxyParamCaption})}
+
+
+
+Initialise le client API. 
+
+Configure l\textquotesingle{}adresse MAC du dispositif et l\textquotesingle{}URL de base pour les communications avec les services oblosolutions.\+ch.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em mac\+\_\+address} & Adresse MAC du dispositif (ex\+: "{}0030\+DEABCDEF"{}). \\
+\hline
+\end{DoxyParams}
+
+
+\label{doc-func-members}
+\Hypertarget{classapp_1_1api__client_1_1_api_client_doc-func-members}
+\doxysubsection{Documentation des fonctions membres}
+\Hypertarget{classapp_1_1api__client_1_1_api_client_a263a088e7aba74e112fc19313eb564a4}\index{app.api\_client.ApiClient@{app.api\_client.ApiClient}!get\_forecast@{get\_forecast}}
+\index{get\_forecast@{get\_forecast}!app.api\_client.ApiClient@{app.api\_client.ApiClient}}
+\doxysubsubsection{\texorpdfstring{get\_forecast()}{get\_forecast()}}
+{\footnotesize\ttfamily \label{classapp_1_1api__client_1_1_api_client_a263a088e7aba74e112fc19313eb564a4} 
+ Dict\mbox{[}str, Any\mbox{]} app.\+api\+\_\+client.\+Api\+Client.\+get\+\_\+forecast (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+Récupère la température prévue depuis l\textquotesingle{}API td25\+\_\+forecast. 
+
+Effectue une requête GET vers l\textquotesingle{}endpoint td25\+\_\+forecast avec l\textquotesingle{}adresse MAC comme paramètre. Parse la réponse JSON et extrait la température de prévision météorologique. Inclut un système de retry automatique en cas d\textquotesingle{}échec.
+
+\begin{DoxyReturn}{Renvoie}
+Dictionnaire contenant la temperature prévue.
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \doxylink{classapp_1_1api__client_1_1_api_error}{Api\+Error}} & En cas d\textquotesingle{}erreur de récupération des données. \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{classapp_1_1api__client_1_1_api_client_ad01feeab923001f13a9d7fec632b0535}\index{app.api\_client.ApiClient@{app.api\_client.ApiClient}!get\_parameters@{get\_parameters}}
+\index{get\_parameters@{get\_parameters}!app.api\_client.ApiClient@{app.api\_client.ApiClient}}
+\doxysubsubsection{\texorpdfstring{get\_parameters()}{get\_parameters()}}
+{\footnotesize\ttfamily \label{classapp_1_1api__client_1_1_api_client_ad01feeab923001f13a9d7fec632b0535} 
+ Dict\mbox{[}str, Any\mbox{]} app.\+api\+\_\+client.\+Api\+Client.\+get\+\_\+parameters (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+Récupère les paramètres depuis l\textquotesingle{}API td25\+\_\+param. 
+
+Effectue une requête GET vers l\textquotesingle{}endpoint td25\+\_\+param avec l\textquotesingle{}adresse MAC comme paramètre. Parse la réponse JSON et extrait les champs probe\+\_\+type, n, k\+\_\+m et temperature. Inclut un système de retry automatique en cas d\textquotesingle{}échec.
+
+\begin{DoxyReturn}{Renvoie}
+Dictionnaire contenant probe\+\_\+type, n, k\+\_\+m, temperature.
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \doxylink{classapp_1_1api__client_1_1_api_error}{Api\+Error}} & En cas d\textquotesingle{}erreur de récupération des données. \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{classapp_1_1api__client_1_1_api_client_a5466d28aa6db01b5d8980725bd66849e}\index{app.api\_client.ApiClient@{app.api\_client.ApiClient}!post\_measured\_temperature@{post\_measured\_temperature}}
+\index{post\_measured\_temperature@{post\_measured\_temperature}!app.api\_client.ApiClient@{app.api\_client.ApiClient}}
+\doxysubsubsection{\texorpdfstring{post\_measured\_temperature()}{post\_measured\_temperature()}}
+{\footnotesize\ttfamily \label{classapp_1_1api__client_1_1_api_client_a5466d28aa6db01b5d8980725bd66849e} 
+ bool app.\+api\+\_\+client.\+Api\+Client.\+post\+\_\+measured\+\_\+temperature (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{float}]{temperature}{, }\item[{int }]{channel}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+
+
+Envoie la température mesurée vers l\textquotesingle{}API td25\+\_\+param. 
+
+Effectue une requête POST vers l\textquotesingle{}endpoint td25\+\_\+param avec la température mesurée et optionnellement le numéro de canal. Tous les paramètres sont envoyés dans l\textquotesingle{}URL comme paramètres de requête. Inclut un système de retry automatique.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em temperature} & Température mesurée en °C. \\
+\hline
+{\em channel} & Canal de mesure (optionnel).\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+True si succès, False sinon. 
+\end{DoxyReturn}
+
+
+\label{doc-variable-members}
+\Hypertarget{classapp_1_1api__client_1_1_api_client_doc-variable-members}
+\doxysubsection{Documentation des données membres}
+\Hypertarget{classapp_1_1api__client_1_1_api_client_a7f77d1e9774dd8035a541b442f65ed67}\index{app.api\_client.ApiClient@{app.api\_client.ApiClient}!API\_PATH\_PREFIX@{API\_PATH\_PREFIX}}
+\index{API\_PATH\_PREFIX@{API\_PATH\_PREFIX}!app.api\_client.ApiClient@{app.api\_client.ApiClient}}
+\doxysubsubsection{\texorpdfstring{API\_PATH\_PREFIX}{API\_PATH\_PREFIX}}
+{\footnotesize\ttfamily \label{classapp_1_1api__client_1_1_api_client_a7f77d1e9774dd8035a541b442f65ed67} 
+str app.\+api\+\_\+client.\+Api\+Client.\+API\+\_\+\+PATH\+\_\+\+PREFIX = "{}"{}\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{classapp_1_1api__client_1_1_api_client_a1e7978396a583d3e306416a96e6e3d44}\index{app.api\_client.ApiClient@{app.api\_client.ApiClient}!base\_url@{base\_url}}
+\index{base\_url@{base\_url}!app.api\_client.ApiClient@{app.api\_client.ApiClient}}
+\doxysubsubsection{\texorpdfstring{base\_url}{base\_url}}
+{\footnotesize\ttfamily \label{classapp_1_1api__client_1_1_api_client_a1e7978396a583d3e306416a96e6e3d44} 
+str app.\+api\+\_\+client.\+Api\+Client.\+base\+\_\+url = "{}https\+://dev.\+oblosolutions.\+ch"{}}
+
+\Hypertarget{classapp_1_1api__client_1_1_api_client_affa2a7db3feeb2b89fea02782fa7651e}\index{app.api\_client.ApiClient@{app.api\_client.ApiClient}!mac\_address@{mac\_address}}
+\index{mac\_address@{mac\_address}!app.api\_client.ApiClient@{app.api\_client.ApiClient}}
+\doxysubsubsection{\texorpdfstring{mac\_address}{mac\_address}}
+{\footnotesize\ttfamily \label{classapp_1_1api__client_1_1_api_client_affa2a7db3feeb2b89fea02782fa7651e} 
+app.\+api\+\_\+client.\+Api\+Client.\+mac\+\_\+address = mac\+\_\+address}
+
+
+
+La documentation de cette classe a été générée à partir du fichier suivant \+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/thebi/\+Documents/2510\+\_\+\+Regulation\+Chauffage/doc/9.\+Soft\+Ware/\+Doxygen/src/app/\mbox{\hyperlink{api__client_8py}{api\+\_\+client.\+py}}\end{DoxyCompactItemize}

@@ -1,0 +1,103 @@
+\doxysection{Référence de l\textquotesingle{}espace de nommage app.\+mesure\+\_\+24v\+\_\+dry\+\_\+contact}
+\hypertarget{namespaceapp_1_1mesure__24v__dry__contact}{}\label{namespaceapp_1_1mesure__24v__dry__contact}\index{app.mesure\_24v\_dry\_contact@{app.mesure\_24v\_dry\_contact}}
+\doxysubsubsection*{Fonctions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceapp_1_1mesure__24v__dry__contact_ab7cf8a3e7b655f7414576fdb402a58b6}{test\+\_\+24v\+\_\+dry\+\_\+contact}} ()
+\begin{DoxyCompactList}\small\item\em Test des contacts secs I/O 24V. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespaceapp_1_1mesure__24v__dry__contact_a92312106402fd2af723b0eecd78addaf}{get\+\_\+dry\+\_\+contact\+\_\+status}} ()
+\begin{DoxyCompactList}\small\item\em Retourne l\textquotesingle{}état actuel des contacts secs. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{namespaceapp_1_1mesure__24v__dry__contact_a453d71784bc90759879ed4710eddaae7}{CM\+\_\+24\+V\+\_\+\+OUT\+\_\+1}} = 13
+\item 
+int \mbox{\hyperlink{namespaceapp_1_1mesure__24v__dry__contact_af472e52ff88e296aea83c8cc79d5620c}{CM\+\_\+24\+V\+\_\+\+SENSE\+\_\+1}} = 14
+\item 
+int \mbox{\hyperlink{namespaceapp_1_1mesure__24v__dry__contact_a8b67517287b2c5e4ef8bfa43ae6b4729}{CM\+\_\+24\+V\+\_\+\+OUT\+\_\+2}} = 15
+\item 
+int \mbox{\hyperlink{namespaceapp_1_1mesure__24v__dry__contact_a04e3ff2fcb546df09d9f9395e419df3c}{CM\+\_\+24\+V\+\_\+\+SENSE\+\_\+2}} = 16
+\item 
+int \mbox{\hyperlink{namespaceapp_1_1mesure__24v__dry__contact_aa7723504bd319fbc27af31e9cb1f5ba9}{io\+\_\+24v\+\_\+ch1\+\_\+ok}} = 0
+\item 
+int \mbox{\hyperlink{namespaceapp_1_1mesure__24v__dry__contact_abcab5b3d8575048fb3ca52576a6a2e79}{io\+\_\+24v\+\_\+ch2\+\_\+ok}} = 0
+\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{namespaceapp_1_1mesure__24v__dry__contact_doc-func-members}
+\doxysubsection{Documentation des fonctions}
+\Hypertarget{namespaceapp_1_1mesure__24v__dry__contact_a92312106402fd2af723b0eecd78addaf}\index{app.mesure\_24v\_dry\_contact@{app.mesure\_24v\_dry\_contact}!get\_dry\_contact\_status@{get\_dry\_contact\_status}}
+\index{get\_dry\_contact\_status@{get\_dry\_contact\_status}!app.mesure\_24v\_dry\_contact@{app.mesure\_24v\_dry\_contact}}
+\doxysubsubsection{\texorpdfstring{get\_dry\_contact\_status()}{get\_dry\_contact\_status()}}
+{\footnotesize\ttfamily \label{namespaceapp_1_1mesure__24v__dry__contact_a92312106402fd2af723b0eecd78addaf} 
+app.\+mesure\+\_\+24v\+\_\+dry\+\_\+contact.\+get\+\_\+dry\+\_\+contact\+\_\+status (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Retourne l\textquotesingle{}état actuel des contacts secs. 
+
+Fonction utilitaire qui retourne les derniers états mesurés des contacts secs sans effectuer de nouveau test. Utilise les variables globales mises à jour par \doxylink{namespaceapp_1_1mesure__24v__dry__contact_ab7cf8a3e7b655f7414576fdb402a58b6}{test\+\_\+24v\+\_\+dry\+\_\+contact()}.
+
+\begin{DoxyReturn}{Renvoie}
+Dictionnaire contenant l\textquotesingle{}état des deux canaux. Format \{"{}ch1"{}\+: 0\texorpdfstring{$\vert$}{|}1, "{}ch2"{}\+: 0\texorpdfstring{$\vert$}{|}1\} Valeurs 0=ouvert, 1=fermé. 
+\end{DoxyReturn}
+\Hypertarget{namespaceapp_1_1mesure__24v__dry__contact_ab7cf8a3e7b655f7414576fdb402a58b6}\index{app.mesure\_24v\_dry\_contact@{app.mesure\_24v\_dry\_contact}!test\_24v\_dry\_contact@{test\_24v\_dry\_contact}}
+\index{test\_24v\_dry\_contact@{test\_24v\_dry\_contact}!app.mesure\_24v\_dry\_contact@{app.mesure\_24v\_dry\_contact}}
+\doxysubsubsection{\texorpdfstring{test\_24v\_dry\_contact()}{test\_24v\_dry\_contact()}}
+{\footnotesize\ttfamily \label{namespaceapp_1_1mesure__24v__dry__contact_ab7cf8a3e7b655f7414576fdb402a58b6} 
+app.\+mesure\+\_\+24v\+\_\+dry\+\_\+contact.\+test\+\_\+24v\+\_\+dry\+\_\+contact (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Test des contacts secs I/O 24V. 
+
+Effectue un test complet des deux canaux de contacts secs 24V. Active séquentiellement chaque sortie et lit l\textquotesingle{}état du capteur correspondant pour déterminer si le contact est fermé ou ouvert. Met à jour les variables globales d\textquotesingle{}état et affiche les résultats.
+
+\begin{DoxyReturn}{Renvoie}
+Tuple contenant l\textquotesingle{}état des deux canaux (ch1\+\_\+state, ch2\+\_\+state). Valeurs 0=ouvert, 1=fermé.
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Utilise des temporisations pour la stabilisation des signaux. 
+\end{DoxyNote}
+
+
+\label{doc-var-members}
+\Hypertarget{namespaceapp_1_1mesure__24v__dry__contact_doc-var-members}
+\doxysubsection{Documentation des variables}
+\Hypertarget{namespaceapp_1_1mesure__24v__dry__contact_a453d71784bc90759879ed4710eddaae7}\index{app.mesure\_24v\_dry\_contact@{app.mesure\_24v\_dry\_contact}!CM\_24V\_OUT\_1@{CM\_24V\_OUT\_1}}
+\index{CM\_24V\_OUT\_1@{CM\_24V\_OUT\_1}!app.mesure\_24v\_dry\_contact@{app.mesure\_24v\_dry\_contact}}
+\doxysubsubsection{\texorpdfstring{CM\_24V\_OUT\_1}{CM\_24V\_OUT\_1}}
+{\footnotesize\ttfamily \label{namespaceapp_1_1mesure__24v__dry__contact_a453d71784bc90759879ed4710eddaae7} 
+int app.\+mesure\+\_\+24v\+\_\+dry\+\_\+contact.\+CM\+\_\+24\+V\+\_\+\+OUT\+\_\+1 = 13}
+
+\Hypertarget{namespaceapp_1_1mesure__24v__dry__contact_a8b67517287b2c5e4ef8bfa43ae6b4729}\index{app.mesure\_24v\_dry\_contact@{app.mesure\_24v\_dry\_contact}!CM\_24V\_OUT\_2@{CM\_24V\_OUT\_2}}
+\index{CM\_24V\_OUT\_2@{CM\_24V\_OUT\_2}!app.mesure\_24v\_dry\_contact@{app.mesure\_24v\_dry\_contact}}
+\doxysubsubsection{\texorpdfstring{CM\_24V\_OUT\_2}{CM\_24V\_OUT\_2}}
+{\footnotesize\ttfamily \label{namespaceapp_1_1mesure__24v__dry__contact_a8b67517287b2c5e4ef8bfa43ae6b4729} 
+int app.\+mesure\+\_\+24v\+\_\+dry\+\_\+contact.\+CM\+\_\+24\+V\+\_\+\+OUT\+\_\+2 = 15}
+
+\Hypertarget{namespaceapp_1_1mesure__24v__dry__contact_af472e52ff88e296aea83c8cc79d5620c}\index{app.mesure\_24v\_dry\_contact@{app.mesure\_24v\_dry\_contact}!CM\_24V\_SENSE\_1@{CM\_24V\_SENSE\_1}}
+\index{CM\_24V\_SENSE\_1@{CM\_24V\_SENSE\_1}!app.mesure\_24v\_dry\_contact@{app.mesure\_24v\_dry\_contact}}
+\doxysubsubsection{\texorpdfstring{CM\_24V\_SENSE\_1}{CM\_24V\_SENSE\_1}}
+{\footnotesize\ttfamily \label{namespaceapp_1_1mesure__24v__dry__contact_af472e52ff88e296aea83c8cc79d5620c} 
+int app.\+mesure\+\_\+24v\+\_\+dry\+\_\+contact.\+CM\+\_\+24\+V\+\_\+\+SENSE\+\_\+1 = 14}
+
+\Hypertarget{namespaceapp_1_1mesure__24v__dry__contact_a04e3ff2fcb546df09d9f9395e419df3c}\index{app.mesure\_24v\_dry\_contact@{app.mesure\_24v\_dry\_contact}!CM\_24V\_SENSE\_2@{CM\_24V\_SENSE\_2}}
+\index{CM\_24V\_SENSE\_2@{CM\_24V\_SENSE\_2}!app.mesure\_24v\_dry\_contact@{app.mesure\_24v\_dry\_contact}}
+\doxysubsubsection{\texorpdfstring{CM\_24V\_SENSE\_2}{CM\_24V\_SENSE\_2}}
+{\footnotesize\ttfamily \label{namespaceapp_1_1mesure__24v__dry__contact_a04e3ff2fcb546df09d9f9395e419df3c} 
+int app.\+mesure\+\_\+24v\+\_\+dry\+\_\+contact.\+CM\+\_\+24\+V\+\_\+\+SENSE\+\_\+2 = 16}
+
+\Hypertarget{namespaceapp_1_1mesure__24v__dry__contact_aa7723504bd319fbc27af31e9cb1f5ba9}\index{app.mesure\_24v\_dry\_contact@{app.mesure\_24v\_dry\_contact}!io\_24v\_ch1\_ok@{io\_24v\_ch1\_ok}}
+\index{io\_24v\_ch1\_ok@{io\_24v\_ch1\_ok}!app.mesure\_24v\_dry\_contact@{app.mesure\_24v\_dry\_contact}}
+\doxysubsubsection{\texorpdfstring{io\_24v\_ch1\_ok}{io\_24v\_ch1\_ok}}
+{\footnotesize\ttfamily \label{namespaceapp_1_1mesure__24v__dry__contact_aa7723504bd319fbc27af31e9cb1f5ba9} 
+int app.\+mesure\+\_\+24v\+\_\+dry\+\_\+contact.\+io\+\_\+24v\+\_\+ch1\+\_\+ok = 0}
+
+\Hypertarget{namespaceapp_1_1mesure__24v__dry__contact_abcab5b3d8575048fb3ca52576a6a2e79}\index{app.mesure\_24v\_dry\_contact@{app.mesure\_24v\_dry\_contact}!io\_24v\_ch2\_ok@{io\_24v\_ch2\_ok}}
+\index{io\_24v\_ch2\_ok@{io\_24v\_ch2\_ok}!app.mesure\_24v\_dry\_contact@{app.mesure\_24v\_dry\_contact}}
+\doxysubsubsection{\texorpdfstring{io\_24v\_ch2\_ok}{io\_24v\_ch2\_ok}}
+{\footnotesize\ttfamily \label{namespaceapp_1_1mesure__24v__dry__contact_abcab5b3d8575048fb3ca52576a6a2e79} 
+int app.\+mesure\+\_\+24v\+\_\+dry\+\_\+contact.\+io\+\_\+24v\+\_\+ch2\+\_\+ok = 0}
+

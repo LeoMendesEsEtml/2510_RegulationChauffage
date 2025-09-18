@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_namespaceconfig__module_1_1cm5__config" xml:lang="fr">
+<title>Référence de l&apos;espace de nommage config_module.cm5_config</title>
+<indexterm><primary>config_module.cm5_config</primary></indexterm>
+<simplesect>
+    <title>Fonctions    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_namespaceconfig__module_1_1cm5__config_1a1b2cec317a1cf375b2d43c263f5a665b">build_hw</link> ()</para>
+
+<para>Initialise et configure tout le matériel CM5. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Variables    </title>
+        <itemizedlist>
+            <listitem><para>list <link linkend="_namespaceconfig__module_1_1cm5__config_1a98f07cbc7aad810cb848630cde11db65">ADC_CHANNELS</link> = [1, 2, 3, 4]</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Documentation des fonctions</title>
+<anchor xml:id="_namespaceconfig__module_1_1cm5__config_1a1b2cec317a1cf375b2d43c263f5a665b"/><section>
+    <title>build_hw()</title>
+<indexterm><primary>build_hw</primary><secondary>config_module.cm5_config</secondary></indexterm>
+<indexterm><primary>config_module.cm5_config</primary><secondary>build_hw</secondary></indexterm>
+<para><computeroutput>config_module.cm5_config.build_hw ( )</computeroutput></para><para>
+
+<para>Initialise et configure tout le matériel CM5. </para>
+</para>
+
+<para>Crée les instances des composants matériels avec configuration fixe LED frontale, multiplexeur TMUX et ADC. Configure la LED en sortie et l&apos;allume immédiatement pour indication système.</para>
+
+<para><formalpara><title>Renvoie</title>
+
+<para>Dictionnaire contenant toutes les instances matérielles:<itemizedlist>
+<listitem>
+<para>&quot;led&quot;: Instance GPIO pour LED frontale</para>
+</listitem><listitem>
+<para>&quot;tmux&quot;: Instance <link linkend="_classapp_1_1hw__tmux1204_1_1_tmux1204">Tmux1204</link> pour sélection canaux</para>
+</listitem><listitem>
+<para>&quot;adc&quot;: Instance <link linkend="_classapp_1_1adc__ads124s08_1_1_ads124s08">Ads124s08</link> pour conversion analogique</para>
+</listitem></itemizedlist>
+</para>
+</formalpara>
+<warning><title>Avertissement</title>
+
+<para>LED allumée automatiquement pour indiquer système actif. </para>
+</warning>
+</para>
+</section>
+</section>
+<section>
+<title>Documentation des variables</title>
+<anchor xml:id="_namespaceconfig__module_1_1cm5__config_1a98f07cbc7aad810cb848630cde11db65"/><section>
+    <title>ADC_CHANNELS</title>
+<indexterm><primary>ADC_CHANNELS</primary><secondary>config_module.cm5_config</secondary></indexterm>
+<indexterm><primary>config_module.cm5_config</primary><secondary>ADC_CHANNELS</secondary></indexterm>
+<para><computeroutput>list config_module.cm5_config.ADC_CHANNELS = [1, 2, 3, 4]</computeroutput></para></section>
+</section>
+</section>
