@@ -44,7 +44,7 @@ from mesure_24v_dry_contact import test_24v_dry_contact, get_dry_contact_status
 def start_webui_server():
     """Lance le serveur web dans un thread séparé"""
     try:
-        import webui_server
+        from webui import webui_server
         webui_server.app.run(host="0.0.0.0", port=8080, debug=False, use_reloader=False)
     except ImportError:
         print("[WEBUI] Module webui_server non trouvé")
@@ -101,7 +101,7 @@ def save_last_state(channel=None, resistance_ohm=None, temperature_c=None, tempe
         with open(state_path, "w", encoding="utf-8") as f:
             json.dump(existing_data, f, ensure_ascii=False, indent=2)
     except Exception as e:
-        print(f"[STATE] ❌ Erreur sauvegarde état: {e}")
+        print(f"[STATE] Erreur sauvegarde état: {e}")
 
 def signal_handler(sig, frame):
     """Gestionnaire pour arrêt propre avec Ctrl+C"""
@@ -141,17 +141,17 @@ def run_measurement_sequence(cfg, mac_address, adc, tmux):
     global led_indicator
     print(f"\n[SEQUENCER] === NOUVELLE SÉQUENCE - {datetime.now().strftime('%H:%M:%S')} ===")
     
-    # 🔄 Rechargement de la configuration avant chaque séquence
-    print(f"[CONFIG] 🔄 Rechargement configuration...")
+    # Rechargement de la configuration avant chaque séquence
+    print(f"[CONFIG] Rechargement configuration...")
     CONFIG_FILE = os.path.join(SRC_DIR, "config_module", "sensors.json")
     try:
         cfg = load_config(CONFIG_FILE)
         enabled_channels = [ch for ch in cfg.get("channels", []) if ch.get("enabled")]
-        print(f"[CONFIG] ✅ Config rechargée: {len(enabled_channels)} canaux actifs")
+        print(f"[CONFIG] Config rechargée: {len(enabled_channels)} canaux actifs")
         for ch_info in enabled_channels:
-            print(f"[CONFIG] 🔌 Canal {ch_info['channel']}: {ch_info['sensor']}")
+            print(f"[CONFIG] Canal {ch_info['channel']}: {ch_info['sensor']}")
     except Exception as e:
-        print(f"[CONFIG] ❌ Erreur rechargement: {e}")
+        print(f"[CONFIG] Erreur rechargement: {e}")
         return False
     
     # LED en mode séquence
@@ -411,6 +411,10 @@ def main():
                 should_run = True
                 sequence_reason = "MANUELLE"
                 force_sequence.clear()
+                # Redémarrer le cycle automatique après une exécution manuelle
+                if auto_sequence and not args.manual:
+                    next_sequence_time = current_time + timedelta(minutes=sequence_interval_minutes)
+                    print(f"[SEQUENCER] Cycle automatique redémarré - Prochaine séquence à: {next_sequence_time.strftime('%H:%M:%S')}")
             elif args.once:
                 should_run = True
                 sequence_reason = "UNIQUE"
