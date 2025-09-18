@@ -49,10 +49,10 @@ python3 /home/oblo/proj/2510_RegulationChauffage_soft/soft/src/app/main.py --onc
 
 ### Service systemd (production)
 ```bash
-# Créer le fichier de service
+# Créer le service avec interface web
 sudo tee /etc/systemd/system/2510-regulation.service > /dev/null << 'EOF'
 [Unit]
-Description=2510 Regulation Chauffage Service
+Description=2510 Regulation Chauffage Service with WebUI
 After=network.target
 Wants=network.target
 
@@ -61,7 +61,7 @@ Type=simple
 User=oblo
 Group=oblo
 WorkingDirectory=/home/oblo/proj/2510_RegulationChauffage_soft/soft/src
-ExecStart=/usr/bin/python3 /home/oblo/proj/2510_RegulationChauffage_soft/soft/src/app/main.py
+ExecStart=/usr/bin/python3 /home/oblo/proj/2510_RegulationChauffage_soft/soft/src/app/main.py --webui
 Restart=always
 RestartSec=10
 StandardOutput=journal
