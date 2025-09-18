@@ -234,13 +234,13 @@ sudo journalctl -u 2510-regulation
 ```
 
 ### Monitoring système
-# Patterns d'erreur : X clignotements sur 10 secondes puis répétition
+#### Patterns d'erreur : X clignotements sur 10 secondes puis répétition
 - 1 clignotement = Pas de connexion Internet
 - 2 clignotements = Erreur API (connexion ou réponse)
 - 3 clignotements = Erreur de mesure ADC/résistance
 - 4 clignotements = Erreur critique système
 - 5 clignotements = Erreur de configuration
-# Interface web :
+#### Interface web :
 - Dashboard temps réel à `http://192.168.1.109:8080`
 
 ## Validation et diagnostics
