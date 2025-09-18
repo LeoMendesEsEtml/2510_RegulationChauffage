@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8">
-<title>CM5 WebUI - Config et Dernières valeurs</title>
+<title>CM5 WebUI - Config et Derni�res valeurs</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
   body { font-family: Arial, sans-serif; margin: 20px; }
@@ -15,67 +15,79 @@
   button { padding: 8px 12px; margin: 4px; cursor: pointer; }
   .info-box { background: #f0f8ff; border-left: 4px solid #2196F3; padding: 10px; margin: 10px 0; }
   .channel-info { background: #f9f9f9; padding: 8px; margin: 4px 0; border-radius: 4px; }
+  .logo-placeholder { 
+    width: 50px; 
+    height: 50px; 
+    background: #ddd; 
+    border-radius: 4px; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    font-size: 12px; 
+    color: #666;
+    margin-right: 15px;
+  }
 </style>
 </head>
 <body>
 <header style="display: flex; align-items: center; margin-bottom: 20px; padding: 10px; border-bottom: 2px solid #ddd;">
-  <img src="oblo_vignette.png" alt="Oblo Logo" style="height: 50px; margin-right: 15px;">
+  <div class="logo-placeholder">OBLO</div>
   <h1 style="margin: 0;">CM5 WebUI</h1>
 </header>
 
 <section>
-  <h2>📊 Configuration du système de mesure</h2>
+  <h2>Configuration du syst�me de mesure</h2>
   
   <div class="info-box">
-    <strong>ℹ️ Information:</strong> Cette interface permet de configurer les paramètres de mesure et simulation de température.
-    Les modifications sont appliquées automatiquement lors de la prochaine séquence de mesure.
+    <strong>Information:</strong> Cette interface permet de configurer les param�tres de mesure et simulation de temp�rature.
+    Les modifications sont appliqu�es automatiquement lors de la prochaine s�quence de mesure.
   </div>
 
   <div class="param-group">
     <div class="param-label">Adresse MAC du dispositif</div>
-    <div class="param-desc">Identifiant unique du Raspberry Pi CM5 pour l'API. Format: 6 octets en hexadécimal.</div>
+    <div class="param-desc">Identifiant unique du Raspberry Pi CM5 pour l'API. Format: 6 octets en hexad�cimal.</div>
     <input id="mac_address" type="text" class="param-input" placeholder="ex: 0030DEABCDEF">
   </div>
 
   <div class="param-group">
     <div class="param-label">Timeout de mesure (secondes)</div>
-    <div class="param-desc">Temps maximum d'attente pour une mesure ADC avant abandon. Valeur recommandée: 180s.</div>
+    <div class="param-desc">Temps maximum d'attente pour une mesure ADC avant abandon. Valeur recommand�e: 180s.</div>
     <input id="timeout_s" type="number" step="1" min="1" max="3600" class="param-input">
   </div>
 
   <div class="param-group">
-    <div class="param-label">Délai entre mesures (secondes)</div>
-    <div class="param-desc">Pause entre chaque échantillonnage ADC pour stabilisation. Valeur recommandée: 0.1s.</div>
+    <div class="param-label">D�lai entre mesures (secondes)</div>
+    <div class="param-desc">Pause entre chaque �chantillonnage ADC pour stabilisation. Valeur recommand�e: 0.1s.</div>
     <input id="inter_measure_sleep_s" type="number" step="0.001" min="0" max="10" class="param-input">
   </div>
 
   <div class="param-group">
-    <div class="param-label">Délai de boucle principale (secondes)</div>
-    <div class="param-desc">Pause dans la boucle principale du programme. Affecte la réactivité système. Valeur recommandée: 1.0s.</div>
+    <div class="param-label">D�lai de boucle principale (secondes)</div>
+    <div class="param-desc">Pause dans la boucle principale du programme. Affecte la r�activit� syst�me. Valeur recommand�e: 1.0s.</div>
     <input id="loop_sleep_s" type="number" step="0.001" min="0" max="60" class="param-input">
   </div>
 
   <div class="param-group">
-    <div class="param-label">Intervalle des séquences automatiques (minutes)</div>
-    <div class="param-desc">Fréquence d'exécution automatique des mesures complètes. 0 = désactivé. Valeur recommandée: 5 min.</div>
+    <div class="param-label">Intervalle des s�quences automatiques (minutes)</div>
+    <div class="param-desc">Fr�quence d'ex�cution automatique des mesures compl�tes. 0 = d�sactiv�. Valeur recommand�e: 5 min.</div>
     <input id="sequence_interval_minutes" type="number" step="1" min="0" max="1440" class="param-input">
   </div>
 
   <div class="param-group">
     <div class="param-label">Mode automatique</div>
-    <div class="param-desc">Active/désactive l'exécution automatique des séquences de mesure selon l'intervalle défini.</div>
+    <div class="param-desc">Active/d�sactive l'ex�cution automatique des s�quences de mesure selon l'intervalle d�fini.</div>
     <input id="auto_sequence" type="checkbox">
   </div>
 
-  <h3>🔌 Configuration des canaux de mesure</h3>
+  <h3>Configuration des canaux de mesure</h3>
   <div class="info-box">
-    <strong>Types de capteurs supportés:</strong><br>
-    • <strong>De Dietrich AF60:</strong> Capteur de température industriel<br>
-    • <strong>Siemens QAC32:</strong> Capteur de température ambiante<br>
-    • <strong>PT1000:</strong> Sonde platine haute précision (-200°C à +850°C)<br>
-    • <strong>Ni1000 TK5000/TK6180:</strong> Sonde nickel standard/haute précision<br>
-    • <strong>NTC (1k, 2k, 2.2k, 10k):</strong> Thermistances à coefficient négatif<br>
-    • <strong>KTY81-210:</strong> Capteur silicium linéaire
+    <strong>Types de capteurs support�s:</strong><br>
+    � <strong>De Dietrich AF60:</strong> Capteur de temp�rature industriel<br>
+    � <strong>Siemens QAC32:</strong> Capteur de temp�rature ambiante<br>
+    � <strong>PT1000:</strong> Sonde platine haute pr�cision (-200�C � +850�C)<br>
+    � <strong>Ni1000 TK5000/TK6180:</strong> Sonde nickel standard/haute pr�cision<br>
+    � <strong>NTC (1k, 2k, 2.2k, 10k):</strong> Thermistances � coefficient n�gatif<br>
+    � <strong>KTY81-210:</strong> Capteur silicium lin�aire
   </div>
 
   <table id="channels_table" border="1" cellpadding="4">
@@ -83,7 +95,7 @@
       <tr>
         <th>Canal</th>
         <th>Type de capteur</th>
-        <th>État</th>
+        <th>�tat</th>
         <th>Description</th>
       </tr>
     </thead>
@@ -93,7 +105,7 @@
   <div style="margin-top:8px;">
     <button id="reload_btn">Recharger</button>
     <button id="save_btn">Enregistrer</button>
-    <button id="force_reload_btn">🔄 Forcer rechargement config</button>
+    <button id="force_reload_btn">Forcer rechargement config</button>
     <span id="save_status"></span>
   </div>
 </section>
@@ -101,20 +113,20 @@
 <hr>
 
 <section>
-  <h2>📊 Données en temps réel</h2>
+  <h2>Donn�es en temps r�el</h2>
   <div id="channels_data">
-    <!-- Les données par canal seront affichées ici -->
+    <!-- Les donn�es par canal seront affich�es ici -->
   </div>
   
-  <h3>🔄 Dernière mesure globale</h3>
+  <h3>Derni�re mesure globale</h3>
   <div class="channel-info">
     <div><strong>Timestamp:</strong> <span id="ts">-</span></div>
-    <div><strong>Canal mesuré:</strong> <span id="last_channel">-</span></div>
-    <div><strong>Résistance mesurée:</strong> <span id="last_res">-</span> Ω</div>
-    <div><strong>Température calculée:</strong> <span id="last_temp">-</span> °C</div>
-    <div><strong>Température simulée:</strong> <span id="last_tsim">-</span> °C</div>
+    <div><strong>Canal mesur�:</strong> <span id="last_channel">-</span></div>
+    <div><strong>R�sistance mesur�e:</strong> <span id="last_res">-</span> O</div>
+    <div><strong>Temp�rature calcul�e:</strong> <span id="last_temp">-</span> �C</div>
+    <div><strong>Temp�rature simul�e:</strong> <span id="last_tsim">-</span> �C</div>
     <div><strong>Erreur:</strong> <span id="last_err">-</span></div>
-    <div><strong>Âge de la mesure:</strong> <span id="age_s">-</span> secondes</div>
+    <div><strong>�ge de la mesure:</strong> <span id="age_s">-</span> secondes</div>
   </div>
 </section>
 
@@ -232,7 +244,7 @@ function loadConfig() {
         cb.setAttribute("data-index", String(i));
         var label = document.createElement("label");
         label.appendChild(cb);
-        label.appendChild(document.createTextNode(ch.enabled ? " ✅ Actif" : " ❌ Inactif"));
+        label.appendChild(document.createTextNode(ch.enabled ? " Actif" : " Inactif"));
         tdEn.appendChild(label);
         tr.appendChild(tdEn);
 
@@ -340,12 +352,12 @@ function refreshLast() {
     // Affichage des données par canal
     var channelsDiv = el("channels_data");
     if (d.channels) {
-      var html = "<div class='info-box'><strong>� Historique des mesures par canal actif</strong></div>";
+      var html = "<div class='info-box'><strong>Historique des mesures par canal actif</strong></div>";
       var channelKeys = Object.keys(d.channels).sort(function(a, b) { return parseInt(a) - parseInt(b); });
       
       if (channelKeys.length > 0) {
         html += "<table border='1' cellpadding='8' style='margin-bottom: 15px; width: 100%;'>";
-        html += "<thead style='background: #f0f0f0;'><tr><th>Canal</th><th>🌡️ Température mesurée</th><th>🔧 Résistance</th><th>🎯 T_simulée</th><th>⏰ Dernière mesure</th></tr></thead><tbody>";
+        html += "<thead style='background: #f0f0f0;'><tr><th>Canal</th><th>Température mesurée</th><th>Résistance</th><th>T_simulée</th><th>Dernière mesure</th></tr></thead><tbody>";
         
         var i = 0;
         while (i < channelKeys.length) {
@@ -388,11 +400,11 @@ function refreshLast() {
         }
         html += "</tbody></table>";
       } else {
-        html += "<div class='channel-info'><em>⚠️ Aucune donnée de canal disponible - Aucune mesure effectuée ou tous les canaux sont désactivés</em></div>";
+        html += "<div class='channel-info'><em>Aucune donnée de canal disponible - Aucune mesure effectuée ou tous les canaux sont désactivés</em></div>";
       }
       channelsDiv.innerHTML = html;
     } else {
-      channelsDiv.innerHTML = "<div class='channel-info'><em>⚠️ Structure de données ancienne - Redémarrez l'application principale</em></div>";
+      channelsDiv.innerHTML = "<div class='channel-info'><em>Structure de données ancienne - Redémarrez l'application principale</em></div>";
     }
     
     // Données globales (dernière mesure)
@@ -427,7 +439,7 @@ function setup() {
   el("force_reload_btn").addEventListener("click", function() { forceReload(); });
   loadConfig();
   refreshLast();
-  setInterval(function() { refreshLast(); }, 5000);  // 5 secondes au lieu de 1.5
+  setInterval(function() { refreshLast(); }, 5000);
 }
 
 function forceReload() {
@@ -435,13 +447,13 @@ function forceReload() {
     method: "POST"
   }).then(function(resp) {
     if (resp.ok) {
-      el("save_status").textContent = "🔄 Rechargement demandé";
+      el("save_status").textContent = "Rechargement demandé";
       setTimeout(function() { el("save_status").textContent = ""; }, 3000);
     } else {
-      el("save_status").textContent = "❌ Erreur rechargement";
+      el("save_status").textContent = "Erreur rechargement";
     }
   }).catch(function(err) {
-    el("save_status").textContent = "❌ Erreur: " + String(err);
+    el("save_status").textContent = "Erreur: " + String(err);
   });
 }
 
