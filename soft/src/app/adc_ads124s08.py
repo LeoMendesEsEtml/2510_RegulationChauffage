@@ -696,7 +696,7 @@ class Ads124s08:
 
         @return            Résistance mesurée en ohms ou None en cas d'erreur.
 
-        @note              Utilise la formule: R = |code|/FS * (Rref / gain) * (I1 / (I1 + I2)).
+        @note              Utilise la formule: R = |code|/FS * (Rref / gain).
         @see               measure_temperature, configure_channel
         """
         print("[ADC] Mesure résistance: rref=" + str(rref_ohm) + " gain=" + str(pga_gain) + " timeout=" + str(timeout_s))
@@ -746,13 +746,10 @@ class Ads124s08:
             code = -code
 
         # Calcul de la résistance selon la formule ratiométrique
-        # R = |code|/FS * (Rref / gain) * (I1 / (I1 + I2))  # Équation détaillée ratiométrique mise à jour
         # Calcul du ratio code/pleine échelle
         ratio = float(code) / float(FS)
-        # Calcul de la résistance de la sonde avec facteur de correction IDAC
-        # Le facteur (I1 / (I1 + I2)) = 0.5 car I1 = I2 dans notre configuration
-        idac_correction_factor = 0.5
-        r_sonde = ratio * (float(rref_ohm) / float(pga_gain)) * idac_correction_factor
+        # Calcul de la résistance de la sonde
+        r_sonde = ratio * (float(rref_ohm) / float(pga_gain))
 
         # Affichage du résultat
         print(f"[ADC] Résistance mesurée: {r_sonde:.1f} ohms")
