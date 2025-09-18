@@ -1,84 +1,102 @@
 @startuml EventFlow
 
-' Acteurs et composants logiques
-actor "Opérateur" as user
-participant "Système Central" as main
-participant "Gestionnaire Config" as config
-participant "Sélecteur Canaux" as selector
-participant "Capteur Acquisition" as sensor
-participant "Tables Conversion" as tables
-participant "Moteur Calcul" as calculator
-participant "Algorithme Régulation" as regulation
-participant "Interface Réseau" as network
-participant "Contrôleur E/S" as io
-participant "Superviseur Erreurs" as monitor
-participant "Ordonnanceur" as scheduler
+' Acteurs et composants réels du système
+actor "Utilisateur" as user
+participant "Séquenceur Principal" as main
+participant "Chargeur Configuration" as config_loader
+participant "Client API" as api_client
+participant "Multiplexeur TMUX1204" as tmux
+participant "Convertisseur ADC ADS124S08" as adc
+participant "Moteur Simulation Température" as temp_sim
+participant "Simulateur Résistance" as resist_sim
+participant "Serveur Interface Web" as webui
+participant "Gestionnaire LED" as led_manager
+participant "Fichier État Système" as state_file
+participant "Surveillance Contacts 24V" as dry_contact
 
-' Séquence d'initialisation
-== Phase d'Initialisation ==
-user -> main : Lancement du système
-main -> config : Chargement paramètres
-config --> main : Paramètres système
-main -> io : Initialisation matériel
-main -> selector : Configuration multiplexage
-main -> sensor : Préparation acquisition
+' Séquence de démarrage
+== Démarrage du Système ==
+user -> main : Lancement du programme principal
+main -> config_loader : Chargement fichier sensors.json
+config_loader --> main : Configuration des canaux et capteurs
+main -> tmux : Initialisation multiplexeur matériel
+main -> adc : Initialisation convertisseur ADC
+main -> led_manager : Création indicateur LED frontal
+main -> webui : Démarrage serveur web (thread séparé)
+main -> main : Installation gestionnaire signal (Ctrl+C)
+main -> main : Démarrage thread surveillance clavier
 
-' Séquence de cycle principal
-== Cycle Opérationnel ==
-main -> scheduler : Activation planification
-scheduler -> scheduler : Exécution cycles automatiques
+' Séquence du cycle principal automatique
+== Cycle de Mesure Automatique ==
+main -> main : Démarrage séquenceur (boucle infinie)
 
-' Séquence de mesure
-== Phase d'Acquisition ==
-group Collecte des Données
-    main -> io : Lecture états binaires
-    io --> main : États système
+loop Cycle de Mesure Répétitif
+    main -> dry_contact : Test contacts secs 24V
+    dry_contact --> main : État des entrées binaires
     
-    loop Pour Chaque Point de Mesure
-        main -> selector : Sélection canal physique
-        main -> sensor : Configuration paramètres acquisition
-        main -> sensor : Réglage amplification
-        main -> sensor : Configuration référence
-        main -> sensor : Démarrage mesure
-        main -> sensor : Attente fin conversion
-        sensor --> main : Valeur brute
-        main -> calculator : Conversion en grandeur physique
-        calculator --> main : Valeur résistance
-        main -> tables : Recherche correspondance
-        tables --> main : Valeur température
+    loop Pour Chaque Canal Configuré
+        ' Phase de préparation mesure
+        main -> config_loader : Lecture profil capteur du canal
+        config_loader --> main : Type capteur et paramètres
+        main -> tmux : Sélection résistance de référence
+        main -> adc : Configuration canal avec gain et courant
+        
+        ' Phase de mesure
+        main -> adc : Mesure résistance via SPI
+        adc --> main : Valeur résistance en ohms
+        main -> adc : Conversion résistance vers température
+        adc --> main : Température mesurée en degrés Celsius
+        
+        ' Phase de récupération API
+        main -> api_client : Appel API td25_param (paramètres)
+        api_client --> main : Coefficients de simulation
+        main -> api_client : Appel API td25_forecast (prévision)
+        api_client --> main : Température extérieure prévue
+        
+        ' Phase de simulation
+        main -> temp_sim : Calcul température simulée
+        temp_sim --> main : Nouvelle température simulée
+        main -> resist_sim : Conversion température vers résistance
+        resist_sim --> main : Résistance cible calculée
+        main -> resist_sim : Application résistance via multiplexeur
+        
+        ' Phase de sauvegarde
+        main -> state_file : Sauvegarde état du canal
+        state_file --> main : Confirmation écriture
+        
+        main -> main : Pause entre canaux
     end
+    
+    ' Bilan fin de cycle
+    main -> led_manager : Mise à jour indicateur selon résultats
+    main -> main : Pause avant cycle suivant
 end
 
-' Séquence de régulation
-== Phase de Régulation ==
-group Cycle de Contrôle
-    main -> network : Récupération paramètres distants
-    network --> main : Coefficients de régulation
-    main -> regulation : Application algorithme prédictif
-    regulation --> main : Consignes de commande
-    main -> calculator : Calcul simulation température
-    calculator --> main : Valeur température simulée
-    main -> tables : Conversion en grandeur électrique
-    tables --> main : Valeur résistance simulée
-    main -> io : Application simulation physique
-    main -> network : Transmission données système
+' Séquences parallèles
+== Interface Web (Thread Parallèle) ==
+user -> webui : Accès page web configuration
+webui -> config_loader : Lecture configuration actuelle
+config_loader --> webui : Données configuration JSON
+webui --> user : Affichage interface de configuration
+user -> webui : Modification paramètres capteurs
+webui -> config_loader : Sauvegarde nouvelle configuration
+webui -> state_file : Lecture état temps réel
+state_file --> webui : Données dernières mesures
+webui --> user : Affichage état système
+
+== Gestion des Erreurs ==
+group En Cas de Problème
+    main -> led_manager : Signalisation erreur (clignotement)
+    main -> state_file : Sauvegarde message d'erreur
+    main -> main : Comptage échecs et continuation
 end
 
-' Séquence de traitement d'erreur
-== Gestion des Anomalies ==
-group Traitement des Erreurs
-    main -> monitor : Détection problème
-    monitor -> io : Activation mode sécurisé
-    monitor -> io : Signalisation état
-    monitor -> main : Notification erreur
-    main -> network : Remontée information problème
-end
-
-' Séquence d'arrêt
-== Phase d'Arrêt ==
-user -> main : Demande arrêt système
-main -> sensor : Arrêt acquisitions
-main -> sensor : Mise en veille composants
-main -> io : Libération ressources matérielles
+== Arrêt du Système ==
+user -> main : Signal arrêt (Ctrl+C ou 'q')
+main -> adc : Arrêt conversions
+main -> tmux : Libération multiplexeur
+main -> led_manager : Extinction LED
+main -> webui : Arrêt serveur web
+main -> state_file : Sauvegarde état final
 
 @enduml

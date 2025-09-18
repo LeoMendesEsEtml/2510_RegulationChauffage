@@ -1,290 +1,291 @@
-@startuml
-' ===================== APP =====================
-package app {
-  class Main {
-    -hw: Dict
-    -running: bool
-    -mux: Adg731
-    -adc: ADS124S08
-    -dry_contacts: DryContacts
+@startuml Architecture_Reelle
+
+' ===================== PACKAGE APP (MODULE PRINCIPAL) =====================
+package "app" {
+  class "main.py" as Main {
+    -sequencer_running: bool
+    -stop_event: threading.Event
+    -force_sequence: threading.Event
+    -led_indicator: LedErrorIndicator
+    +main()
+    +run_measurement_sequence()
+    +save_last_state()
+    +signal_handler()
+    +input_monitor()
+    +show_error_and_continue()
+    +start_webui_server()
+    +reload_timing_config()
+  }
+
+  class "adc_ads124s08.py::Ads124s08" as ADC {
+    -spi: spidev.SpiDev
+    -gpio_drdy: GPIO
+    -gpio_reset: GPIO
     +__init__()
-    +run()
+    +read_id()
+    +configure_channel()
+    +measure_resistance()
+    +measure_temperature()
+    +start()
     +stop()
-    ' La classe Main gere l'application principale
+    +wait_drdy_falling_edge()
+    +read_code24()
+    +close()
   }
-}
 
-' ===================== API =====================
-package api {
-  class External {
-    +get_params()
-    +push_metrics()
-    +push_faults()
+  class "hw_tmux1204.py::Tmux1204" as TMUX {
+    -gpio_a1: GPIO
+    -gpio_a0: GPIO
+    +__init__()
+    +select_rref_ohm()
+    +set_bits()
+    +close()
   }
-}
 
-' ===================== HAL =====================
-package hal {
-  class SpiBus {
-    +open()
-    +configure(mode, speed)
-    +transfer(data)
-    +write_then_read(write_data, read_len)
-    +set_mode(mode)
-    +set_speed(speed)
+  class "hw_mux_adg731.py::Adg731MuxSpi" as MUX_ADG731 {
+    -spi: spidev.SpiDev
+    -cs_pins: list
+    +__init__()
+    +select_card()
+    +set_channel()
+    +power_up()
+    +power_down()
+    +close()
   }
-  class GPIO {
-    +setup_out(pin, initial)
-    +setup_in(pin)
-    +write(pin, value)
-    +read(pin)
-    +attach_interrupt(pin, callback, edge)
+
+  class "api_client.py::ApiClient" as APIClient {
+    -mac_address: str
+    -base_url: str
+    +__init__(mac_address)
+    +get_parameters()
+    +get_forecast()
+    +send_temperature_data()
   }
-  class Timer {
-    +start(interval, callback)
+
+  class "resistance_simulation.py::ResistanceSimulator" as ResistSim {
+    +apply_resistance_simulation()
+    +_calculate_mux_commands()
+    +_validate_resistance()
+  }
+
+  class "temperature_simulation.py" as TempSim {
+    +run_temperature_simulation()
+    +calculate_simulated_temperature()
+    +validate_simulation_parameters()
+  }
+
+  class "temperature_conversion.py" as TempConv {
+    +resistance_to_temperature()
+    +resistance_to_temperature_dynamic()
+    +convert_temperature_to_resistance()
+  }
+
+  class "sensor_profiles.py" as SensorProfiles {
+    +SENSOR_TABLES: dict
+    +get_profile()
+    +validate_sensor_name()
+  }
+
+  class "front_led_management.py::LedErrorIndicator" as LEDManager {
+    -led_gpio: GPIO
+    -patterns: dict
+    +__init__()
+    +show_pattern()
     +stop()
+    +_blink_thread()
+  }
+
+  class "config_loader.py" as ConfigLoader {
+    +load_config()
+    +validate_config()
+    +get_default_config()
+  }
+
+  class "mesure_24v_dry_contact.py" as DryContacts {
+    +test_24v_dry_contact()
+    +get_dry_contact_status()
+    +read_gpio_state()
+  }
+
+  class "resistance_mapping.py" as ResistMapping {
+    +get_channel_mux_map()
+    +find_closest_channel()
+    +validate_resistance_range()
+  }
+
+  class "pins_cm5.py" as PinsCM5 {
+    +GPIO_CHIP_PATH: str
+    +SPI1_BUS: int
+    +SPI1_DEV0: int
+    +ADC_DRDY: int
+    +ADC_RESET: int
+    +FRONT_LED: int
+    +CMD_RELAY: int
   }
 }
 
-' ===================== IO =====================
-package io {
-  class DryContacts {
-    -_gpio: GPIO
-    -_channels: Dict[int, Tuple[int, int]]
-    +__init__(gpio)
-    +read_channel(channel: int) -> bool
-    +read_all_channels() -> Dict[int, bool]
+' ===================== PACKAGE CONFIG_MODULE =====================
+package "config_module" {
+  class "cm5_config.py" as CM5Config {
+    +ADC_CHANNELS: list
+    +build_hw()
+  }
+
+  class "sensors.json" as SensorsConfig {
+    <<fichier>>
+    +channels: list
+    +global_settings: dict
   }
 }
 
-' ===================== SCHEDULER =====================
-package scheduler {
-  class Scheduler {
-    +add_task(interval_s, func, name)
+' ===================== PACKAGE WEBUI =====================
+package "webui" {
+  class "webui_server.py" as WebUIServer {
+    +app: Flask
+    +serve_index()
+    +get_config()
+    +put_config()
+    +get_state()
+  }
+
+  class "index.html" as WebInterface {
+    <<fichier>>
+    +Interface de configuration
+    +Affichage temps réel
+  }
+}
+
+' ===================== PACKAGE STATE =====================
+package "state" {
+  class "last_state.json" as StateFile {
+    <<fichier>>
+    +channels: dict
+    +last_timestamp: str
+    +last_channel: int
+    +error_log: list
+  }
+}
+
+' ===================== BIBLIOTHÈQUES SYSTÈME =====================
+package "Bibliothèques Système" {
+  class "periphery::GPIO" as GPIO {
+    +__init__(chip, line, direction)
+    +read()
+    +write()
+    +close()
+  }
+
+  class "spidev::SpiDev" as SPI {
+    +open(bus, device)
+    +xfer2(data)
+    +close()
+  }
+
+  class "requests" as HTTP {
+    +get()
+    +post()
+    +timeout()
+  }
+
+  class "threading" as Threading {
+    +Thread()
+    +Event()
+    +Lock()
+  }
+
+  class "flask::Flask" as Flask {
+    +route()
     +run()
+    +jsonify()
   }
 }
 
-' ===================== FILTER =====================
-package filter {
-  class Filter {
-    +moving_average(values, window)
-    +ema(values, alpha)
-    +median(values, window)
-    +detect_outlier(values)
+' ===================== SERVICES EXTERNES =====================
+package "Services Externes" {
+  class "API oblosolutions.ch" as ExternalAPI {
+    +/td25_param
+    +/td25_forecast
+    +/td25_data
   }
 }
 
-' ===================== FAULT =====================
-package fault {
-  class FaultManager {
-    +report_fault(code, context)
-    +get_last_fault()
-    +clear_faults()
-  }
-}
+' ===================== RELATIONS PRINCIPALES =====================
 
-' ===================== PERSISTENCE =====================
-package persist {
-  class ConfigStore {
-    +save(key, value)
-    +load(key)
-    +migrate(version)
-  }
-}
+' Relations du module principal
+Main --> ADC : "utilise"
+Main --> TMUX : "utilise"
+Main --> APIClient : "utilise"
+Main --> TempSim : "utilise"
+Main --> ResistSim : "utilise"
+Main --> TempConv : "utilise"
+Main --> SensorProfiles : "utilise"
+Main --> LEDManager : "utilise"
+Main --> ConfigLoader : "utilise"
+Main --> DryContacts : "utilise"
+Main --> StateFile : "écrit/lit"
 
-' ===================== SIMULATOR =====================
-package simulator {
-  class SensorSimulator {
-    +simulate(profile, t_c)
-  }
-}
+' Relations des drivers matériels
+ADC --> SPI : "communication"
+ADC --> GPIO : "signaux DRDY/RESET"
+TMUX --> GPIO : "signaux A0/A1"
+MUX_ADG731 --> SPI : "communication"
+LEDManager --> GPIO : "contrôle LED"
+DryContacts --> GPIO : "lecture contacts"
 
-' ===================== DRIVERS =====================
-package drivers {
-  class Adg731 {
-  -spi: SpiBus
-  -cs_pins
-  -gpio: GPIO
-  -t_cs
-  -_card
-  +__init__(spi, cs_pins, gpio, t_cs_us)
-  +select_card(index)
-  +set_channel(addr)
-  +power_up()
-  +power_down()
-  +get_selected()
-}
+' Relations de configuration
+ConfigLoader --> SensorsConfig : "lit"
+CM5Config --> PinsCM5 : "utilise"
+Main --> CM5Config : "initialisation HW"
 
-class ADS124S08 {
-  -spi: SpiBus
-  -gpio: GPIO
-  +reset()
-  +setup_reference(bank, source, ref_pin)
-  +configure_idac(route)
-  +set_pga_gain(gain)
-  +set_data_rate(rate)
-  +set_chop(chop)
-  +apply()
-  +read_status()
-  +read_registers()
-  +start_single_shot()
-  +drdy_isr_enable()
-  +on_drdy_callback(raw)
-  +compute_ratio_or_resistance(raw, rref, idac)
-  +offset_calibrate()
-  +gain_calibrate()
-  +start_continuous()
-  +stop()
-  +power_down()
-  }
-}
+' Relations simulation et mapping
+ResistSim --> MUX_ADG731 : "commande"
+ResistSim --> ResistMapping : "calcul canaux"
+TempConv --> SensorProfiles : "tables conversion"
 
-' ===================== HW =====================
-package hw {
-  class GpioCm5 {
-    +setup()
-    +cleanup()
-  }
-}
+' Relations API et réseau
+APIClient --> HTTP : "requêtes"
+APIClient --> ExternalAPI : "communication"
 
-' ===================== CONTROL =====================
-package control {
-  class Regulation {
-    +regulate(Tmes, consignes, params)
-    +anti_windup()
-    +fallback_mode()
-  }
-}
+' Relations interface web
+WebUIServer --> Flask : "serveur"
+WebUIServer --> SensorsConfig : "lit/écrit"
+WebUIServer --> StateFile : "lit"
+WebUIServer --> WebInterface : "sert"
 
-' ===================== UTILS =====================
-package utils {
-  class ErrorHandler {
-    +handle_error(error, context)
-    +log_error(error)
-  }
-  class LoggingConfig {
-    +setup_logging()
-    +get_logger(name)
-  }
-}
+' Relations threading
+Main --> Threading : "séquenceur, webui, clavier"
 
-' ===================== METROLOGY =====================
-package Metrology {
-  class SensorProfile {
-    +name
-    +model
-    +r0_ohm
-    +t0_c
-    +A
-    +B
-    +C
-    +rref_nom
-    +offset_r_ohm
-    +scale
-    +tare_cable_r_ohm
-  }
-  class TempConverter {
-    +r_to_temp_pt(profile, r_ohm)
-    +r_to_temp_ntc(profile, r_ohm)
-    +temp_to_r(profile, t_c)
-  }
-  class MetrologyExceptions {
-    +InvalidProfileError
-    +ConversionError
-  }
-}
+' ===================== NOTES SUR L'ARCHITECTURE =====================
+note right of Main
+  **Module Principal**
+  - Séquenceur automatique
+  - Gestion signaux système
+  - Coordination tous modules
+  - Sauvegarde état
+end note
 
-' ===================== CONFIGURATION =====================
-package config {
-  class SystemConfig {
-    +DEBUG: bool
-    +SIMULATION: bool
-    +LOG_LEVEL: str
-  }
-  
-  class ADCChannelConfig {
-  +name
-  +logical_channel
-  +mux_card
-  +mux_addr
-  +adc_diff_pos
-  +adc_diff_neg
-  +pga_gain
-  +data_rate_sps
-  +ref_mode
-  +ref_bank
-  +idac_current_uA
-  +idac1_route
-  +idac2_route
-  +sensor_profile_name
-  +rref_nom_ohm
-  +cable_r_ohm
-  +averaging_count
-  +median_filter_size
-}
-  class Cm5Config {
-    +ADC_CHANNELS: List[ADCChannelConfig]
-    +build_routing()
-  }
-  
-  class PinsCm5 {
-    +VALID_GPIO_PINS: Set[int]
-    +validate_pin(pin: int, name: str)
-    +PINS: Dict[str, int]
-  }
-}
+note right of ADC
+  **Driver ADC ADS124S08**
+  - Communication SPI
+  - Mesure résistance/température
+  - Configuration gain/référence
+  - Gestion DRDY
+end note
 
-' ===================== RELATIONS =====================
-class API {
-  +get_params()
-  +push_metrics()
-  +push_faults()
-}
-class Log {
-  +write(msg, level, channel)
-  +flush()
-}
+note right of APIClient
+  **Client API REST**
+  - Paramètres simulation
+  - Prévisions météo
+  - Envoi données mesures
+  - Retry automatique
+end note
 
-' ===================== CTRL =====================
-class CTRL {
-  +regulate(Tmes, consignes, params)
-  +Result: Tmes, Tprevu, commande, erreurs, flags, saturation
-  +anti_windup()
-  +fallback_mode()
-}
-
-' ===================== RELATIONS =====================
-' Drivers
-Adg731 --> SpiBus
-Adg731 --> GPIO
-ADS124S08 --> SpiBus
-ADS124S08 --> GPIO
-
-' Main app
-Main --> Adg731
-Main --> ADS124S08
-Main --> DryContacts
-Main --> External
-Main --> Scheduler
-Main --> FaultManager
-Main --> Filter
-Main --> Regulation
-Main --> ConfigStore
-Main --> SensorProfile
-Main --> TempConverter
-Main --> Cm5Config
-Main --> ADCChannelConfig
-Main --> SensorSimulator
-Main --> ErrorHandler
-Main --> LoggingConfig
-
-' GPIO dependencies
-DryContacts --> GPIO
-GpioCm5 --> GPIO
-
-' Config dependencies
-Cm5Config --> PinsCm5
-Cm5Config --> ADCChannelConfig
+note right of WebUIServer
+  **Interface Web**
+  - Configuration capteurs
+  - Monitoring temps réel
+  - API REST JSON
+  - Thread séparé
+end note
 
 @enduml

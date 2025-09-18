@@ -1,0 +1,134 @@
+
+@startuml event_flow_detailled
+' Diagramme d'événements : flux principal avec noms réels de modules et fonctions
+
+actor "Utilisateur" as User
+participant "app/main.py" as Main
+participant "app/config_loader.py" as ConfigLoader
+participant "app/hw_tmux1204.py::Tmux1204" as TMUX
+participant "app/adc_ads124s08.py::Ads124s08" as ADC
+participant "app/sensor_profiles.py" as SensorProfiles
+participant "app/temperature_conversion.py" as TempConverter
+participant "app/temperature_simulation.py" as TempSimulation
+participant "app/resistance_simulation.py::ResistanceSimulator" as ResistSim
+participant "app/api_client.py::ApiClient" as APIClient
+participant "app/front_led_management.py" as LEDManager
+participant "app/mesure_24v_dry_contact.py" as DryContacts
+participant "webui/webui_server.py" as WebUI
+participant "state/last_state.json" as StateFile
+participant "config_module/sensors.json" as ConfigFile
+
+== Initialisation du Système ==
+User -> Main : main()
+Main -> ConfigLoader : load_config()
+ConfigLoader -> ConfigFile : Lecture configuration
+ConfigFile --> ConfigLoader : Configuration JSON
+ConfigLoader --> Main : cfg dict
+Main -> TMUX : Tmux1204()
+Main -> ADC : Ads124s08()
+Main -> ADC : read_id()
+Main -> LEDManager : create_led_indicator()
+Main -> Main : signal.signal(signal.SIGINT, signal_handler)
+Main -> Main : threading.Thread(target=input_monitor)
+Main -> WebUI : threading.Thread(target=start_webui_server)
+
+== Boucle Principale de Mesure ==
+Main -> Main : sequencer_running = True
+
+loop while sequencer_running
+    Main -> DryContacts : test_24v_dry_contact()
+    DryContacts --> Main : État contacts secs
+    Main -> DryContacts : get_dry_contact_status()
+    DryContacts --> Main : États détaillés
+    
+    loop Pour chaque canal dans cfg["channels"]
+        ' Phase de préparation
+        Main -> SensorProfiles : get_profile(sensor_name)
+        SensorProfiles --> Main : profile dict avec rref_ohm, pga_gain, idac_uA
+        Main -> TMUX : select_rref_ohm(profile["rref_ohm"])
+        Main -> ADC : configure_channel(ch, profile["pga_gain"], profile["idac_uA"])
+        Main -> ADC : read_gain()
+        Main -> ADC : read_ref()
+        Main -> ADC : read_inpmux()
+        
+        ' Phase de mesure
+        Main -> ADC : measure_resistance(profile["rref_ohm"], profile["pga_gain"], cfg["timeout_s"])
+        ADC -> ADC : start()
+        ADC -> ADC : wait_drdy_falling_edge(timeout_s)
+        ADC -> ADC : read_code24()
+        ADC --> Main : resistance_ohm
+        Main -> ADC : measure_temperature(sensor_name, profile["rref_ohm"], profile["pga_gain"], cfg["timeout_s"])
+        ADC -> TempConverter : resistance_to_temperature_dynamic(resistance_ohm, sensor_name)
+        TempConverter --> ADC : temperature_c
+        ADC --> Main : temperature_c
+        
+        ' Phase API et simulation
+        Main -> APIClient : get_parameters()
+        APIClient --> Main : {"probe_type", "n", "k_m", "temperature"}
+        Main -> APIClient : get_forecast()
+        APIClient --> Main : {"temperature_forecast"}
+        Main -> TempSimulation : run_temperature_simulation(simulation_data)
+        TempSimulation -> TempSimulation : calculate_simulated_temperature(t_mes, t_prev, n, k_m)
+        TempSimulation --> Main : t_sim
+        Main -> TempConverter : convert_temperature_to_resistance(t_sim, sensor_name)
+        TempConverter --> Main : resistance_target
+        Main -> ResistSim : ResistanceSimulator()
+        Main -> ResistSim : apply_resistance_simulation(resistance_target, ch, sensor_name)
+        
+        ' Phase de sauvegarde
+        Main -> Main : save_last_state(channel=ch, resistance_ohm=r, temperature_c=temperature, temperature_sim_c=t_sim)
+        Main -> StateFile : Écriture JSON avec timestamp
+        StateFile --> Main : Confirmation
+        
+        Main -> Main : time.sleep(cfg["inter_measure_sleep_s"])
+    end
+    
+    Main -> LEDManager : Mise à jour selon résultats
+    Main -> Main : time.sleep(cfg["sequence_interval_s"])
+end
+
+== Interface Web (Thread Parallèle) ==
+WebUI -> WebUI : app.run(host="192.168.1.109", port=8080)
+User -> WebUI : GET /
+WebUI --> User : index.html
+User -> WebUI : GET /api/config
+WebUI -> ConfigFile : Lecture sensors.json
+ConfigFile --> WebUI : Configuration JSON
+WebUI --> User : jsonify(data)
+User -> WebUI : PUT /api/config
+WebUI -> ConfigFile : Écriture sensors.json
+User -> WebUI : GET /api/state
+WebUI -> StateFile : Lecture last_state.json
+StateFile --> WebUI : État système
+WebUI --> User : jsonify(state)
+
+== Gestion des Erreurs ==
+group En cas d'erreur
+    Main -> Main : show_error_and_continue(error_pattern, sleep_time=2)
+    Main -> LEDManager : Clignotement erreur
+    Main -> StateFile : Sauvegarde erreur
+    Main -> Main : channels_failed += 1
+end
+
+== Surveillance Clavier (Thread) ==
+Main -> Main : input_monitor()
+loop Écoute stdin
+    User -> Main : Entrée clavier ('s' ou Enter)
+    Main -> Main : force_sequence.set()
+    User -> Main : 'q'
+    Main -> Main : sequencer_running = False
+    Main -> Main : stop_event.set()
+end
+
+== Arrêt Propre du Système ==
+User -> Main : Ctrl+C (SIGINT)
+Main -> Main : signal_handler(sig, frame)
+Main -> Main : sequencer_running = False
+Main -> Main : stop_event.set()
+Main -> ADC : stop()
+Main -> ADC : close()
+Main -> TMUX : close()
+Main -> LEDManager : Extinction LED
+Main -> WebUI : Arrêt serveur Flask
+
+@enduml
