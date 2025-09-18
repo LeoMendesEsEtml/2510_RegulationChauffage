@@ -1,411 +1,610 @@
+<!--
+@file        index.html
+@brief       Interface Web de configuration et monitoring CM5.
+@details     Cette page HTML fournit une interface utilisateur complète pour
+             la configuration du système de mesure de température et l'affichage
+             des données en temps réel. Inclut la gestion des capteurs, paramètres
+             de mesure et visualisation des résultats.
+@author      Léo Mendes
+@project     2510_RegulationsChauffage
+@Mandant     Oblo_solution
+@date        2025-09-18
+@version     1.0.0
+@copyright   Copyright (c) 2025
+-->
+
+<!-- Déclaration du type de document HTML5 -->
 <!doctype html>
+<!-- Élément racine HTML avec langue française -->
 <html lang="fr">
+<!-- En-tête du document contenant les métadonnées -->
 <head>
-<meta charset="utf-8">
-<title>CM5 WebUI - Config et Dernières valeurs</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-  body { font-family: Arial, sans-serif; margin: 20px; }
-  .param-group { margin: 10px 0; padding: 8px; border: 1px solid #ddd; border-radius: 4px; }
-  .param-label { font-weight: bold; margin-bottom: 4px; }
-  .param-desc { font-size: 0.9em; color: #666; margin-bottom: 6px; }
-  .param-input { width: 200px; padding: 4px; }
-  table { border-collapse: collapse; margin: 10px 0; }
-  th, td { padding: 8px; text-align: left; }
-  button { padding: 8px 12px; margin: 4px; cursor: pointer; }
-  .info-box { background: #f0f8ff; border-left: 4px solid #2196F3; padding: 10px; margin: 10px 0; }
-  .channel-info { background: #f9f9f9; padding: 8px; margin: 4px 0; border-radius: 4px; }
-  .logo { 
-    width: 50px; 
-    height: 50px; 
-    margin-right: 15px;
-    object-fit: contain;
-  }
-</style>
+  <!-- Encodage de caractères UTF-8 pour support international -->
+  <meta charset="utf-8">
+  <!-- Titre affiché dans l'onglet du navigateur -->
+  <title>CM5 WebUI - Config et Dernières valeurs</title>
+  <!-- Configuration responsive pour dispositifs mobiles -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <!-- ---------------------------------------------------------------------------
+       Styles CSS intégrés pour l'interface utilisateur
+       --------------------------------------------------------------------------- -->
+  <style>
+    /* Style général du corps de la page */
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    
+    /* Conteneur pour grouper les paramètres de configuration */
+    .param-group { margin: 10px 0; padding: 8px; border: 1px solid #ddd; border-radius: 4px; }
+    
+    /* Style des libellés de paramètres */
+    .param-label { font-weight: bold; margin-bottom: 4px; }
+    
+    /* Style des descriptions de paramètres */
+    .param-desc { font-size: 0.9em; color: #666; margin-bottom: 6px; }
+    
+    /* Style des champs de saisie de paramètres */
+    .param-input { width: 200px; padding: 4px; }
+    
+    /* Styles pour les tableaux de données */
+    table { border-collapse: collapse; margin: 10px 0; }
+    th, td { padding: 8px; text-align: left; }
+    
+    /* Style des boutons d'action */
+    button { padding: 8px 12px; margin: 4px; cursor: pointer; }
+    
+    /* Boîte d'information avec bordure bleue */
+    .info-box { background: #f0f8ff; border-left: 4px solid #2196F3; padding: 10px; margin: 10px 0; }
+    
+    /* Style pour les informations de canal */
+    .channel-info { background: #f9f9f9; padding: 8px; margin: 4px 0; border-radius: 4px; }
+    
+    /* Style des logos dans l'en-tête */
+    .logo { 
+      width: 50px; 
+      height: 50px; 
+      margin-right: 15px;
+      object-fit: contain;
+    }
+  </style>
 </head>
+<!-- Corps principal de la page -->
 <body>
-<header style="display: flex; align-items: center; margin-bottom: 20px; padding: 10px; border-bottom: 2px solid #ddd;">
-  <img src="/static/oblo_vignette.png" alt="OBLO Logo" class="logo">
-  <h1 style="margin: 0;">Config 2510 RégulationChauffage</h1>
-  <img src="/static/ETMLES.png" alt="ES Logo" class="logo">  
-</header>
+  <!-- En-tête avec logos et titre principal -->
+  <header style="display: flex; align-items: center; margin-bottom: 20px; padding: 10px; border-bottom: 2px solid #ddd;">
+    <!-- Logo Oblo à gauche -->
+    <img src="/static/oblo_vignette.png" alt="OBLO Logo" class="logo">
+    <!-- Titre principal de l'application -->
+    <h1 style="margin: 0;">Config 2510 RégulationChauffage</h1>
+    <!-- Logo ETML ES à droite -->
+    <img src="/static/ETMLES.png" alt="ES Logo" class="logo">  
+  </header>
 
-<section>
-  <h2>Configuration du système de mesure</h2>
-  
-  <div class="info-box">
-    <strong>Information:</strong> Cette interface permet de configurer les paramètres de mesure et simulation de température.
-    Les modifications sont appliquées automatiquement lors de la prochaine séquence de mesure.
-  </div>
+  <!-- ---------------------------------------------------------------------------
+       Section de configuration du système de mesure
+       --------------------------------------------------------------------------- -->
+  <section>
+    <!-- Titre de la section de configuration -->
+    <h2>Configuration du système de mesure</h2>
+    
+    <!-- Boîte d'information pour l'utilisateur -->
+    <div class="info-box">
+      <strong>Information:</strong> Cette interface permet de configurer les paramètres de mesure et simulation de température.
+      Les modifications sont appliquées automatiquement lors de la prochaine séquence de mesure.
+    </div>
 
-  <div class="param-group">
-    <div class="param-label">Adresse MAC du dispositif</div>
-    <div class="param-desc">Identifiant unique du Raspberry Pi CM5 pour l'API. Format: 6 octets en hexadécimal.</div>
-    <input id="mac_address" type="text" class="param-input" placeholder="ex: 0030DEABCDEF">
-  </div>
+    <!-- Groupe de paramètres : Adresse MAC -->
+    <div class="param-group">
+      <!-- Libellé du paramètre adresse MAC -->
+      <div class="param-label">Adresse MAC du dispositif</div>
+      <!-- Description détaillée du paramètre -->
+      <div class="param-desc">Identifiant unique du Raspberry Pi CM5 pour l'API. Format: 6 octets en hexadécimal.</div>
+      <!-- Champ de saisie pour l'adresse MAC -->
+      <input id="mac_address" type="text" class="param-input" placeholder="ex: 0030DEABCDEF">
+    </div>
 
-  <div class="param-group">
-    <div class="param-label">Timeout de mesure (secondes)</div>
-    <div class="param-desc">Temps maximum d'attente pour une mesure ADC avant abandon. Valeur recommandée: 180s.</div>
-    <input id="timeout_s" type="number" step="1" min="1" max="3600" class="param-input">
-  </div>
+    <!-- Groupe de paramètres : Timeout de mesure -->
+    <div class="param-group">
+      <!-- Libellé du paramètre timeout -->
+      <div class="param-label">Timeout de mesure (secondes)</div>
+      <!-- Description du timeout de mesure -->
+      <div class="param-desc">Temps maximum d'attente pour une mesure ADC avant abandon. Valeur recommandée: 180s.</div>
+      <!-- Champ numérique pour le timeout -->
+      <input id="timeout_s" type="number" step="1" min="1" max="3600" class="param-input">
+    </div>
 
-  <div class="param-group">
-    <div class="param-label">Délai entre mesures (secondes)</div>
-    <div class="param-desc">Pause entre chaque échantillonnage ADC pour stabilisation. Valeur recommandée: 0.1s.</div>
-    <input id="inter_measure_sleep_s" type="number" step="0.001" min="0" max="10" class="param-input">
-  </div>
+    <!-- Groupe de paramètres : Délai entre mesures -->
+    <div class="param-group">
+      <!-- Libellé du délai entre mesures -->
+      <div class="param-label">Délai entre mesures (secondes)</div>
+      <!-- Description du délai de stabilisation -->
+      <div class="param-desc">Pause entre chaque échantillonnage ADC pour stabilisation. Valeur recommandée: 0.1s.</div>
+      <!-- Champ numérique pour le délai inter-mesure -->
+      <input id="inter_measure_sleep_s" type="number" step="0.001" min="0" max="10" class="param-input">
+    </div>
 
-  <div class="param-group">
-    <div class="param-label">Intervalle des séquences automatiques (minutes)</div>
-    <div class="param-desc">Fréquence d'exécution automatique des mesures complètes. 0 = désactivé. Valeur recommandée: 5 min.</div>
-    <input id="sequence_interval_minutes" type="number" step="1" min="0" max="1440" class="param-input">
-  </div>
+    <!-- Groupe de paramètres : Intervalle des séquences -->
+    <div class="param-group">
+      <!-- Libellé de l'intervalle des séquences automatiques -->
+      <div class="param-label">Intervalle des séquences automatiques (minutes)</div>
+      <!-- Description de la fréquence d'exécution -->
+      <div class="param-desc">Fréquence d'exécution automatique des mesures complètes. 0 = désactivé. Valeur recommandée: 5 min.</div>
+      <!-- Champ numérique pour l'intervalle en minutes -->
+      <input id="sequence_interval_minutes" type="number" step="1" min="0" max="1440" class="param-input">
+    </div>
 
-  <div class="param-group">
-    <div class="param-label">Mode automatique</div>
-    <div class="param-desc">Active/désactive l'exécution automatique des séquences de mesure selon l'intervalle défini.</div>
-    <input id="auto_sequence" type="checkbox">
-  </div>
+    <!-- Groupe de paramètres : Mode automatique -->
+    <div class="param-group">
+      <!-- Libellé du mode automatique -->
+      <div class="param-label">Mode automatique</div>
+      <!-- Description de l'activation automatique -->
+      <div class="param-desc">Active/désactive l'exécution automatique des séquences de mesure selon l'intervalle défini.</div>
+      <!-- Case à cocher pour le mode automatique -->
+      <input id="auto_sequence" type="checkbox">
+    </div>
 
-  <h3>Configuration des canaux de mesure</h3>
+    <!-- Sous-titre pour la configuration des canaux -->
+    <h3>Configuration des canaux de mesure</h3>
 
-  <table id="channels_table" border="1" cellpadding="4">
-    <thead>
-      <tr>
-        <th>Canal</th>
-        <th>Type de capteur</th>
-        <th>État</th>
-      </tr>
-    </thead>
-    <tbody id="channels_body"></tbody>
-  </table>
+    <!-- Tableau de configuration des canaux de mesure -->
+    <table id="channels_table" border="1" cellpadding="4">
+      <!-- En-tête du tableau des canaux -->
+      <thead>
+        <tr>
+          <th>Canal</th>
+          <th>Type de capteur</th>
+          <th>État</th>
+        </tr>
+      </thead>
+      <!-- Corps du tableau généré dynamiquement -->
+      <tbody id="channels_body"></tbody>
+    </table>
 
-  <div style="margin-top:8px;">
-    <button id="reload_btn">Recharger</button>
-    <button id="save_btn">Enregistrer</button>
-    <button id="force_reload_btn">Forcer rechargement config</button>
-    <span id="save_status"></span>
-  </div>
-</section>
+    <!-- Zone de boutons d'action pour la configuration -->
+    <div style="margin-top:8px;">
+      <!-- Bouton pour recharger la configuration -->
+      <button id="reload_btn">Recharger</button>
+      <!-- Bouton pour enregistrer les modifications -->
+      <button id="save_btn">Enregistrer</button>
+      <!-- Bouton pour forcer le rechargement complet -->
+      <button id="force_reload_btn">Forcer rechargement config</button>
+      <!-- Zone d'affichage du statut de sauvegarde -->
+      <span id="save_status"></span>
+    </div>
+  </section>
 
-<hr>
+  <!-- Séparateur horizontal entre les sections -->
+  <hr>
 
-<section>
-  <h2>Données en temps réel</h2>
-  <div id="channels_data">
-    <!-- Les données par canal seront affichées ici -->
-  </div>
-  
-  <h3>Dernière mesure globale</h3>
-  <div class="channel-info">
-    <div><strong>Timestamp:</strong> <span id="ts">-</span></div>
-    <div><strong>Canal mesuré:</strong> <span id="last_channel">-</span></div>
-    <div><strong>Résistance mesurée:</strong> <span id="last_res">-</span> Ω</div>
-    <div><strong>Température calculée:</strong> <span id="last_temp">-</span> °C</div>
-    <div><strong>Température simulée:</strong> <span id="last_tsim">-</span> °C</div>
-    <div><strong>Erreur:</strong> <span id="last_err">-</span></div>
-    <div><strong>Âge de la mesure:</strong> <span id="age_s">-</span> secondes</div>
-  </div>
-</section>
+  <!-- ---------------------------------------------------------------------------
+       Section des données en temps réel
+       --------------------------------------------------------------------------- -->
+  <section>
+    <!-- Titre de la section données temps réel -->
+    <h2>Données en temps réel</h2>
+    <!-- Container pour les données par canal généré dynamiquement -->
+    <div id="channels_data">
+      <!-- Les données par canal seront affichées ici -->
+    </div>
+    
+    <!-- Sous-section pour la dernière mesure globale -->
+    <h3>Dernière mesure globale</h3>
+    <!-- Boîte d'information pour la dernière mesure -->
+    <div class="channel-info">
+      <!-- Affichage du timestamp de la dernière mesure -->
+      <div><strong>Timestamp:</strong> <span id="ts">-</span></div>
+      <!-- Affichage du canal mesuré -->
+      <div><strong>Canal mesuré:</strong> <span id="last_channel">-</span></div>
+      <!-- Affichage de la résistance mesurée -->
+      <div><strong>Résistance mesurée:</strong> <span id="last_res">-</span> Ω</div>
+      <!-- Affichage de la température calculée -->
+      <div><strong>Température calculée:</strong> <span id="last_temp">-</span> °C</div>
+      <!-- Affichage de la température simulée -->
+      <div><strong>Température simulée:</strong> <span id="last_tsim">-</span> °C</div>
+      <!-- Affichage des erreurs éventuelles -->
+      <div><strong>Erreur:</strong> <span id="last_err">-</span></div>
+      <!-- Affichage de l'âge de la mesure -->
+      <div><strong>Âge de la mesure:</strong> <span id="age_s">-</span> secondes</div>
+    </div>
+  </section>
 
-<script>
-function sensorOptions() {
-  return [
-    "De Dietrich AF60",
-    "Siemens QAC32", 
-    "PT1000",
-    "Ni1000 TK5000",
-    "Ni1000 TK6180",
-    "NTC 1k 3528",
-    "KTY81-210",
-    "NTC 2k 3390",
-    "NTC 2.2k 3528", 
-    "NTC 10k 3977"
-  ];
-}
+  <!-- ---------------------------------------------------------------------------
+       Script JavaScript pour la logique de l'interface
+       --------------------------------------------------------------------------- -->
+  <script>
+    /**
+     * @brief       Retourne les options de capteurs disponibles.
+     * @details     Liste des types de capteurs de température supportés par le système.
+     * @return      Tableau des noms de capteurs.
+     */
+    function sensorOptions() {
+      return [
+        "De Dietrich AF60",
+        "Siemens QAC32", 
+        "PT1000",
+        "Ni1000 TK5000",
+        "Ni1000 TK6180",
+        "NTC 1k 3528",
+        "KTY81-210",
+        "NTC 2k 3390",
+        "NTC 2.2k 3528", 
+        "NTC 10k 3977"
+      ];
+    }
 
-var currentConfig = null;
-var lastData = null;
+    /* Variables globales pour stocker les données */
+    var currentConfig = null;    // Configuration actuelle chargée
+    var lastData = null;         // Dernières données de mesure
 
-function el(id) {
-  return document.getElementById(id);
-}
+    /**
+     * @brief       Raccourci pour getElementById.
+     * @param id    Identifiant de l'élément DOM.
+     * @return      Élément DOM correspondant.
+     */
+    function el(id) {
+      return document.getElementById(id);
+    }
 
-function numberOrNull(value) {
-  if (value === null) {
-    return null;
-  }
-  var n = Number(value);
-  if (isNaN(n)) {
-    return null;
-  }
-  return n;
-}
-
-function loadConfig() {
-  fetch("/api/config").then(function(resp) {
-    return resp.json();
-  }).then(function(data) {
-    currentConfig = data;
-    el("mac_address").value = data.mac_address || "";
-    el("timeout_s").value = data.timeout_s;
-    el("inter_measure_sleep_s").value = data.inter_measure_sleep_s;
-    el("sequence_interval_minutes").value = data.sequence_interval_minutes;
-    el("auto_sequence").checked = !!data.auto_sequence;
-
-    var body = el("channels_body");
-    body.innerHTML = "";
-
-    if (Array.isArray(data.channels)) {
-      var i = 0;
-      while (i < data.channels.length) {
-        var ch = data.channels[i];
-
-        var tr = document.createElement("tr");
-        if (ch.enabled) {
-          tr.style.backgroundColor = "#e8f5e8";
-        } else {
-          tr.style.backgroundColor = "#f5f5f5";
-        }
-
-        // Colonne canal
-        var tdChan = document.createElement("td");
-        tdChan.innerHTML = "<strong>Canal " + ch.channel + "</strong>";
-        tr.appendChild(tdChan);
-
-        // Colonne capteur avec sélecteur
-        var tdSensor = document.createElement("td");
-        var sel = document.createElement("select");
-        sel.style.width = "100%";
-        var opts = sensorOptions();
-        var j = 0;
-        while (j < opts.length) {
-          var o = document.createElement("option");
-          o.value = opts[j];
-          o.textContent = opts[j];
-          sel.appendChild(o);
-          j = j + 1;
-        }
-        if (opts.indexOf(ch.sensor) === -1) {
-          var o2 = document.createElement("option");
-          o2.value = ch.sensor;
-          o2.textContent = ch.sensor + " (non standard)";
-          sel.appendChild(o2);
-        }
-        sel.value = ch.sensor;
-        sel.setAttribute("data-index", String(i));
-        tdSensor.appendChild(sel);
-        tr.appendChild(tdSensor);
-
-        // Colonne état avec checkbox
-        var tdEn = document.createElement("td");
-        var cb = document.createElement("input");
-        cb.type = "checkbox";
-        cb.checked = !!ch.enabled;
-        cb.setAttribute("data-index", String(i));
-        var label = document.createElement("label");
-        label.appendChild(cb);
-        label.appendChild(document.createTextNode(ch.enabled ? " Actif" : " Inactif"));
-        tdEn.appendChild(label);
-        tr.appendChild(tdEn);
-
-        body.appendChild(tr);
-        i = i + 1;
+    /**
+     * @brief       Convertit une valeur en nombre ou retourne null.
+     * @details     Gère la conversion sécurisée des valeurs utilisateur.
+     * @param value Valeur à convertir.
+     * @return      Nombre valide ou null si conversion impossible.
+     */
+    function numberOrNull(value) {
+      if (value === null) {
+        return null;
       }
+      var n = Number(value);
+      if (isNaN(n)) {
+        return null;
+      }
+      return n;
     }
-    el("save_status").textContent = "";
-  }).catch(function(err) {
-    el("save_status").textContent = "Erreur chargement config: " + String(err);
-  });
-}
 
-function collectConfigFromForm() {
-  var cfg = {};
-  cfg.mac_address = el("mac_address").value;
+    /**
+     * @brief       Charge la configuration depuis l'API.
+     * @details     Récupère la configuration actuelle et met à jour l'interface.
+     *              Peuple les champs de formulaire et génère le tableau des canaux.
+     */
+    function loadConfig() {
+      /* Requête GET vers l'API de configuration */
+      fetch("/api/config").then(function(resp) {
+        return resp.json();
+      }).then(function(data) {
+        /* Stockage de la configuration pour usage ultérieur */
+        currentConfig = data;
+        
+        /* Mise à jour des champs de configuration générale */
+        el("mac_address").value = data.mac_address || "";
+        el("timeout_s").value = data.timeout_s;
+        el("inter_measure_sleep_s").value = data.inter_measure_sleep_s;
+        el("sequence_interval_minutes").value = data.sequence_interval_minutes;
+        el("auto_sequence").checked = !!data.auto_sequence;
 
-  var t_out = Number(el("timeout_s").value);
-  cfg.timeout_s = t_out;
+        /* Référence au corps du tableau des canaux */
+        var body = el("channels_body");
+        /* Effacement du contenu existant */
+        body.innerHTML = "";
 
-  var ims = Number(el("inter_measure_sleep_s").value);
-  cfg.inter_measure_sleep_s = ims;
+        /* Génération des lignes de canaux si disponibles */
+        if (Array.isArray(data.channels)) {
+          var i = 0;
+          while (i < data.channels.length) {
+            var ch = data.channels[i];
 
-  var sim = Number(el("sequence_interval_minutes").value);
-  cfg.sequence_interval_minutes = sim;
+            /* Création d'une nouvelle ligne de tableau */
+            var tr = document.createElement("tr");
+            /* Coloration selon l'état d'activation */
+            if (ch.enabled) {
+              tr.style.backgroundColor = "#e8f5e8";  // Vert pour actif
+            } else {
+              tr.style.backgroundColor = "#f5f5f5";  // Gris pour inactif
+            }
 
-  cfg.auto_sequence = el("auto_sequence").checked;
+            /* Colonne numéro de canal */
+            var tdChan = document.createElement("td");
+            tdChan.innerHTML = "<strong>Canal " + ch.channel + "</strong>";
+            tr.appendChild(tdChan);
 
-  cfg.channels = [];
-  if (currentConfig && Array.isArray(currentConfig.channels)) {
-    var i = 0;
-    while (i < currentConfig.channels.length) {
-      var row = currentConfig.channels[i];
+            /* Colonne sélecteur de type de capteur */
+            var tdSensor = document.createElement("td");
+            var sel = document.createElement("select");
+            sel.style.width = "100%";
+            
+            /* Ajout des options de capteurs standards */
+            var opts = sensorOptions();
+            var j = 0;
+            while (j < opts.length) {
+              var o = document.createElement("option");
+              o.value = opts[j];
+              o.textContent = opts[j];
+              sel.appendChild(o);
+              j = j + 1;
+            }
+            
+            /* Ajout d'option non-standard si nécessaire */
+            if (opts.indexOf(ch.sensor) === -1) {
+              var o2 = document.createElement("option");
+              o2.value = ch.sensor;
+              o2.textContent = ch.sensor + " (non standard)";
+              sel.appendChild(o2);
+            }
+            
+            /* Sélection de la valeur actuelle */
+            sel.value = ch.sensor;
+            sel.setAttribute("data-index", String(i));
+            tdSensor.appendChild(sel);
+            tr.appendChild(tdSensor);
 
-      var tr = el("channels_body").children[i];
-      var sel = tr.children[1].querySelector("select");
-      var cb = tr.children[2].querySelector("input");
+            /* Colonne état avec case à cocher */
+            var tdEn = document.createElement("td");
+            var cb = document.createElement("input");
+            cb.type = "checkbox";
+            cb.checked = !!ch.enabled;
+            cb.setAttribute("data-index", String(i));
+            
+            /* Création du label avec texte dynamique */
+            var label = document.createElement("label");
+            label.appendChild(cb);
+            label.appendChild(document.createTextNode(ch.enabled ? " Actif" : " Inactif"));
+            tdEn.appendChild(label);
+            tr.appendChild(tdEn);
 
-      var chObj = {};
-      chObj.channel = row.channel;
-      chObj.sensor = sel.value;
-      chObj.enabled = cb.checked;
-
-      cfg.channels.push(chObj);
-      i = i + 1;
-    }
-  }
-  return cfg;
-}
-
-function saveConfig() {
-  var cfg = collectConfigFromForm();
-
-  if (cfg.timeout_s < 0) {
-    el("save_status").textContent = "timeout_s invalide";
-    return;
-  }
-  if (cfg.inter_measure_sleep_s < 0) {
-    el("save_status").textContent = "inter_measure_sleep_s invalide";
-    return;
-  }
-  if (cfg.sequence_interval_minutes < 0) {
-    el("save_status").textContent = "sequence_interval_minutes invalide";
-    return;
-  }
-
-  fetch("/api/config", {
-    method: "PUT",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(cfg)
-  }).then(function(resp) {
-    if (resp.ok) {
-      el("save_status").textContent = "Enregistré";
-      return loadConfig();
-    } else {
-      return resp.json().then(function(j) {
-        el("save_status").textContent = "Erreur: " + JSON.stringify(j);
+            /* Ajout de la ligne au tableau */
+            body.appendChild(tr);
+            i = i + 1;
+          }
+        }
+        
+        /* Effacement du statut de sauvegarde */
+        el("save_status").textContent = "";
+      }).catch(function(err) {
+        /* Affichage des erreurs de chargement */
+        el("save_status").textContent = "Erreur chargement config: " + String(err);
       });
     }
-  }).catch(function(err) {
-    el("save_status").textContent = "Erreur réseau: " + String(err);
-  });
-}
 
-function refreshLast() {
-  fetch("/api/last").then(function(resp) {
-    return resp.json();
-  }).then(function(d) {
-    lastData = d;
-    
-    // Affichage des données par canal
-    var channelsDiv = el("channels_data");
-    if (d.channels) {
-      var html = "<div class='info-box'><strong>Historique des mesures par canal actif</strong></div>";
-      var channelKeys = Object.keys(d.channels).sort(function(a, b) { return parseInt(a) - parseInt(b); });
+    /**
+     * @brief       Collecte la configuration depuis le formulaire.
+     * @details     Extrait les valeurs des champs et construit l'objet de configuration.
+     * @return      Objet configuration prêt pour l'API.
+     */
+    function collectConfigFromForm() {
+      var cfg = {};
       
-      if (channelKeys.length > 0) {
-        html += "<table border='1' cellpadding='8' style='margin-bottom: 15px; width: 100%;'>";
-        html += "<thead style='background: #f0f0f0;'><tr><th>Canal</th><th>Température mesurée</th><th>Résistance</th><th>T_simulée</th><th>Dernière mesure</th></tr></thead><tbody>";
-        
+      /* Collecte des paramètres généraux */
+      cfg.mac_address = el("mac_address").value;
+      cfg.timeout_s = Number(el("timeout_s").value);
+      cfg.inter_measure_sleep_s = Number(el("inter_measure_sleep_s").value);
+      cfg.sequence_interval_minutes = Number(el("sequence_interval_minutes").value);
+      cfg.auto_sequence = el("auto_sequence").checked;
+
+      /* Collecte des configurations de canaux */
+      cfg.channels = [];
+      if (currentConfig && Array.isArray(currentConfig.channels)) {
         var i = 0;
-        while (i < channelKeys.length) {
-          var chKey = channelKeys[i];
-          var chData = d.channels[chKey];
-          var age = "-";
-          var ageColor = "";
-          
-          if (chData.timestamp) {
-            var t = Date.parse(chData.timestamp);
-            if (isNaN(t) === false) {
-              var nowMs = Date.now();
-              var diff = nowMs - t;
-              if (diff < 0) diff = 0;
-              var ageSeconds = Math.round(diff / 1000);
-              
-              if (ageSeconds < 30) {
-                age = ageSeconds + "s";
-                ageColor = "color: green; font-weight: bold;";
-              } else if (ageSeconds < 300) {
-                age = ageSeconds + "s";
-                ageColor = "color: orange;";
-              } else {
-                age = ageSeconds + "s";
-                ageColor = "color: red;";
-              }
-            }
-          }
-          
-          var rowColor = (i % 2 === 0) ? "#f9f9f9" : "#ffffff";
-          
-          html += "<tr style='background: " + rowColor + ";'>";
-          html += "<td><strong>Canal " + chKey + "</strong></td>";
-          html += "<td>" + (chData.temperature_c !== null ? "<strong>" + chData.temperature_c.toFixed(2) + "°C</strong>" : "<em>Pas de mesure</em>") + "</td>";
-          html += "<td>" + (chData.resistance_ohm !== null ? chData.resistance_ohm.toFixed(0) + " Ω" : "-") + "</td>";
-          html += "<td>" + (chData.temperature_sim_c !== null ? chData.temperature_sim_c.toFixed(2) + "°C" : "-") + "</td>";
-          html += "<td style='" + ageColor + "'>" + age + "</td>";
-          html += "</tr>";
+        while (i < currentConfig.channels.length) {
+          var row = currentConfig.channels[i];
+
+          /* Récupération des éléments de la ligne courante */
+          var tr = el("channels_body").children[i];
+          var sel = tr.children[1].querySelector("select");
+          var cb = tr.children[2].querySelector("input");
+
+          /* Construction de l'objet canal */
+          var chObj = {};
+          chObj.channel = row.channel;
+          chObj.sensor = sel.value;
+          chObj.enabled = cb.checked;
+
+          cfg.channels.push(chObj);
           i = i + 1;
         }
-        html += "</tbody></table>";
-      } else {
-        html += "<div class='channel-info'><em>Aucune donnée de canal disponible - Aucune mesure effectuée ou tous les canaux sont désactivés</em></div>";
       }
-      channelsDiv.innerHTML = html;
-    } else {
-      channelsDiv.innerHTML = "<div class='channel-info'><em>Structure de données ancienne - Redémarrez l'application principale</em></div>";
+      return cfg;
     }
-    
-    // Données globales (dernière mesure)
-    el("ts").textContent = d.last_timestamp ? String(d.last_timestamp) : "-";
-    el("last_channel").textContent = d.last_channel !== null ? String(d.last_channel) : "-";
-    el("last_res").textContent = d.last_resistance_ohm !== null ? String(d.last_resistance_ohm) : "-";
-    el("last_temp").textContent = d.last_temperature_c !== null ? String(d.last_temperature_c) : "-";
-    el("last_tsim").textContent = d.last_temperature_sim_c !== null ? String(d.last_temperature_sim_c) : "-";
-    el("last_err").textContent = d.last_error ? String(d.last_error) : "";
-    
-    var age = "-";
-    if (d.last_timestamp) {
-      var t = Date.parse(d.last_timestamp);
-      if (isNaN(t) === false) {
-        var nowMs = Date.now();
-        var diff = nowMs - t;
-        if (diff < 0) {
-          diff = 0;
+
+    /**
+     * @brief       Sauvegarde la configuration via l'API.
+     * @details     Valide les données et envoie la configuration au serveur.
+     *              Affiche les messages de succès ou d'erreur appropriés.
+     */
+    function saveConfig() {
+      /* Collecte de la configuration depuis le formulaire */
+      var cfg = collectConfigFromForm();
+
+      /* Validation des valeurs numériques */
+      if (cfg.timeout_s < 0) {
+        el("save_status").textContent = "timeout_s invalide";
+        return;
+      }
+      if (cfg.inter_measure_sleep_s < 0) {
+        el("save_status").textContent = "inter_measure_sleep_s invalide";
+        return;
+      }
+      if (cfg.sequence_interval_minutes < 0) {
+        el("save_status").textContent = "sequence_interval_minutes invalide";
+        return;
+      }
+
+      /* Envoi de la configuration via PUT */
+      fetch("/api/config", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(cfg)
+      }).then(function(resp) {
+        if (resp.ok) {
+          /* Succès : confirmation et rechargement */
+          el("save_status").textContent = "Enregistré";
+          return loadConfig();
+        } else {
+          /* Erreur serveur : affichage du détail */
+          return resp.json().then(function(j) {
+            el("save_status").textContent = "Erreur: " + JSON.stringify(j);
+          });
         }
-        age = Math.round(diff / 1000);
-      }
+      }).catch(function(err) {
+        /* Erreur réseau : affichage générique */
+        el("save_status").textContent = "Erreur réseau: " + String(err);
+      });
     }
-    el("age_s").textContent = String(age);
-  }).catch(function(err) {
-    el("last_err").textContent = "Erreur lecture last_state: " + String(err);
-  });
-}
 
-function setup() {
-  el("reload_btn").addEventListener("click", function() { loadConfig(); });
-  el("save_btn").addEventListener("click", function() { saveConfig(); });
-  el("force_reload_btn").addEventListener("click", function() { forceReload(); });
-  loadConfig();
-  refreshLast();
-  setInterval(function() { refreshLast(); }, 5000);
-}
-
-function forceReload() {
-  fetch("/api/force-reload", {
-    method: "POST"
-  }).then(function(resp) {
-    if (resp.ok) {
-      el("save_status").textContent = "Rechargement demandé";
-      setTimeout(function() { el("save_status").textContent = ""; }, 3000);
-    } else {
-      el("save_status").textContent = "Erreur rechargement";
+    /**
+     * @brief       Actualise les données de mesure temps réel.
+     * @details     Récupère les dernières mesures depuis l'API et met à jour l'affichage.
+     *              Génère dynamiquement les tableaux de données par canal et globales.
+     */
+    function refreshLast() {
+      /* Requête GET vers l'API des dernières données */
+      fetch("/api/last").then(function(resp) {
+        return resp.json();
+      }).then(function(d) {
+        /* Stockage des données pour usage ultérieur */
+        lastData = d;
+        
+        /* Mise à jour de l'affichage des données par canal */
+        var channelsDiv = el("channels_data");
+        if (d.channels) {
+          /* En-tête de section */
+          var html = "<div class='info-box'><strong>Historique des mesures par canal actif</strong></div>";
+          
+          /* Tri des clés de canaux par ordre numérique */
+          var channelKeys = Object.keys(d.channels).sort(function(a, b) { return parseInt(a) - parseInt(b); });
+          
+          if (channelKeys.length > 0) {
+            /* Début du tableau de données */
+            html += "<table border='1' cellpadding='8' style='margin-bottom: 15px; width: 100%;'>";
+            html += "<thead style='background: #f0f0f0;'><tr><th>Canal</th><th>Température mesurée</th><th>Résistance</th><th>T_simulée</th><th>Dernière mesure</th></tr></thead><tbody>";
+            
+            /* Génération des lignes de données par canal */
+            var i = 0;
+            while (i < channelKeys.length) {
+              var chKey = channelKeys[i];
+              var chData = d.channels[chKey];
+              var age = "-";
+              var ageColor = "";
+              
+              /* Calcul de l'âge de la mesure */
+              if (chData.timestamp) {
+                var t = Date.parse(chData.timestamp);
+                if (isNaN(t) === false) {
+                  var nowMs = Date.now();
+                  var diff = nowMs - t;
+                  if (diff < 0) diff = 0;
+                  var ageSeconds = Math.round(diff / 1000);
+                  
+                  /* Coloration selon l'âge de la mesure */
+                  if (ageSeconds < 30) {
+                    age = ageSeconds + "s";
+                    ageColor = "color: green; font-weight: bold;";  // Récent
+                  } else if (ageSeconds < 300) {
+                    age = ageSeconds + "s";
+                    ageColor = "color: orange;";                    // Moyen
+                  } else {
+                    age = ageSeconds + "s";
+                    ageColor = "color: red;";                       // Ancien
+                  }
+                }
+              }
+              
+              /* Alternance des couleurs de lignes */
+              var rowColor = (i % 2 === 0) ? "#f9f9f9" : "#ffffff";
+              
+              /* Construction de la ligne HTML */
+              html += "<tr style='background: " + rowColor + ";'>";
+              html += "<td><strong>Canal " + chKey + "</strong></td>";
+              html += "<td>" + (chData.temperature_c !== null ? "<strong>" + chData.temperature_c.toFixed(2) + "°C</strong>" : "<em>Pas de mesure</em>") + "</td>";
+              html += "<td>" + (chData.resistance_ohm !== null ? chData.resistance_ohm.toFixed(0) + " Ω" : "-") + "</td>";
+              html += "<td>" + (chData.temperature_sim_c !== null ? chData.temperature_sim_c.toFixed(2) + "°C" : "-") + "</td>";
+              html += "<td style='" + ageColor + "'>" + age + "</td>";
+              html += "</tr>";
+              i = i + 1;
+            }
+            html += "</tbody></table>";
+          } else {
+            /* Message si aucune donnée disponible */
+            html += "<div class='channel-info'><em>Aucune donnée de canal disponible - Aucune mesure effectuée ou tous les canaux sont désactivés</em></div>";
+          }
+          channelsDiv.innerHTML = html;
+        } else {
+          /* Message pour structure de données obsolète */
+          channelsDiv.innerHTML = "<div class='channel-info'><em>Structure de données ancienne - Redémarrez l'application principale</em></div>";
+        }
+        
+        /* Mise à jour des données globales (dernière mesure) */
+        el("ts").textContent = d.last_timestamp ? String(d.last_timestamp) : "-";
+        el("last_channel").textContent = d.last_channel !== null ? String(d.last_channel) : "-";
+        el("last_res").textContent = d.last_resistance_ohm !== null ? String(d.last_resistance_ohm) : "-";
+        el("last_temp").textContent = d.last_temperature_c !== null ? String(d.last_temperature_c) : "-";
+        el("last_tsim").textContent = d.last_temperature_sim_c !== null ? String(d.last_temperature_sim_c) : "-";
+        el("last_err").textContent = d.last_error ? String(d.last_error) : "";
+        
+        /* Calcul et affichage de l'âge de la dernière mesure globale */
+        var age = "-";
+        if (d.last_timestamp) {
+          var t = Date.parse(d.last_timestamp);
+          if (isNaN(t) === false) {
+            var nowMs = Date.now();
+            var diff = nowMs - t;
+            if (diff < 0) {
+              diff = 0;
+            }
+            age = Math.round(diff / 1000);
+          }
+        }
+        el("age_s").textContent = String(age);
+      }).catch(function(err) {
+        /* Affichage des erreurs de lecture */
+        el("last_err").textContent = "Erreur lecture last_state: " + String(err);
+      });
     }
-  }).catch(function(err) {
-    el("save_status").textContent = "Erreur: " + String(err);
-  });
-}
 
-document.addEventListener("DOMContentLoaded", function() { setup(); });
-</script>
+    /**
+     * @brief       Initialise l'interface utilisateur.
+     * @details     Configure les gestionnaires d'événements et démarre les
+     *              cycles de mise à jour automatique des données.
+     */
+    function setup() {
+      /* Liaison des gestionnaires d'événements aux boutons */
+      el("reload_btn").addEventListener("click", function() { loadConfig(); });
+      el("save_btn").addEventListener("click", function() { saveConfig(); });
+      el("force_reload_btn").addEventListener("click", function() { forceReload(); });
+      
+      /* Chargement initial des données */
+      loadConfig();
+      refreshLast();
+      
+      /* Démarrage du cycle de rafraîchissement automatique (5 secondes) */
+      setInterval(function() { refreshLast(); }, 5000);
+    }
+
+    /**
+     * @brief       Force le rechargement de la configuration serveur.
+     * @details     Envoie une requête POST pour forcer le rechargement des
+     *              fichiers de configuration côté serveur.
+     */
+    function forceReload() {
+      /* Requête POST vers l'endpoint de rechargement forcé */
+      fetch("/api/force-reload", {
+        method: "POST"
+      }).then(function(resp) {
+        if (resp.ok) {
+          /* Confirmation du rechargement demandé */
+          el("save_status").textContent = "Rechargement demandé";
+          /* Effacement automatique du message après 3 secondes */
+          setTimeout(function() { el("save_status").textContent = ""; }, 3000);
+        } else {
+          /* Affichage d'erreur en cas d'échec */
+          el("save_status").textContent = "Erreur rechargement";
+        }
+      }).catch(function(err) {
+        /* Gestion des erreurs réseau */
+        el("save_status").textContent = "Erreur: " + String(err);
+      });
+    }
+
+    /* Démarrage automatique une fois le DOM chargé */
+    document.addEventListener("DOMContentLoaded", function() { setup(); });
+  </script>
 </body>
 </html>

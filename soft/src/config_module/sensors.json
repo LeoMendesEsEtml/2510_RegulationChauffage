@@ -1,14 +1,64 @@
 {
+  "_comment_file": "sensors.json",
+  "_comment_brief": "Configuration des capteurs et paramètres de mesure CM5.",
+  "_comment_details": "Ce fichier JSON contient la configuration complète du système de mesure de température. Il définit les paramètres globaux de communication, les timeouts, les intervalles de mesure et la configuration individuelle de chaque canal de capteur.",
+  "_comment_author": "Léo Mendes",
+  "_comment_project": "2510_RegulationsChauffage",
+  "_comment_mandant": "Oblo_solution",
+  "_comment_date": "2025-09-18",
+  "_comment_version": "1.0.0",
+  "_comment_copyright": "Copyright (c) 2025",
+
+  "_comment_section_device": "--- Configuration du dispositif ---",
   "mac_address": "0030DEABCDEF",
+  "_comment_mac_address": "Identifiant unique du Raspberry Pi CM5 pour l'API. Format: 6 octets en hexadécimal.",
+
+  "_comment_section_timeouts": "--- Paramètres de temporisation ---",
   "timeout_s": 180,
+  "_comment_timeout_s": "Temps maximum d'attente pour une mesure ADC avant abandon [secondes]. Valeur recommandée: 180s.",
+
   "inter_measure_sleep_s": 0.1,
+  "_comment_inter_measure_sleep_s": "Pause entre chaque échantillonnage ADC pour stabilisation [secondes]. Valeur recommandée: 0.1s.",
+
   "loop_sleep_s": 1.0,
+  "_comment_loop_sleep_s": "Délai de pause dans la boucle principale d'acquisition [secondes]. Évite la surcharge CPU.",
+
+  "_comment_section_automation": "--- Configuration de l'automatisation ---",
   "sequence_interval_minutes": 5,
+  "_comment_sequence_interval_minutes": "Fréquence d'exécution automatique des mesures complètes [minutes]. 0 = désactivé. Valeur recommandée: 5 min.",
+
   "auto_sequence": true,
+  "_comment_auto_sequence": "Active/désactive l'exécution automatique des séquences de mesure selon l'intervalle défini. true = actif, false = manuel.",
+
+  "_comment_section_channels": "--- Configuration des canaux de mesure ---",
   "channels": [
-    { "channel": 1, "sensor": "Ni1000 TK5000", "enabled": true },
-    { "channel": 2, "sensor": "Ni1000 TK5000", "enabled": false },
-    { "channel": 3, "sensor": "Ni1000 TK5000", "enabled": false },
-    { "channel": 4, "sensor": "Ni1000 TK5000", "enabled": false }
-  ]
+    {
+      "_comment_channel_1": "Canal 1 - Configuration du premier capteur de température",
+      "channel": 1,
+      "_comment_channel_num": "Numéro de canal physique sur le multiplexeur ADC",
+      "sensor": "Ni1000 TK5000",
+      "_comment_sensor_type": "Type de capteur de température. Définit la courbe de conversion résistance-température.",
+      "enabled": true,
+      "_comment_enabled": "État d'activation du canal. true = mesures actives, false = canal ignoré"
+    },
+    {
+      "_comment_channel_2": "Canal 2 - Configuration du deuxième capteur (désactivé)",
+      "channel": 2,
+      "sensor": "Ni1000 TK5000",
+      "enabled": false
+    },
+    {
+      "_comment_channel_3": "Canal 3 - Configuration du troisième capteur (désactivé)",
+      "channel": 3,
+      "sensor": "Ni1000 TK5000",
+      "enabled": false
+    },
+    {
+      "_comment_channel_4": "Canal 4 - Configuration du quatrième capteur (désactivé)",
+      "channel": 4,
+      "sensor": "Ni1000 TK5000",
+      "enabled": false
+    }
+  ],
+  "_comment_channels_detail": "Liste des 4 canaux de mesure disponibles. Chaque canal peut être configuré individuellement avec son type de capteur et son état d'activation."
 }

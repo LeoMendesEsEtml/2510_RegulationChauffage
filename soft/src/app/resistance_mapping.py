@@ -1,9 +1,27 @@
 # -*- coding: utf-8 -*-
 """
-Mapping des résistances TMUX par type de sonde
-Canal 0-31 pour chaque type de sonde avec valeurs réelles
+@file        resistance_mapping.py
+@brief       Mapping des résistances TMUX par type de sonde de température.
+@details     Ce module fournit les tables de correspondance entre les canaux
+             0-31 du multiplexeur TMUX et les valeurs de résistance réelles
+             pour différents types de sondes de température. Chaque type de
+             sonde dispose d'un mapping spécifique avec 32 valeurs calibrées.
+@author      Léo Mendes
+@project     2510_RegulationsChauffage
+@Mandant     Oblo_solution
+@date        2025-09-18
+@version     1.0.0
+@copyright   Copyright (c) 2025
 """
 
+
+# ---------------------------------------------------------------------------
+# Tables de mapping résistances par type de sonde
+# ---------------------------------------------------------------------------
+
+# Dictionnaire principal contenant les mappings de résistances pour chaque type de sonde
+# Structure: {"Type_Sonde": {canal: resistance_ohms, ...}}
+# Canaux 0-31 avec valeurs de résistance réelles calibrées [Ohms]
 CHANNEL_MUX = {
     "De Dietrich AF60": {
         0: 2010, 1: 1900, 2: 1800, 3: 1700, 4: 1609, 5: 1518, 6: 1436, 7: 1354,
@@ -61,31 +79,74 @@ CHANNEL_MUX = {
     }
 }
 
+
+# ---------------------------------------------------------------------------
+# Fonctions d'accès aux mappings
+# ---------------------------------------------------------------------------
+
 def get_channel_mux_map(sensor_type: str) -> dict:
-    """Retourne le mapping CHANNEL_MUX pour un type de sonde donné"""
+    """
+    @brief   Retourne le mapping CHANNEL_MUX pour un type de sonde donné.
+    @details Fonction d'accès qui extrait le dictionnaire de correspondance
+             canal/résistance pour un type de sonde spécifique. Valide
+             l'existence du type avant de retourner les données.
+
+    @param sensor_type  Type de sonde demandé (doit exister dans CHANNEL_MUX).
+
+    @return             Dictionnaire {canal: resistance} pour le type de sonde.
+
+    @exception          KeyError si le type de sonde n'est pas supporté.
+    """
+    # Vérification de l'existence du type de sonde dans le mapping
     if sensor_type in CHANNEL_MUX:
+        # Retour du dictionnaire de mapping pour ce type
         return CHANNEL_MUX[sensor_type]
+    # Levée d'exception avec message explicite si type non supporté
     raise KeyError(f"Type de sonde non supporté: {sensor_type}")
+
 
 def find_closest_channel(target_resistance: float, sensor_type: str) -> tuple:
     """
-    Trouve le canal MUX le plus proche pour une résistance cible
-    Returns: (channel, actual_resistance, error_percent)
+    @brief   Trouve le canal MUX le plus proche pour une résistance cible.
+    @details Algorithme de recherche du canal TMUX offrant la résistance
+             la plus proche de la valeur cible. Calcule l'erreur absolue
+             et relative pour le meilleur canal trouvé.
+
+    @param target_resistance  Valeur de résistance cible recherchée [Ohms].
+    @param sensor_type        Type de sonde à utiliser pour la recherche.
+
+    @return                   Tuple (canal, resistance_reelle, erreur_pourcent).
+                              Retourne (None, None, None) si aucun canal trouvé.
+
+    @exception                KeyError si le type de sonde n'existe pas.
     """
+    # Récupération du mapping de résistances pour le type de sonde
     channel_map = get_channel_mux_map(sensor_type)
     
+    # Initialisation des variables de recherche du meilleur canal
     best_channel = None
+    # Erreur minimale initialisée à l'infini pour la comparaison
     best_error = float('inf')
     
+    # Parcours de tous les canaux disponibles pour ce type de sonde
     for channel, resistance in channel_map.items():
+        # Calcul de l'erreur absolue entre résistance cible et disponible
         error = abs(resistance - target_resistance)
+        # Mise à jour si cette résistance est plus proche de la cible
         if error < best_error:
+            # Sauvegarde de la nouvelle meilleure erreur
             best_error = error
+            # Sauvegarde du canal correspondant
             best_channel = channel
     
+    # Calcul des résultats si un canal a été trouvé
     if best_channel is not None:
+        # Récupération de la résistance réelle du meilleur canal
         actual_resistance = channel_map[best_channel]
+        # Calcul de l'erreur relative en pourcentage
         error_percent = abs(actual_resistance - target_resistance) / target_resistance * 100
+        # Retour du triplet (canal, résistance, erreur%)
         return best_channel, actual_resistance, error_percent
     
+    # Retour de valeurs nulles si aucun canal trouvé
     return None, None, None

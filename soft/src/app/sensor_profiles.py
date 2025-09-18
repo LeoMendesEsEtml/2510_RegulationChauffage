@@ -1,82 +1,135 @@
 # -*- coding: utf-8 -*-
-# fichier : sensor_profiles.py
 """
-Profils capteurs extraits de 'Calcul ADC.xlsx' (Feuil1).
-Clés:
-- rref_ohm: Rref sélectionnée via TMUX1204 (A1 A0: 00=2.2k, 01=2.7k, 10=10k, 11=100k)
-- idac_uA: courant IDAC
-- pga_gain: gain PGA (1,2,4,8,16,32,64,128)
-
-Sortie du système: résistance [Ohm] uniquement.
+@file        sensor_profiles.py
+@brief       Profils capteurs extraits de 'Calcul ADC.xlsx' (Feuil1).
+@details     Ce module contient les profils de configuration pour différents
+             types de capteurs de température avec leurs paramètres ADC
+             optimisés (Rref, IDAC, PGA) et leurs tables de conversion
+             température/résistance. Les données proviennent des calculs
+             d'optimisation du fichier Excel de référence.
+@author      Léo Mendes
+@project     2510_RegulationsChauffage
+@Mandant     Oblo_solution
+@date        2025-09-18
+@version     1.0.0
+@copyright   Copyright (c) 2025
 """
 
-# Dictionnaire contenant les profils des capteurs
+
+# ---------------------------------------------------------------------------
+# Profils de configuration ADC par capteur
+# ---------------------------------------------------------------------------
+
+# Dictionnaire principal contenant les profils de configuration pour chaque capteur
+# Structure: paramètres optimisés pour l'acquisition ADC
+# - rref_ohm: Résistance de référence sélectionnée via TMUX1204 (A1 A0: 00=2.2k, 01=2.7k, 10=10k, 11=100k)
+# - idac_uA: Courant IDAC en microampères pour l'excitation du capteur
+# - pga_gain: Gain PGA programmable (1,2,4,8,16,32,64,128)
+# Sortie du système: résistance [Ohm] uniquement
 SENSOR_PROFILES = {
-    # Profil pour le capteur De Dietrich AF60
+    # Profil pour le capteur De Dietrich AF60 (sonde industrielle)
     "De Dietrich AF60": {
-        "rref_ohm": 2200,  # Résistance de référence en ohms pour le capteur De Dietrich AF60
-        "idac_uA": 250,    # Courant IDAC en microampères pour le capteur De Dietrich AF60
-        "pga_gain": 1      # Gain PGA pour le capteur De Dietrich AF60
+        # Résistance de référence optimale pour ce type de capteur [Ohms]
+        "rref_ohm": 2200,
+        # Courant d'excitation IDAC configuré [microampères]
+        "idac_uA": 250,
+        # Gain d'amplification programmable sélectionné
+        "pga_gain": 1
     },
-    # Profil pour le capteur Siemens QAC32
+    # Profil pour le capteur Siemens QAC32 (sonde qualité d'air)
     "Siemens QAC32": {
-        "rref_ohm": 2700,  # Résistance de référence en ohms pour le capteur Siemens QAC32
-        "idac_uA": 250,    # Courant IDAC en microampères pour le capteur Siemens QAC32
-        "pga_gain": 4      # Gain PGA pour le capteur Siemens QAC32
+        # Résistance de référence optimale pour ce type de capteur [Ohms]
+        "rref_ohm": 2700,
+        # Courant d'excitation IDAC configuré [microampères]
+        "idac_uA": 250,
+        # Gain d'amplification programmable sélectionné
+        "pga_gain": 4
     },
-    # Profil pour le capteur PT1000
+    # Profil pour le capteur PT1000 (sonde platine de précision)
     "PT1000": {
-        "rref_ohm": 10000,  # Résistance de référence en ohms pour le capteur PT1000
-        "idac_uA": 100,    # Courant IDAC en microampères pour le capteur PT1000
-        "pga_gain": 8      # Gain PGA pour le capteur PT1000
+        # Résistance de référence optimale pour ce type de capteur [Ohms]
+        "rref_ohm": 10000,
+        # Courant d'excitation IDAC configuré [microampères]
+        "idac_uA": 100,
+        # Gain d'amplification programmable sélectionné
+        "pga_gain": 8
     },
-    # Profil pour le capteur Ni1000 TK5000
+    # Profil pour le capteur Ni1000 TK5000 (sonde nickel coefficient standard)
     "Ni1000 TK5000": {
-        "rref_ohm": 10000,  # Résistance de référence en ohms pour le capteur Ni1000 TK5000
-        "idac_uA": 100,    # Courant IDAC en microampères pour le capteur Ni1000 TK5000
-        "pga_gain": 8      # Gain PGA pour le capteur Ni1000 TK5000
+        # Résistance de référence optimale pour ce type de capteur [Ohms]
+        "rref_ohm": 10000,
+        # Courant d'excitation IDAC configuré [microampères]
+        "idac_uA": 100,
+        # Gain d'amplification programmable sélectionné
+        "pga_gain": 8
     },
-    # Profil pour le capteur Ni1000 TK6180
+    # Profil pour le capteur Ni1000 TK6180 (sonde nickel coefficient élevé)
     "Ni1000 TK6180": {
-        "rref_ohm": 10000,  # Résistance de référence en ohms pour le capteur Ni1000 TK6180
-        "idac_uA": 50,     # Courant IDAC en microampères pour le capteur Ni1000 TK6180
-        "pga_gain": 8      # Gain PGA pour le capteur Ni1000 TK6180
+        # Résistance de référence optimale pour ce type de capteur [Ohms]
+        "rref_ohm": 10000,
+        # Courant d'excitation IDAC configuré [microampères]
+        "idac_uA": 50,
+        # Gain d'amplification programmable sélectionné
+        "pga_gain": 8
     },
-    # Profil pour le capteur NTC 1k 3528
+    # Profil pour le capteur NTC 1k 3528 (thermistance 1kOhm)
     "NTC 1k 3528": {
-        "rref_ohm": 10000,  # Résistance de référence en ohms pour le capteur NTC 1k 3528
-        "idac_uA": 100,    # Courant IDAC en microampères pour le capteur NTC 1k 3528
-        "pga_gain": 1      # Gain PGA pour le capteur NTC 1k 3528
+        # Résistance de référence optimale pour ce type de capteur [Ohms]
+        "rref_ohm": 10000,
+        # Courant d'excitation IDAC configuré [microampères]
+        "idac_uA": 100,
+        # Gain d'amplification programmable sélectionné
+        "pga_gain": 1
     },
-    # Profil pour le capteur KTY81-210
+    # Profil pour le capteur KTY81-210 (capteur silicium)
     "KTY81-210": {
-        "rref_ohm": 10000,  # Résistance de référence en ohms pour le capteur KTY81-210
-        "idac_uA": 100,    # Courant IDAC en microampères pour le capteur KTY81-210
-        "pga_gain": 4      # Gain PGA pour le capteur KTY81-210
+        # Résistance de référence optimale pour ce type de capteur [Ohms]
+        "rref_ohm": 10000,
+        # Courant d'excitation IDAC configuré [microampères]
+        "idac_uA": 100,
+        # Gain d'amplification programmable sélectionné
+        "pga_gain": 4
     },
-    # Profil pour le capteur NTC 2k 3390
+    # Profil pour le capteur NTC 2k 3390 (thermistance 2kOhm haute précision)
     "NTC 2k 3390": {
-        "rref_ohm": 100000,  # Résistance de référence en ohms pour le capteur NTC 2k 3390
-        "idac_uA": 10,      # Courant IDAC en microampères pour le capteur NTC 2k 3390
-        "pga_gain": 8       # Gain PGA pour le capteur NTC 2k 3390
+        # Résistance de référence optimale pour ce type de capteur [Ohms]
+        "rref_ohm": 100000,
+        # Courant d'excitation IDAC configuré [microampères]
+        "idac_uA": 10,
+        # Gain d'amplification programmable sélectionné
+        "pga_gain": 8
     },
-    # Profil pour le capteur NTC 2.2k 3528
+    # Profil pour le capteur NTC 2.2k 3528 (thermistance 2.2kOhm)
     "NTC 2.2k 3528": {
-        "rref_ohm": 100000,  # Résistance de référence en ohms pour le capteur NTC 2.2k 3528
-        "idac_uA": 10,      # Courant IDAC en microampères pour le capteur NTC 2.2k 3528
-        "pga_gain": 4       # Gain PGA pour le capteur NTC 2.2k 3528
+        # Résistance de référence optimale pour ce type de capteur [Ohms]
+        "rref_ohm": 100000,
+        # Courant d'excitation IDAC configuré [microampères]
+        "idac_uA": 10,
+        # Gain d'amplification programmable sélectionné
+        "pga_gain": 4
     },
-    # Profil pour le capteur NTC 10k 3977
+    # Profil pour le capteur NTC 10k 3977 (thermistance 10kOhm haute résolution)
     "NTC 10k 3977": {
-        "rref_ohm": 100000,  # Résistance de référence en ohms pour le capteur NTC 10k 3977
-        "idac_uA": 10,      # Courant IDAC en microampères pour le capteur NTC 10k 3977
-        "pga_gain": 1       # Gain PGA pour le capteur NTC 10k 3977
+        # Résistance de référence optimale pour ce type de capteur [Ohms]
+        "rref_ohm": 100000,
+        # Courant d'excitation IDAC configuré [microampères]
+        "idac_uA": 10,
+        # Gain d'amplification programmable sélectionné
+        "pga_gain": 1
     }
 }
 
-# Dictionnaire contenant les tables de conversion des capteurs
+
+# ---------------------------------------------------------------------------
+# Tables de conversion température/résistance
+# ---------------------------------------------------------------------------
+
+# Dictionnaire contenant les tables de correspondance température [°C] / résistance [Ohms]
+# Structure: liste de tuples (température, résistance) pour interpolation linéaire
+# Données calibrées issues des fiches techniques des capteurs
 SENSOR_TABLES = {
-    # Table de conversion pour le capteur De Dietrich AF60
+    # Table de conversion température/résistance pour capteur De Dietrich AF60
+    # Points de calibration (température_°C, résistance_Ohms) - sonde industrielle
     "De Dietrich AF60": [
         (-15.0, 2010), (-13.5, 1900), (-12.0, 1800), (-10.5, 1700), (-9.0, 1609),
         (-7.5, 1518), (-6.0, 1436), (-4.5, 1354), (-3.0, 1279), (-1.5, 1211),
@@ -89,7 +142,8 @@ SENSOR_TABLES = {
         (36.0, 290), (36.5, 284), (37.0, 279), (37.5, 275), (38.0, 270),
         (38.5, 265), (39.0, 260), (39.5, 256), (40.0, 251.37)
     ],
-    # Table de conversion pour le capteur Ni1000 TK6180
+    # Table de conversion température/résistance pour capteur Ni1000 TK6180
+    # Points de calibration (température_°C, résistance_Ohms) - sonde nickel haute sensibilité
     "Ni1000 TK6180": [
         (-15.0, 919), (-13.5, 927), (-12.0, 935), (-10.5, 943), (-9.0, 951),
         (-7.5, 959), (-6.0, 968), (-4.5, 976), (-3.0, 984), (-1.5, 992),
@@ -100,7 +154,8 @@ SENSOR_TABLES = {
         (30.0, 1171), (32.0, 1182), (33.0, 1188), (34.0, 1194.21), (35.0, 1200),
         (36.0, 1206), (37.0, 1212), (38.0, 1218), (39.0, 1224), (40.0, 1230.7)
     ],
-    # Table de conversion pour le capteur Ni1000 TK5000
+    # Table de conversion température/résistance pour capteur Ni1000 TK5000
+    # Points de calibration (température_°C, résistance_Ohms) - sonde nickel standard
     "Ni1000 TK5000": [
         (-15.0, 935), (-13.5, 941), (-12.0, 947), (-10.5, 954), (-9.0, 960),
         (-7.5, 967), (-6.0, 973), (-4.5, 980), (-3.0, 987), (-1.5, 993),
@@ -112,7 +167,8 @@ SENSOR_TABLES = {
         (35.0, 1162), (36.0, 1166), (37.0, 1171), (38.0, 1176), (39.0, 1181),
         (40.0, 1185.71)
     ],
-    # Table de conversion pour le capteur PT1000
+    # Table de conversion température/résistance pour capteur PT1000
+    # Points de calibration (température_°C, résistance_Ohms) - sonde platine de précision
     "PT1000": [
         (-15.0, 942), (-13.5, 948), (-12.0, 953), (-10.5, 959), (-9.0, 965),
         (-7.5, 971), (-6.0, 977), (-4.5, 982), (-3.0, 989), (-1.5, 994),
@@ -125,7 +181,8 @@ SENSOR_TABLES = {
         (36.0, 1140), (36.5, 1142), (37.0, 1144), (37.5, 1146), (38.0, 1148),
         (38.5, 1150), (39.0, 1152), (39.5, 1153), (40.0, 1155.5)
     ],
-    # Table de conversion pour le capteur Siemens QAC32
+    # Table de conversion température/résistance pour capteur Siemens QAC32
+    # Points de calibration (température_°C, résistance_Ohms) - sonde qualité d'air
     "Siemens QAC32": [
         (-15.0, 653), (-13.5, 650), (-12.0, 647), (-10.5, 643), (-9.0, 640),
         (-7.5, 637), (-6.0, 633), (-4.5, 630), (-3.0, 627), (-1.5, 623),
@@ -135,7 +192,8 @@ SENSOR_TABLES = {
         (22.5, 571), (24.0, 568), (25.5, 565), (27.0, 561), (28.5, 558),
         (30.0, 555), (31.5, 552), (40.0, 525)
     ],
-    # Table de conversion pour le capteur NTC 1k 3528
+    # Table de conversion température/résistance pour capteur NTC 1k 3528
+    # Points de calibration (température_°C, résistance_Ohms) - thermistance 1kΩ
     "NTC 1k 3528": [
         (-15.0, 5855), (-13.5, 5431), (-12.0, 5041), (-10.5, 4683), (-9.0, 4353),
         (-7.5, 4050), (-6.0, 3771), (-4.5, 3513), (-3.0, 3276), (-1.5, 3057),
@@ -148,7 +206,8 @@ SENSOR_TABLES = {
         (36.0, 663), (36.5, 651), (37.0, 639), (37.5, 628), (38.0, 617),
         (38.5, 606), (39.0, 595), (39.5, 585), (40.0, 574.6)
     ],
-    # Table de conversion pour le capteur KTY81-210
+    # Table de conversion température/résistance pour capteur KTY81-210
+    # Points de calibration (température_°C, résistance_Ohms) - capteur silicium
     "KTY81-210": [
         (-15.0, 1423), (-13.5, 1445), (-12.0, 1466), (-10.5, 1488), (-9.0, 1509),
         (-7.5, 1531), (-6.0, 1552), (-4.5, 1573), (-3.0, 1595), (-1.5, 1616),
@@ -158,7 +217,8 @@ SENSOR_TABLES = {
         (22.5, 1959), (24.0, 1981), (25.5, 2002), (27.0, 2023), (28.5, 2045),
         (30.0, 2066), (31.5, 2088), (40.0, 2245)
     ],
-    # Table de conversion pour le capteur NTC 2k 3390
+    # Table de conversion température/résistance pour capteur NTC 2k 3390
+    # Points de calibration (température_°C, résistance_Ohms) - thermistance 2kΩ haute précision
     "NTC 2k 3390": [
         (-15.0, 11124), (-13.5, 10340), (-12.0, 9618), (-10.5, 8954), (-9.0, 8341),
         (-7.5, 7777), (-6.0, 7255), (-4.5, 6774), (-3.0, 6329), (-1.5, 5917),
@@ -171,7 +231,8 @@ SENSOR_TABLES = {
         (36.0, 1342), (36.5, 1318), (37.0, 1296), (37.5, 1273), (38.0, 1251),
         (38.5, 1230), (39.0, 1209), (39.5, 1188), (40.0, 1168.05)
     ],
-    # Table de conversion pour le capteur NTC 2.2k 3528
+    # Table de conversion température/résistance pour capteur NTC 2.2k 3528
+    # Points de calibration (température_°C, résistance_Ohms) - thermistance 2.2kΩ
     "NTC 2.2k 3528": [
         (-15.0, 12881), (-13.5, 11947), (-12.0, 11089), (-10.5, 10301), (-9.0, 9576),
         (-7.5, 8909), (-6.0, 8295), (-4.5, 7729), (-3.0, 7206), (-1.5, 6724),
@@ -184,7 +245,8 @@ SENSOR_TABLES = {
         (36.0, 1368), (36.5, 1342), (37.0, 1316), (37.5, 1291), (38.0, 1266),
         (38.5, 1242), (39.0, 1219), (39.5, 1196), (40.0, 1173)
     ],
-    # Table de conversion pour le capteur NTC 10k 3977
+    # Table de conversion température/résistance pour capteur NTC 10k 3977
+    # Points de calibration (température_°C, résistance_Ohms) - thermistance 10kΩ haute résolution
     "NTC 10k 3977": [
         (-15.0, 72502), (-13.5, 66690), (-12.0, 61394), (-10.5, 56563), (-9.0, 52153),
         (-7.5, 48123), (-6.0, 44439), (-4.5, 41068), (-3.0, 37980), (-1.5, 35151),
@@ -199,10 +261,30 @@ SENSOR_TABLES = {
     ],
 }
 
-# Fonction pour récupérer le profil d'un capteur donné
+
+# ---------------------------------------------------------------------------
+# Fonctions d'accès aux profils
+# ---------------------------------------------------------------------------
+
 def get_profile(sensor_name):
-    # Vérifie si le capteur existe dans les profils
+    """
+    @brief   Récupère le profil de configuration ADC pour un capteur donné.
+    @details Fonction d'accès qui retourne le dictionnaire de configuration
+             contenant les paramètres optimisés (Rref, IDAC, PGA) pour
+             un type de capteur spécifique.
+
+    @param sensor_name  Nom du type de capteur recherché.
+
+    @return             Dictionnaire contenant les paramètres de configuration:
+                        - rref_ohm: résistance de référence [Ohms]
+                        - idac_uA: courant d'excitation [microampères]  
+                        - pga_gain: gain programmable [1-128]
+
+    @exception          KeyError si le type de capteur n'est pas reconnu.
+    """
+    # Vérification de l'existence du capteur dans les profils
     if sensor_name in SENSOR_PROFILES:
+        # Retour du profil de configuration pour ce capteur
         return SENSOR_PROFILES[sensor_name]
-    # Lève une exception si le capteur est inconnu
+    # Levée d'exception avec message explicite pour capteur inconnu
     raise KeyError("Type de sonde inconnu: " + str(sensor_name))

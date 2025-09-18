@@ -1,8 +1,32 @@
 {
+  "_comment_file": "last_state.json",
+  "_comment_brief": "État de la dernière mesure de température effectuée.",
+  "_comment_details": "Ce fichier JSON stocke les résultats de la dernière mesure de température effectuée par le système. Il contient les données brutes (résistance), les valeurs calculées (température réelle et simulée) ainsi que les métadonnées temporelles et d'erreur. Utilisé pour la persistance d'état entre les redémarrages.",
+  "_comment_author": "Léo Mendes",
+  "_comment_project": "2510_RegulationsChauffage",
+  "_comment_mandant": "Oblo_solution",
+  "_comment_date": "2025-09-18",
+  "_comment_version": "1.0.0",
+  "_comment_copyright": "Copyright (c) 2025",
+
+  "_comment_section_temporal": "--- Informations temporelles et de canal ---",
   "timestamp": null,
+  "_comment_timestamp": "Horodatage ISO 8601 de la dernière mesure effectuée. null = aucune mesure disponible.",
+
   "channel": null,
+  "_comment_channel": "Numéro du canal de mesure utilisé pour la dernière acquisition. null = aucun canal mesuré.",
+
+  "_comment_section_measurement": "--- Données de mesure brutes et calculées ---",
   "resistance_ohm": null,
+  "_comment_resistance_ohm": "Valeur de résistance mesurée par l'ADC en ohms. null = aucune mesure disponible. Base du calcul de température.",
+
   "temperature_c": null,
+  "_comment_temperature_c": "Température calculée à partir de la résistance mesurée en degrés Celsius. null = calcul impossible ou aucune mesure.",
+
   "temperature_sim_c": null,
-  "error": "no data yet"
+  "_comment_temperature_sim_c": "Température simulée générée par l'algorithme de simulation en degrés Celsius. null = simulation désactivée.",
+
+  "_comment_section_error": "--- Gestion d'erreur et statut ---",
+  "error": "no data yet",
+  "_comment_error": "Message d'erreur ou de statut de la dernière opération de mesure. 'no data yet' = système initialisé mais aucune mesure effectuée. null ou '' = pas d'erreur."
 }
