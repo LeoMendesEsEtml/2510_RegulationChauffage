@@ -6,6 +6,16 @@ Le système lit des sondes réelles, calcule une température « simulée » à 
 
 **Documentation complète disponible sur : [leomendesesetml.github.io/2510_RegulationChauffage.github.io](https://leomendesesetml.github.io/2510_RegulationChauffage.github.io/index.html)**
 
+## Diagrammes (UML / Architecture / Flux)
+| Architecture réelle | Architecture générique |
+|---|---|
+| ![Architecture réelle](soft/src/out/UML_Diagram/architecture/Architecture_Reelle.png) | ![Architecture générique](soft/src/out/UML_Diagram/architecture_generic/ArchitectureGeneric.png) |
+
+| Flux d’événements détaillé | Flux d’événements générique |
+|---|---|
+| ![Flux d’événements détaillé](soft/src/out/UML_Diagram/event_flow_detailled/event_flow_detailled.png) | ![Flux d’événements générique](soft/src/out/UML_Diagram/event_flow_generic/EventFlow.png) |
+
+
 ## Fonctionnalités (réf. CdC v02)
 - Récupération des paramètres et prévisions via **API HTTP** (Oblo, GET/POST).
 - Lecture d'une sonde de température extérieure (capteur **résistif**), conversion en **°C**.
