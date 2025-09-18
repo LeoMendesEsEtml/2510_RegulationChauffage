@@ -19,6 +19,10 @@ app = Flask(__name__, static_folder=WEBUI_DIR, static_url_path="")
 def serve_index():
   return send_from_directory(WEBUI_DIR, "index.html")
 
+@app.route("/<path:filename>")
+def serve_static(filename):
+  return send_from_directory(WEBUI_DIR, filename)
+
 @app.route("/api/config", methods=["GET"])
 def get_config():
   try:
@@ -104,4 +108,4 @@ if __name__ == "__main__":
   print(f"CONFIG_PATH: {CONFIG_PATH}")
   print(f"STATE_PATH: {STATE_PATH}")
   print(f"WEBUI_DIR: {WEBUI_DIR}")
-  app.run(host="0.0.0.0", port=8080)
+  app.run(host="192.168.1.109", port=8080)
