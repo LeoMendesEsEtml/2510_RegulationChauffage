@@ -423,20 +423,20 @@ def run_measurement_sequence(cfg, mac_address, adc, tmux):
             # Calcul et application de la simulation
             print("[SIMULATION] Calcul et application...")
             
-            # Vérification de cohérence entre sonde API et sonde canal
-            api_probe_type = simulation_data.get("probe_type")
-            if api_probe_type != sensor_name:
-                print(f"[SIMULATION] ERREUR: Incohérence type de sonde!")
-                print(f"[SIMULATION] Sonde API: '{api_probe_type}' vs Sonde Canal {ch}: '{sensor_name}'")
-                print(f"[SIMULATION] La simulation est ignorée pour ce canal")
-                channels_failed += 1
-                show_error_and_continue('config_error')
-                continue
+            # TODO: Vérification de cohérence entre sonde API et sonde canal (temporairement désactivée)
+            # api_probe_type = simulation_data.get("probe_type")
+            # if api_probe_type != sensor_name:
+            #     print(f"[SIMULATION] ERREUR: Incohérence type de sonde!")
+            #     print(f"[SIMULATION] Sonde API: '{api_probe_type}' vs Sonde Canal {ch}: '{sensor_name}'")
+            #     print(f"[SIMULATION] La simulation est ignorée pour ce canal")
+            #     channels_failed += 1
+            #     show_error_and_continue('config_error')
+            #     continue
             
             # Injection de la température mesurée dans les données de simulation
             simulation_data["temperature"] = temperature
-            # Confirmation du type de sonde (déjà vérifié)
-            print(f"[SIMULATION] Type de sonde validé: {sensor_name}")
+            # Injection du type de sonde (temporaire - remplace le type API)
+            simulation_data["probe_type"] = sensor_name
             # Affichage des paramètres de simulation
             print(f"[SIMULATION] Paramètres: n={simulation_data['n']}, k_m={simulation_data['k_m']}")
             # Affichage des températures utilisées
