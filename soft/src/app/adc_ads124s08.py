@@ -439,10 +439,24 @@ class Ads124s08:
         t0 = time.time()
         # État initial de DRDY
         prev = self.gpio_drdy.read()
+        
+        # Affichage de l'état initial pour diagnostic
+        print(f"[ADC] Attente front descendant DRDY, état initial: {prev}, timeout: {timeout_s}s")
+        
+        # Compteur pour les messages de debug périodiques
+        debug_counter = 0
+        
         # Boucle d'attente infinie avec timeout
         while True:
             # Lecture de l'état actuel de DRDY
             val = self.gpio_drdy.read()
+            
+            # Affichage périodique pour diagnostic (toutes les 1000 itérations)
+            debug_counter += 1
+            if debug_counter % 1000 == 0:
+                elapsed = time.time() - t0
+                print(f"[ADC] Attente DRDY... État: {val}, Temps écoulé: {elapsed:.1f}s")
+            
             # Détection du front descendant
             if prev is True and val is False:
                 # Message de confirmation
@@ -453,8 +467,9 @@ class Ads124s08:
             prev = val
             # Test du timeout
             if time.time() - t0 > float(timeout_s):
-                # Message d'erreur timeout
-                print("[ADC] Timeout DRDY front descendant !")
+                # Message d'erreur timeout avec état final
+                print(f"[ADC] Timeout DRDY front descendant ! État final: {val}")
+                print("[ADC] Vérifiez: connexion DRDY, configuration ADC, horloge SPI")
                 # Échec: timeout atteint
                 return False
             # Délai court entre les lectures
@@ -615,7 +630,7 @@ class Ads124s08:
         @details     Assure que DRDY est à HIGH puis envoie la commande START
                      pour initier une nouvelle conversion sur le canal configuré.
 
-        @return      Rien.
+        @return      True si START envoyé avec succès, False en cas d'erreur.
 
         @note        DRDY doit être HIGH avant le START pour une conversion valide.
         @see         stop, wait_drdy_falling_edge
@@ -629,15 +644,20 @@ class Ads124s08:
             self._rreg(REG_STATUS, 1)
             # Délai court entre les tentatives
             time.sleep(0.001)
-            # Timeout de 1 seconde
-            if time.time() - t0 > 1.0:
-                # Message d'erreur
-                print("[ADC] Timeout: DRDY n'est pas remonté HIGH avant START !")
-                # Sortie de boucle en cas de timeout
-                break
+            # Timeout de 5 secondes (augmenté pour diagnostic)
+            if time.time() - t0 > 5.0:
+                # Message d'erreur détaillé
+                print("[ADC] ERREUR: DRDY n'est pas remonté HIGH avant START !")
+                print("[ADC] Vérifiez la connexion DRDY et l'alimentation ADC")
+                # Retour d'erreur sans envoyer START
+                return False
+        
+        # DRDY est maintenant HIGH, on peut envoyer START
+        print("[ADC] DRDY HIGH détecté, envoi de la commande START")
         # Envoi de la commande START pour débuter la conversion
         # Transmission de la commande START via SPI
         self.spi.xfer2([CMD_START])
+        return True
 
     def stop(self):
         """
@@ -703,7 +723,10 @@ class Ads124s08:
 
         # Démarrage de la conversion ADC
         # Envoi de la commande START
-        self.start()
+        start_success = self.start()
+        if not start_success:
+            print("[ADC] Erreur: Impossible de démarrer la conversion, DRDY non disponible")
+            return None
 
         # Attente du signal DRDY indiquant la fin de conversion
         # Attente du front descendant DRDY
