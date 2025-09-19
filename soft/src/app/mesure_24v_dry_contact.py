@@ -93,13 +93,15 @@ def test_24v_dry_contact():
         out1.write(False)
         
         # Interprétation du résultat canal 1
+        # LOGIQUE CORRECTE: Quand MOSFET activé, fil connecté donne 3.3V
+        # state1 = True (3.3V) = contact FERMÉ, state1 = False (0V) = contact OUVERT
         if state1:
             print("[TEST-24V] Canal 1: fermé")
-            # Contact fermé détecté
+            # Contact fermé détecté (fil connecté, 3.3V présent)
             io_24v_ch1_ok = 1
         else:
             print("[TEST-24V] Canal 1: ouvert")
-            # Contact ouvert détecté
+            # Contact ouvert détecté (fil non connecté, 0V)
             io_24v_ch1_ok = 0
         
         # Test Canal 2
@@ -117,13 +119,15 @@ def test_24v_dry_contact():
         out2.write(False)
         
         # Interprétation du résultat canal 2
+        # LOGIQUE CORRECTE: Quand MOSFET activé, fil connecté donne 3.3V
+        # state2 = True (3.3V) = contact FERMÉ, state2 = False (0V) = contact OUVERT
         if state2:
             print("[TEST-24V] Canal 2: fermé")
-            # Contact fermé détecté
+            # Contact fermé détecté (fil connecté, 3.3V présent)
             io_24v_ch2_ok = 1
         else:
             print("[TEST-24V] Canal 2: ouvert")
-            # Contact ouvert détecté
+            # Contact ouvert détecté (fil non connecté, 0V)
             io_24v_ch2_ok = 0
         
         # Nettoyage
