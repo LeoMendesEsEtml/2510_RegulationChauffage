@@ -6,16 +6,11 @@
              contacts secs via les interfaces I/O 24V. Permet de détecter
              l'état des contacts (ouvert/fermé) sur deux canaux indépendants
              avec gestion des GPIO et temporisations appropriées.
-             
-             NOTE IMPORTANTE: La logique de commande a été inversée car
-             des MOSFET-P ont été montés à la place des MOSFET-N prévus
-             dans le schéma original (IRLML6344).
-             
 @author      Léo Mendes
 @project     2510_RegulationsChauffage
 @Mandant     Oblo_solution
 @date        2025-09-18
-@version     1.0.1 - Logique inversée pour MOSFET-P
+@version     1.0.0
 @copyright   Copyright (c) 2025
 """
 
@@ -84,59 +79,51 @@ def test_24v_dry_contact():
         sense2 = GPIO(GPIO_CHIP_PATH, CM_24V_SENSE_2, "in")
         
         # Test Canal 1
-        # LOGIQUE INVERSÉE: MOSFET-P monté au lieu de MOSFET-N
-        # Pour MOSFET-P: False = activation, True = désactivation
-        # Mise au repos (activation pour MOSFET-P)
-        out1.write(True)
+        # Mise au repos
+        out1.write(False)
         # Temporisation de stabilisation
         time.sleep(0.01)
-        # Activation (pour MOSFET-P)
-        out1.write(False)
+        # Activation
+        out1.write(True)
         # Stabilisation
         time.sleep(0.02)
         # Lecture de l'état du capteur
         state1 = sense1.read()
-        # Désactivation (pour MOSFET-P)
-        out1.write(True)
+        # Désactivation
+        out1.write(False)
         
         # Interprétation du résultat canal 1
-        # LOGIQUE CORRECTE: Quand MOSFET activé, fil connecté donne 3.3V
-        # state1 = True (3.3V) = contact FERMÉ, state1 = False (0V) = contact OUVERT
         if state1:
             print("[TEST-24V] Canal 1: fermé")
-            # Contact fermé détecté (fil connecté, 3.3V présent)
+            # Contact fermé détecté
             io_24v_ch1_ok = 1
         else:
             print("[TEST-24V] Canal 1: ouvert")
-            # Contact ouvert détecté (fil non connecté, 0V)
+            # Contact ouvert détecté
             io_24v_ch1_ok = 0
         
         # Test Canal 2
-        # LOGIQUE INVERSÉE: MOSFET-P monté au lieu de MOSFET-N
-        # Pour MOSFET-P: False = activation, True = désactivation
-        # Mise au repos (activation pour MOSFET-P)
-        out2.write(True)
+        # Mise au repos
+        out2.write(False)
         # Temporisation de stabilisation
         time.sleep(0.01)
-        # Activation (pour MOSFET-P)
-        out2.write(False)
+        # Activation
+        out2.write(True)
         # Stabilisation
         time.sleep(0.02)
         # Lecture de l'état du capteur
         state2 = sense2.read()
-        # Désactivation (pour MOSFET-P)
-        out2.write(True)
+        # Désactivation
+        out2.write(False)
         
         # Interprétation du résultat canal 2
-        # LOGIQUE CORRECTE: Quand MOSFET activé, fil connecté donne 3.3V
-        # state2 = True (3.3V) = contact FERMÉ, state2 = False (0V) = contact OUVERT
         if state2:
             print("[TEST-24V] Canal 2: fermé")
-            # Contact fermé détecté (fil connecté, 3.3V présent)
+            # Contact fermé détecté
             io_24v_ch2_ok = 1
         else:
             print("[TEST-24V] Canal 2: ouvert")
-            # Contact ouvert détecté (fil non connecté, 0V)
+            # Contact ouvert détecté
             io_24v_ch2_ok = 0
         
         # Nettoyage
