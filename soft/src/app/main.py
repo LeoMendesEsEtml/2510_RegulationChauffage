@@ -61,7 +61,7 @@ from app.sensor_profiles import get_profile, SENSOR_TABLES
 # Pilote du multiplexeur matériel TMUX1204
 from hw_tmux1204 import Tmux1204
 # Pilote ADC ADS124S08
-from app.adc_ads124s08 import Ads124s08
+from app.adc_ads124s08 import Ads124s08, request_stop as request_adc_stop, reset_stop_flag as reset_adc_stop_flag, is_stop_requested as is_adc_stop_requested
 # Conversion T -> R pour sondes
 from app.temperature_conversion import convert_temperature_to_resistance
 # Client API (fonctions d'accès réseau)
@@ -181,6 +181,7 @@ def signal_handler(sig, frame):
     @brief   Gestionnaire POSIX pour les signaux (Ctrl+C).
     @details Met le drapeau `sequencer_running` à False et déclenche
              l'événement `stop_event` pour demander un arrêt propre.
+             Demande aussi l'arrêt des opérations ADC en cours.
     @param   sig  Signal reçu (int).
     @param   frame Contexte d'exécution (non utilisé).
     @return  None
@@ -192,6 +193,9 @@ def signal_handler(sig, frame):
     sequencer_running = False
     # Déclenchement de l'événement d'arrêt
     stop_event.set()
+    # Demande d'arrêt des opérations ADC
+    request_adc_stop()
+    print("[SEQUENCER] Arrêt des opérations ADC demandé...")
 
 def input_monitor():
     """
@@ -334,6 +338,11 @@ def run_measurement_sequence(cfg, mac_address, adc, tmux):
 
     # Boucle sur tous les canaux configurés
     for entry in cfg["channels"]:
+        # Vérification du flag d'arrêt avant chaque canal
+        if is_adc_stop_requested():
+            print("[SEQUENCER] Arrêt demandé - interruption de la séquence")
+            return False
+        
         # Numéro du canal à traiter
         ch = entry["channel"]
         # Type de capteur configuré
@@ -662,6 +671,10 @@ def main():
 
     # Installation du handler pour Ctrl+C
     signal.signal(signal.SIGINT, signal_handler)
+
+    # Remise à zéro du flag d'arrêt ADC au démarrage
+    reset_adc_stop_flag()
+    print("[ADC] Système d'interruption ADC initialisé")
 
     # Initialisation du gestionnaire LED
     # Création de l'instance de gestion LED

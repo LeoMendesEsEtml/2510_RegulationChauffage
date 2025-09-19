@@ -21,12 +21,67 @@ import spidev
 import time
 # Bibliothèque pour la gestion des GPIO
 from periphery import GPIO
+# Gestion des signaux système pour interruption propre
+import signal
+# Gestion des threads pour les opérations non-bloquantes
+import threading
 # Importation des constantes matérielles CM5
 from pins_cm5 import SPI1_BUS, SPI1_DEV0, SPI_ADC_SPEED_HZ, GPIO_CHIP_PATH, ADC_DRDY
 # Fonction de conversion résistance vers température
 from app.temperature_conversion import resistance_to_temperature_dynamic
 # Tables de conversion des différents capteurs
 from app.sensor_profiles import SENSOR_TABLES
+
+# ---------------------------------------------------------------------------
+# Variables globales pour la gestion d'interruption
+# ---------------------------------------------------------------------------
+
+# Flag global pour indiquer une demande d'arrêt
+_stop_requested = False
+# Lock pour la synchronisation thread-safe
+_stop_lock = threading.Lock()
+
+def request_stop():
+    """
+    @brief   Demande l'arrêt global du programme.
+    @details Active le flag global d'arrêt de manière thread-safe.
+    """
+    global _stop_requested
+    with _stop_lock:
+        _stop_requested = True
+        print("[ADC] Arrêt demandé - interruption des opérations en cours...")
+
+def is_stop_requested():
+    """
+    @brief   Vérifie si un arrêt a été demandé.
+    @details Retourne l'état du flag d'arrêt de manière thread-safe.
+    @return  True si arrêt demandé, False sinon.
+    """
+    global _stop_requested
+    with _stop_lock:
+        return _stop_requested
+
+def reset_stop_flag():
+    """
+    @brief   Remet à zéro le flag d'arrêt.
+    @details Permet de redémarrer les opérations après un arrêt.
+    """
+    global _stop_requested
+    with _stop_lock:
+        _stop_requested = False
+
+# Gestionnaire de signal pour Ctrl+C
+def signal_handler(signum, frame):
+    """
+    @brief   Gestionnaire pour les signaux système (Ctrl+C).
+    @details Capture SIGINT et SIGTERM pour arrêter proprement le programme.
+    """
+    print(f"\n[SIGNAL] Signal {signum} reçu - arrêt en cours...")
+    request_stop()
+
+# Installation du gestionnaire de signal
+signal.signal(signal.SIGINT, signal_handler)
+signal.signal(signal.SIGTERM, signal_handler)
 
 
 # ---------------------------------------------------------------------------
@@ -427,10 +482,11 @@ class Ads124s08:
         @brief       Attend un front descendant sur DRDY (HIGH -> LOW) avec timeout.
         @details     Surveille le signal DRDY pour détecter une transition de HIGH
                      vers LOW, indiquant qu'une nouvelle conversion est disponible.
+                     Peut être interrompu par Ctrl+C ou signal d'arrêt.
 
         @param timeout_s   Timeout en secondes pour l'attente du front.
 
-        @return            True si front descendant détecté, False en cas de timeout.
+        @return            True si front descendant détecté, False en cas de timeout ou interruption.
 
         @note              Méthode cruciale pour la synchronisation des mesures.
         @see               measure_resistance
@@ -442,20 +498,26 @@ class Ads124s08:
         
         # Affichage de l'état initial pour diagnostic
         print(f"[ADC] Attente front descendant DRDY, état initial: {prev}, timeout: {timeout_s}s")
+        print("[ADC] Appuyez sur Ctrl+C pour interrompre l'attente...")
         
         # Compteur pour les messages de debug périodiques
         debug_counter = 0
         
         # Boucle d'attente infinie avec timeout
         while True:
+            # Vérification du flag d'arrêt global
+            if is_stop_requested():
+                print("[ADC] Interruption demandée - arrêt de l'attente DRDY")
+                return False
+            
             # Lecture de l'état actuel de DRDY
             val = self.gpio_drdy.read()
             
-            # Affichage périodique pour diagnostic (toutes les 1000 itérations)
+            # Affichage périodique pour diagnostic (toutes les 500 itérations)
             debug_counter += 1
-            if debug_counter % 1000 == 0:
+            if debug_counter % 500 == 0:
                 elapsed = time.time() - t0
-                print(f"[ADC] Attente DRDY... État: {val}, Temps écoulé: {elapsed:.1f}s")
+                print(f"[ADC] Attente DRDY... État: {val}, Temps écoulé: {elapsed:.1f}s (Ctrl+C pour arrêter)")
             
             # Détection du front descendant
             if prev is True and val is False:
@@ -629,8 +691,9 @@ class Ads124s08:
         @brief       Démarre une conversion ADC.
         @details     Assure que DRDY est à HIGH puis envoie la commande START
                      pour initier une nouvelle conversion sur le canal configuré.
+                     Peut être interrompu par Ctrl+C ou signal d'arrêt.
 
-        @return      True si START envoyé avec succès, False en cas d'erreur.
+        @return      True si START envoyé avec succès, False en cas d'erreur ou interruption.
 
         @note        DRDY doit être HIGH avant le START pour une conversion valide.
         @see         stop, wait_drdy_falling_edge
@@ -638,8 +701,15 @@ class Ads124s08:
         # Attente que DRDY remonte à HIGH avant le démarrage
         # Timestamp de début d'attente
         t0 = time.time()
+        print("[ADC] Attente que DRDY soit HIGH avant START... (Ctrl+C pour arrêter)")
+        
         # Boucle tant que DRDY n'est pas HIGH
         while self.gpio_drdy.read() is not True:
+            # Vérification du flag d'arrêt global
+            if is_stop_requested():
+                print("[ADC] Interruption demandée - arrêt de l'attente DRDY HIGH")
+                return False
+            
             # Lecture du registre STATUS pour kick SCLK
             self._rreg(REG_STATUS, 1)
             # Délai court entre les tentatives
@@ -651,6 +721,11 @@ class Ads124s08:
                 print("[ADC] Vérifiez la connexion DRDY et l'alimentation ADC")
                 # Retour d'erreur sans envoyer START
                 return False
+        
+        # Vérification finale du flag d'arrêt avant d'envoyer START
+        if is_stop_requested():
+            print("[ADC] Interruption demandée - annulation de START")
+            return False
         
         # DRDY est maintenant HIGH, on peut envoyer START
         print("[ADC] DRDY HIGH détecté, envoi de la commande START")
