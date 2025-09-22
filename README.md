@@ -6,6 +6,16 @@ Le système lit des sondes réelles, calcule une température « simulée » à 
 
 **Documentation complète disponible sur : [leomendesesetml.github.io/2510_RegulationChauffage.github.io](https://leomendesesetml.github.io/2510_RegulationChauffage.github.io/index.html)**
 
+## Diagrammes (UML / Architecture / Flux)
+| Architecture réelle | Architecture générique |
+|---|---|
+| ![Architecture réelle](soft/src/out/UML_Diagram/architecture/Architecture_Reelle.png) | ![Architecture générique](soft/src/out/UML_Diagram/architecture_generic/ArchitectureGeneric.png) |
+
+| Flux d’événements détaillé | Flux d’événements générique |
+|---|---|
+| ![Flux d’événements détaillé](soft/src/out/UML_Diagram/event_flow_detailled/event_flow_detailled.png) | ![Flux d’événements générique](soft/src/out/UML_Diagram/event_flow_generic/EventFlow.png) |
+
+
 ## Fonctionnalités (réf. CdC v02)
 - Récupération des paramètres et prévisions via **API HTTP** (Oblo, GET/POST).
 - Lecture d'une sonde de température extérieure (capteur **résistif**), conversion en **°C**.
@@ -30,108 +40,8 @@ Le système lit des sondes réelles, calcule une température « simulée » à 
 - Service **systemd** et logs JSON rotatifs
 - Simulation et validation complète des mesures
 
-## Commandes principales
-
-### Lancement manuel
-```bash
-# Mode automatique avec cycles 5 minutes
-python3 /home/oblo/proj/2510_RegulationChauffage_soft/soft/src/app/main.py
-
-# Mode manuel avec interface web
-python3 /home/oblo/proj/2510_RegulationChauffage_soft/soft/src/app/main.py --webui
-
-# Mode manuel sans cycles automatiques
-python3 /home/oblo/proj/2510_RegulationChauffage_soft/soft/src/app/main.py --manual
-
-# Exécution unique (test)
-python3 /home/oblo/proj/2510_RegulationChauffage_soft/soft/src/app/main.py --once
-```
-
-### Service systemd (production)
-```bash
-# Créer le service avec interface web
-sudo tee /etc/systemd/system/2510-regulation.service > /dev/null << 'EOF'
-[Unit]
-Description=2510 Regulation Chauffage Service with WebUI
-After=network.target
-Wants=network.target
-
-[Service]
-Type=simple
-User=oblo
-Group=oblo
-WorkingDirectory=/home/oblo/proj/2510_RegulationChauffage_soft/soft/src
-ExecStart=/usr/bin/python3 /home/oblo/proj/2510_RegulationChauffage_soft/soft/src/app/main.py --webui
-Restart=always
-RestartSec=10
-StandardOutput=journal
-StandardError=journal
-Environment=PYTHONPATH=/home/oblo/proj/2510_RegulationChauffage_soft/soft/src
-Environment=HOME=/home/oblo
-
-[Install]
-WantedBy=multi-user.target
-EOF
-
-# Activer et démarrer le service
-sudo systemctl daemon-reload
-sudo systemctl enable 2510-regulation
-sudo systemctl start 2510-regulation
-```
-
-### Contrôle du service
-```bash
-# Vérifier le statut du service
-sudo systemctl status 2510-regulation
-
-# Vérifier si le service est actif
-sudo systemctl is-active 2510-regulation
-
-# Arrêter le service
-sudo systemctl stop 2510-regulation
-
-# Redémarrer le service
-sudo systemctl restart 2510-regulation
-
-# Voir les logs en temps réel
-sudo journalctl -u 2510-regulation -f
-
-# Voir les derniers logs
-sudo journalctl -u 2510-regulation -n 50
-```
-
-### Monitoring et diagnostic
-```bash
-# Vérifier le processus Python
-ps aux | grep main.py
-
-# Vérifier l'interface web (port 8080)
-curl -s http://localhost:8080 > /dev/null && echo "Interface web active" || echo "Interface web inaccessible"
-
-# Vérifier les ports d'écoute
-sudo ss -tlnp | grep 8080
-
-# Status complet en une commande
-echo "Service:" && sudo systemctl is-active 2510-regulation && echo "Process:" && ps aux | grep -v grep | grep main.py && echo "Port 8080:" && sudo ss -tlnp | grep 8080
-```
-
-## Installation et déploiement
-
-### Installation système
-```bash
-# Dépendances système
-sudo apt update
-sudo apt install python3-pip python3-venv
-
-# Dépendances Python
-pip3 install spidev periphery requests flask
-
-# Configuration SPI
-sudo raspi-config  # Activer SPI0 et SPI1
-```
-
 ### Accès interface web
-- **URL locale** : `http://192.168.1.109:8080`
+- **URL locale** : `http://192.168.1.109:8080` ou `http://IP:8080`
 - **Configuration** : Types capteurs, timeouts, intervalles
 - **Monitoring** : Données temps réel, historique des mesures
 - **API REST** : `/api/config`, `/api/state`
@@ -224,27 +134,16 @@ sudo journalctl -u 2510-regulation
 ```
 
 ### Monitoring système
-- **Patterns LED** : 
-  - 1Hz : Fonctionnement normal
-  - 2Hz : Erreur système
-  - Fixe : Mode manuel
-- **Interface web** : Dashboard temps réel à `http://192.168.1.109:8080`
-- **Logs JSON** : Historique complet des événements
+#### Patterns d'erreur : X clignotements sur 10 secondes puis répétition
+- 1 clignotement = Pas de connexion Internet
+- 2 clignotements = Erreur API (connexion ou réponse)
+- 3 clignotements = Erreur de mesure ADC/résistance
+- 4 clignotements = Erreur critique système
+- 5 clignotements = Erreur de configuration
+#### Interface web :
+- Dashboard temps réel à `http://192.168.1.109:8080`
 
 ## Validation et diagnostics
-
-### Tests système
-```bash
-# Test communication ADC
-python3 -c "from app.adc_ads124s08 import *; print('ADC Test')"
-
-# Test interface web
-curl http://localhost:8080/api/state
-
-# Test API oblosolutions (si connecté)
-curl "http://api.oblosolutions.ch/td25_param?mac_address=YOUR_MAC"
-```
-
 ### Troubleshooting
 ```bash
 # Vérifier SPI activé
