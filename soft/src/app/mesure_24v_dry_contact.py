@@ -61,6 +61,8 @@ def test_24v_dry_contact():
              Valeurs: 0=ouvert, 1=fermé.
 
     @note    Utilise des temporisations pour la stabilisation des signaux.
+    @note    CRITIQUE: GPIO sense configurés avec bias="disable" pour éviter 
+             les pull-down internes qui faussent la mesure du diviseur résistif.
     """
     global io_24v_ch1_ok, io_24v_ch2_ok
     
@@ -73,10 +75,10 @@ def test_24v_dry_contact():
         out1 = GPIO(GPIO_CHIP_PATH, CM_24V_OUT_1, "out")
         # Configuration de la sortie 24V canal 2
         out2 = GPIO(GPIO_CHIP_PATH, CM_24V_OUT_2, "out")
-        # Configuration de l'entrée sense canal 1
-        sense1 = GPIO(GPIO_CHIP_PATH, CM_24V_SENSE_1, "in")
-        # Configuration de l'entrée sense canal 2
-        sense2 = GPIO(GPIO_CHIP_PATH, CM_24V_SENSE_2, "in")
+        # Configuration de l'entrée sense canal 1 (CRITIQUE: désactiver pull-down)
+        sense1 = GPIO(GPIO_CHIP_PATH, CM_24V_SENSE_1, "in", bias="disable")
+        # Configuration de l'entrée sense canal 2 (CRITIQUE: désactiver pull-down)
+        sense2 = GPIO(GPIO_CHIP_PATH, CM_24V_SENSE_2, "in", bias="disable")
         
         # Test Canal 1
         # Mise au repos (MOSFET P: True = OFF)
