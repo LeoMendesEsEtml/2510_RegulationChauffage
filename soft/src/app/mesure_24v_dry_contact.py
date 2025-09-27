@@ -79,18 +79,18 @@ def test_24v_dry_contact():
         sense2 = GPIO(GPIO_CHIP_PATH, CM_24V_SENSE_2, "in")
         
         # Test Canal 1
-        # Mise au repos
-        out1.write(False)
+        # Mise au repos (MOSFET P: True = OFF)
+        out1.write(True)
         # Temporisation de stabilisation
         time.sleep(0.01)
-        # Activation
-        out1.write(True)
+        # Activation (MOSFET P: False = ON)
+        out1.write(False)
         # Stabilisation
         time.sleep(0.02)
         # Lecture de l'état du capteur
         state1 = sense1.read()
-        # Désactivation
-        out1.write(False)
+        # Désactivation (MOSFET P: True = OFF)
+        out1.write(True)
         
         # Interprétation du résultat canal 1
         if state1:
@@ -103,18 +103,18 @@ def test_24v_dry_contact():
             io_24v_ch1_ok = 0
         
         # Test Canal 2
-        # Mise au repos
-        out2.write(False)
+        # Mise au repos (MOSFET P: True = OFF)
+        out2.write(True)
         # Temporisation de stabilisation
         time.sleep(0.01)
-        # Activation
-        out2.write(True)
+        # Activation (MOSFET P: False = ON)
+        out2.write(False)
         # Stabilisation
         time.sleep(0.02)
         # Lecture de l'état du capteur
         state2 = sense2.read()
-        # Désactivation
-        out2.write(False)
+        # Désactivation (MOSFET P: True = OFF)
+        out2.write(True)
         
         # Interprétation du résultat canal 2
         if state2:
