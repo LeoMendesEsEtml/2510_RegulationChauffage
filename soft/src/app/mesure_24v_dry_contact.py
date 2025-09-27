@@ -71,10 +71,10 @@ def test_24v_dry_contact():
     
     try:
         # Configuration GPIO
-        # Configuration de la sortie 24V canal 1
-        out1 = GPIO(GPIO_CHIP_PATH, CM_24V_OUT_1, "out")
-        # Configuration de la sortie 24V canal 2
-        out2 = GPIO(GPIO_CHIP_PATH, CM_24V_OUT_2, "out")
+        # Configuration de la sortie 24V canal 1 (MOSFET P: initial=True = OFF dès création)
+        out1 = GPIO(GPIO_CHIP_PATH, CM_24V_OUT_1, "out", initial=True)
+        # Configuration de la sortie 24V canal 2 (MOSFET P: initial=True = OFF dès création)
+        out2 = GPIO(GPIO_CHIP_PATH, CM_24V_OUT_2, "out", initial=True)
         # Configuration de l'entrée sense canal 1 (CRITIQUE: désactiver pull-down)
         sense1 = GPIO(GPIO_CHIP_PATH, CM_24V_SENSE_1, "in", bias="disable")
         # Configuration de l'entrée sense canal 2 (CRITIQUE: désactiver pull-down)
